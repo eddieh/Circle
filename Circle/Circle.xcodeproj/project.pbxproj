@@ -15,6 +15,7 @@
 		8613D480152EC6CF0002579B /* CircleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8613D47F152EC6CF0002579B /* CircleAppDelegate.m */; };
 		8613D483152EC6CF0002579B /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8613D481152EC6CF0002579B /* MainStoryboard.storyboard */; };
 		8613D486152EC6CF0002579B /* CircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8613D485152EC6CF0002579B /* CircleViewController.m */; };
+		8613D48D152ECB9C0002579B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8613D48C152ECB9C0002579B /* Parse.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		8613D482152EC6CF0002579B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		8613D484152EC6CF0002579B /* CircleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleViewController.h; sourceTree = "<group>"; };
 		8613D485152EC6CF0002579B /* CircleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleViewController.m; sourceTree = "<group>"; };
+		8613D48C152ECB9C0002579B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +43,7 @@
 				8613D470152EC6CE0002579B /* UIKit.framework in Frameworks */,
 				8613D472152EC6CE0002579B /* Foundation.framework in Frameworks */,
 				8613D474152EC6CF0002579B /* CoreGraphics.framework in Frameworks */,
+				8613D48D152ECB9C0002579B /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +70,7 @@
 		8613D46E152EC6CE0002579B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8613D48C152ECB9C0002579B /* Parse.framework */,
 				8613D46F152EC6CE0002579B /* UIKit.framework */,
 				8613D471152EC6CE0002579B /* Foundation.framework */,
 				8613D473152EC6CE0002579B /* CoreGraphics.framework */,
@@ -237,6 +241,10 @@
 		8613D48A152EC6CF0002579B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Circle/Circle-Prefix.pch";
 				INFOPLIST_FILE = "Circle/Circle-Info.plist";
@@ -248,6 +256,10 @@
 		8613D48B152EC6CF0002579B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Circle/Circle-Prefix.pch";
 				INFOPLIST_FILE = "Circle/Circle-Info.plist";
