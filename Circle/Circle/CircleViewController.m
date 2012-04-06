@@ -7,6 +7,7 @@
 //
 
 #import "CircleViewController.h"
+#import <Parse/Parse.h>
 
 @interface CircleViewController ()
 
@@ -18,6 +19,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+
 }
 
 - (void)viewDidUnload

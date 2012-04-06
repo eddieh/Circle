@@ -7,6 +7,8 @@
 //
 
 #import "CircleAppDelegate.h"
+#import <Parse/Parse.h>
+
 
 @implementation CircleAppDelegate
 
@@ -15,6 +17,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [Parse setApplicationId:@"FFO9TzzLbMB5A4PM8A0vzNpb0M8DSeAgbsP0fGNB" 
+                  clientKey:@"geygOrU0M6zm1hKLYJntO4nr1ekoMcffESHVKd71"];
+    
     return YES;
 }
 							
