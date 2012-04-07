@@ -1,0 +1,6 @@
+[submodule "Circle/DCRoundSwitch"]
+	path = Circle/DCRoundSwitch
+	url = https://github.com/domesticcatsoftware/DCRoundSwitch.git
+[submodule "MBProgressHUD"]
+	path = MBProgressHUD
+	url = git://github.com/matej/MBProgressHUD.git
