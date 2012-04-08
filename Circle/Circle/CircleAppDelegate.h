@@ -12,6 +12,4 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-- (IBAction)showCreateEventStoryboard:(id)sender;
-
 @end

@@ -1,18 +1,18 @@
 //
-//  CircleHomeViewController.m
+//  CircleNearbyViewController.m
 //  Circle
 //
 //  Created by Joshua Conner on 4/6/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CircleHomeViewController.h"
+#import "CircleNearbyViewController.h"
 
-@interface CircleHomeViewController ()
+@interface CircleNearbyViewController ()
 
 @end
 
-@implementation CircleHomeViewController
+@implementation CircleNearbyViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
