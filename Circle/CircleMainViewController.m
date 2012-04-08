@@ -7,12 +7,24 @@
 //
 
 #import "CircleMainViewController.h"
+#import <Parse/Parse.h>
+#import "LocationSingleton.h"
+#import "CircleChooseCheckInLocationViewController.h"
 
-@interface CircleMainViewController ()
+@interface CircleMainViewController () <LocationSingletonDelegate> {
+    BOOL didRecieveFirstLocationUpdate;
+    NSArray *nearbyEvents;
+}
+@property LocationSingleton *locationManager;
+@property CLLocation *currentLocation;
+
 - (void)setViewControllersWithStoryboardNames:(NSArray *)names;
 @end
 
 @implementation CircleMainViewController
+@synthesize locationManager = _locationManager;
+@synthesize currentLocation = _currentLocation;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -21,6 +33,14 @@
         // Custom initialization
     }
     return self;
+}
+
+/**
+ * Spawn threads to load data from servers!
+ */
+- (void)viewDidAppear:(BOOL)animated {
+    
+    
 }
 
 - (void)viewDidLoad
@@ -35,6 +55,11 @@
                                                          nil];
     
     [self setViewControllersWithStoryboardNames:storyboardNames];
+
+//    //try to get location info early so we can pass it viewcontrollers
+//    self.locationManager = [LocationSingleton sharedInstance];
+//    self.locationManager.delegate = self;
+//    
 }
 
 - (void)viewDidUnload
@@ -59,4 +84,29 @@
     [self setViewControllers:response];
 }
 
+//- (void)getEventsCallbackWithResult:(NSArray *)result error:(NSError *)error {
+//    if (!error) {
+//        //find the correct viewcontroller and set its objects
+//        for (UIViewController *v in self.viewControllers) {
+//            if ([v isKindOfClass:[CircleChooseCheckInLocationViewController class]]) {
+//                [v performSelector:@selector(setObjects:) withObject:result];
+//            }
+//        }
+//    }
+//}
+//
+//#pragma mark - LocationSingletonDelegate method
+//- (void)didRecieveLocationUpdate:(CLLocation *)location {
+//    self.currentLocation = location;
+//    
+//    if (!didRecieveFirstLocationUpdate) {
+//        didRecieveFirstLocationUpdate = YES;
+//        
+//        PFQuery *eventsQuery = [PFQuery queryWithClassName:@"Events"];
+//        eventsQuery.cachePolicy = kPFCachePolicyNetworkElseCache;
+//        [eventsQuery includeKey:@"venue"];
+//        
+//        [eventsQuery findObjectsInBackgroundWithTarget:self selector:@selector(getEventsCallbackWithResult:error:)];
+//    }
+//}
 @end

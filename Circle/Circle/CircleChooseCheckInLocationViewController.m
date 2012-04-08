@@ -2,7 +2,7 @@
 //  CircleChooseCheckInLocationViewController.m
 //  Circle
 //
-//  Created by Joshua Conner on 4/6/12.
+//  Created by Joshua Conner on 4/8/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -52,26 +52,22 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 1;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 2;
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"location";
+    static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     // Configure the cell...
-    
-    cell.textLabel.text = @"Your mother";
-    cell.detailTextLabel.text = @"is a super nice lady";
-    
     
     return cell;
 }
