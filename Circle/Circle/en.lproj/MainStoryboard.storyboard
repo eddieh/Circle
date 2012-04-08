@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="ndz-IH-6Ta">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="IUg-xN-s7j">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="WRC-ts-2Rh">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qAE-bS-kSb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="ndz-IH-6Ta" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ROg-aB-n16">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="IUg-xN-s7j" kind="relationship" relationship="rootViewController" id="nqE-YB-rLm"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="-175" y="158"/>
-        </scene>
         <!--Circle Sign In View Controller-->
         <scene sceneID="2Pn-6A-uMc">
             <objects>
@@ -80,7 +62,7 @@
             </objects>
             <point key="canvasLocation" x="-157" y="836"/>
         </scene>
-        <!--Circle Choose Check In Location View Controller - Check In-->
+        <!--Circle Choose Check In Location View Controller-->
         <scene sceneID="m9A-BY-5od">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="39j-q7-kJE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -90,7 +72,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="f54-zf-AcA" detailTextLabel="7Fu-fX-MAs" imageView="jPI-qf-Jc2" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="YVX-El-LAg">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="location" textLabel="f54-zf-AcA" detailTextLabel="7Fu-fX-MAs" imageView="R01-Jq-m2e" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="YVX-El-LAg">
                                 <rect key="frame" x="0.0" y="22" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -111,7 +93,7 @@
                                             <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="profile.png" id="jPI-qf-Jc2">
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="profile.png" id="R01-Jq-m2e">
                                             <rect key="frame" x="0.0" y="0.0" width="59" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
@@ -128,10 +110,10 @@
                             <outlet property="delegate" destination="mIH-4M-29T" id="fFI-mQ-sQ1"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Check In" id="ZdF-a9-3oF"/>
+                    <navigationItem key="navigationItem" id="0Cp-Vr-nMa"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="794" y="1446"/>
+            <point key="canvasLocation" x="822" y="1474"/>
         </scene>
         <!--View Controller - Check In-->
         <scene sceneID="tSo-Je-App">
@@ -199,7 +181,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1271" y="1433"/>
+            <point key="canvasLocation" x="1285" y="1469"/>
         </scene>
         <!--Circle Search View Controller - Search-->
         <scene sceneID="7id-aT-bGL">
@@ -211,10 +193,10 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" id="Ktw-5r-TB3"/>
+                    <navigationItem key="navigationItem" id="qEN-7l-xN2"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="322" y="-429"/>
+            <point key="canvasLocation" x="367" y="-455"/>
         </scene>
         <!--Circle Messages View Controller - Messages-->
         <scene sceneID="bbn-Gy-dex">
@@ -241,12 +223,12 @@
                             <outlet property="delegate" destination="ihB-iF-o6W" id="2MW-lW-X8n"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Messages" id="wjM-db-46L"/>
+                    <navigationItem key="navigationItem" id="6KV-Ys-2Lo"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="829" y="-812"/>
+            <point key="canvasLocation" x="1775" y="-802"/>
         </scene>
-        <!--Circle Home View Controller - Nearby-->
+        <!--Circle Home View Controller-->
         <scene sceneID="9b2-Ja-8S2">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNY-tQ-l9s" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -301,10 +283,10 @@
                             <outlet property="delegate" destination="ynI-Gf-cWF" id="TvI-UD-Q6Q"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Nearby" id="8YS-GB-WAo"/>
+                    <navigationItem key="navigationItem" id="diu-EA-O8Q"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1607" y="-293"/>
+            <point key="canvasLocation" x="1921" y="-71"/>
         </scene>
         <!--Circle Create Event View Controller - Create Event-->
         <scene sceneID="DEg-wT-fnL">
@@ -312,7 +294,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zup-fT-XqX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Create Event" id="mLB-o3-9zY" customClass="CircleCreateEventViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7I3-XZ-lBB">
-                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event title" minimumFontSize="17" id="uk9-ml-0fA">
@@ -321,7 +303,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="pfZ-01-yAY">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="pfZ-01-yAY" customClass="UIPlaceHolderTextView">
                                 <rect key="frame" x="20" y="56" width="280" height="117"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
@@ -331,10 +313,153 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="New Event" id="Lcv-go-0y2"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="Hnv-6Q-A4I">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="py3-Nw-rpM">
+                            <connections>
+                                <segue destination="xMP-yA-bAx" kind="push" id="zvV-5B-8TB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="eventDescriptionTextView" destination="pfZ-01-yAY" id="y7r-7m-eSi"/>
+                        <outlet property="eventTitleTextField" destination="uk9-ml-0fA" id="edV-gJ-rgv"/>
+                    </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1501" y="551"/>
+            <point key="canvasLocation" x="1541" y="591"/>
+        </scene>
+        <!--Circle Choose Event Date View Controller-->
+        <scene sceneID="47c-Ja-Xi8">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pof-eV-VjU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="xMP-yA-bAx" customClass="CircleChooseEventDateViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4eb-ah-EQs">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="xeb-0v-87c">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="355560469.67928803">
+                                    <!--2012-04-08 06:47:49 +0000-->
+                                </date>
+                                <locale key="locale" localeIdentifier="en_US"/>
+                                <timeZone key="timeZone" name="America/Los_Angeles">
+                                    <mutableData key="data">
+VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
+y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
+5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
+8n/BkPNvwKD0X6OQ9U+ioPY/hZD3L4Sg+CiiEPkPZqD6CIQQ+viDIPvoZhD82GUg/chIEP64RyD/qCoQ
+AJgpIAGIDBACeAsgA3EokARhJ6AFUQqQBkEJoAcw7JAHjUOgCRDOkAmtvyAK8LCQC+CvoAzZzRANwJGg
+DrmvEA+priAQmZEQEYmQIBJ5cxATaXIgFFlVEBVJVCAWOTcQFyk2IBgiU5AZCRggGgI1kBryNKAb4heQ
+HNIWoB3B+ZAesfigH6HbkCB2KyAhgb2QIlYNICNq2hAkNe8gJUq8ECYV0SAnKp4QJ/7toCkKgBAp3s+g
+KupiECu+saAs036QLZ6ToC6zYJAvfnWgMJNCkDFnkiAycySQM0d0IDRTBpA1J1YgNjLokDcHOCA4HAUQ
+OOcaIDn75xA6xvwgO9vJEDywGKA9u6sQPo/6oD+bjRBAb9ygQYSpkEJPvqBDZIuQRC+goEVEbZBF89Mg
+Ry2KEEfTtSBJDWwQSbOXIErtThBLnLOgTNZqkE18laBOtkyQT1x3oFCWLpBRPFmgUnYQkFMcO6BUVfKQ
+VPwdoFY11JBW5TogWB7xEFjFHCBZ/tMQWqT+IFvetRBchOAgXb6XEF5kwiBfnnkQYE3eoGGHlZBiLcCg
+Y2d3kGQNoqBlR1mQZe2EoGcnO5BnzWagaQcdkGmtSKBq5v+Qa5ZlIGzQHBBtdkcgbq/+EG9WKSBwj+AQ
+cTYLIHJvwhBzFe0gdE+kEHT/CaB2OMCQdt7roHgYopB4vs2gefiEkHqer6B72GaQfH6RoH24SJB+XnOg
+f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
+</mutableData>
+                                </timeZone>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="OD5-eI-bVx">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="52y-HQ-CWg">
+                            <connections>
+                                <segue destination="K7R-zK-lHc" kind="push" id="C3u-6Q-St4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="eventDatePicker" destination="xeb-0v-87c" id="M3n-9o-8H9"/>
+                        <segue destination="K7R-zK-lHc" kind="push" identifier="dateSelectedSegue" id="aDt-TU-jXi"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1936" y="585"/>
+        </scene>
+        <!--Circle Choose Event Location View Controller-->
+        <scene sceneID="L22-hH-oWn">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="leR-ZO-R32" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="K7R-zK-lHc" customClass="CircleChooseEventLocationViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4T9-QX-aZ8">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <searchBar alpha="0.0" contentMode="redraw" id="aou-gj-tWr">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" mapType="standard" id="D23-He-gc5">
+                                <rect key="frame" x="0.0" y="44" width="320" height="372"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </mapView>
+                            <pickerView contentMode="scaleToFill" id="lSE-ZG-tmu">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="rg8-2L-69u">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="Tf5-3L-n1d">
+                            <connections>
+                                <segue destination="tab-CU-IrP" kind="push" identifier="chooseCategory" id="ZI8-jH-UQ6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapSearchBar" destination="aou-gj-tWr" id="k7t-MZ-U07"/>
+                        <outlet property="savedLocationsPicker" destination="lSE-ZG-tmu" id="HdE-eT-MxR"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2333" y="585"/>
+        </scene>
+        <!--Circle Event Category And Privacy View Controller-->
+        <scene sceneID="tNI-tv-pqe">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="erd-2u-faa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="tab-CU-IrP" customClass="CircleEventCategoryAndPrivacyViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="M5g-fI-bwq">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" id="wg9-yf-sq6">
+                                <rect key="frame" x="0.0" y="-6" width="320" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" id="JJS-27-dlO">
+                                <rect key="frame" x="0.0" y="200" width="320" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yvS-lm-7to">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="pqR-Cq-4b1"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="categoryPicker" destination="wg9-yf-sq6" id="kip-XV-ZuS"/>
+                        <outlet property="doneBarButton" destination="pqR-Cq-4b1" id="5z2-GQ-cgq"/>
+                        <outlet property="privacyPicker" destination="JJS-27-dlO" id="vAw-eK-bjH"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2715" y="585"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="TMK-Gy-fnS">
@@ -349,15 +474,110 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="mIH-4M-29T" kind="relationship" relationship="viewControllers" id="yRt-mO-f6R"/>
-                        <segue destination="mLB-o3-9zY" kind="relationship" relationship="viewControllers" id="Hyg-ui-4qn"/>
-                        <segue destination="ynI-Gf-cWF" kind="relationship" relationship="viewControllers" id="2Jo-c8-j2O"/>
-                        <segue destination="ihB-iF-o6W" kind="relationship" relationship="viewControllers" id="aer-WO-h87"/>
-                        <segue destination="jdM-23-j8F" kind="relationship" relationship="viewControllers" id="Q0A-zb-1hu"/>
+                        <segue destination="VA5-pn-sKW" kind="relationship" relationship="viewControllers" id="yRt-mO-f6R"/>
+                        <segue destination="0JT-Wq-yFs" kind="relationship" relationship="viewControllers" id="2Jo-c8-j2O"/>
+                        <segue destination="p2L-SQ-0BG" kind="relationship" relationship="viewControllers" id="aer-WO-h87"/>
+                        <segue destination="Hay-Cp-jrR" kind="relationship" relationship="viewControllers" id="Q0A-zb-1hu"/>
+                        <segue destination="wcK-t8-8av" kind="relationship" relationship="viewControllers" id="Hyg-ui-4qn"/>
                     </connections>
                 </tabBarController>
             </objects>
-            <point key="canvasLocation" x="727" y="177"/>
+            <point key="canvasLocation" x="-14" y="221"/>
+        </scene>
+        <!--Navigation Controller - Search-->
+        <scene sceneID="gwa-3C-0kn">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OLq-zS-sAB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="Hay-Cp-jrR" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" id="Ktw-5r-TB3"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="dFw-rV-Al3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jdM-23-j8F" kind="relationship" relationship="rootViewController" id="f2f-mm-itr"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="322" y="-429"/>
+        </scene>
+        <!--Navigation Controller - New Event-->
+        <scene sceneID="XFA-WR-qiC">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pak-Db-Gk5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="wcK-t8-8av" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="New Event" id="Lcv-go-0y2"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="LDe-NS-ii5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mLB-o3-9zY" kind="relationship" relationship="rootViewController" id="QNL-ez-ZXr"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="1095" y="525"/>
+        </scene>
+        <!--Navigation Controller - Check In-->
+        <scene sceneID="Pul-Z0-TKD">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mpT-bF-606" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="VA5-pn-sKW" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Check In" id="ZdF-a9-3oF"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="8Y2-pG-oAz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mIH-4M-29T" kind="relationship" relationship="rootViewController" id="MhK-2o-KyR"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="794" y="1446"/>
+        </scene>
+        <!--Navigation Controller - Messages-->
+        <scene sceneID="lhx-FC-d4I">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UUv-2k-7xG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="p2L-SQ-0BG" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Messages" id="wjM-db-46L"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="6O0-oe-a10">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ihB-iF-o6W" kind="relationship" relationship="rootViewController" id="VTd-mu-wFU"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="1354" y="-809"/>
+        </scene>
+        <!--Navigation Controller - Nearby-->
+        <scene sceneID="cKg-aC-Gh7">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tkv-iO-FKb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="0JT-Wq-yFs" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Nearby" id="8YS-GB-WAo"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="jQn-L5-cYH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ynI-Gf-cWF" kind="relationship" relationship="rootViewController" id="OIx-tc-2KD"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="1883" y="-125"/>
         </scene>
     </scenes>
     <resources>
@@ -368,11 +588,39 @@
         <class className="CircleChooseCheckInLocationViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleChooseCheckInLocationViewController.h"/>
         </class>
+        <class className="CircleChooseEventDateViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleChooseEventDateViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="eventDatePicker" candidateClass="UIDatePicker"/>
+            </relationships>
+        </class>
+        <class className="CircleChooseEventLocationViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleChooseEventLocationViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mapSearchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="savedLocationsPicker" candidateClass="UIPickerView"/>
+            </relationships>
+        </class>
         <class className="CircleCreateEventViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleCreateEventViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="eventDescriptionTextView" candidateClass="UIPlaceHolderTextView"/>
+                <relationship kind="outlet" name="eventTitleTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="CircleEventCategoryAndPrivacyViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventCategoryAndPrivacyViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="categoryPicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="doneBarButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="privacyPicker" candidateClass="UIPickerView"/>
+            </relationships>
         </class>
         <class className="CircleHomeViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleHomeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="showCreateEventStoryboard:"/>
+            </relationships>
         </class>
         <class className="CircleMessagesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleMessagesViewController.h"/>
@@ -395,4 +643,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="aDt-TU-jXi"/>
+    </inferredMetricsTieBreakers>
 </document>

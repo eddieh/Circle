@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C5DF07915315F1D00F85C63 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5DF06E15315D4E00F85C63 /* libRestKit.a */; };
+		2C5DF07B15315F4200F85C63 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5DF07A15315F4200F85C63 /* CoreData.framework */; };
+		2C5DF07D15315F6700F85C63 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5DF07C15315F6700F85C63 /* libxml2.dylib */; };
+		2C5DF07F1531672E00F85C63 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA5A15301C9400F9540F /* UIPlaceHolderTextView.m */; };
+		2C5DF08315316F9800F85C63 /* CircleChooseEventDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DF08215316F9800F85C63 /* CircleChooseEventDateViewController.m */; };
+		2C5DF0861531701100F85C63 /* CircleChooseEventLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DF0851531701100F85C63 /* CircleChooseEventLocationViewController.m */; };
+		2C5DF0891531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DF0881531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.m */; };
+		2C5DF08B1531775200F85C63 /* CreateEventStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C5DF08A1531775200F85C63 /* CreateEventStoryboard.storyboard */; };
+		2C5DF08E15317A1D00F85C63 /* CircleMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DF08D15317A1C00F85C63 /* CircleMainViewController.m */; };
 		860EFA31152FF53100F9540F /* CircleSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA30152FF53100F9540F /* CircleSignInViewController.m */; };
 		860EFA35152FF8BA00F9540F /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 860EFA33152FF8BA00F9540F /* profile.png */; };
 		860EFA36152FF8BA00F9540F /* profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 860EFA34152FF8BA00F9540F /* profile@2x.png */; };
@@ -38,7 +47,65 @@
 		8613D4A4152ED2690002579B /* LoginWithFacebookPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8613D4A0152ED2690002579B /* LoginWithFacebookPressed@2x.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2C5DF06D15315D4E00F85C63 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C5DF06215315D4D00F85C63 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D1614564E810060A5C5;
+			remoteInfo = RestKit;
+		};
+		2C5DF06F15315D4E00F85C63 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C5DF06215315D4D00F85C63 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D2614564E820060A5C5;
+			remoteInfo = RestKitTests;
+		};
+		2C5DF07115315D4E00F85C63 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C5DF06215315D4D00F85C63 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E62145651060060A5C5;
+			remoteInfo = RestKitFramework;
+		};
+		2C5DF07315315D4E00F85C63 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C5DF06215315D4D00F85C63 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E78145651060060A5C5;
+			remoteInfo = RestKitFrameworkTests;
+		};
+		2C5DF07515315D4E00F85C63 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C5DF06215315D4D00F85C63 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 259C301615128079003066A2;
+			remoteInfo = RestKitResources;
+		};
+		2C5DF07715315EDD00F85C63 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C5DF06215315D4D00F85C63 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160E61145651060060A5C5;
+			remoteInfo = RestKitFramework;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		2C5DF06215315D4D00F85C63 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		2C5DF07A15315F4200F85C63 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2C5DF07C15315F6700F85C63 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		2C5DF07E1531607700F85C63 /* CircleConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleConstants.h; sourceTree = "<group>"; };
+		2C5DF08115316F9800F85C63 /* CircleChooseEventDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleChooseEventDateViewController.h; sourceTree = "<group>"; };
+		2C5DF08215316F9800F85C63 /* CircleChooseEventDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleChooseEventDateViewController.m; sourceTree = "<group>"; };
+		2C5DF0841531701100F85C63 /* CircleChooseEventLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleChooseEventLocationViewController.h; sourceTree = "<group>"; };
+		2C5DF0851531701100F85C63 /* CircleChooseEventLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleChooseEventLocationViewController.m; sourceTree = "<group>"; };
+		2C5DF0871531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleEventCategoryAndPrivacyViewController.h; sourceTree = "<group>"; };
+		2C5DF0881531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleEventCategoryAndPrivacyViewController.m; sourceTree = "<group>"; };
+		2C5DF08A1531775200F85C63 /* CreateEventStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreateEventStoryboard.storyboard; sourceTree = "<group>"; };
+		2C5DF08C15317A1C00F85C63 /* CircleMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = CircleMainViewController.h; sourceTree = "<group>"; };
+		2C5DF08D15317A1C00F85C63 /* CircleMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMainViewController.m; sourceTree = "<group>"; };
 		860EFA2F152FF53100F9540F /* CircleSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSignInViewController.h; sourceTree = "<group>"; };
 		860EFA30152FF53100F9540F /* CircleSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSignInViewController.m; sourceTree = "<group>"; };
 		860EFA33152FF8BA00F9540F /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
@@ -96,13 +163,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C5DF07D15315F6700F85C63 /* libxml2.dylib in Frameworks */,
+				8613D495152ECCBD0002579B /* MobileCoreServices.framework in Frameworks */,
+				2C5DF07B15315F4200F85C63 /* CoreData.framework in Frameworks */,
+				8613D491152ECCAB0002579B /* CFNetwork.framework in Frameworks */,
+				2C5DF07915315F1D00F85C63 /* libRestKit.a in Frameworks */,
 				8613D49B152ECCDC0002579B /* QuartzCore.framework in Frameworks */,
 				8613D499152ECCD40002579B /* Security.framework in Frameworks */,
 				8613D497152ECCCF0002579B /* libz.1.1.3.dylib in Frameworks */,
 				8613D474152EC6CF0002579B /* CoreGraphics.framework in Frameworks */,
-				8613D495152ECCBD0002579B /* MobileCoreServices.framework in Frameworks */,
 				8613D493152ECCB70002579B /* SystemConfiguration.framework in Frameworks */,
-				8613D491152ECCAB0002579B /* CFNetwork.framework in Frameworks */,
 				8613D48F152ECCA20002579B /* AudioToolbox.framework in Frameworks */,
 				8613D470152EC6CE0002579B /* UIKit.framework in Frameworks */,
 				8613D472152EC6CE0002579B /* Foundation.framework in Frameworks */,
@@ -113,6 +183,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C5DF06315315D4D00F85C63 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C5DF06E15315D4E00F85C63 /* libRestKit.a */,
+				2C5DF07015315D4E00F85C63 /* RestKitTests.octest */,
+				2C5DF07215315D4E00F85C63 /* RestKit.framework */,
+				2C5DF07415315D4E00F85C63 /* RestKitFrameworkTests.octest */,
+				2C5DF07615315D4E00F85C63 /* RestKitResources.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2C5DF08015316F6000F85C63 /* Create Event */ = {
+			isa = PBXGroup;
+			children = (
+				860EFA3D1530126400F9540F /* CircleCreateEventViewController.h */,
+				860EFA3E1530126400F9540F /* CircleCreateEventViewController.m */,
+				2C5DF08115316F9800F85C63 /* CircleChooseEventDateViewController.h */,
+				2C5DF08215316F9800F85C63 /* CircleChooseEventDateViewController.m */,
+				2C5DF0841531701100F85C63 /* CircleChooseEventLocationViewController.h */,
+				2C5DF0851531701100F85C63 /* CircleChooseEventLocationViewController.m */,
+				2C5DF0871531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.h */,
+				2C5DF0881531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.m */,
+			);
+			name = "Create Event";
+			sourceTree = "<group>";
+		};
 		860EFA5815301C8700F9540F /* UI & Helper classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,9 +230,12 @@
 		8613D460152EC6CE0002579B = {
 			isa = PBXGroup;
 			children = (
+				2C5DF07C15315F6700F85C63 /* libxml2.dylib */,
+				2C5DF07A15315F4200F85C63 /* CoreData.framework */,
 				8613D475152EC6CF0002579B /* Circle */,
 				8613D46E152EC6CE0002579B /* Frameworks */,
 				8613D46C152EC6CE0002579B /* Products */,
+				2C5DF06215315D4D00F85C63 /* RestKit.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,12 +268,15 @@
 		8613D475152EC6CF0002579B /* Circle */ = {
 			isa = PBXGroup;
 			children = (
+				2C5DF08015316F6000F85C63 /* Create Event */,
 				860EFA5815301C8700F9540F /* UI & Helper classes */,
 				8613D47E152EC6CF0002579B /* CircleAppDelegate.h */,
 				8613D47F152EC6CF0002579B /* CircleAppDelegate.m */,
+				2C5DF07E1531607700F85C63 /* CircleConstants.h */,
 				8613D481152EC6CF0002579B /* MainStoryboard.storyboard */,
-				860EFA3D1530126400F9540F /* CircleCreateEventViewController.h */,
-				860EFA3E1530126400F9540F /* CircleCreateEventViewController.m */,
+				2C5DF08C15317A1C00F85C63 /* CircleMainViewController.h */,
+				2C5DF08D15317A1C00F85C63 /* CircleMainViewController.m */,
+				2C5DF08A1531775200F85C63 /* CreateEventStoryboard.storyboard */,
 				860EFA401530133B00F9540F /* CircleMessagesViewController.h */,
 				860EFA411530133B00F9540F /* CircleMessagesViewController.m */,
 				860EFA431530150100F9540F /* CircleSearchViewController.h */,
@@ -231,6 +334,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				2C5DF07815315EDD00F85C63 /* PBXTargetDependency */,
 			);
 			name = Circle;
 			productName = Circle;
@@ -256,12 +360,56 @@
 			mainGroup = 8613D460152EC6CE0002579B;
 			productRefGroup = 8613D46C152EC6CE0002579B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2C5DF06315315D4D00F85C63 /* Products */;
+					ProjectRef = 2C5DF06215315D4D00F85C63 /* RestKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8613D46A152EC6CE0002579B /* Circle */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2C5DF06E15315D4E00F85C63 /* libRestKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestKit.a;
+			remoteRef = 2C5DF06D15315D4E00F85C63 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C5DF07015315D4E00F85C63 /* RestKitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitTests.octest;
+			remoteRef = 2C5DF06F15315D4E00F85C63 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C5DF07215315D4E00F85C63 /* RestKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RestKit.framework;
+			remoteRef = 2C5DF07115315D4E00F85C63 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C5DF07415315D4E00F85C63 /* RestKitFrameworkTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitFrameworkTests.octest;
+			remoteRef = 2C5DF07315315D4E00F85C63 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C5DF07615315D4E00F85C63 /* RestKitResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitResources.bundle;
+			remoteRef = 2C5DF07515315D4E00F85C63 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8613D469152EC6CE0002579B /* Resources */ = {
@@ -277,6 +425,7 @@
 				860EFA35152FF8BA00F9540F /* profile.png in Resources */,
 				860EFA36152FF8BA00F9540F /* profile@2x.png in Resources */,
 				860EFA47153019E900F9540F /* camera.png in Resources */,
+				2C5DF08B1531775200F85C63 /* CreateEventStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,11 +444,24 @@
 				860EFA3C153010EC00F9540F /* CircleChooseCheckInLocationViewController.m in Sources */,
 				860EFA3F1530126400F9540F /* CircleCreateEventViewController.m in Sources */,
 				860EFA421530133B00F9540F /* CircleMessagesViewController.m in Sources */,
+				2C5DF07F1531672E00F85C63 /* UIPlaceHolderTextView.m in Sources */,
 				860EFA451530150100F9540F /* CircleSearchViewController.m in Sources */,
+				2C5DF08315316F9800F85C63 /* CircleChooseEventDateViewController.m in Sources */,
+				2C5DF0861531701100F85C63 /* CircleChooseEventLocationViewController.m in Sources */,
+				2C5DF0891531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.m in Sources */,
+				2C5DF08E15317A1D00F85C63 /* CircleMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2C5DF07815315EDD00F85C63 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKitFramework;
+			targetProxy = 2C5DF07715315EDD00F85C63 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8613D478152EC6CF0002579B /* InfoPlist.strings */ = {
@@ -372,10 +534,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/RestKit/Tests/Vendor/OCHamcrest\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Circle/Circle-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				INFOPLIST_FILE = "Circle/Circle-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -387,10 +555,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/RestKit/Tests/Vendor/OCHamcrest\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Circle/Circle-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				INFOPLIST_FILE = "Circle/Circle-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

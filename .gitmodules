@@ -4,3 +4,6 @@
 [submodule "MBProgressHUD"]
 	path = MBProgressHUD
 	url = git://github.com/matej/MBProgressHUD.git
+[submodule "Circle/RestKit"]
+	path = Circle/RestKit
+	url = https://github.com/RestKit/RestKit.git

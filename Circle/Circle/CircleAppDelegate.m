@@ -6,9 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <RestKit/RestKit.h>
 #import "CircleAppDelegate.h"
 #import <Parse/Parse.h>
-#define kFACEBOOKAPPID @"362621943780691"
+#define FACEBOOK_APP_ID @"362621943780691"
 
 @implementation CircleAppDelegate
 
@@ -19,7 +20,7 @@
     // Override point for customization after application launch.
     [Parse setApplicationId:@"FFO9TzzLbMB5A4PM8A0vzNpb0M8DSeAgbsP0fGNB" 
                   clientKey:@"geygOrU0M6zm1hKLYJntO4nr1ekoMcffESHVKd71"];
-    [PFFacebookUtils initializeWithApplicationId:kFACEBOOKAPPID];
+    [PFFacebookUtils initializeWithApplicationId:FACEBOOK_APP_ID];
     
     return YES;
 }

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CircleCreateEventViewController : UIViewController
+@class UIPlaceHolderTextView;
+
+@interface CircleCreateEventViewController : UIViewController <UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *eventTitleTextField;
+@property (weak, nonatomic) IBOutlet UIPlaceHolderTextView *eventDescriptionTextView;
 
 @end

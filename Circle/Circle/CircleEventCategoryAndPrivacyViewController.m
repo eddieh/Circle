@@ -1,21 +1,21 @@
 //
-//  CircleCreateEventViewController.m
+//  CircleEventCategoryAndPrivacyViewController.m
 //  Circle
 //
-//  Created by Joshua Conner on 4/6/12.
+//  Created by Eddie Hillenbrand on 4/8/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CircleCreateEventViewController.h"
-#import "UIPlaceHolderTextView.h"
+#import "CircleEventCategoryAndPrivacyViewController.h"
 
-@interface CircleCreateEventViewController ()
+@interface CircleEventCategoryAndPrivacyViewController ()
 
 @end
 
-@implementation CircleCreateEventViewController
-@synthesize eventTitleTextField;
-@synthesize eventDescriptionTextView;
+@implementation CircleEventCategoryAndPrivacyViewController
+@synthesize categoryPicker;
+@synthesize privacyPicker;
+@synthesize doneBarButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,8 +34,9 @@
 
 - (void)viewDidUnload
 {
-    [self setEventTitleTextField:nil];
-    [self setEventDescriptionTextView:nil];
+    [self setCategoryPicker:nil];
+    [self setPrivacyPicker:nil];
+    [self setDoneBarButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -43,10 +44,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    return YES;
 }
 
 @end

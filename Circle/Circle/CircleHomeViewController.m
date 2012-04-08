@@ -124,4 +124,12 @@
      */
 }
 
+
+- (IBAction)showCreateEventStoryboard:(id)sender; {
+    UIStoryboard *createEventStoryboard = [UIStoryboard storyboardWithName:@"CreateEventStoryboard" bundle:nil];
+    UIViewController *initialViewController = [createEventStoryboard instantiateInitialViewController];
+    initialViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    //[self present
+}
+
 @end

@@ -1,21 +1,20 @@
 //
-//  CircleCreateEventViewController.m
+//  CircleChooseEventLocationViewController.m
 //  Circle
 //
-//  Created by Joshua Conner on 4/6/12.
+//  Created by Eddie Hillenbrand on 4/8/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CircleCreateEventViewController.h"
-#import "UIPlaceHolderTextView.h"
+#import "CircleChooseEventLocationViewController.h"
 
-@interface CircleCreateEventViewController ()
+@interface CircleChooseEventLocationViewController ()
 
 @end
 
-@implementation CircleCreateEventViewController
-@synthesize eventTitleTextField;
-@synthesize eventDescriptionTextView;
+@implementation CircleChooseEventLocationViewController
+@synthesize mapSearchBar;
+@synthesize savedLocationsPicker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,8 +33,8 @@
 
 - (void)viewDidUnload
 {
-    [self setEventTitleTextField:nil];
-    [self setEventDescriptionTextView:nil];
+    [self setMapSearchBar:nil];
+    [self setSavedLocationsPicker:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -43,10 +42,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    return YES;
 }
 
 @end

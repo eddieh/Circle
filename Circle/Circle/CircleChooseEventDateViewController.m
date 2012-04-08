@@ -1,21 +1,19 @@
 //
-//  CircleCreateEventViewController.m
+//  CircleChooseEventDateViewController.m
 //  Circle
 //
-//  Created by Joshua Conner on 4/6/12.
+//  Created by Eddie Hillenbrand on 4/8/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CircleCreateEventViewController.h"
-#import "UIPlaceHolderTextView.h"
+#import "CircleChooseEventDateViewController.h"
 
-@interface CircleCreateEventViewController ()
+@interface CircleChooseEventDateViewController ()
 
 @end
 
-@implementation CircleCreateEventViewController
-@synthesize eventTitleTextField;
-@synthesize eventDescriptionTextView;
+@implementation CircleChooseEventDateViewController
+@synthesize eventDatePicker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,8 +32,7 @@
 
 - (void)viewDidUnload
 {
-    [self setEventTitleTextField:nil];
-    [self setEventDescriptionTextView:nil];
+    [self setEventDatePicker:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -43,10 +40,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    return YES;
 }
 
 @end
