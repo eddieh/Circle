@@ -9,6 +9,7 @@
 #import "CircleViewController.h"
 #import <Parse/Parse.h>
 
+
 @interface CircleViewController ()
 
 @end
@@ -19,6 +20,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+
+    
 
 }
 
@@ -31,6 +34,17 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+#pragma mark - Parse Facebook auth handlers
+//see https://parse.com/docs/ios_guide#fbusers
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [PFFacebookUtils handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [PFFacebookUtils handleOpenURL:url]; 
 }
 
 @end

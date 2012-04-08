@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		860EFA31152FF53100F9540F /* CircleSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA30152FF53100F9540F /* CircleSignInViewController.m */; };
+		860EFA35152FF8BA00F9540F /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 860EFA33152FF8BA00F9540F /* profile.png */; };
+		860EFA36152FF8BA00F9540F /* profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 860EFA34152FF8BA00F9540F /* profile@2x.png */; };
+		860EFA39152FFE3500F9540F /* CircleHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA38152FFE3500F9540F /* CircleHomeViewController.m */; };
+		860EFA3C153010EC00F9540F /* CircleChooseCheckInLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA3B153010EC00F9540F /* CircleChooseCheckInLocationViewController.m */; };
+		860EFA3F1530126400F9540F /* CircleCreateEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA3E1530126400F9540F /* CircleCreateEventViewController.m */; };
+		860EFA421530133B00F9540F /* CircleMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA411530133B00F9540F /* CircleMessagesViewController.m */; };
+		860EFA451530150100F9540F /* CircleSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA441530150100F9540F /* CircleSearchViewController.m */; };
+		860EFA47153019E900F9540F /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 860EFA46153019E900F9540F /* camera.png */; };
 		8613D470152EC6CE0002579B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8613D46F152EC6CE0002579B /* UIKit.framework */; };
 		8613D472152EC6CE0002579B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8613D471152EC6CE0002579B /* Foundation.framework */; };
 		8613D474152EC6CF0002579B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8613D473152EC6CE0002579B /* CoreGraphics.framework */; };
@@ -23,9 +32,38 @@
 		8613D497152ECCCF0002579B /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8613D496152ECCCF0002579B /* libz.1.1.3.dylib */; };
 		8613D499152ECCD40002579B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8613D498152ECCD40002579B /* Security.framework */; };
 		8613D49B152ECCDC0002579B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8613D49A152ECCDC0002579B /* QuartzCore.framework */; };
+		8613D4A1152ED2690002579B /* LoginWithFacebookNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 8613D49D152ED2690002579B /* LoginWithFacebookNormal.png */; };
+		8613D4A2152ED2690002579B /* LoginWithFacebookNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8613D49E152ED2690002579B /* LoginWithFacebookNormal@2x.png */; };
+		8613D4A3152ED2690002579B /* LoginWithFacebookPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 8613D49F152ED2690002579B /* LoginWithFacebookPressed.png */; };
+		8613D4A4152ED2690002579B /* LoginWithFacebookPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8613D4A0152ED2690002579B /* LoginWithFacebookPressed@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		860EFA2F152FF53100F9540F /* CircleSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSignInViewController.h; sourceTree = "<group>"; };
+		860EFA30152FF53100F9540F /* CircleSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSignInViewController.m; sourceTree = "<group>"; };
+		860EFA33152FF8BA00F9540F /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
+		860EFA34152FF8BA00F9540F /* profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile@2x.png"; sourceTree = "<group>"; };
+		860EFA37152FFE3500F9540F /* CircleHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleHomeViewController.h; sourceTree = "<group>"; };
+		860EFA38152FFE3500F9540F /* CircleHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleHomeViewController.m; sourceTree = "<group>"; };
+		860EFA3A153010EC00F9540F /* CircleChooseCheckInLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleChooseCheckInLocationViewController.h; sourceTree = "<group>"; };
+		860EFA3B153010EC00F9540F /* CircleChooseCheckInLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleChooseCheckInLocationViewController.m; sourceTree = "<group>"; };
+		860EFA3D1530126400F9540F /* CircleCreateEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCreateEventViewController.h; sourceTree = "<group>"; };
+		860EFA3E1530126400F9540F /* CircleCreateEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCreateEventViewController.m; sourceTree = "<group>"; };
+		860EFA401530133B00F9540F /* CircleMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMessagesViewController.h; sourceTree = "<group>"; };
+		860EFA411530133B00F9540F /* CircleMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMessagesViewController.m; sourceTree = "<group>"; };
+		860EFA431530150100F9540F /* CircleSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSearchViewController.h; sourceTree = "<group>"; };
+		860EFA441530150100F9540F /* CircleSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSearchViewController.m; sourceTree = "<group>"; };
+		860EFA46153019E900F9540F /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		860EFA5915301C9400F9540F /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
+		860EFA5A15301C9400F9540F /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
+		860EFA5F153020D900F9540F /* DCRoundSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitch.h; sourceTree = "<group>"; };
+		860EFA60153020D900F9540F /* DCRoundSwitch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitch.m; sourceTree = "<group>"; };
+		860EFA61153020D900F9540F /* DCRoundSwitchKnobLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchKnobLayer.h; sourceTree = "<group>"; };
+		860EFA62153020D900F9540F /* DCRoundSwitchKnobLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchKnobLayer.m; sourceTree = "<group>"; };
+		860EFA63153020D900F9540F /* DCRoundSwitchOutlineLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchOutlineLayer.h; sourceTree = "<group>"; };
+		860EFA64153020D900F9540F /* DCRoundSwitchOutlineLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchOutlineLayer.m; sourceTree = "<group>"; };
+		860EFA65153020D900F9540F /* DCRoundSwitchToggleLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchToggleLayer.h; sourceTree = "<group>"; };
+		860EFA66153020D900F9540F /* DCRoundSwitchToggleLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchToggleLayer.m; sourceTree = "<group>"; };
 		8613D46B152EC6CE0002579B /* Circle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Circle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8613D46F152EC6CE0002579B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8613D471152EC6CE0002579B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -47,6 +85,10 @@
 		8613D496152ECCCF0002579B /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		8613D498152ECCD40002579B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8613D49A152ECCDC0002579B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8613D49D152ED2690002579B /* LoginWithFacebookNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginWithFacebookNormal.png; sourceTree = "<group>"; };
+		8613D49E152ED2690002579B /* LoginWithFacebookNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoginWithFacebookNormal@2x.png"; sourceTree = "<group>"; };
+		8613D49F152ED2690002579B /* LoginWithFacebookPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginWithFacebookPressed.png; sourceTree = "<group>"; };
+		8613D4A0152ED2690002579B /* LoginWithFacebookPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoginWithFacebookPressed@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,16 +113,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		860EFA5815301C8700F9540F /* UI & Helper classes */ = {
+			isa = PBXGroup;
+			children = (
+				860EFA5F153020D900F9540F /* DCRoundSwitch.h */,
+				860EFA60153020D900F9540F /* DCRoundSwitch.m */,
+				860EFA61153020D900F9540F /* DCRoundSwitchKnobLayer.h */,
+				860EFA62153020D900F9540F /* DCRoundSwitchKnobLayer.m */,
+				860EFA63153020D900F9540F /* DCRoundSwitchOutlineLayer.h */,
+				860EFA64153020D900F9540F /* DCRoundSwitchOutlineLayer.m */,
+				860EFA65153020D900F9540F /* DCRoundSwitchToggleLayer.h */,
+				860EFA66153020D900F9540F /* DCRoundSwitchToggleLayer.m */,
+				860EFA5915301C9400F9540F /* UIPlaceHolderTextView.h */,
+				860EFA5A15301C9400F9540F /* UIPlaceHolderTextView.m */,
+			);
+			name = "UI & Helper classes";
+			sourceTree = "<group>";
+		};
 		8613D460152EC6CE0002579B = {
 			isa = PBXGroup;
 			children = (
-				8613D49A152ECCDC0002579B /* QuartzCore.framework */,
-				8613D498152ECCD40002579B /* Security.framework */,
-				8613D496152ECCCF0002579B /* libz.1.1.3.dylib */,
-				8613D494152ECCBD0002579B /* MobileCoreServices.framework */,
-				8613D492152ECCB70002579B /* SystemConfiguration.framework */,
-				8613D490152ECCAB0002579B /* CFNetwork.framework */,
-				8613D48E152ECCA20002579B /* AudioToolbox.framework */,
 				8613D475152EC6CF0002579B /* Circle */,
 				8613D46E152EC6CE0002579B /* Frameworks */,
 				8613D46C152EC6CE0002579B /* Products */,
@@ -98,6 +150,13 @@
 		8613D46E152EC6CE0002579B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8613D49A152ECCDC0002579B /* QuartzCore.framework */,
+				8613D498152ECCD40002579B /* Security.framework */,
+				8613D496152ECCCF0002579B /* libz.1.1.3.dylib */,
+				8613D494152ECCBD0002579B /* MobileCoreServices.framework */,
+				8613D492152ECCB70002579B /* SystemConfiguration.framework */,
+				8613D490152ECCAB0002579B /* CFNetwork.framework */,
+				8613D48E152ECCA20002579B /* AudioToolbox.framework */,
 				8613D48C152ECB9C0002579B /* Parse.framework */,
 				8613D46F152EC6CE0002579B /* UIKit.framework */,
 				8613D471152EC6CE0002579B /* Foundation.framework */,
@@ -109,11 +168,25 @@
 		8613D475152EC6CF0002579B /* Circle */ = {
 			isa = PBXGroup;
 			children = (
+				860EFA5815301C8700F9540F /* UI & Helper classes */,
 				8613D47E152EC6CF0002579B /* CircleAppDelegate.h */,
 				8613D47F152EC6CF0002579B /* CircleAppDelegate.m */,
 				8613D481152EC6CF0002579B /* MainStoryboard.storyboard */,
+				860EFA3D1530126400F9540F /* CircleCreateEventViewController.h */,
+				860EFA3E1530126400F9540F /* CircleCreateEventViewController.m */,
+				860EFA401530133B00F9540F /* CircleMessagesViewController.h */,
+				860EFA411530133B00F9540F /* CircleMessagesViewController.m */,
+				860EFA431530150100F9540F /* CircleSearchViewController.h */,
+				860EFA441530150100F9540F /* CircleSearchViewController.m */,
+				860EFA37152FFE3500F9540F /* CircleHomeViewController.h */,
+				860EFA38152FFE3500F9540F /* CircleHomeViewController.m */,
+				860EFA3A153010EC00F9540F /* CircleChooseCheckInLocationViewController.h */,
+				860EFA3B153010EC00F9540F /* CircleChooseCheckInLocationViewController.m */,
+				860EFA2F152FF53100F9540F /* CircleSignInViewController.h */,
+				860EFA30152FF53100F9540F /* CircleSignInViewController.m */,
 				8613D484152EC6CF0002579B /* CircleViewController.h */,
 				8613D485152EC6CF0002579B /* CircleViewController.m */,
+				8613D49C152ED1BE0002579B /* Assets */,
 				8613D476152EC6CF0002579B /* Supporting Files */,
 			);
 			path = Circle;
@@ -128,6 +201,20 @@
 				8613D47D152EC6CF0002579B /* Circle-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8613D49C152ED1BE0002579B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				8613D49D152ED2690002579B /* LoginWithFacebookNormal.png */,
+				860EFA33152FF8BA00F9540F /* profile.png */,
+				860EFA34152FF8BA00F9540F /* profile@2x.png */,
+				860EFA46153019E900F9540F /* camera.png */,
+				8613D49E152ED2690002579B /* LoginWithFacebookNormal@2x.png */,
+				8613D49F152ED2690002579B /* LoginWithFacebookPressed.png */,
+				8613D4A0152ED2690002579B /* LoginWithFacebookPressed@2x.png */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +270,13 @@
 			files = (
 				8613D47A152EC6CF0002579B /* InfoPlist.strings in Resources */,
 				8613D483152EC6CF0002579B /* MainStoryboard.storyboard in Resources */,
+				8613D4A1152ED2690002579B /* LoginWithFacebookNormal.png in Resources */,
+				8613D4A2152ED2690002579B /* LoginWithFacebookNormal@2x.png in Resources */,
+				8613D4A3152ED2690002579B /* LoginWithFacebookPressed.png in Resources */,
+				8613D4A4152ED2690002579B /* LoginWithFacebookPressed@2x.png in Resources */,
+				860EFA35152FF8BA00F9540F /* profile.png in Resources */,
+				860EFA36152FF8BA00F9540F /* profile@2x.png in Resources */,
+				860EFA47153019E900F9540F /* camera.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +290,12 @@
 				8613D47C152EC6CF0002579B /* main.m in Sources */,
 				8613D480152EC6CF0002579B /* CircleAppDelegate.m in Sources */,
 				8613D486152EC6CF0002579B /* CircleViewController.m in Sources */,
+				860EFA31152FF53100F9540F /* CircleSignInViewController.m in Sources */,
+				860EFA39152FFE3500F9540F /* CircleHomeViewController.m in Sources */,
+				860EFA3C153010EC00F9540F /* CircleChooseCheckInLocationViewController.m in Sources */,
+				860EFA3F1530126400F9540F /* CircleCreateEventViewController.m in Sources */,
+				860EFA421530133B00F9540F /* CircleMessagesViewController.m in Sources */,
+				860EFA451530150100F9540F /* CircleSearchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +415,7 @@
 				8613D48B152EC6CF0002579B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

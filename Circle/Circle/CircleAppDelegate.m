@@ -8,7 +8,7 @@
 
 #import "CircleAppDelegate.h"
 #import <Parse/Parse.h>
-
+#define kFACEBOOKAPPID @"362621943780691"
 
 @implementation CircleAppDelegate
 
@@ -19,6 +19,7 @@
     // Override point for customization after application launch.
     [Parse setApplicationId:@"FFO9TzzLbMB5A4PM8A0vzNpb0M8DSeAgbsP0fGNB" 
                   clientKey:@"geygOrU0M6zm1hKLYJntO4nr1ekoMcffESHVKd71"];
+    [PFFacebookUtils initializeWithApplicationId:kFACEBOOKAPPID];
     
     return YES;
 }
@@ -48,6 +49,15 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [PFFacebookUtils handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [PFFacebookUtils handleOpenURL:url]; 
 }
 
 @end
