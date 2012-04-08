@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CircleHomeViewController : UITableViewController
+@interface CircleNearbyViewController : UITableViewController
 
 - (IBAction)showCreateEventStoryboard:(id)sender;
 
