@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C113F4D1532C66200F48BB1 /* CircleCreateEventStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C113F4C1532C66200F48BB1 /* CircleCreateEventStoryboard.storyboard */; };
+		2C113F521532C90D00F48BB1 /* CircleNameDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C113F511532C8B000F48BB1 /* CircleNameDetailsTableViewController.m */; };
+		2C113F551532C98800F48BB1 /* CircleWhereTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C113F541532C98800F48BB1 /* CircleWhereTableViewController.m */; };
+		2C113F581532C9CD00F48BB1 /* CircleWhenTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C113F571532C9CD00F48BB1 /* CircleWhenTableViewController.m */; };
+		2C113F5B1532CB1100F48BB1 /* CircleOverviewSaveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C113F5A1532CB1100F48BB1 /* CircleOverviewSaveTableViewController.m */; };
 		2C5DF07915315F1D00F85C63 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5DF06E15315D4E00F85C63 /* libRestKit.a */; };
 		2C5DF07B15315F4200F85C63 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5DF07A15315F4200F85C63 /* CoreData.framework */; };
 		2C5DF07D15315F6700F85C63 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5DF07C15315F6700F85C63 /* libxml2.dylib */; };
 		2C5DF07F1531672E00F85C63 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA5A15301C9400F9540F /* UIPlaceHolderTextView.m */; };
-		2C5DF08315316F9800F85C63 /* CircleChooseEventDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DF08215316F9800F85C63 /* CircleChooseEventDateViewController.m */; };
-		2C5DF0861531701100F85C63 /* CircleChooseEventLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DF0851531701100F85C63 /* CircleChooseEventLocationViewController.m */; };
-		2C5DF0891531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DF0881531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.m */; };
-		2C5DF08B1531775200F85C63 /* CircleCreateEventStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C5DF08A1531775200F85C63 /* CircleCreateEventStoryboard.storyboard */; };
 		860EFA31152FF53100F9540F /* CircleSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA30152FF53100F9540F /* CircleSignInViewController.m */; };
 		860EFA35152FF8BA00F9540F /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 860EFA33152FF8BA00F9540F /* profile.png */; };
 		860EFA36152FF8BA00F9540F /* profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 860EFA34152FF8BA00F9540F /* profile@2x.png */; };
@@ -100,17 +101,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C113F4C1532C66200F48BB1 /* CircleCreateEventStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CircleCreateEventStoryboard.storyboard; sourceTree = "<group>"; };
+		2C113F501532C8B000F48BB1 /* CircleNameDetailsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleNameDetailsTableViewController.h; sourceTree = "<group>"; };
+		2C113F511532C8B000F48BB1 /* CircleNameDetailsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleNameDetailsTableViewController.m; sourceTree = "<group>"; };
+		2C113F531532C98800F48BB1 /* CircleWhereTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleWhereTableViewController.h; sourceTree = "<group>"; };
+		2C113F541532C98800F48BB1 /* CircleWhereTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleWhereTableViewController.m; sourceTree = "<group>"; };
+		2C113F561532C9CD00F48BB1 /* CircleWhenTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleWhenTableViewController.h; sourceTree = "<group>"; };
+		2C113F571532C9CD00F48BB1 /* CircleWhenTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleWhenTableViewController.m; sourceTree = "<group>"; };
+		2C113F591532CB1100F48BB1 /* CircleOverviewSaveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleOverviewSaveTableViewController.h; sourceTree = "<group>"; };
+		2C113F5A1532CB1100F48BB1 /* CircleOverviewSaveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleOverviewSaveTableViewController.m; sourceTree = "<group>"; };
 		2C5DF06215315D4D00F85C63 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		2C5DF07A15315F4200F85C63 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2C5DF07C15315F6700F85C63 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		2C5DF07E1531607700F85C63 /* CircleConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleConstants.h; sourceTree = "<group>"; };
-		2C5DF08115316F9800F85C63 /* CircleChooseEventDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleChooseEventDateViewController.h; sourceTree = "<group>"; };
-		2C5DF08215316F9800F85C63 /* CircleChooseEventDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleChooseEventDateViewController.m; sourceTree = "<group>"; };
-		2C5DF0841531701100F85C63 /* CircleChooseEventLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleChooseEventLocationViewController.h; sourceTree = "<group>"; };
-		2C5DF0851531701100F85C63 /* CircleChooseEventLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleChooseEventLocationViewController.m; sourceTree = "<group>"; };
-		2C5DF0871531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleEventCategoryAndPrivacyViewController.h; sourceTree = "<group>"; };
-		2C5DF0881531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleEventCategoryAndPrivacyViewController.m; sourceTree = "<group>"; };
-		2C5DF08A1531775200F85C63 /* CircleCreateEventStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CircleCreateEventStoryboard.storyboard; sourceTree = "<group>"; };
 		860EFA2F152FF53100F9540F /* CircleSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSignInViewController.h; sourceTree = "<group>"; };
 		860EFA30152FF53100F9540F /* CircleSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSignInViewController.m; sourceTree = "<group>"; };
 		860EFA33152FF8BA00F9540F /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
@@ -214,15 +217,17 @@
 		2C5DF08015316F6000F85C63 /* Create Event */ = {
 			isa = PBXGroup;
 			children = (
-				2C5DF08A1531775200F85C63 /* CircleCreateEventStoryboard.storyboard */,
+				2C113F4C1532C66200F48BB1 /* CircleCreateEventStoryboard.storyboard */,
 				860EFA3D1530126400F9540F /* CircleCreateEventViewController.h */,
 				860EFA3E1530126400F9540F /* CircleCreateEventViewController.m */,
-				2C5DF08115316F9800F85C63 /* CircleChooseEventDateViewController.h */,
-				2C5DF08215316F9800F85C63 /* CircleChooseEventDateViewController.m */,
-				2C5DF0841531701100F85C63 /* CircleChooseEventLocationViewController.h */,
-				2C5DF0851531701100F85C63 /* CircleChooseEventLocationViewController.m */,
-				2C5DF0871531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.h */,
-				2C5DF0881531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.m */,
+				2C113F501532C8B000F48BB1 /* CircleNameDetailsTableViewController.h */,
+				2C113F511532C8B000F48BB1 /* CircleNameDetailsTableViewController.m */,
+				2C113F531532C98800F48BB1 /* CircleWhereTableViewController.h */,
+				2C113F541532C98800F48BB1 /* CircleWhereTableViewController.m */,
+				2C113F561532C9CD00F48BB1 /* CircleWhenTableViewController.h */,
+				2C113F571532C9CD00F48BB1 /* CircleWhenTableViewController.m */,
+				2C113F591532CB1100F48BB1 /* CircleOverviewSaveTableViewController.h */,
+				2C113F5A1532CB1100F48BB1 /* CircleOverviewSaveTableViewController.m */,
 			);
 			name = "Create Event";
 			sourceTree = "<group>";
@@ -489,12 +494,12 @@
 				860EFA35152FF8BA00F9540F /* profile.png in Resources */,
 				860EFA36152FF8BA00F9540F /* profile@2x.png in Resources */,
 				860EFA47153019E900F9540F /* camera.png in Resources */,
-				2C5DF08B1531775200F85C63 /* CircleCreateEventStoryboard.storyboard in Resources */,
 				863C1EA41531875B0014DA1D /* CircleCheckInStoryboard.storyboard in Resources */,
 				863C1EAC153189000014DA1D /* CircleMessagesStoryboard.storyboard in Resources */,
 				863C1EAF153189700014DA1D /* CircleSearchStoryboard.storyboard in Resources */,
 				863C1EB215318A6F0014DA1D /* CircleNearbyStoryboard.storyboard in Resources */,
 				863C1EB515318B2D0014DA1D /* CircleAuthStoryboard.storyboard in Resources */,
+				2C113F4D1532C66200F48BB1 /* CircleCreateEventStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,13 +518,14 @@
 				860EFA421530133B00F9540F /* CircleMessagesViewController.m in Sources */,
 				2C5DF07F1531672E00F85C63 /* UIPlaceHolderTextView.m in Sources */,
 				860EFA451530150100F9540F /* CircleSearchViewController.m in Sources */,
-				2C5DF08315316F9800F85C63 /* CircleChooseEventDateViewController.m in Sources */,
-				2C5DF0861531701100F85C63 /* CircleChooseEventLocationViewController.m in Sources */,
-				2C5DF0891531707900F85C63 /* CircleEventCategoryAndPrivacyViewController.m in Sources */,
+				2C113F521532C90D00F48BB1 /* CircleNameDetailsTableViewController.m in Sources */,
 				863C1EA9153187AA0014DA1D /* CircleCheckInViewController.m in Sources */,
 				863C1EBF153190170014DA1D /* CircleMainViewController.m in Sources */,
 				86E0EEDE1531B02A00C5C4F0 /* LocationSingleton.m in Sources */,
 				86E0EEE31531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m in Sources */,
+				2C113F551532C98800F48BB1 /* CircleWhereTableViewController.m in Sources */,
+				2C113F581532C9CD00F48BB1 /* CircleWhenTableViewController.m in Sources */,
+				2C113F5B1532CB1100F48BB1 /* CircleOverviewSaveTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

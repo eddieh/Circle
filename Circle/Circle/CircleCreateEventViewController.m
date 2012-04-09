@@ -14,8 +14,6 @@
 @end
 
 @implementation CircleCreateEventViewController
-@synthesize eventTitleTextField;
-@synthesize eventDescriptionTextView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,8 +32,6 @@
 
 - (void)viewDidUnload
 {
-    [self setEventTitleTextField:nil];
-    [self setEventDescriptionTextView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -43,10 +39,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    return YES;
 }
 
 @end
