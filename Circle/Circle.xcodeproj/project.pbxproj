@@ -50,6 +50,10 @@
 		863C1EB215318A6F0014DA1D /* CircleNearbyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 863C1EB115318A6F0014DA1D /* CircleNearbyStoryboard.storyboard */; };
 		863C1EB515318B2D0014DA1D /* CircleAuthStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 863C1EB415318B2D0014DA1D /* CircleAuthStoryboard.storyboard */; };
 		863C1EBF153190170014DA1D /* CircleMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 863C1EBE153190160014DA1D /* CircleMainViewController.m */; };
+		8693FE7A1532D7E9007D7B17 /* facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8693FE761532D7E9007D7B17 /* facebook@2x.png */; };
+		8693FE7B1532D7E9007D7B17 /* facebookblue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8693FE771532D7E9007D7B17 /* facebookblue@2x.png */; };
+		8693FE7C1532D7E9007D7B17 /* foursquare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8693FE781532D7E9007D7B17 /* foursquare@2x.png */; };
+		8693FE7D1532D7E9007D7B17 /* foursquareblue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8693FE791532D7E9007D7B17 /* foursquareblue@2x.png */; };
 		86E0EEDE1531B02A00C5C4F0 /* LocationSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E0EEDD1531B02A00C5C4F0 /* LocationSingleton.m */; };
 		86E0EEE01531B0B600C5C4F0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E0EEDF1531B0B600C5C4F0 /* CoreLocation.framework */; };
 		86E0EEE31531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E0EEE21531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m */; };
@@ -169,6 +173,10 @@
 		863C1EB415318B2D0014DA1D /* CircleAuthStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CircleAuthStoryboard.storyboard; sourceTree = "<group>"; };
 		863C1EBD153190160014DA1D /* CircleMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMainViewController.h; sourceTree = SOURCE_ROOT; };
 		863C1EBE153190160014DA1D /* CircleMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMainViewController.m; sourceTree = SOURCE_ROOT; };
+		8693FE761532D7E9007D7B17 /* facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook@2x.png"; sourceTree = "<group>"; };
+		8693FE771532D7E9007D7B17 /* facebookblue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebookblue@2x.png"; sourceTree = "<group>"; };
+		8693FE781532D7E9007D7B17 /* foursquare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "foursquare@2x.png"; sourceTree = "<group>"; };
+		8693FE791532D7E9007D7B17 /* foursquareblue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "foursquareblue@2x.png"; sourceTree = "<group>"; };
 		86E0EEDC1531B02A00C5C4F0 /* LocationSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSingleton.h; sourceTree = "<group>"; };
 		86E0EEDD1531B02A00C5C4F0 /* LocationSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSingleton.m; sourceTree = "<group>"; };
 		86E0EEDF1531B0B600C5C4F0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -330,6 +338,10 @@
 				860EFA33152FF8BA00F9540F /* profile.png */,
 				860EFA34152FF8BA00F9540F /* profile@2x.png */,
 				860EFA46153019E900F9540F /* camera.png */,
+				8693FE761532D7E9007D7B17 /* facebook@2x.png */,
+				8693FE771532D7E9007D7B17 /* facebookblue@2x.png */,
+				8693FE781532D7E9007D7B17 /* foursquare@2x.png */,
+				8693FE791532D7E9007D7B17 /* foursquareblue@2x.png */,
 				8613D49E152ED2690002579B /* LoginWithFacebookNormal@2x.png */,
 				8613D49F152ED2690002579B /* LoginWithFacebookPressed.png */,
 				8613D4A0152ED2690002579B /* LoginWithFacebookPressed@2x.png */,
@@ -500,6 +512,10 @@
 				863C1EB215318A6F0014DA1D /* CircleNearbyStoryboard.storyboard in Resources */,
 				863C1EB515318B2D0014DA1D /* CircleAuthStoryboard.storyboard in Resources */,
 				2C113F4D1532C66200F48BB1 /* CircleCreateEventStoryboard.storyboard in Resources */,
+				8693FE7A1532D7E9007D7B17 /* facebook@2x.png in Resources */,
+				8693FE7B1532D7E9007D7B17 /* facebookblue@2x.png in Resources */,
+				8693FE7C1532D7E9007D7B17 /* foursquare@2x.png in Resources */,
+				8693FE7D1532D7E9007D7B17 /* foursquareblue@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
