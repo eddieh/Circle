@@ -7,3 +7,6 @@
 [submodule "Circle/RestKit"]
 	path = Circle/RestKit
 	url = https://github.com/RestKit/RestKit.git
+[submodule "Circle/EGOTableViewPullRefresh"]
+	path = Circle/EGOTableViewPullRefresh
+	url = https://github.com/enormego/EGOTableViewPullRefresh.git

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Parse/Parse.h"
 
 @interface CircleChooseCheckInLocationViewController : UITableViewController
-
+@property (strong, nonatomic) NSArray *events;
 @end

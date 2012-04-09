@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class DCRoundSwitch;
 
 @interface CircleCheckInViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
+@property (strong, nonatomic) NSString *eventTitle;
 
+- (IBAction)checkInButtonPressed;
 @end
