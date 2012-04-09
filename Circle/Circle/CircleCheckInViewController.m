@@ -7,12 +7,18 @@
 //
 
 #import "CircleCheckInViewController.h"
+#import "DCRoundSwitch.h"
 
 @interface CircleCheckInViewController ()
 
 @end
 
 @implementation CircleCheckInViewController
+@synthesize facebookSlider = _facebookSlider;
+@synthesize foursquareSlider = _foursquareSlider;
+@synthesize eventTitleLabel;
+@synthesize eventTitle = _eventTitle;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,10 +33,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.facebookSlider.onText = @"Facebook";
+    self.facebookSlider.offText = @"Facebook";
+    self.foursquareSlider.onText = @"Foursquare";
+    self.foursquareSlider.offText = @"Foursquare";
 }
 
 - (void)viewDidUnload
 {
+    [self setEventTitleLabel:nil];
+    [self setFacebookSlider:nil];
+    [self setFoursquareSlider:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -40,4 +53,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)checkInButtonPressed {
+}
 @end
