@@ -7,12 +7,14 @@
 //
 
 #import "CircleWhereTableViewController.h"
+#import "Parse/Parse.h"
 
 @interface CircleWhereTableViewController ()
 
 @end
 
 @implementation CircleWhereTableViewController
+@synthesize event = _event;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -32,6 +34,8 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    NSLog(@"%@", self.event);
 }
 
 - (void)viewDidUnload

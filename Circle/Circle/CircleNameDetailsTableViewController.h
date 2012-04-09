@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class PFObject;
+
 @interface CircleNameDetailsTableViewController : UITableViewController <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *detailsTextField;
+
+@property (strong, nonatomic) PFObject *event;
 
 @end
