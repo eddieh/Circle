@@ -1,25 +1,25 @@
 //
-//  CircleSignInViewController.m
+//  CircleSignUpViewController.m
 //  Circle
 //
 //  Created by Joshua Conner on 4/10/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CircleSignInViewController.h"
+#import "CircleSignUpViewController.h"
 #import "Parse/Parse.h"
 
-@interface CircleSignInViewController () {
-    BOOL isVoluntarySignIn;
+@interface CircleSignUpViewController () {
     PF_MBProgressHUD *HUD;
 }
 
 @end
 
-@implementation CircleSignInViewController
-@synthesize callToActionLabel;
+@implementation CircleSignUpViewController
+@synthesize nameTextField;
 @synthesize emailTextField;
 @synthesize passwordTextField;
+@synthesize repeatPasswordTextField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,15 +34,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    if (isVoluntarySignIn) 
-        self.callToActionLabel.text = @"Sign in to your Circle account!";
 }
 
 - (void)viewDidUnload
 {
     [self setEmailTextField:nil];
     [self setPasswordTextField:nil];
-    [self setCallToActionLabel:nil];
+    [self setRepeatPasswordTextField:nil];
+    [self setNameTextField:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -51,11 +50,15 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-- (IBAction)dismissKeyboard:(id)sender {
+
+- (IBAction)dismissKeyboard {
     [self.view endEditing:YES];
 }
 
-#pragma mark - UITextFieldDelegate method
+- (IBAction)signUpButtonPressed {
+}
+
+#pragma mark - UITextFieldDelegate methods
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.emailTextField) {
         [self.passwordTextField becomeFirstResponder];
@@ -69,18 +72,10 @@
             if (!error) {
                 //successful signup!
             } else {
-                
+                //signup error: display the error!
             }
         }];
     }
     return YES;
-}
-
-
-#pragma mark - MBProgressHUDDelegate methods
-- (void)hudWasHidden:(PF_MBProgressHUD *)hud {
-	// Remove HUD from screen when the HUD was hidden
-	[HUD removeFromSuperview];
-	HUD = nil;
 }
 @end
