@@ -10,3 +10,6 @@
 [submodule "Circle/EGOTableViewPullRefresh"]
 	path = Circle/EGOTableViewPullRefresh
 	url = https://github.com/enormego/EGOTableViewPullRefresh.git
+[submodule "Circle/MBProgressHUD"]
+	path = Circle/MBProgressHUD
+	url = git://github.com/matej/MBProgressHUD.git
