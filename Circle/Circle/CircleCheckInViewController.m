@@ -79,11 +79,13 @@
     [a show];
 }
 
+//TODO: stub method for foursquare checkin
 - (IBAction)foursquareButtonPressed:(UIButton *)sender {
     doFoursquareCheckIn = !doFoursquareCheckIn;
     sender.selected = doFoursquareCheckIn;
 }
 
+//TODO: stub method for facebook checkin
 - (IBAction)facebookButtonPressed:(UIButton *)sender {
     doFacebookCheckIn = !doFacebookCheckIn;
     sender.selected = doFacebookCheckIn;
@@ -173,8 +175,18 @@
     
     // Handle a still image capture
     if (CFStringCompare ((__bridge CFStringRef) mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
-        //editedImage = (UIImage *) [info objectForKey: UIImagePickerControllerEditedImage];
-        image = (UIImage *) [info objectForKey: UIImagePickerControllerOriginalImage];
+        image = (UIImage *) [info objectForKey: UIImagePickerControllerEditedImage];
+        
+        if (!image) {
+            image = (UIImage *) [info objectForKey: UIImagePickerControllerOriginalImage];
+        }
+        
+        NSLog(@"Image: %@", image);
+        [self.cameraButton setImage:image forState:UIControlStateNormal];
+        [self.cameraButton setImage:image forState:UIControlStateHighlighted];
+        [self.cameraButton setImage:image forState:UIControlStateSelected];
+        
+        
         NSData *imageData = UIImagePNGRepresentation(image);
         PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
         [imageFile saveInBackground];

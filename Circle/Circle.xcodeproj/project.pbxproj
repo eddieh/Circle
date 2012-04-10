@@ -60,6 +60,8 @@
 		861FE1181533D7E000D3DA03 /* orangecheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 861FE1171533D7E000D3DA03 /* orangecheck.png */; };
 		861FE1341533FEBB00D3DA03 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 861FE1321533FEBB00D3DA03 /* 37x-Checkmark.png */; };
 		861FE1351533FEBB00D3DA03 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 861FE1331533FEBB00D3DA03 /* 37x-Checkmark@2x.png */; };
+		861FE1451534135C00D3DA03 /* checkbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 861FE1431534135C00D3DA03 /* checkbutton.png */; };
+		861FE1461534135C00D3DA03 /* checkbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 861FE1441534135C00D3DA03 /* checkbutton@2x.png */; };
 		863C1EA41531875B0014DA1D /* CircleCheckInStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 863C1EA31531875B0014DA1D /* CircleCheckInStoryboard.storyboard */; };
 		863C1EA9153187AA0014DA1D /* CircleCheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 863C1EA8153187AA0014DA1D /* CircleCheckInViewController.m */; };
 		863C1EAC153189000014DA1D /* CircleMessagesStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 863C1EAB153189000014DA1D /* CircleMessagesStoryboard.storyboard */; };
@@ -189,6 +191,8 @@
 		861FE12A1533F91000D3DA03 /* MBProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		861FE1321533FEBB00D3DA03 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		861FE1331533FEBB00D3DA03 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
+		861FE1431534135C00D3DA03 /* checkbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbutton.png; sourceTree = "<group>"; };
+		861FE1441534135C00D3DA03 /* checkbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbutton@2x.png"; sourceTree = "<group>"; };
 		863C1EA31531875B0014DA1D /* CircleCheckInStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CircleCheckInStoryboard.storyboard; sourceTree = "<group>"; };
 		863C1EA7153187AA0014DA1D /* CircleCheckInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCheckInViewController.h; sourceTree = "<group>"; };
 		863C1EA8153187AA0014DA1D /* CircleCheckInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCheckInViewController.m; sourceTree = "<group>"; };
@@ -363,6 +367,8 @@
 				860EFA46153019E900F9540F /* camera.png */,
 				861FE1321533FEBB00D3DA03 /* 37x-Checkmark.png */,
 				861FE1331533FEBB00D3DA03 /* 37x-Checkmark@2x.png */,
+				861FE1431534135C00D3DA03 /* checkbutton.png */,
+				861FE1441534135C00D3DA03 /* checkbutton@2x.png */,
 				861FE10D1533CE5400D3DA03 /* darkorange.png */,
 				861FE10E1533CE5400D3DA03 /* orange.png */,
 				861FE1091533CC5F00D3DA03 /* green3.png */,
@@ -560,6 +566,8 @@
 				861FE1181533D7E000D3DA03 /* orangecheck.png in Resources */,
 				861FE1341533FEBB00D3DA03 /* 37x-Checkmark.png in Resources */,
 				861FE1351533FEBB00D3DA03 /* 37x-Checkmark@2x.png in Resources */,
+				861FE1451534135C00D3DA03 /* checkbutton.png in Resources */,
+				861FE1461534135C00D3DA03 /* checkbutton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
