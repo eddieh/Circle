@@ -70,7 +70,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="4zh-sh-qyv"/>
                         <barButtonItem key="rightBarButtonItem" title="Next" id="K4q-hO-yPz">
                             <connections>
-                                <segue destination="5yg-9e-Ml4" kind="push" id="oL3-n4-RGk"/>
+                                <segue destination="5yg-9e-Ml4" kind="push" identifier="didEnterEventNameDetailsSegue" id="oL3-n4-RGk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

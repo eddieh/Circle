@@ -7,6 +7,7 @@
 //
 
 #import "CircleNameDetailsTableViewController.h"
+#import "Parse/Parse.h"
 
 @interface CircleNameDetailsTableViewController ()
 
@@ -15,6 +16,7 @@
 @implementation CircleNameDetailsTableViewController
 @synthesize nameTextField;
 @synthesize detailsTextField;
+@synthesize event = _event;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -61,5 +63,24 @@
     
     return YES;
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([[segue identifier] isEqualToString:@"didEnterEventNameDetailsSegue"]) {
+        id viewController = [segue destinationViewController];
+        if ([viewController respondsToSelector:@selector(setEvent:)]) {
+            self.event = [PFObject objectWithClassName:@"Event"];
+            [self.event setObject:self.nameTextField.text forKey:@"name"];
+            [self.event setObject:self.detailsTextField.text forKey:@"details"];
+            [viewController setEvent:self.event];
+        }
+    }
+}
+
+#ifdef eddie
+- (void)performSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"didEnterEventNameDetailsSegue"]) {
+    }
+}
+#endif
 
 @end

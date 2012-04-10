@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class PFObject;
+
 @interface CircleWhereTableViewController : UITableViewController
+
+@property (strong, nonatomic) PFObject *event;
 
 @end
