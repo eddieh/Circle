@@ -7,10 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIPlaceHolderTextView.h"
+#import "Parse/Parse.h"
 
-@interface CircleCheckInViewController : UIViewController
+@interface CircleCheckInViewController : UIViewController <PF_MBProgressHUDDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
-@property (strong, nonatomic) NSString *eventTitle;
+@property (weak, nonatomic) IBOutlet UILabel *eventDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UIPlaceHolderTextView *descriptionTextView;
+@property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 
+@property (strong, nonatomic) PFObject *event;
+@property (strong, nonatomic) PFFile *imageFile;
+
+- (IBAction)cameraButtonPressed:(UIButton *)sender;
+- (IBAction)foursquareButtonPressed:(UIButton *)sender;
+- (IBAction)facebookButtonPressed:(UIButton *)sender;
 - (IBAction)checkInButtonPressed;
 @end

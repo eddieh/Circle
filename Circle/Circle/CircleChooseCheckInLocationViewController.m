@@ -92,11 +92,14 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
-    
-    if ([segue.destinationViewController respondsToSelector:@selector(setEventTitle:)] && [sender isKindOfClass:[UITableViewCell class]]) {
-        [segue.destinationViewController performSelector:@selector(setEventTitle:) withObject:cell.textLabel.text];
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
+        PFObject *event = [self.events objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+        
+        if ([segue.destinationViewController respondsToSelector:@selector(setEvent:)]) {
+            [segue.destinationViewController performSelector:@selector(setEvent:) withObject:event];
+        }
     }
 }
+
+
 @end

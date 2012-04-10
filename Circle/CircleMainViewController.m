@@ -55,10 +55,11 @@
                                                          nil];
     
     [self setViewControllersWithStoryboardNames:storyboardNames];
-
+//
 //    //try to get location info early so we can pass it viewcontrollers
 //    self.locationManager = [LocationSingleton sharedInstance];
 //    self.locationManager.delegate = self;
+//    self.locationManager.currentLocation
 //    
 }
 

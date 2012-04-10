@@ -45,7 +45,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="sPy-aa-3wf" kind="push" id="cXg-b7-soo"/>
+                                    <segue destination="sPy-aa-3wf" kind="push" identifier="didChooseCheckInLocationSegue" id="cXg-b7-soo"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -68,34 +68,23 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tY3-YS-H8c">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="tY3-YS-H8c">
                                 <rect key="frame" x="6" y="10" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="15"/>
-                                <state key="normal" image="camera.png">
+                                <state key="normal" image="cameragray.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
+                                <state key="highlighted" image="cameragray-85@2x.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="cameraButtonPressed:" destination="sPy-aa-3wf" eventType="touchUpInside" id="Zsh-XI-A8C"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Event Title Goes Here" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="lQA-km-paR">
-                                <rect key="frame" x="74" y="8" width="235" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="c83-lp-G6V" customClass="UIPlaceHolderTextView">
-                                <rect key="frame" x="74" y="41" width="235" height="146"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TEE-Hs-bu9">
-                                <rect key="frame" x="10" y="135" width="52" height="52"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="TEE-Hs-bu9">
+                                <rect key="frame" x="3" y="138" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="facebook@2x.png">
@@ -103,12 +92,15 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="facebookblue@2x.png"/>
-                                <state key="highlighted">
+                                <state key="highlighted" image="facebook-85@2x.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="facebookButtonPressed:" destination="sPy-aa-3wf" eventType="touchUpInside" id="MlN-yq-Nri"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aAI-If-iD9">
-                                <rect key="frame" x="10" y="76" width="52" height="52"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="aAI-If-iD9">
+                                <rect key="frame" x="3" y="80" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="foursquare@2x.png">
@@ -116,19 +108,70 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="foursquareblue@2x.png"/>
-                                <state key="highlighted">
+                                <state key="highlighted" image="foursquare-85@2x.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="foursquareButtonPressed:" destination="sPy-aa-3wf" eventType="touchUpInside" id="roM-3T-LNH"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" id="lKX-5g-N5a">
+                                <rect key="frame" x="74" y="9" width="240" height="140"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="c83-lp-G6V" customClass="UIPlaceHolderTextView">
+                                        <rect key="frame" x="6" y="55" width="227" height="79"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="sPy-aa-3wf" id="uko-Zb-Upm"/>
+                                        </connections>
+                                    </textView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Event Title Goes Here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="lQA-km-paR">
+                                        <rect key="frame" x="10" y="6" width="223" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="@ Event location goes here" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="oYU-AM-8hg">
+                                        <rect key="frame" x="10" y="29" width="215" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="el2-4F-Ny1">
+                                <rect key="frame" x="163" y="156" width="151" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="19"/>
+                                <state key="normal" title="Check in!" backgroundImage="orange.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="darkorange.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkInButtonPressed" destination="sPy-aa-3wf" eventType="touchUpInside" id="0pV-8p-QeF"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Check In" id="byD-t9-NYx">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="action" id="MLk-CM-TGP"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Check In" id="byD-t9-NYx"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="descriptionTextView" destination="c83-lp-G6V" id="0bx-pb-XkD"/>
+                        <outlet property="eventDescriptionLabel" destination="oYU-AM-8hg" id="baS-c1-tlY"/>
                         <outlet property="eventTitleLabel" destination="lQA-km-paR" id="BA7-fX-Ota"/>
+                        <outlet property="view" destination="QjO-NJ-T97" id="9sl-4G-41z"/>
                     </connections>
                 </viewController>
             </objects>
@@ -155,18 +198,29 @@
         </scene>
     </scenes>
     <resources>
-        <image name="camera.png" width="200" height="200"/>
+        <image name="cameragray-85@2x.png" width="120" height="120"/>
+        <image name="cameragray.png" width="120" height="120"/>
+        <image name="darkorange.png" width="1" height="1"/>
+        <image name="facebook-85@2x.png" width="104" height="104"/>
         <image name="facebook@2x.png" width="104" height="104"/>
         <image name="facebookblue@2x.png" width="104" height="104"/>
+        <image name="foursquare-85@2x.png" width="104" height="104"/>
         <image name="foursquare@2x.png" width="104" height="104"/>
         <image name="foursquareblue@2x.png" width="104" height="104"/>
+        <image name="orange.png" width="1" height="1"/>
         <image name="profile.png" width="75" height="75"/>
     </resources>
     <classes>
         <class className="CircleCheckInViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleCheckInViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cameraButtonPressed:" candidateClass="UIButton"/>
                 <relationship kind="action" name="checkInButtonPressed"/>
+                <relationship kind="action" name="facebookButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="foursquareButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cameraButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="descriptionTextView" candidateClass="UIPlaceHolderTextView"/>
+                <relationship kind="outlet" name="eventDescriptionLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="eventTitleLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
