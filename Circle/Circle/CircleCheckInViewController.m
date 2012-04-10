@@ -50,7 +50,7 @@
     self.eventDescriptionLabel.text = [self.event objectForKey:@"description"];
     
     //configure description text view
-    self.descriptionTextView.placeholder = @"What are you doing? (Optional)";
+    self.descriptionTextView.placeholder = @"What's going on? (Optional)";
     self.descriptionTextView.backgroundColor = [UIColor whiteColor];
     self.descriptionTextView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0];
 }
@@ -74,6 +74,8 @@
 
 
 #pragma mark - UI callback methods
+// shows an alert dialog allowing the user to choose where to take a photo from
+// (alertView:clickedButtonAtIndex: is the delegate (responder) method for the alert)
 - (IBAction)cameraButtonPressed:(UIButton *)sender {
     UIAlertView *a = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Take a new photo", @"Choose photo from library", nil];
     [a show];
@@ -91,12 +93,20 @@
     sender.selected = doFacebookCheckIn;
 }
 
+/**
+ * does all of the "send check in" stuff: creates and sends the Parse object, and shows/hides
+ * the modal "sending" display as appropriate
+ */
 - (IBAction)checkInButtonPressed {
+    //create the Parse object, fill with relevant info
     PFObject *checkIn = [PFObject objectWithClassName:@"CheckIn"];
     [checkIn setObject:self.event forKey:@"event"];
     [checkIn setObject:self.descriptionTextView.text forKey:@"text"];
     [checkIn setObject:[PFUser user] forKey:@"user"];
+    if (self.imageFile)
+        [checkIn setObject:self.imageFile forKey:@"image"];
     
+    //init the "loading" modal
     HUD = [[PF_MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:HUD];
     HUD.delegate = self;
@@ -104,12 +114,14 @@
     HUD.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0];
     HUD.labelText = @"Checking in...";
     
+    //show the modal and send the check in to Parse
     [HUD show:YES];
     [checkIn saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            // The event saved successfully.
+            // The event saved successfully, change modal to "success!" then hide after delay
             HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
             HUD.mode = PF_MBProgressHUDModeCustomView;
+            HUD.labelText = @"Success!";
             [HUD hide:YES afterDelay:2];
             
         } else {
@@ -119,10 +131,7 @@
             [HUD hide:YES afterDelay:4];
         }
     }];
-    
-    
 }
-
 
 
 #pragma mark - Camera/ImagePicker methods
@@ -181,28 +190,18 @@
             image = (UIImage *) [info objectForKey: UIImagePickerControllerOriginalImage];
         }
         
-        NSLog(@"Image: %@", image);
+        //replace the camera button with the user's chosen image
         [self.cameraButton setImage:image forState:UIControlStateNormal];
-        [self.cameraButton setImage:image forState:UIControlStateHighlighted];
-        [self.cameraButton setImage:image forState:UIControlStateSelected];
         
-        
+        //upload the image to Parse
         NSData *imageData = UIImagePNGRepresentation(image);
         PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
         [imageFile saveInBackground];
-//        if (editedImage) {
-//            bigImage = editedImage;
-//        } else {
-//            bigImage = originalImage;
-//        }
-//        if (!picker.title) {
-//            // Save the new image (original or edited) to the Camera Roll
-//            UIImageWriteToSavedPhotosAlbum (bigImage, nil, nil , nil);
-//        }
-//        imageToSave = [UIImage imageWithImage:bigImage scaledToSizeWithSameAspectRatio:CGSizeMake(150.0, 150.0)];
-//        // Set the profileButton image to the newly-captured picture
-//        profileImage = imageToSave;
-//        [profileButton setImage:imageToSave borderWidth:5.0 shadowDepth:7.0 controlPointXOffset:30.0 controlPointYOffset:75.0 forState:UIControlStateNormal];
+
+        //if the user took the picture, we also save it
+        if (!picker.title) {
+            UIImageWriteToSavedPhotosAlbum (image, nil, nil , nil);
+        }
     }
 
     self.cameraButton.imageView.image = image;
@@ -228,7 +227,6 @@
 
 
 #pragma mark - MBProgressHUDDelegate methods
-
 - (void)hudWasHidden:(PF_MBProgressHUD *)hud {
 	// Remove HUD from screen when the HUD was hidded
 	[HUD removeFromSuperview];
