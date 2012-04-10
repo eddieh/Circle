@@ -228,7 +228,7 @@
 
 #pragma mark - MBProgressHUDDelegate methods
 - (void)hudWasHidden:(PF_MBProgressHUD *)hud {
-	// Remove HUD from screen when the HUD was hidded
+	// Remove HUD from screen when the HUD was hidden
 	[HUD removeFromSuperview];
 	HUD = nil;
 }
