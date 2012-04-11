@@ -16,6 +16,7 @@
 		2C5DF07B15315F4200F85C63 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5DF07A15315F4200F85C63 /* CoreData.framework */; };
 		2C5DF07D15315F6700F85C63 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5DF07C15315F6700F85C63 /* libxml2.dylib */; };
 		2C5DF07F1531672E00F85C63 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA5A15301C9400F9540F /* UIPlaceHolderTextView.m */; };
+		2CD4FE2C153525F400312D46 /* cities_US.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CD4FE2B153525F400312D46 /* cities_US.json */; };
 		860EFA35152FF8BA00F9540F /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 860EFA33152FF8BA00F9540F /* profile.png */; };
 		860EFA36152FF8BA00F9540F /* profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 860EFA34152FF8BA00F9540F /* profile@2x.png */; };
 		860EFA39152FFE3500F9540F /* CircleNearbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA38152FFE3500F9540F /* CircleNearbyViewController.m */; };
@@ -142,6 +143,7 @@
 		2C5DF07A15315F4200F85C63 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2C5DF07C15315F6700F85C63 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		2C5DF07E1531607700F85C63 /* CircleConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleConstants.h; sourceTree = "<group>"; };
+		2CD4FE2B153525F400312D46 /* cities_US.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cities_US.json; sourceTree = "<group>"; };
 		860EFA33152FF8BA00F9540F /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
 		860EFA34152FF8BA00F9540F /* profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile@2x.png"; sourceTree = "<group>"; };
 		860EFA37152FFE3500F9540F /* CircleNearbyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNearbyViewController.h; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 			children = (
 				86E538171535821700142CD0 /* camerawhite.png */,
 				86E538181535821700142CD0 /* camerawhite@2x.png */,
+				2CD4FE2B153525F400312D46 /* cities_US.json */,
 				860EFA33152FF8BA00F9540F /* profile.png */,
 				860EFA34152FF8BA00F9540F /* profile@2x.png */,
 				861FE0F815338AD800D3DA03 /* foursquareblue@2x.png */,
@@ -594,9 +597,15 @@
 				861FE15C153427D500D3DA03 /* signinfoursqare-pressed@2x.png in Resources */,
 				861FE15D153427D500D3DA03 /* signinfoursqare.png in Resources */,
 				861FE15E153427D500D3DA03 /* signinfoursqare@2x.png in Resources */,
+<<<<<<< HEAD
 				86944E8815350B070070AB62 /* x.png in Resources */,
 				86E538191535821700142CD0 /* camerawhite.png in Resources */,
 				86E5381A1535821700142CD0 /* camerawhite@2x.png in Resources */,
+=======
+				868CDBD015344CBA000058F3 /* camerawhite.png in Resources */,
+				868CDBD115344CBA000058F3 /* camerawhite@2x.png in Resources */,
+				2CD4FE2C153525F400312D46 /* cities_US.json in Resources */,
+>>>>>>> 425d18a73eb216cd5a134bec2b85ebff52b02b81
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
