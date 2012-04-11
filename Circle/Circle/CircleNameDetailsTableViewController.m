@@ -14,8 +14,10 @@
 @end
 
 @implementation CircleNameDetailsTableViewController
+
 @synthesize nameTextField;
 @synthesize detailsTextField;
+@synthesize nextButton;
 @synthesize event = _event;
 
 
@@ -38,6 +40,11 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    if (self.event) {
+        self.nameTextField.text = [self.event objectForKey:@"name"];
+        self.detailsTextField.text = [self.event objectForKey:@"details"];
+    }
+    
     [self.nameTextField becomeFirstResponder];
                             
 }
@@ -46,6 +53,7 @@
 {
     [self setNameTextField:nil];
     [self setDetailsTextField:nil];
+    [self setNextButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -64,13 +72,20 @@
     return YES;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return YES;
+}
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([[segue identifier] isEqualToString:@"didEnterEventNameDetailsSegue"]) {
+    if([[segue identifier] isEqualToString:@"CreateEventNextSegue"]) {
         id viewController = [segue destinationViewController];
         if ([viewController respondsToSelector:@selector(setEvent:)]) {
+            
             self.event = [PFObject objectWithClassName:@"Event"];
             [self.event setObject:self.nameTextField.text forKey:@"name"];
             [self.event setObject:self.detailsTextField.text forKey:@"details"];
+            
             [viewController setEvent:self.event];
         }
     }
@@ -78,7 +93,7 @@
 
 #ifdef eddie
 - (void)performSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    if ([identifier isEqualToString:@"didEnterEventNameDetailsSegue"]) {
+    if ([identifier isEqualToString:@"CreateEventNextSegue"]) {
     }
 }
 #endif

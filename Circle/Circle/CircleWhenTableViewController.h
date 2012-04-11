@@ -7,7 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
+@class PFObject;
 
 @interface CircleWhenTableViewController : UITableViewController
+
+@property (weak, nonatomic) IBOutlet UITableViewCell *startsCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *endsCell;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *plusOneDayButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *plusOneWeekButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *plusOneMonthButton;
+
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *nextButton;
+
+@property (strong, nonatomic) PFObject *event;
+
+
+- (IBAction)changeDate:(id)sender;
+
+- (IBAction)plusOneDay:(id)sender;
+- (IBAction)plusOneWeek:(id)sender;
+- (IBAction)plusOneMonth:(id)sender;
 
 @end

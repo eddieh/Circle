@@ -11,7 +11,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EV4-gp-J5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="EHJ-lL-vRn" customClass="CircleNameDetailsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="5mL-05-g61">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="5mL-05-g61">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -70,13 +70,14 @@
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="4zh-sh-qyv"/>
                         <barButtonItem key="rightBarButtonItem" title="Next" id="K4q-hO-yPz">
                             <connections>
-                                <segue destination="5yg-9e-Ml4" kind="push" identifier="didEnterEventNameDetailsSegue" id="oL3-n4-RGk"/>
+                                <segue destination="5yg-9e-Ml4" kind="push" identifier="CreateEventNextSegue" id="oL3-n4-RGk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="detailsTextField" destination="Z8l-DV-efG" id="vHl-DG-4Fj"/>
                         <outlet property="nameTextField" destination="10E-eL-aFu" id="UOB-aW-hWd"/>
+                        <outlet property="nextButton" destination="K4q-hO-yPz" id="dJp-TG-wiH"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -94,55 +95,55 @@
                         <sections>
                             <tableViewSection id="TAy-ux-lUC">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="BnZ-5g-0QT">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="YPl-Q2-S4r" style="IBUITableViewCellStyleDefault" id="BnZ-5g-0QT">
                                         <rect key="frame" x="0.0" y="10" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="1" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Venue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="LDm-jM-Jw5">
-                                                    <rect key="frame" x="20" y="11" width="240" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Venue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YPl-Q2-S4r">
+                                                    <rect key="frame" x="10" y="0.0" width="260" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ONs-yb-HtG">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="KXt-Vw-yjb" style="IBUITableViewCellStyleDefault" id="ONs-yb-HtG">
                                         <rect key="frame" x="0.0" y="55" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Saved Addresses" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="OVK-aC-RVy">
-                                                    <rect key="frame" x="20" y="11" width="240" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Saved Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KXt-Vw-yjb">
+                                                    <rect key="frame" x="10" y="0.0" width="260" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Y2i-Uz-hfu">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="QwS-b3-j2c" style="IBUITableViewCellStyleDefault" id="Y2i-Uz-hfu">
                                         <rect key="frame" x="0.0" y="99" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="New Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="oPr-9h-NMb">
-                                                    <rect key="frame" x="20" y="11" width="240" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="New Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QwS-b3-j2c">
+                                                    <rect key="frame" x="10" y="0.0" width="260" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -159,11 +160,15 @@
                     <navigationItem key="navigationItem" title="Where" id="o3f-Fi-ZbB">
                         <barButtonItem key="rightBarButtonItem" title="Next" id="YGE-aD-ep4">
                             <connections>
-                                <segue destination="WCc-Jp-Z7q" kind="push" id="6kh-z7-9On"/>
+                                <segue destination="WCc-Jp-Z7q" kind="push" identifier="CreateEventNextSegue" id="6kh-z7-9On"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addAddressCell" destination="Y2i-Uz-hfu" id="mjp-m8-JGM"/>
+                        <outlet property="nextButton" destination="YGE-aD-ep4" id="Ccm-G0-bWG"/>
+                        <outlet property="savedAddressesCell" destination="ONs-yb-HtG" id="JUC-TE-n49"/>
+                        <outlet property="venueCell" destination="BnZ-5g-0QT" id="ZsE-um-z8N"/>
                         <outlet property="view" destination="VaS-2T-PNj" id="hv6-JA-qda"/>
                     </connections>
                 </tableViewController>
@@ -216,7 +221,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8E8-L6-LcI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="WCc-Jp-Z7q" customClass="CircleWhenTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="rzb-sK-Qce">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="rzb-sK-Qce">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -225,18 +230,30 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="INl-3Y-p1P">
-                                    <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <items>
                                         <barButtonItem style="plain" systemItem="flexibleSpace" id="kmR-fQ-kp3"/>
-                                        <barButtonItem title="+ 1 day" id="BOq-nr-bv1"/>
-                                        <barButtonItem title="+ 1 week" id="8xI-VS-b6M"/>
-                                        <barButtonItem title="+1 month" id="poO-Mh-dKk"/>
+                                        <barButtonItem title="+ 1 day" id="BOq-nr-bv1">
+                                            <connections>
+                                                <action selector="plusOneDay:" destination="WCc-Jp-Z7q" id="SDW-VX-4Ap"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem title="+ 1 week" id="8xI-VS-b6M">
+                                            <connections>
+                                                <action selector="plusOneWeek:" destination="WCc-Jp-Z7q" id="wuA-mu-R3r"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem title="+1 month" id="poO-Mh-dKk">
+                                            <connections>
+                                                <action selector="plusOneMonth:" destination="WCc-Jp-Z7q" id="Aje-Ft-yQq"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Lnx-wX-KrS"/>
                                     </items>
                                 </toolbar>
                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="Y8m-19-4SB">
-                                    <rect key="frame" x="0.0" y="88" width="320" height="216"/>
+                                    <rect key="frame" x="0.0" y="44" width="320" height="216"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <date key="date" timeIntervalSinceReferenceDate="355573516.75488901">
                                         <!--2012-04-08 10:25:16 +0000-->
@@ -263,27 +280,30 @@ AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
 </data>
                                     </timeZone>
+                                    <connections>
+                                        <action selector="changeDate:" destination="WCc-Jp-Z7q" eventType="valueChanged" id="MNy-yw-bJH"/>
+                                    </connections>
                                 </datePicker>
                             </subviews>
                         </view>
                         <sections>
                             <tableViewSection id="a65-WG-vWj">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="20L-q0-k0n" detailTextLabel="ovS-VP-Ysw" style="IBUITableViewCellStyleValue2" id="sUQ-YU-pR1">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="0FN-0B-uvA" detailTextLabel="Vpd-Ln-c1s" style="IBUITableViewCellStyleValue2" id="Yf0-E8-qHc">
                                         <rect key="frame" x="0.0" y="10" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="starts" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="20L-q0-k0n">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="starts" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0FN-0B-uvA">
                                                     <rect key="frame" x="10" y="15" width="67" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                     <color key="textColor" red="0.32156862745098042" green="0.40000000000000002" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ovS-VP-Ysw">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vpd-Ln-c1s">
                                                     <rect key="frame" x="83" y="12" width="41" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -294,21 +314,21 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="0FN-0B-uvA" detailTextLabel="Vpd-Ln-c1s" style="IBUITableViewCellStyleValue2" id="Yf0-E8-qHc">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="5Th-gd-06V" detailTextLabel="pKA-L1-FFT" style="IBUITableViewCellStyleValue2" id="6W5-XG-78f">
                                         <rect key="frame" x="0.0" y="55" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="ends" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0FN-0B-uvA">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="ends" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Th-gd-06V">
                                                     <rect key="frame" x="10" y="15" width="67" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                                    <color key="textColor" red="0.32156862745098042" green="0.40000000000000002" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.32156862749999998" green="0.40000000000000002" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vpd-Ln-c1s">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pKA-L1-FFT">
                                                     <rect key="frame" x="83" y="12" width="41" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -330,11 +350,18 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <navigationItem key="navigationItem" title="When" id="6B3-p4-xxR">
                         <barButtonItem key="rightBarButtonItem" title="Next" id="bZ1-zc-PqA">
                             <connections>
-                                <segue destination="ZqJ-5O-Meo" kind="push" id="ggI-9P-f6t"/>
+                                <segue destination="ZqJ-5O-Meo" kind="push" identifier="CreateEventNextSegue" id="ggI-9P-f6t"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="datePicker" destination="Y8m-19-4SB" id="E35-Ek-cbR"/>
+                        <outlet property="endsCell" destination="6W5-XG-78f" id="GKz-Fd-UHG"/>
+                        <outlet property="nextButton" destination="bZ1-zc-PqA" id="rbb-ew-K0g"/>
+                        <outlet property="plusOneDayButton" destination="BOq-nr-bv1" id="wzI-4v-j1r"/>
+                        <outlet property="plusOneMonthButton" destination="poO-Mh-dKk" id="Jyf-uM-iQO"/>
+                        <outlet property="plusOneWeekButton" destination="8xI-VS-b6M" id="OYc-2S-TLj"/>
+                        <outlet property="startsCell" destination="Yf0-E8-qHc" id="8dc-88-bxH"/>
                         <outlet property="view" destination="rzb-sK-Qce" id="fAj-ne-Pz8"/>
                     </connections>
                 </tableViewController>
@@ -542,7 +569,15 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="XDO-O2-6mw"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="categoryCell" destination="R3N-5b-kPq" id="W4o-HG-Hz2"/>
+                        <outlet property="detailsCell" destination="wlI-ok-VHa" id="aM8-s3-TXB"/>
+                        <outlet property="endsCells" destination="ijK-S1-cYr" id="XIi-lJ-zPT"/>
+                        <outlet property="nameCell" destination="SWq-jx-XMm" id="csC-TQ-HWr"/>
+                        <outlet property="photoCell" destination="NDd-2q-lw7" id="Vbz-ld-eGI"/>
+                        <outlet property="saveButton" destination="XDO-O2-6mw" id="ukh-eQ-VG4"/>
+                        <outlet property="startsCell" destination="su0-mN-CfV" id="yEn-ac-peV"/>
                         <outlet property="view" destination="wf2-Bi-KwB" id="AmI-TI-s7E"/>
+                        <outlet property="whereCell" destination="gne-nb-I6L" id="ikf-52-3eV"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -591,16 +626,47 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <relationships>
                 <relationship kind="outlet" name="detailsTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="CircleOverviewSaveTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleOverviewSaveTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="categoryCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="detailsCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="endsCells" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="nameCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="photoCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="saveButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="startsCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="whereCell" candidateClass="UITableViewCell"/>
+            </relationships>
         </class>
         <class className="CircleWhenTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleWhenTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeDate:"/>
+                <relationship kind="action" name="plusOneDay:"/>
+                <relationship kind="action" name="plusOneMonth:"/>
+                <relationship kind="action" name="plusOneWeek:"/>
+                <relationship kind="action" name="selectDateCell:"/>
+                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
+                <relationship kind="outlet" name="endsCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="plusOneDayButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="plusOneMonthButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="plusOneWeekButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="startsCell" candidateClass="UITableViewCell"/>
+            </relationships>
         </class>
         <class className="CircleWhereTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleWhereTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addAddressCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="savedAddressesCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="venueCell" candidateClass="UITableViewCell"/>
+            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

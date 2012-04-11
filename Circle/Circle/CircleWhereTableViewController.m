@@ -14,6 +14,11 @@
 @end
 
 @implementation CircleWhereTableViewController
+@synthesize venueCell = _venueCell;
+@synthesize savedAddressesCell = _savedAddresseCell;
+@synthesize addAddressCell = _addAddressCell;
+
+@synthesize nextButton = _nextButton;
 @synthesize event = _event;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -40,6 +45,10 @@
 
 - (void)viewDidUnload
 {
+    [self setVenueCell:nil];
+    [self setSavedAddressesCell:nil];
+    [self setNextButton:nil];
+    [self setAddAddressCell:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -48,6 +57,19 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([[segue identifier] isEqualToString:@"CreateEventNextSegue"]) {
+        id viewController = [segue destinationViewController];
+        if ([viewController respondsToSelector:@selector(setEvent:)]) {
+
+//            [self.event setObject:self.nameTextField.text forKey:@"name"];
+//            [self.event setObject:self.detailsTextField.text forKey:@"details"];
+            
+            [viewController setEvent:self.event];
+        }
+    }
 }
 
 
