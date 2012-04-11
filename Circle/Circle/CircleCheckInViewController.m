@@ -13,7 +13,7 @@
     BOOL doFacebookCheckIn;
     BOOL doFoursquareCheckIn;
     PF_MBProgressHUD *HUD;
-    
+    BOOL checkInSuccess; //This is a hack to let me push back to the root after checking in...
 }
 
 @end
@@ -27,19 +27,10 @@
 @synthesize imageFile = _imageFile;
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
 #pragma mark - viewWillAppear, viewDidLoad, shouldAutoRotate, etc.
 - (void)viewWillAppear:(BOOL)animated {
     [self.descriptionTextView becomeFirstResponder];
+    checkInSuccess = NO;
 }
 
 - (void)viewDidLoad
@@ -102,7 +93,7 @@
     PFObject *checkIn = [PFObject objectWithClassName:@"CheckIn"];
     [checkIn setObject:self.event forKey:@"event"];
     [checkIn setObject:self.descriptionTextView.text forKey:@"text"];
-    [checkIn setObject:[PFUser user] forKey:@"user"];
+    [checkIn setObject:[PFUser currentUser] forKey:@"user"];
     if (self.imageFile)
         [checkIn setObject:self.imageFile forKey:@"image"];
     
@@ -119,16 +110,18 @@
     [checkIn saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             // The event saved successfully, change modal to "success!" then hide after delay
+            checkInSuccess = YES;
+            
             HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
             HUD.mode = PF_MBProgressHUDModeCustomView;
             HUD.labelText = @"Success!";
-            [HUD hide:YES afterDelay:2];
+            [HUD hide:YES afterDelay:1];
             
         } else {
             // There was an error saving the event.
             HUD.labelText = @"Error!";
             HUD.detailsLabelText = @"We were unable to save your check-in. Please try again later.";
-            [HUD hide:YES afterDelay:4];
+            [HUD hide:YES afterDelay:3];
         }
     }];
 }
@@ -233,6 +226,7 @@
 	// Remove HUD from screen when the HUD was hidden
 	[HUD removeFromSuperview];
 	HUD = nil;
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 

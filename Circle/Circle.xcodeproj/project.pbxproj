@@ -74,12 +74,13 @@
 		863C1EB515318B2D0014DA1D /* CircleAuthStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 863C1EB415318B2D0014DA1D /* CircleAuthStoryboard.storyboard */; };
 		863C1EBF153190170014DA1D /* CircleMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 863C1EBE153190160014DA1D /* CircleMainViewController.m */; };
 		868CDBCD15343FF5000058F3 /* CircleSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CDBCC15343FF5000058F3 /* CircleSignUpViewController.m */; };
-		868CDBD015344CBA000058F3 /* camerawhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 868CDBCE15344CBA000058F3 /* camerawhite.png */; };
-		868CDBD115344CBA000058F3 /* camerawhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 868CDBCF15344CBA000058F3 /* camerawhite@2x.png */; };
 		8693FE7B1532D7E9007D7B17 /* facebookblue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8693FE771532D7E9007D7B17 /* facebookblue@2x.png */; };
+		86944E8815350B070070AB62 /* x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86944E8715350B070070AB62 /* x.png */; };
 		86E0EEDE1531B02A00C5C4F0 /* LocationSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E0EEDD1531B02A00C5C4F0 /* LocationSingleton.m */; };
 		86E0EEE01531B0B600C5C4F0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E0EEDF1531B0B600C5C4F0 /* CoreLocation.framework */; };
 		86E0EEE31531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E0EEE21531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m */; };
+		86E538191535821700142CD0 /* camerawhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 86E538171535821700142CD0 /* camerawhite.png */; };
+		86E5381A1535821700142CD0 /* camerawhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86E538181535821700142CD0 /* camerawhite@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,14 +214,15 @@
 		863C1EBE153190160014DA1D /* CircleMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMainViewController.m; sourceTree = SOURCE_ROOT; };
 		868CDBCB15343FF5000058F3 /* CircleSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSignUpViewController.h; sourceTree = "<group>"; };
 		868CDBCC15343FF5000058F3 /* CircleSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSignUpViewController.m; sourceTree = "<group>"; };
-		868CDBCE15344CBA000058F3 /* camerawhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camerawhite.png; sourceTree = "<group>"; };
-		868CDBCF15344CBA000058F3 /* camerawhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camerawhite@2x.png"; sourceTree = "<group>"; };
 		8693FE771532D7E9007D7B17 /* facebookblue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebookblue@2x.png"; sourceTree = "<group>"; };
+		86944E8715350B070070AB62 /* x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x.png; sourceTree = "<group>"; };
 		86E0EEDC1531B02A00C5C4F0 /* LocationSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSingleton.h; sourceTree = "<group>"; };
 		86E0EEDD1531B02A00C5C4F0 /* LocationSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSingleton.m; sourceTree = "<group>"; };
 		86E0EEDF1531B0B600C5C4F0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		86E0EEE11531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleChooseCheckInLocationViewController.h; sourceTree = "<group>"; };
 		86E0EEE21531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleChooseCheckInLocationViewController.m; sourceTree = "<group>"; };
+		86E538171535821700142CD0 /* camerawhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camerawhite.png; sourceTree = "<group>"; };
+		86E538181535821700142CD0 /* camerawhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camerawhite@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +367,8 @@
 		8613D49C152ED1BE0002579B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				86E538171535821700142CD0 /* camerawhite.png */,
+				86E538181535821700142CD0 /* camerawhite@2x.png */,
 				860EFA33152FF8BA00F9540F /* profile.png */,
 				860EFA34152FF8BA00F9540F /* profile@2x.png */,
 				861FE0F815338AD800D3DA03 /* foursquareblue@2x.png */,
@@ -383,8 +387,6 @@
 				861FE14A1534236900D3DA03 /* connectfacebook@2x.png */,
 				861FE157153427D500D3DA03 /* signinfoursqare-pressed.png */,
 				861FE158153427D500D3DA03 /* signinfoursqare-pressed@2x.png */,
-				868CDBCE15344CBA000058F3 /* camerawhite.png */,
-				868CDBCF15344CBA000058F3 /* camerawhite@2x.png */,
 				861FE159153427D500D3DA03 /* signinfoursqare.png */,
 				861FE15A153427D500D3DA03 /* signinfoursqare@2x.png */,
 				861FE1431534135C00D3DA03 /* checkbutton.png */,
@@ -398,6 +400,7 @@
 				861FE0FC15338E6E00D3DA03 /* facebook@2x.png */,
 				861FE0FD15338E6E00D3DA03 /* foursquare@2x.png */,
 				861FE0FA15338D1400D3DA03 /* cameragray.png */,
+				86944E8715350B070070AB62 /* x.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -591,8 +594,9 @@
 				861FE15C153427D500D3DA03 /* signinfoursqare-pressed@2x.png in Resources */,
 				861FE15D153427D500D3DA03 /* signinfoursqare.png in Resources */,
 				861FE15E153427D500D3DA03 /* signinfoursqare@2x.png in Resources */,
-				868CDBD015344CBA000058F3 /* camerawhite.png in Resources */,
-				868CDBD115344CBA000058F3 /* camerawhite@2x.png in Resources */,
+				86944E8815350B070070AB62 /* x.png in Resources */,
+				86E538191535821700142CD0 /* camerawhite.png in Resources */,
+				86E5381A1535821700142CD0 /* camerawhite@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,7 +739,6 @@
 					"-ObjC",
 					"-all_load",
 				);
-				"OTHER_LDFLAGS[arch=*]" = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -26,7 +26,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 
 //Non-UI properties
-@property (weak, nonatomic) NSObject<CircleSignInDelegate> *delegate;
+@property (strong, nonatomic) NSObject<CircleSignInDelegate> *delegate;
 
 - (IBAction)dismissKeyboard:(id)sender;
+- (IBAction)cancelButtonPressed:(id)sender;
+- (IBAction)connectWithFacebookButtonPressed;
+- (IBAction)signInButtonPressed;
 @end

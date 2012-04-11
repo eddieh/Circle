@@ -23,15 +23,6 @@
 @synthesize passwordTextField;
 @synthesize delegate;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -64,6 +55,33 @@
     [self.view endEditing:YES];
 }
 
+- (IBAction)cancelButtonPressed:(id)sender {
+    [self.delegate userCancelledSignIn];
+}
+
+/**
+ * Parse handles facebook login. Hooray!
+ * Does facebook login, then on success calls delegate signInSuccessful method if success
+ */
+- (IBAction)connectWithFacebookButtonPressed {    
+    [PFFacebookUtils logInWithPermissions:nil block:^(PFUser *user, NSError *error) {
+        if (!user) {
+            //user canceled facebook login
+            //TODO: do something here?
+        } else {
+            if (user.isNew) {
+                //TODO: do something for new users?
+            }
+            [self.delegate signInSuccessful];
+        }
+    }];
+}
+
+//does signin when "Go" button is pressed
+- (IBAction)signInButtonPressed {
+    [self doSignIn];
+}
+
 #pragma mark - UITextFieldDelegate method
 //move between textfields, or do signup, when the user hits enter on the keyboard
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -75,7 +93,7 @@
     return YES;
 }
 
-- (void) doSignIn {
+- (IBAction) doSignIn {
     HUD = [self configureHUD];
         
         //show the HUD, attempt to do signup...
