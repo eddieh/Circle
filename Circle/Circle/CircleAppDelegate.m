@@ -29,7 +29,7 @@
     NSArray *cities = [NSJSONSerialization JSONObjectWithData:data
                                                       options:kNilOptions 
                                                         error:&error];
-    NSLog(@"%@", cities);
+    //NSLog(@"%@", cities);
     
     
     return YES;
