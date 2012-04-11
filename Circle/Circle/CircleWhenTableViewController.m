@@ -64,6 +64,7 @@
     self.selectedCell = self.startsCell;
     
     // set up the start date
+    // TODO: the date picker should be configured so that dates in the past can not be selected
     self.startDate = [self.event objectForKey:@"startDate"];
     if (self.startDate) {
         self.datePicker.date = self.startDate;
@@ -73,7 +74,10 @@
     self.startsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.startDate];
     
     // set up the end date
-    self.endDate = [self.event objectForKey:@"endDate"];
+    if (![[NSNull null] isEqual:[self.event objectForKey:@"endDate"]]) {
+        self.endDate = [self.event objectForKey:@"endDate"];
+    }
+    
     if (self.endDate) {
         self.endsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.endDate];
     } else {
@@ -162,7 +166,12 @@
         if ([viewController respondsToSelector:@selector(setEvent:)]) {
 
             [self.event setObject:self.startDate forKey:@"startDate"];
-            [self.event setObject:self.endDate forKey:@"endDate"];
+            if (self.endDate) {
+                [self.event setObject:self.endDate forKey:@"endDate"];
+            } else {
+                [self.event setObject:[NSNull null] forKey:@"endDate"];
+            }
+            
             
             [viewController setEvent:self.event];
         }

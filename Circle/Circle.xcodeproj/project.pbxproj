@@ -17,6 +17,7 @@
 		2C5DF07D15315F6700F85C63 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5DF07C15315F6700F85C63 /* libxml2.dylib */; };
 		2C5DF07F1531672E00F85C63 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA5A15301C9400F9540F /* UIPlaceHolderTextView.m */; };
 		2CD4FE2C153525F400312D46 /* cities_US.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CD4FE2B153525F400312D46 /* cities_US.json */; };
+		2CDBC36E1535BB390015FCF1 /* CircleWhereMapViewControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBC36D1535BB390015FCF1 /* CircleWhereMapViewControllerViewController.m */; };
 		860EFA35152FF8BA00F9540F /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 860EFA33152FF8BA00F9540F /* profile.png */; };
 		860EFA36152FF8BA00F9540F /* profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 860EFA34152FF8BA00F9540F /* profile@2x.png */; };
 		860EFA39152FFE3500F9540F /* CircleNearbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860EFA38152FFE3500F9540F /* CircleNearbyViewController.m */; };
@@ -143,6 +144,8 @@
 		2C5DF07C15315F6700F85C63 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		2C5DF07E1531607700F85C63 /* CircleConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleConstants.h; sourceTree = "<group>"; };
 		2CD4FE2B153525F400312D46 /* cities_US.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cities_US.json; sourceTree = "<group>"; };
+		2CDBC36C1535BB390015FCF1 /* CircleWhereMapViewControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleWhereMapViewControllerViewController.h; sourceTree = "<group>"; };
+		2CDBC36D1535BB390015FCF1 /* CircleWhereMapViewControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleWhereMapViewControllerViewController.m; sourceTree = "<group>"; };
 		860EFA33152FF8BA00F9540F /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
 		860EFA34152FF8BA00F9540F /* profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile@2x.png"; sourceTree = "<group>"; };
 		860EFA37152FFE3500F9540F /* CircleNearbyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNearbyViewController.h; sourceTree = "<group>"; };
@@ -271,14 +274,24 @@
 				860EFA3E1530126400F9540F /* CircleCreateEventViewController.m */,
 				2C113F501532C8B000F48BB1 /* CircleNameDetailsTableViewController.h */,
 				2C113F511532C8B000F48BB1 /* CircleNameDetailsTableViewController.m */,
-				2C113F531532C98800F48BB1 /* CircleWhereTableViewController.h */,
-				2C113F541532C98800F48BB1 /* CircleWhereTableViewController.m */,
+				2CDBC3721535BFE50015FCF1 /* Where */,
 				2C113F561532C9CD00F48BB1 /* CircleWhenTableViewController.h */,
 				2C113F571532C9CD00F48BB1 /* CircleWhenTableViewController.m */,
 				2C113F591532CB1100F48BB1 /* CircleOverviewSaveTableViewController.h */,
 				2C113F5A1532CB1100F48BB1 /* CircleOverviewSaveTableViewController.m */,
 			);
 			name = "Create Event";
+			sourceTree = "<group>";
+		};
+		2CDBC3721535BFE50015FCF1 /* Where */ = {
+			isa = PBXGroup;
+			children = (
+				2C113F531532C98800F48BB1 /* CircleWhereTableViewController.h */,
+				2C113F541532C98800F48BB1 /* CircleWhereTableViewController.m */,
+				2CDBC36C1535BB390015FCF1 /* CircleWhereMapViewControllerViewController.h */,
+				2CDBC36D1535BB390015FCF1 /* CircleWhereMapViewControllerViewController.m */,
+			);
+			name = Where;
 			sourceTree = "<group>";
 		};
 		860EFA5815301C8700F9540F /* UI & Helper classes */ = {
@@ -624,6 +637,7 @@
 				2C113F5B1532CB1100F48BB1 /* CircleOverviewSaveTableViewController.m in Sources */,
 				861FE165153431D000D3DA03 /* CircleSignInViewController.m in Sources */,
 				868CDBCD15343FF5000058F3 /* CircleSignUpViewController.m in Sources */,
+				2CDBC36E1535BB390015FCF1 /* CircleWhereMapViewControllerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

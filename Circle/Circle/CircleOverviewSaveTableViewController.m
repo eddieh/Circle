@@ -10,16 +10,16 @@
 #import "Parse/Parse.h"
 
 @interface CircleOverviewSaveTableViewController ()
-
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @end
 
 @implementation CircleOverviewSaveTableViewController
-
+@synthesize dateFormatter = _dateFormatter;
 @synthesize nameCell = _nameCell;
 @synthesize detailsCell = _detailsCell;
 @synthesize whereCell = _whereCell;
 @synthesize startsCell = _startsCell;
-@synthesize endsCells = _endsCells;
+@synthesize endsCell = _endsCells;
 @synthesize categoryCell = _categoryCell;
 @synthesize photoCell = _photoCell;
 @synthesize saveButton = _saveButton;
@@ -45,6 +45,33 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     NSLog(@"%@", self.event);
+    
+    if (self.event) {
+        self.nameCell.detailTextLabel.text = [self.event objectForKey:@"name"];
+        self.detailsCell.detailTextLabel.text = [self.event objectForKey:@"details"];
+    }
+    
+    // Set up the date formatter
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+	[self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [self.dateFormatter setDateFormat:@"MM/dd h:mm a"];
+
+    NSDate *startDate = [self.event objectForKey:@"startDate"];
+    if (startDate) {
+        self.startsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:startDate];
+    }
+    
+    NSDate *endDate = nil;
+    if (![[NSNull null] isEqual:[self.event objectForKey:@"endDate"]]) {
+        endDate = [self.event objectForKey:@"endDate"];
+    }
+  
+    if (endDate) {
+        self.endsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:endDate];
+    } else {
+        self.endsCell.detailTextLabel.text = @"None";
+    }
 }
 
 - (void)viewDidUnload
@@ -53,7 +80,7 @@
     [self setDetailsCell:nil];
     [self setWhereCell:nil];
     [self setStartsCell:nil];
-    [self setEndsCells:nil];
+    [self setEndsCell:nil];
     [self setCategoryCell:nil];
     [self setPhotoCell:nil];
     [self setSaveButton:nil];

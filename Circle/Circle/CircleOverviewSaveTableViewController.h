@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *whereCell;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *startsCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *endsCells;
+@property (weak, nonatomic) IBOutlet UITableViewCell *endsCell;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *categoryCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *photoCell;
