@@ -20,19 +20,24 @@
     [self.tableView reloadData];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (![PFUser currentUser]) {
+        UINavigationController *modalNavigationController = [[UIStoryboard storyboardWithName:@"CircleAuthStoryboard" bundle:nil] instantiateInitialViewController];
         
+        if ([modalNavigationController.topViewController isKindOfClass:[CircleSignInViewController class]]) {
+            CircleSignInViewController *signInVC = (CircleSignInViewController *)modalNavigationController.topViewController;
+            signInVC.delegate = self;
+        }
+        
+        [self presentModalViewController:modalNavigationController animated:YES];
     }
-    return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     PFQuery *query = [PFQuery queryWithClassName:@"Event"];
     [query includeKey:@"Venue"];
     [query includeKey:@"Location"];
@@ -101,5 +106,14 @@
     }
 }
 
+#pragma mark - CircleSignInDelegateMethods
+- (void) signInSuccessful; {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void) userCancelledSignIn {
+    [self dismissModalViewControllerAnimated:YES];
+    [self.tabBarController setSelectedIndex:2];
+}
 
 @end

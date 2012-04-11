@@ -55,12 +55,14 @@
                                                          nil];
     
     [self setViewControllersWithStoryboardNames:storyboardNames];
-//
+    
+    //select the middle tab!
+    self.selectedIndex = 2;
+
 //    //try to get location info early so we can pass it viewcontrollers
 //    self.locationManager = [LocationSingleton sharedInstance];
 //    self.locationManager.delegate = self;
-//    self.locationManager.currentLocation
-//    
+//    self.locationManager.currentLocation  
 }
 
 - (void)viewDidUnload
@@ -85,29 +87,29 @@
     [self setViewControllers:response];
 }
 
-//- (void)getEventsCallbackWithResult:(NSArray *)result error:(NSError *)error {
-//    if (!error) {
-//        //find the correct viewcontroller and set its objects
-//        for (UIViewController *v in self.viewControllers) {
-//            if ([v isKindOfClass:[CircleChooseCheckInLocationViewController class]]) {
-//                [v performSelector:@selector(setObjects:) withObject:result];
-//            }
-//        }
-//    }
-//}
-//
-//#pragma mark - LocationSingletonDelegate method
-//- (void)didRecieveLocationUpdate:(CLLocation *)location {
-//    self.currentLocation = location;
-//    
-//    if (!didRecieveFirstLocationUpdate) {
-//        didRecieveFirstLocationUpdate = YES;
-//        
-//        PFQuery *eventsQuery = [PFQuery queryWithClassName:@"Events"];
-//        eventsQuery.cachePolicy = kPFCachePolicyNetworkElseCache;
-//        [eventsQuery includeKey:@"venue"];
-//        
-//        [eventsQuery findObjectsInBackgroundWithTarget:self selector:@selector(getEventsCallbackWithResult:error:)];
-//    }
-//}
+- (void)getEventsCallbackWithResult:(NSArray *)result error:(NSError *)error {
+    if (!error) {
+        //find the correct viewcontroller and set its objects
+        for (UIViewController *v in self.viewControllers) {
+            if ([v isKindOfClass:[CircleChooseCheckInLocationViewController class]]) {
+                [v performSelector:@selector(setObjects:) withObject:result];
+            }
+        }
+    }
+}
+
+#pragma mark - LocationSingletonDelegate method
+- (void)didRecieveLocationUpdate:(CLLocation *)location {
+    self.currentLocation = location;
+    
+    if (!didRecieveFirstLocationUpdate) {
+        didRecieveFirstLocationUpdate = YES;
+        
+        PFQuery *eventsQuery = [PFQuery queryWithClassName:@"Events"];
+        eventsQuery.cachePolicy = kPFCachePolicyNetworkElseCache;
+        [eventsQuery includeKey:@"venue"];
+        
+        [eventsQuery findObjectsInBackgroundWithTarget:self selector:@selector(getEventsCallbackWithResult:error:)];
+    }
+}
 @end
