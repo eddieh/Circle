@@ -106,7 +106,31 @@
 #endif
 
 - (IBAction)cancel:(id)sender; {
-    [self.tabBarController setSelectedViewController:((CircleMainViewController*)self.tabBarController).lastSelectedViewController];
+    // if the user has begun adding details to an even ask for confirmation before leaving
+    if (self.event) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" 
+                                                           delegate:self 
+                                                  cancelButtonTitle:@"Cancel" 
+                                                  destructiveButtonTitle:@"Delete Event" otherButtonTitles:nil];
+        [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    } else {
+        // leave
+        [self.tabBarController setSelectedViewController:((CircleMainViewController*)self.tabBarController).lastSelectedViewController];
+    }
+    
+    
+}
+
+#pragma mark - UIActionSheetDelegate methods
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet {
+    // do nothing    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Delete Event"]) {
+        // the user has confirmed that it is okay to delete the event
+        [self.tabBarController setSelectedViewController:((CircleMainViewController*)self.tabBarController).lastSelectedViewController];
+    }
 }
 
 @end

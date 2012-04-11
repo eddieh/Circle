@@ -117,7 +117,8 @@
 
 #pragma mark - UITabBarControllerDelegate methods
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    NSLog(@"shouldSelectViewController");
+    // since the first view in the create event workflow hides the tab bar we save the last selected view
+    // so we can go back when if the user touches the cancel button
     self.lastSelectedViewController = [tabBarController selectedViewController];
     return YES;
 }

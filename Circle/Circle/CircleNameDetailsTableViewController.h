@@ -10,7 +10,7 @@
 
 @class PFObject;
 
-@interface CircleNameDetailsTableViewController : UITableViewController <UITextFieldDelegate>
+@interface CircleNameDetailsTableViewController : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *detailsTextField;
