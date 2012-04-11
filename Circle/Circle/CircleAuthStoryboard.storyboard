@@ -49,7 +49,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="CAe-6z-1VR" kind="push" id="3O7-eu-0E8"/>
+                                    <segue destination="CAe-6z-1VR" kind="push" id="gYF-bI-zNx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="rrt-xP-WrW">
@@ -97,7 +97,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sign in with your Circle account:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="R8X-Cw-Yek">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sign in with your Circle account:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="R8X-Cw-Yek">
                                 <rect key="frame" x="36" y="107" width="246" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
@@ -135,7 +135,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Sign In" id="LNP-8r-1BA">
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="23Z-Dz-YdJ"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="23Z-Dz-YdJ"/>
                     </navigationItem>
                     <connections>
                         <outlet property="callToActionLabel" destination="kDi-eV-49J" id="O3j-VU-V3T"/>
@@ -144,9 +144,9 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1803" y="576"/>
+            <point key="canvasLocation" x="1833" y="576"/>
         </scene>
-        <!--Circle Sign Up View Controller-->
+        <!--Circle Sign Up View Controller - Sign Up-->
         <scene sceneID="FVg-hm-ZLz">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhI-uI-8QT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -155,13 +155,8 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="CUM-XH-ofq">
-                                <rect key="frame" x="13" y="77" width="291" height="169"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="GXJ-tn-XqU" userLabel="Dismiss Keyboard Button">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="259"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="255"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal">
@@ -175,8 +170,13 @@
                                     <action selector="dismissKeyboard" destination="CAe-6z-1VR" eventType="touchUpInside" id="CTh-yn-UGJ"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" id="CUM-XH-ofq">
+                                <rect key="frame" x="15" y="78" width="286" height="164"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="44a-JM-wz3">
-                                <rect key="frame" x="222" y="164" width="74" height="72"/>
+                                <rect key="frame" x="221" y="164" width="74" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Sign up" backgroundImage="orange.png">
@@ -187,11 +187,11 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="signUpButtonPressed" destination="CAe-6z-1VR" eventType="touchUpInside" id="5vd-yB-S5Z"/>
+                                    <action selector="signUpButtonPressed" destination="CAe-6z-1VR" eventType="touchUpInside" id="kNe-OA-jOj"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sign up! It'll only take a second." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="Tmf-gN-iAg">
-                                <rect key="frame" x="11" y="2" width="298" height="72"/>
+                                <rect key="frame" x="11" y="3" width="298" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="27"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -272,12 +272,18 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="cameraButtonPressed:" destination="CAe-6z-1VR" eventType="touchUpInside" id="qv9-3U-1ON"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ox8-cD-258"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Sign Up" id="ox8-cD-258"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="cameraButton" destination="scm-ot-ljg" id="xrl-D0-aci"/>
                         <outlet property="emailTextField" destination="c2U-70-OrZ" id="CYA-lB-4Iu"/>
                         <outlet property="nameTextField" destination="Ug7-06-EP7" id="1M9-xN-V2g"/>
                         <outlet property="passwordTextField" destination="9lw-5Q-FaO" id="skR-3j-7Se"/>
@@ -285,7 +291,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2289" y="569"/>
+            <point key="canvasLocation" x="2228" y="576"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Bsr-1C-msY">
@@ -327,7 +333,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="1701" y="642"/>
+            <point key="canvasLocation" x="1368" y="576"/>
         </scene>
     </scenes>
     <resources>
@@ -339,28 +345,6 @@
         <image name="signinfoursqare-pressed.png" width="260" height="50"/>
         <image name="signinfoursqare.png" width="260" height="50"/>
     </resources>
-    <classes>
-        <class className="CircleSignInViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleSignInViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissKeyboard:"/>
-                <relationship kind="outlet" name="callToActionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="CircleSignUpViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleSignUpViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissKeyboard"/>
-                <relationship kind="action" name="signUpButtonPressed"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="repeatPasswordTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
