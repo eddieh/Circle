@@ -64,7 +64,7 @@
     self.selectedCell = self.startsCell;
     
     // set up the start date
-    self.startDate = [self.event objectForKey:@"starts"];
+    self.startDate = [self.event objectForKey:@"startDate"];
     if (self.startDate) {
         self.datePicker.date = self.startDate;
     } else {
@@ -73,7 +73,7 @@
     self.startsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.startDate];
     
     // set up the end date
-    self.endDate = [self.event objectForKey:@"ends"];
+    self.endDate = [self.event objectForKey:@"endDate"];
     if (self.endDate) {
         self.endsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.endDate];
     } else {
@@ -161,8 +161,8 @@
         id viewController = [segue destinationViewController];
         if ([viewController respondsToSelector:@selector(setEvent:)]) {
 
-            [self.event setObject:self.startDate forKey:@"starts"];
-            [self.event setObject:self.endDate forKey:@"ends"];
+            [self.event setObject:self.startDate forKey:@"startDate"];
+            [self.event setObject:self.endDate forKey:@"endDate"];
             
             [viewController setEvent:self.event];
         }

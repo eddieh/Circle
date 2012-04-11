@@ -82,7 +82,11 @@
         id viewController = [segue destinationViewController];
         if ([viewController respondsToSelector:@selector(setEvent:)]) {
             
-            self.event = [PFObject objectWithClassName:@"Event"];
+            // create the event if needed
+            if (!self.event) {
+                self.event = [PFObject objectWithClassName:@"Event"];
+            }
+            
             [self.event setObject:self.nameTextField.text forKey:@"name"];
             [self.event setObject:self.detailsTextField.text forKey:@"details"];
             
