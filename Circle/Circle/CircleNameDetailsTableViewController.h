@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class UIPlaceHolderTextView;
 @class PFObject;
 
 @interface CircleNameDetailsTableViewController : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *detailsTextField;
+@property (weak, nonatomic) IBOutlet UIPlaceHolderTextView *detailsTextView;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *nextButton;
 

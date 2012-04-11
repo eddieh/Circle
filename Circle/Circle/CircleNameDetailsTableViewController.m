@@ -8,6 +8,8 @@
 
 #import "CircleNameDetailsTableViewController.h"
 #import "CircleMainViewController.h"
+
+#import "UIPlaceHolderTextView.h"
 #import "Parse/Parse.h"
 
 @interface CircleNameDetailsTableViewController ()
@@ -17,7 +19,7 @@
 @implementation CircleNameDetailsTableViewController
 
 @synthesize nameTextField;
-@synthesize detailsTextField;
+@synthesize detailsTextView;
 @synthesize nextButton;
 @synthesize event = _event;
 @synthesize cancelButton;
@@ -42,9 +44,11 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    self.detailsTextView.placeholder = @"Details";
+    
     if (self.event) {
         self.nameTextField.text = [self.event objectForKey:@"name"];
-        self.detailsTextField.text = [self.event objectForKey:@"details"];
+        self.detailsTextView.text = [self.event objectForKey:@"details"];
     }
     
     [self.nameTextField becomeFirstResponder];
@@ -54,9 +58,10 @@
 - (void)viewDidUnload
 {
     [self setNameTextField:nil];
-    [self setDetailsTextField:nil];
+    [self setDetailsTextView:nil];
     [self setNextButton:nil];
     [self setCancelButton:nil];
+    [self setDetailsTextView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -69,7 +74,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.nameTextField) {
-        [self.detailsTextField becomeFirstResponder];
+        [self.detailsTextView becomeFirstResponder];
     }
     
     return YES;
@@ -91,7 +96,7 @@
             }
             
             [self.event setObject:self.nameTextField.text forKey:@"name"];
-            [self.event setObject:self.detailsTextField.text forKey:@"details"];
+            [self.event setObject:self.detailsTextView.text forKey:@"details"];
             
             [viewController setEvent:self.event];
         }
