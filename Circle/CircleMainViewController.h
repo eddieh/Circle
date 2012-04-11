@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CircleMainViewController : UITabBarController
+@interface CircleMainViewController : UITabBarController <UITabBarControllerDelegate>
+
+@property (strong, nonatomic) UIViewController *lastSelectedViewController;
 
 @end

@@ -24,6 +24,7 @@
 @implementation CircleMainViewController
 @synthesize locationManager = _locationManager;
 @synthesize currentLocation = _currentLocation;
+@synthesize lastSelectedViewController = _lastSelectedViewController;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -46,6 +47,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.delegate = self;
 	
     NSArray *storyboardNames = [NSArray arrayWithObjects:@"CircleCheckInStoryboard", 
                                                          @"CircleCreateEventStoryboard",
@@ -112,4 +114,12 @@
         [eventsQuery findObjectsInBackgroundWithTarget:self selector:@selector(getEventsCallbackWithResult:error:)];
     }
 }
+
+#pragma mark - UITabBarControllerDelegate methods
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    NSLog(@"shouldSelectViewController");
+    self.lastSelectedViewController = [tabBarController selectedViewController];
+    return YES;
+}
+
 @end

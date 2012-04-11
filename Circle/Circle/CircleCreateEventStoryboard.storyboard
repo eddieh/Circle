@@ -67,7 +67,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Name &amp; Details" id="HtZ-5u-fU5">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="4zh-sh-qyv"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="4zh-sh-qyv">
+                            <connections>
+                                <action selector="cancel:" destination="EHJ-lL-vRn" id="pvq-J0-0YS"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Next" id="K4q-hO-yPz">
                             <connections>
                                 <segue destination="5yg-9e-Ml4" kind="push" identifier="CreateEventNextSegue" id="oL3-n4-RGk"/>
@@ -75,6 +79,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelButton" destination="4zh-sh-qyv" id="g71-XT-0wX"/>
                         <outlet property="detailsTextField" destination="Z8l-DV-efG" id="vHl-DG-4Fj"/>
                         <outlet property="nameTextField" destination="10E-eL-aFu" id="UOB-aW-hWd"/>
                         <outlet property="nextButton" destination="K4q-hO-yPz" id="dJp-TG-wiH"/>
@@ -627,6 +632,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <class className="CircleNameDetailsTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleNameDetailsTableViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="cancelButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="detailsTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>

@@ -19,4 +19,8 @@
 
 @property (strong, nonatomic) PFObject *event;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+
+- (IBAction)cancel:(id)sender;
+
 @end

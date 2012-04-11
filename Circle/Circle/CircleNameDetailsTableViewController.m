@@ -7,6 +7,7 @@
 //
 
 #import "CircleNameDetailsTableViewController.h"
+#import "CircleMainViewController.h"
 #import "Parse/Parse.h"
 
 @interface CircleNameDetailsTableViewController ()
@@ -19,6 +20,7 @@
 @synthesize detailsTextField;
 @synthesize nextButton;
 @synthesize event = _event;
+@synthesize cancelButton;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -54,6 +56,7 @@
     [self setNameTextField:nil];
     [self setDetailsTextField:nil];
     [self setNextButton:nil];
+    [self setCancelButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -101,5 +104,9 @@
     }
 }
 #endif
+
+- (IBAction)cancel:(id)sender; {
+    [self.tabBarController setSelectedViewController:((CircleMainViewController*)self.tabBarController).lastSelectedViewController];
+}
 
 @end
