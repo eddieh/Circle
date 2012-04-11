@@ -25,7 +25,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Check In" id="sRy-0J-G14"/>
+                    <tabBarItem key="tabBarItem" title="Check In" image="tabbar-checkin.png" id="sRy-0J-G14"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1393" y="-507"/>
@@ -72,7 +72,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="New Event" id="0q0-jB-14I"/>
+                    <tabBarItem key="tabBarItem" title="New Event" image="tabbar-new-event.png" id="0q0-jB-14I"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1910" y="-17"/>
@@ -96,7 +96,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" id="gte-aA-OZW"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="tabbar-search.png" id="gte-aA-OZW"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="950" y="16"/>
@@ -120,7 +120,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Messages" id="oGI-hB-e8E"/>
+                    <tabBarItem key="tabBarItem" title="Messages" image="tabbar-messages.png" id="oGI-hB-e8E"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1078" y="779"/>
@@ -144,12 +144,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Nearby" id="wPQ-ky-rud"/>
+                    <tabBarItem key="tabBarItem" title="Nearby" image="tabbar-nearby.png" id="wPQ-ky-rud"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1721" y="779"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tabbar-checkin.png" width="30" height="30"/>
+        <image name="tabbar-messages.png" width="30" height="30"/>
+        <image name="tabbar-nearby.png" width="30" height="30"/>
+        <image name="tabbar-new-event.png" width="30" height="30"/>
+        <image name="tabbar-search.png" width="30" height="30"/>
+    </resources>
     <classes>
         <class className="CircleMainViewController" superclassName="UITabBarController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleMainViewController.h"/>

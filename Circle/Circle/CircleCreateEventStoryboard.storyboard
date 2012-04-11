@@ -705,7 +705,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dMI-Kh-Z6h" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="O2g-0m-U2K" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="New Event" id="V7T-4v-4VE"/>
+                    <tabBarItem key="tabBarItem" title="New Event" image="tabbar-new-event.png" id="V7T-4v-4VE"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="7nE-u3-2pS">
@@ -739,6 +739,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <point key="canvasLocation" x="1351" y="1020"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tabbar-new-event.png" width="30" height="30"/>
+    </resources>
     <classes>
         <class className="CircleNameDetailsTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleNameDetailsTableViewController.h"/>

@@ -12,7 +12,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vha-PF-cHD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Messages" id="4rx-yK-oaC" customClass="CircleMessagesViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="0sr-n8-E8h" customClass="CircleSearch">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -41,8 +41,9 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WHK-nt-VIB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="c9Q-uc-9yO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Messages" id="OOE-bp-8TP"/>
+                    <tabBarItem key="tabBarItem" title="Messages" image="tabbar-messages.png" id="OOE-bp-8TP"/>
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="bjX-T8-GGc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -56,6 +57,14 @@
             <point key="canvasLocation" x="417" y="-547"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tabbar-messages.png" width="30" height="30"/>
+    </resources>
+    <classes>
+        <class className="CircleMessagesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleMessagesViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
