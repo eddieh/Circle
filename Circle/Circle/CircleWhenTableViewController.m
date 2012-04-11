@@ -7,6 +7,7 @@
 //
 
 #import "CircleWhenTableViewController.h"
+#import "CircleConstants.h"
 #import "Parse/Parse.h"
 
 @interface CircleWhenTableViewController ()
@@ -119,19 +120,43 @@
     self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
 }
 
-- (IBAction)plusOneDay:(id)sender;{
+- (IBAction)plusOneDay:(id)sender; {
+    NSDate *date; 
+    if (self.selectedCell == self.startsCell) {
+        date = [self.startDate dateByAddingTimeInterval:ONE_HOUR];
+    } else {
+        date = [self.endDate dateByAddingTimeInterval:ONE_HOUR];
+    }
     
+    self.datePicker.date = date;
+    self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
 }
 
 - (IBAction)plusOneWeek:(id)sender; {
+    NSDate *date; 
+    if (self.selectedCell == self.startsCell) {
+        date = [self.startDate dateByAddingTimeInterval:ONE_WEEK];
+    } else {
+        date = [self.endDate dateByAddingTimeInterval:ONE_WEEK];
+    }
     
+    self.datePicker.date = date;
+    self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
 }
 
 - (IBAction)plusOneMonth:(id)sender; {
+    NSDate *date; 
+    if (self.selectedCell == self.startsCell) {
+        date = [self.startDate dateByAddingTimeInterval:ONE_MONTH];
+    } else {
+        date = [self.endDate dateByAddingTimeInterval:ONE_MONTH];
+    }
     
+    self.datePicker.date = date;
+    self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([[segue identifier] isEqualToString:@"CreateEventNextSegue"]) {
         id viewController = [segue destinationViewController];
         if ([viewController respondsToSelector:@selector(setEvent:)]) {

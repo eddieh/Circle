@@ -285,6 +285,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     </connections>
                                 </datePicker>
                             </subviews>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         </view>
                         <sections>
                             <tableViewSection id="a65-WG-vWj">
@@ -649,7 +650,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <relationship kind="action" name="plusOneDay:"/>
                 <relationship kind="action" name="plusOneMonth:"/>
                 <relationship kind="action" name="plusOneWeek:"/>
-                <relationship kind="action" name="selectDateCell:"/>
                 <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
                 <relationship kind="outlet" name="endsCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>
