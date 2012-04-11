@@ -176,6 +176,7 @@
     [self dismissModalViewControllerAnimated: YES];
 }
 
+#pragma mark - UIImagePickerController delegate method
 // For responding to the user accepting a newly-captured picture
 - (void)imagePickerController: (UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
@@ -195,13 +196,14 @@
         
         //upload the image to Parse
         NSData *imageData = UIImagePNGRepresentation(image);
-        PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
-        [imageFile saveInBackground];
+        self.imageFile = [PFFile fileWithName:@"image.png" data:imageData];
+        [self.imageFile saveInBackground];
 
-        //if the user took the picture, we also save it
-        if (!picker.title) {
-            UIImageWriteToSavedPhotosAlbum (image, nil, nil , nil);
-        }
+        //TODO: image saving doesn't work right now
+//        //if the user took the picture, we also save it
+//        if (!picker.title) {
+//            UIImageWriteToSavedPhotosAlbum (image, nil, nil , nil);
+//        }
     }
 
     self.cameraButton.imageView.image = image;
