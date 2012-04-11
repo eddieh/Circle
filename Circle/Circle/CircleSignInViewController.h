@@ -27,6 +27,7 @@
 
 //Non-UI properties
 @property (strong, nonatomic) NSObject<CircleSignInDelegate> *delegate;
+@property (nonatomic)  BOOL isVoluntarySignIn;
 
 - (IBAction)dismissKeyboard:(id)sender;
 - (IBAction)cancelButtonPressed:(id)sender;

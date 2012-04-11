@@ -11,8 +11,8 @@
 #import "Parse/Parse.h"
 
 @interface CircleSignInViewController () {
-    BOOL isVoluntarySignIn;
     PF_MBProgressHUD *HUD;
+    BOOL signInSuccessful;
 }
 
 @end
@@ -22,16 +22,22 @@
 @synthesize emailTextField;
 @synthesize passwordTextField;
 @synthesize delegate;
+@synthesize isVoluntarySignIn;
+
+#pragma mark - View Lifecycle: viewWillAppear, viewDidLoad, etc.
+- (void)viewWillAppear:(BOOL)animated {
+    signInSuccessful = NO; //clear old state just in case
+    
+    //change "You need a Circle account to do this" to "Sign in" if the user came to this view by pressing
+    //sign in button
+    if (self.isVoluntarySignIn) 
+        self.callToActionLabel.text = @"Sign in to your Circle account!";
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    //change "You need a Circle account to do this" to "Sign in" if the user came to this view by pressing
-    //sign in button
-    if (isVoluntarySignIn) 
-        self.callToActionLabel.text = @"Sign in to your Circle account!";
 }
 
 - (void)viewDidUnload
@@ -88,6 +94,7 @@
     if (textField == self.emailTextField) {
         [self.passwordTextField becomeFirstResponder];
     } else {
+        [textField resignFirstResponder];
         [self doSignIn];
     }
     return YES;
@@ -98,20 +105,19 @@
         
         //show the HUD, attempt to do signup...
         HUD.labelText = @"Signing up...";
-        HUD.dimBackground = YES;
         [HUD show:YES];
         
     [PFUser logInWithUsernameInBackground:self.emailTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
         if (user) {
             // Hooray! Let them use the app now.
-            [self setHUDCustomViewWithImageNamed:@"37x-Checkmark.png" labelText:@"Success" detailsLabelText:nil hideDelay:1.5];
+            [self setHUDCustomViewWithImageNamed:@"37x-Checkmark.png" labelText:@"Success!" detailsLabelText:nil hideDelay:1.0];
+            signInSuccessful = YES;
             
-            [self.delegate signInSuccessful];
         } else {
             // The login failed. Check error to see why.
             NSString *errorString = [[error userInfo] objectForKey:@"error"];
             // Show the errorString somewhere and let the user try again.
-            [self setHUDCustomViewWithImageNamed:@"x.png" labelText:@"Error" detailsLabelText:errorString hideDelay:4.0];
+            [self setHUDCustomViewWithImageNamed:@"x.png" labelText:@"Error" detailsLabelText:errorString hideDelay:3.0];
         }
     }];
    
@@ -155,6 +161,7 @@
 	// Remove HUD from screen when the HUD was hidden
 	[HUD removeFromSuperview];
 	HUD = nil;
+    if (signInSuccessful) [self.delegate signInSuccessful];
 }
 
 #pragma mark - CircleSignUpDelegate methods

@@ -6,7 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
     <scenes>
-        <!--Circle Nearby View Controller-->
+        <!--Circle Nearby View Controller - Circle-->
         <scene sceneID="Lw9-dm-ctl">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YlZ-rf-pFs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -61,7 +61,16 @@
                             <outlet property="delegate" destination="HAZ-cn-CV1" id="SgN-jm-QwA"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="oBK-3x-p3i"/>
+                    <navigationItem key="navigationItem" title="Circle" id="oBK-3x-p3i">
+                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="5YW-Pd-yNB">
+                            <connections>
+                                <action selector="signInLogOutButtonPressed:" destination="HAZ-cn-CV1" id="JIt-5H-DVh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="logOutSignInButton" destination="5YW-Pd-yNB" id="eux-H8-PXl"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1921" y="-71"/>
@@ -89,6 +98,16 @@
     <resources>
         <image name="profile.png" width="75" height="75"/>
     </resources>
+    <classes>
+        <class className="CircleNearbyViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleNearbyViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="showCreateEventStoryboard:"/>
+                <relationship kind="action" name="signInLogOutButtonPressed:"/>
+                <relationship kind="outlet" name="logOutSignInButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
