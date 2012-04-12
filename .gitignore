@@ -18,3 +18,5 @@ build/*
 *.xcworkspace
 *xcuserdata
 
+# Exclude dropbox dot file
+*.dropbox

@@ -15,6 +15,13 @@ Backbone.sync = function (method, model, options) {
   }));
 }
 
+/*
+ * Handlebars Helper
+ */
+function t(name) {
+	return Handlebars.compile($('#' + name + '-template').html());
+}
+
 /* Setup the Circle namespace */
 var Circle = {};
 
@@ -94,7 +101,114 @@ Circle.EventListView = Backbone.View.extend({
 	}
 });
 
+Circle.CreateEventView = Backbone.View.extend({
+  template: null,
+
+  events: {
+    'click .my-date-picker .add-on': 'showDatePicker',
+    'click .my-time-picker .add-on': 'showTimePicker',
+    'click #add-end-time': 'addEndTime',
+    'click #close': 'close',
+    'click #save': 'save'
+  },
+
+  initialize: function (args) {
+		this.template = t('create-event-view');
+  },
+
+  showDatePicker: function (e) {
+    var clickedElement = e.currentTarget;
+    $('.auto-kal', clickedElement.parentElement).focus();
+  },
+
+  showTimePicker: function (e) {
+    var clickedElement = e.currentTarget;
+    $('.auto-time', clickedElement.parentElement).focus();
+  },
+
+  addEndTime: function (e) {
+    $('#add-end-time').hide();
+    $('#end-time-group').show();
+  },
+
+  close: function (e) {
+    this.$el.modal('hide');
+  },
+
+  save: function (e) {
+    this.$el.modal('hide');
+  },
+
+  render: function () {
+    this.$el.html(this.template(this.model.toJSON()));
+    return this;
+  }
+
+});
+
+Circle.currentLocation = '';
+
+Circle.gotPosition = function (pos) {
+  console.dir(pos)
+
+  var latlng = new google.maps.LatLng(pos.coords.latitude,
+                                      pos.coords.longitude),
+      geocoder = new google.maps.Geocoder();
+
+  geocoder.geocode({'latLng': latlng}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      if (results[1]) {
+        Circle.currentLocation = results[1].formatted_address;
+      }
+    } else {
+      alert("Geocoder failed due to: " + status);
+    }
+  });
+
+};
+
+Circle.errorPosition = function () {
+};
+
+Circle.Router = Backbone.Router.extend({
+  routes: {
+    'create-event-modal': 'createEvent'
+  },
+
+  createEvent: function () {
+    $('#create-event-modal').modal('show');
+    $('#create-event-modal').on('hidden', function () {
+      Circle.app.navigate('', {
+        trigger: false
+      });
+      $('.kalendae').remove();
+      $('.time-picker').remove();
+    });
+
+    var newEvent = new Circle.Event();
+    var createEventView = new Circle.CreateEventView({
+      model: newEvent,
+      el: '#create-event-modal'
+    }).render();
+
+    $('.auto-kal').kalendae();
+    $('.auto-time').timePicker({
+      show24Hours: false,
+      step: 30
+    });
+
+  }
+});
+
 $(function () {
+  Circle.app = new Circle.Router();
+  Backbone.history.start();
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(Circle.gotPosition,
+                                             Circle.errorPosition);
+  }
+
   // the collections of models
   Circle.events = new Circle.EventList();
 

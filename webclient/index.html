@@ -1,18 +1,126 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Events</title>
-    <!-- <link rel="stylesheet" href="style.css" /> -->
-    <script src="jquery-1.7.1.min.js"></script>
-    <script src="underscore-min.js"></script>
-    <script src="backbone-min.js"></script>
-    <script src="main.js"></script>
-  </head>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <body>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <style>
+      body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+      }
+      #map_canvas {
+      width: 300px;
+      height: 172px;
+      }
+      .navbar a.brand {
+      font-size: 24px;
+      }
+      #city-field {
+      height: 28px;
+      }
+    </style>
+
+</head>
+
+<body>
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="#">Circle</a>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#friends">Friends</a></li>
+            <li><a href="#inbox">Inbox</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Main hero unit for a primary marketing message or call to action -->
+    <div class="row">
+    <div class="span6 hero-unit">
+      <h1>Find an Event</h1>
+
+      <p>This is a template for a simple marketing or informational
+      website. It includes a large callout</p>
 
 
-  <ul id="event-list"></ul>
+      <input class="input-xlarge typeahead" type="text" />
+     
+
+      <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+    </div>
+
+    <div class="span4 well">
+      <ul id="event-list"></ul>
+       <label>Venue: <input id="venue" class="input-xlarge venue-typeahead" type="text" /></label>
+       <label>City: <input id="venue-location" class="typeahead" type="text" /></label>
+    </div>
+
+    </div>
+
+    <!-- Example row of columns -->
+    <div class="row">
+      <div id="map_canvas" class="span4">
+
+
+      </div>
+
+      <div class="span4">
+        <h2>Heading</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <p><a class="btn" href="#">View details &raquo;</a></p>
+      </div>
+
+      <div class="span4">
+        <h2>Create your own event</h2>
+        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn"
+              data-toggle="modal"
+              href="#create-event-modal">
+            Create Event &raquo;
+        </a></p>
+      </div>
+    </div>
+
+    <hr>
+
+    <footer>
+      <p>&copy; Company 2012</p>
+    </footer>
+
+  </div> <!-- /container -->
+
+  <div class="modal fade" id="create-event-modal">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      <h3>Modal header</h3>
+    </div>
+    <div class="modal-body">
+      <p>One fine body…</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn">Close</a>
+      <a href="#" class="btn btn-primary">Save changes</a>
+    </div>
+  </div>
+
 
   <!-- Templates -->
 
@@ -21,6 +129,16 @@
     <div class="description"><%= description %></div>
   </script>
 
-  </body>
+  <script src="js/jquery-1.7.1.min.js"></script>
+  <script src="js/underscore-min.js"></script>
+  <script src="js/autocomplete.js"></script>
+  <script src="js/backbone-min.js"></script>
+  <script src="js/handlebars-1.0.0.beta.6.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4&sensor=false"></script>
+  <script src="js/bootstrap-ajax-typeahead.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
 
 </html>
