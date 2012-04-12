@@ -240,8 +240,8 @@ Circle.CreateEventView = Backbone.View.extend({
 Circle.currentLocation = '';
 
 Circle.gotPosition = function (pos) {
-  console.dir(pos)
-
+  Circle.position = pos;
+  
   var latlng = new google.maps.LatLng(pos.coords.latitude,
                                       pos.coords.longitude),
       geocoder = new google.maps.Geocoder();
