@@ -61,7 +61,7 @@
       website. It includes a large callout</p>
 
 
-      <input class="input-xlarge typeahead" type="text" />
+      <input class="input-xlarge cityTypeahead" type="text" />
      
 
       <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
@@ -70,7 +70,6 @@
     <div class="span4 well">
       <ul id="event-list"></ul>
        <label>Venue: <input id="venue" class="input-xlarge venue-typeahead" type="text" /></label>
-       <label>City: <input id="venue-location" class="typeahead" type="text" /></label>
     </div>
 
     </div>
@@ -132,13 +131,44 @@
   <script src="js/jquery-1.7.1.min.js"></script>
   <script src="js/underscore-min.js"></script>
   <script src="js/autocomplete.js"></script>
+  <script src="js/jquery.venueTypeahead.js"></script>
   <script src="js/backbone-min.js"></script>
   <script src="js/handlebars-1.0.0.beta.6.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4&sensor=false"></script>
   <script src="js/bootstrap-ajax-typeahead.js"></script>
   <script src="js/main.js"></script>
+  <script type="text/javascript">
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function(pos) {
+        var latlng = new google.maps.LatLng(pos.coords.latitude,
+                                              pos.coords.longitude),
+        geocoder = new google.maps.Geocoder();
 
+        geocoder.geocode({'latLng': latlng}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+              Circle.currentLocation = results[1].formatted_address;
+              $('.venue-typeahead').venueTypeahead();    
+            }
+          } else {
+            alert("Geocoder failed due to: " + status);
+          }
+        });
+
+        
+      },
+      function(msg) {
+        error(msg);
+      }
+    );
+  } else {
+    error('not supported');
+  }
+    
+  
+  </script>
 </body>
 
 </html>
