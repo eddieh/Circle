@@ -70,16 +70,24 @@
       <p>This is a template for a simple marketing or informational
       website. It includes a large callout</p>
 
-
       <input class="input-xlarge cityTypeahead" type="text" />
-
 
       <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
     </div>
 
     <div class="span4 well">
       <ul id="event-list"></ul>
-       <label>Venue: <input id="venue" class="input-xlarge venue-typeahead" type="text" /></label>
+
+      <hr />
+      <div class="control-group">
+        <label class="control-label" for="where">Venue: </label>
+        <div class="controls">
+          <input id="venue"
+                 class="input-xlarge venue-typeahead"
+                 type="text" />
+        </div>
+      </div>
+
     </div>
 
     </div>
@@ -148,8 +156,6 @@
             <div class="controls">
               <input type="text" class="input-xlarge" id="name">
               <p class="help-block">
-                <!-- In addition to freeform text, any HTML5 text-based -->
-                <!-- input appears like so. -->
               </p>
             </div>
           </div>
@@ -164,10 +170,10 @@
           <div class="control-group">
             <label class="control-label" for="where">Where</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="where">
+              <input type="text"
+                     class="input-xlarge venue-typeahead"
+                     id="where">
               <p class="help-block">
-                <!-- In addition to freeform text, any HTML5 text-based -->
-                <!-- input appears like so. -->
               </p>
             </div>
           </div>

@@ -224,6 +224,7 @@ Circle.CreateEventView = Backbone.View.extend({
 
   render: function () {
     this.$el.html(this.template(this.model.toJSON()));
+
     if (!this.categoryListView) {
       this.categoriesView = new Circle.CategoryListView({
         el: '#category-list',
@@ -232,6 +233,12 @@ Circle.CreateEventView = Backbone.View.extend({
       });
       this.categories.fetch();
     }
+
+    if (!this.venueTypeaheadConfigured) {
+      $('.venue-typeahead').venueTypeahead();
+      this.venueTypeaheadConfigured = true;
+    }
+
     return this;
   }
 
@@ -241,7 +248,7 @@ Circle.currentLocation = '';
 
 Circle.gotPosition = function (pos) {
   Circle.position = pos;
-  
+
   var latlng = new google.maps.LatLng(pos.coords.latitude,
                                       pos.coords.longitude),
       geocoder = new google.maps.Geocoder();

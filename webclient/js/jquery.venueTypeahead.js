@@ -11,10 +11,12 @@
 
     /**
      * Sets up the searchbox and the location searchbox
-     * @return {void} 
+     * @return {void}
      */
   , init: function() {
-      this.$container = $('<div>in </div>').insertAfter(this.$element.parent());
+      this.$container = $('<div/>', {
+        'class': 'input-xlarge'
+      }).appendTo(this.$element.parent()).text('in ');
 
       this.$searchLocationField = $('<input type="text" />')
         .hide()
@@ -22,16 +24,16 @@
         .appendTo(this.$container)
         .typeahead({
           source: function(typeahead, query) {$.getJSON(
-                'http://whateverorigin.org/get?url=' + encodeURIComponent('https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + query + '&types=(cities)&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4') + '&callback=?', 
+                'http://whateverorigin.org/get?url=' + encodeURIComponent('https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + query + '&types=(cities)&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4') + '&callback=?',
                   function(data) {
                     response = $.parseJSON(data.contents);
                     typeahead.process(response.predictions);
-                } 
+                }
           )},
           property: "description",
           onselect: this.getLocationDetails
        });
-        
+
       //set up the location link, and set it to be replaced with the textfield when clicked
       this.$searchLocationLink = $('<a />')
         .text(Circle.currentLocation)
@@ -44,7 +46,7 @@
             //gets autocomplete data from the google maps API
             source: function(typeahead, query) {
               var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + query + '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
-                
+
               //encode search with location and a 50-mile radius to locally-biased results
               if (typeof Circle.searchLocation !== "undefined") {
                 var coords = Circle.searchLocation.coords;
@@ -57,20 +59,20 @@
 
               //do the request!
               $.getJSON(
-                  'http://whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?', 
+                  'http://whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?',
                     function(data) {
                       var response = $.parseJSON(data.contents);
                       typeahead.process(response.predictions);
-                  } 
+                  }
             )},
-            property: "description", 
+            property: "description",
             onselect: this.getVenueDetails
          });
     }
 
     /**
      * hides the clicked link, and replaces it with a form field so the user can input a custom location
-     * @return {void} 
+     * @return {void}
      */
   , showSearchLocationField: function() {
       this.$searchLocationLink.hide();
@@ -80,7 +82,7 @@
     /**
      * When a user selects a venue, get the venue details (esp. lat/lng data) from Google Places API
      * @param  {Object} val The Google Places Autocomplete object for the venue the user selected
-     * @return {void} 
+     * @return {void}
      */
   , getVenueDetails: function(val) {
       var that = this; //scoooooope!
