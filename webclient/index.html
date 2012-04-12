@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>Circle :: Find awesome events near you</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
     <style>
       body {
       padding-top: 60px;
       padding-bottom: 40px;
       }
       #map_canvas {
-      width: 300px;
-      height: 172px;
+      height: 300px;
       }
       .navbar a.brand {
       font-size: 24px;
@@ -30,10 +30,19 @@
       width: 150px;
       text-align: left;
       }
+      #map_canvas h1 {
+        margin: 10px;
+        padding: 10px;
+        background-color: #fff;
+        display: inline;
+        border-radius: 5px;
+      }
+      .carousel {
+        height: 327px;
+      }
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
     <link rel="stylesheet" href="css/timePicker.css">
-    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
 
 </head>
 
@@ -70,51 +79,55 @@
       <p>This is a template for a simple marketing or informational
       website. It includes a large callout</p>
 
+
       <input class="input-xlarge cityTypeahead" type="text" />
+
 
       <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
     </div>
 
     <div class="span4 well">
-      <ul id="event-list"></ul>
-
-      <hr />
-      <div class="control-group">
-        <label class="control-label" for="where">Venue: </label>
-        <div class="controls">
-          <input id="venue"
-                 class="input-xlarge venue-typeahead"
-                 type="text" />
-        </div>
-      </div>
-
+      <div id="myCarousel" class="carousel slide">
+            <div class="carousel-inner">
+              <div class="item active">
+                <img src="img/beer.jpg" alt="">
+                <div class="carousel-caption">
+                  <h4>Beer tasting @ Mother Road Brewery</h4>
+                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                </div>
+              </div>
+              <div class="item">
+                <img src="img/chicago.jpg" alt="">
+                <div class="carousel-caption">
+                  <h4>Chicago @ Theatrikos</h4>
+                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                </div>
+              </div>
+              <div class="item">
+                <img src="img/nutcracker.jpg" alt="">
+                <div class="carousel-caption">
+                  <h4>Tchaikovsky's Nutcracker @ Ardrey Auditorium</h4>
+                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                </div>
+              </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+          </div>
     </div>
 
     </div>
 
     <!-- Example row of columns -->
     <div class="row">
-      <div id="map_canvas" class="span4">
+      <div id="map_canvas" class="span8">`
 
-
-      </div>
-
-      <div class="span4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce
-        dapibus, tellus ac cursus commodo, tortor mauris condimentum
-        nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-        malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
       </div>
 
       <div class="span4">
         <h2>Create your own event</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis
-        in, egestas eget quam. Vestibulum id ligula porta felis
-        euismod semper. Fusce dapibus, tellus ac cursus commodo,
-        tortor mauris condimentum nibh, ut fermentum massa justo sit
-        amet risus.</p>
+        <ul id="event-list"></ul>
+       <label>Venue: <input id="venue" class="input-xlarge venue-typeahead" type="text" /></label>
         <p><a class="btn"
               href="#create-event-modal">
             Create Event &raquo;
@@ -170,9 +183,7 @@
           <div class="control-group">
             <label class="control-label" for="where">Where</label>
             <div class="controls">
-              <input type="text"
-                     class="input-xlarge venue-typeahead"
-                     id="where">
+              <input type="text" class="input-xlarge" id="where">
               <p class="help-block">
               </p>
             </div>
@@ -265,25 +276,50 @@
   <script src="js/bootstrap.min.js"></script>
   <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4&sensor=false"></script>
   <script src="js/bootstrap-ajax-typeahead.js"></script>
+  <script src="js/bootstrap-carousel.js"></script>
   <script src="js/kalendae.js"></script>
   <script src="js/jquery.timePicker.min.js"></script>
   <script src="js/main.js"></script>
   <script type="text/javascript">
+  var mapOptions = {
+    zoom: 9,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    scrollwheel: false
+  }
+
+  var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function(pos) {
         var latlng = new google.maps.LatLng(pos.coords.latitude,
-                                              pos.coords.longitude),
-        geocoder = new google.maps.Geocoder();
+                                              pos.coords.longitude);
+        map.setCenter(latlng);
 
+        var markerImage = new google.maps.MarkerImage(
+          'img/blue dot.png',
+          new google.maps.Size(50, 50), 
+          new google.maps.Point(0,0), 
+          new google.maps.Point(25, 25));
+
+        var marker = new google.maps.Marker({
+          map: map,
+          position: latlng,
+          icon: markerImage
+
+        })
+
+        //Geocode LatLng into an address
+        geocoder = new google.maps.Geocoder();
         geocoder.geocode({'latLng': latlng}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             if (results[1]) {
               Circle.currentLocation = results[1].formatted_address;
               $('.venue-typeahead').venueTypeahead();
+            
+            } else {
+              alert("Geocoder failed due to: " + status);
             }
-          } else {
-            alert("Geocoder failed due to: " + status);
           }
         });
 
@@ -296,6 +332,10 @@
   } else {
     error('not supported');
   }
+
+  $(function() {
+    $('.carousel').carousel();
+  })
 
 
   </script>
