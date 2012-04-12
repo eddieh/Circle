@@ -26,6 +26,10 @@
       #city-field {
       height: 28px;
       }
+      #category {
+      width: 150px;
+      text-align: left;
+      }
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
     <link rel="stylesheet" href="css/timePicker.css">
@@ -213,17 +217,17 @@
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="photo">Category</label>
+            <label class="control-label" for="category">Category</label>
             <div class="controls">
               <div class="btn-group">
-                <button class="btn">Choose a category...</button>
-                <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Separated link</a></li>
+                <button id="category" class="btn">
+                  Choose a category...
+                </button>
+                <button class="btn dropdown-toggle"
+                        data-toggle="dropdown">
+                  <span class="caret"></span>
+                </button>
+                <ul id="category-list" class="dropdown-menu">
                 </ul>
               </div>
             </div>
@@ -245,6 +249,11 @@
       <a href="#" id="close" class="btn">Close</a>
       <a href="#" id="save" class="btn btn-primary">Save changes</a>
     </div>
+  </script>
+
+  <script id="category-list-item-view-template"
+          type="text/x-handlebars-template">
+    <a>{{name}}</a>
   </script>
 
   <script src="js/jquery-1.7.1.min.js"></script>

@@ -101,6 +101,83 @@ Circle.EventListView = Backbone.View.extend({
 	}
 });
 
+Circle.Category = Backbone.Model.extend({
+  // this is where backbone will POST to when creating a new Category
+  // entity.
+  urlRoot: 'https://api.parse.com/1/classes/Category'
+});
+
+Circle.CategoryList = Backbone.Collection.extend({
+  // this collections model
+	model: Circle.Category,
+
+  // this is where backbone will make a GET request to when fetching a
+  // list of categories
+	url: 'https://api.parse.com/1/classes/Category',
+
+  // parse sends the response back from the server in the following form:
+  //
+  // {
+  //   "results":[{...}, {...}]
+  // }
+  //
+  // where the values we want are inside of 'results' we can ensure we
+  // get only the values like so:
+  parse: function (response) {
+    return response.results;
+  }
+});
+
+Circle.CategoryListItemView = Backbone.View.extend({
+  tagName: 'li',
+  controller: null,
+
+  events: {
+    'click': 'click'
+  },
+
+  initialize: function (args) {
+    this.template = t('category-list-item-view');
+    this.controller = args.controller;
+  },
+
+  click: function (e) {
+    this.controller.selectCategory(this.model);
+  },
+
+	render: function () {
+		this.$el.html(this.template(this.model.toJSON()));
+		return this;
+	}
+});
+
+Circle.CategoryListView = Backbone.View.extend({
+  controller: null,
+
+  initialize: function (args) {
+    this.model.on('add', this.addOne, this);
+		this.model.on('reset', this.addAll, this);
+		this.model.on('all', this.render, this);
+    this.controller = args.controller;
+  },
+
+	render: function () {
+		return this;
+	},
+
+	addOne: function (item) {
+    var view = new Circle.CategoryListItemView({
+      model: item,
+      controller: this.controller
+    });
+    this.$el.append(view.render().el);
+	},
+
+	addAll: function () {
+		this.model.each(this.addOne, this);
+	}
+});
+
 Circle.CreateEventView = Backbone.View.extend({
   template: null,
 
@@ -108,12 +185,14 @@ Circle.CreateEventView = Backbone.View.extend({
     'click .my-date-picker .add-on': 'showDatePicker',
     'click .my-time-picker .add-on': 'showTimePicker',
     'click #add-end-time': 'addEndTime',
+    'change #photo': 'changePhoto',
     'click #close': 'close',
     'click #save': 'save'
   },
 
   initialize: function (args) {
 		this.template = t('create-event-view');
+    this.categories = new Circle.CategoryList();
   },
 
   showDatePicker: function (e) {
@@ -131,6 +210,15 @@ Circle.CreateEventView = Backbone.View.extend({
     $('#end-time-group').show();
   },
 
+  selectCategory: function (category) {
+    this.selectedCategory = category;
+    $('#category').html(this.selectedCategory.get('name'));
+  },
+
+  changePhoto: function (e) {
+    console.dir($('#photo'));
+  },
+
   close: function (e) {
     this.$el.modal('hide');
   },
@@ -141,6 +229,14 @@ Circle.CreateEventView = Backbone.View.extend({
 
   render: function () {
     this.$el.html(this.template(this.model.toJSON()));
+    if (!this.categoryListView) {
+      this.categoriesView = new Circle.CategoryListView({
+        el: '#category-list',
+        model: this.categories,
+        controller: this
+      });
+      this.categories.fetch();
+    }
     return this;
   }
 
