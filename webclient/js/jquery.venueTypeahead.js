@@ -29,17 +29,7 @@
                 } 
           )},
           property: "description",
-          onselect: function(val) {
-            //console.dir(val)
-            $.getJSON(
-                'http://whateverorigin.org/get?url=' + encodeURIComponent('https://maps.googleapis.com/maps/api/place/details/json?reference=' + val.reference + '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4') + '&callback=?',
-                function (data) {
-                  var response = $.parseJSON(data.contents);
-
-                  this.searchCoords = response.result.geometry.location;
-                  console.dir(this);
-              })
-          }
+          onselect: this.getLocationDetails
        });
         
       //set up the location link, and set it to be replaced with the textfield when clicked
@@ -74,7 +64,7 @@
                   } 
             )},
             property: "description", 
-            onselect: this.getLocationDetails
+            onselect: this.getVenueDetails
          });
     }
 
@@ -92,8 +82,9 @@
      * @param  {Object} val The Google Places Autocomplete object for the venue the user selected
      * @return {void} 
      */
-  , getLocationDetails: function(val) {
-      var that = this;
+  , getVenueDetails: function(val) {
+      var that = this; //scoooooope!
+
       $.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('https://maps.googleapis.com/maps/api/place/details/json?reference=' + val.reference + '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4') + '&callback=?',
         function(data) {
           var response = $.parseJSON(data.contents);
@@ -110,6 +101,18 @@
 
           console.log("*** VENUE DATA FOLLOWS: Let's do something with it sometime! ***");
           console.dir(that.venue);
+        });
+    }
+
+  , getLocationDetails: function(val) {
+      var that = this; //scoooooope!
+
+      $.getJSON(
+          'http://whateverorigin.org/get?url=' + encodeURIComponent('https://maps.googleapis.com/maps/api/place/details/json?reference=' + val.reference + '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4') + '&callback=?',
+          function (data) {
+            var response = $.parseJSON(data.contents);
+
+            that.searchCoords = response.result.geometry.location;
         });
     }
 }
