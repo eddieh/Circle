@@ -185,7 +185,6 @@ Circle.CreateEventView = Backbone.View.extend({
     'click .my-date-picker .add-on': 'showDatePicker',
     'click .my-time-picker .add-on': 'showTimePicker',
     'click #add-end-time': 'addEndTime',
-    'change #photo': 'changePhoto',
     'click #close': 'close',
     'click #save': 'save'
   },
@@ -213,10 +212,6 @@ Circle.CreateEventView = Backbone.View.extend({
   selectCategory: function (category) {
     this.selectedCategory = category;
     $('#category').html(this.selectedCategory.get('name'));
-  },
-
-  changePhoto: function (e) {
-    console.dir($('#photo'));
   },
 
   close: function (e) {
