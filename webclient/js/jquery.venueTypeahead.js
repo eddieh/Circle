@@ -1,7 +1,8 @@
 !function($) {
   var VenueTypeahead = function (element, options) {
     this.$element = $(element);
-    this.options = $.extend({}, $.fn.venueTypeahead.defaults, options); //options TBD
+    // options TBD
+    this.options = $.extend({}, $.fn.venueTypeahead.defaults, options);
     this.init();
   }
 
@@ -34,20 +35,22 @@
           onselect: this.getLocationDetails
        });
 
-      //set up the location link, and set it to be replaced with the textfield when clicked
+      // set up the location link, and set it to be replaced with the
+      // textfield when clicked
       this.$searchLocationLink = $('<a />')
         .text(Circle.currentLocation)
         .appendTo(this.$container)
         .click($.proxy(this.showSearchLocationField, this));
 
-      //finally, we set up autocomplete for the form field
+      // finally, we set up autocomplete for the form field
       this.$element
         .typeahead({
-            //gets autocomplete data from the google maps API
+            // gets autocomplete data from the google maps API
             source: function(typeahead, query) {
               var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + query + '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
 
-              //encode search with location and a 50-mile radius to locally-biased results
+              // encode search with location and a 50-mile radius to
+              // locally-biased results
               if (typeof Circle.searchLocation !== "undefined") {
                 var coords = Circle.searchLocation.coords;
               } else {
@@ -57,7 +60,7 @@
                 url += '&location=' + coords.latitude + ',' + coords.longitude + '&radius=80000';
               }
 
-              //do the request!
+              // do the request!
               $.getJSON(
                   'http://whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?',
                     function(data) {
@@ -85,7 +88,7 @@
      * @return {void}
      */
   , getVenueDetails: function(val) {
-      var that = this; //scoooooope!
+      var that = this; // scoooooope!
 
       $.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('https://maps.googleapis.com/maps/api/place/details/json?reference=' + val.reference + '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4') + '&callback=?',
         function(data) {
@@ -97,17 +100,17 @@
           };
 
           if (response.result.types.indexOf('street_address') == -1) {
-          // i.e. it's an establishment, and not just an address
+            // i.e. it's an establishment, and not just an address
             that.venue.name = response.result.name;
           }
 
-          console.log("*** VENUE DATA FOLLOWS: Let's do something with it sometime! ***");
-          console.dir(that.venue);
+          // got the venue data, so trigger an event!
+          that.$element.trigger('change', [that.venue]);
         });
     }
 
   , getLocationDetails: function(val) {
-      var that = this; //scoooooope!
+      var that = this; // scoooooope!
 
       $.getJSON(
           'http://whateverorigin.org/get?url=' + encodeURIComponent('https://maps.googleapis.com/maps/api/place/details/json?reference=' + val.reference + '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4') + '&callback=?',
@@ -128,7 +131,8 @@
         , data = $this.data('venueTypeahead')
         , options = typeof option == 'object' && option
       if (!data) $this.data('venueTypeahead', (data = new VenueTypeahead(this, options)))
-      if (typeof option == 'string') data[option]() //apply function
+      // apply function
+      if (typeof option == 'string') data[option]()
     })
   }
 

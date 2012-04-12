@@ -194,6 +194,11 @@ Circle.CreateEventView = Backbone.View.extend({
     this.categories = new Circle.CategoryList();
   },
 
+  whereChanged: function (e, venueInfo) {
+    console.log('it changed:');
+    console.dir(venueInfo);
+  },
+
   showDatePicker: function (e) {
     var clickedElement = e.currentTarget;
     $('.auto-kal', clickedElement.parentElement).focus();
@@ -235,7 +240,9 @@ Circle.CreateEventView = Backbone.View.extend({
     }
 
     if (!this.venueTypeaheadConfigured) {
-      $('.venue-typeahead').venueTypeahead();
+      $('.venue-typeahead', this.$el)
+          .venueTypeahead()
+          .on('change', this.whereChanged);
       this.venueTypeaheadConfigured = true;
     }
 
