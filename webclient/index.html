@@ -39,6 +39,13 @@
       .carousel {
         height: 327px;
       }
+      #create-event {
+      text-align: center;
+      }
+      #create-event a {
+      margin-left: auto;
+      margin-right: auto;
+      }
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
     <link rel="stylesheet" href="css/timePicker.css">
@@ -128,16 +135,17 @@
 
     </div>
 
-    <!-- Example row of columns -->
     <div class="row">
       <div id="map_canvas" class="span8">`
       </div>
 
       <div class="span4">
         <h2>Create your own event</h2>
-        <ul id="event-list"></ul>
-        <label>Venue: <input id="venue" class="input-xlarge venue-typeahead" type="text" /></label>
-        <p><a class="btn"
+        <p>You can create and share your own events on Circle. So
+        whether you're hosing a party at your home, or promoting the
+        biggest rock band in the world, you can add your event right
+        here right now.</p>
+        <p id="create-event"><a class="btn btn-large btn-success"
               href="#create-event-modal">
             Create Event &raquo;
         </a></p>
@@ -190,9 +198,28 @@
           </div>
 
           <div class="control-group">
+            <label class="control-label" for="category">Category</label>
+            <div class="controls">
+              <div class="btn-group">
+                <button id="category" class="btn">
+                  Choose a category...
+                </button>
+                <button class="btn dropdown-toggle"
+                        data-toggle="dropdown">
+                  <span class="caret"></span>
+                </button>
+                <ul id="category-list" class="dropdown-menu">
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
             <label class="control-label" for="where">Where</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="where">
+              <input type="text"
+                     class="input-xlarge venue-typeahead"
+                     id="where">
               <p class="help-block">
               </p>
             </div>
@@ -212,7 +239,7 @@
               <div class="input-append my-time-picker">
                 <input type="text"
                        class="auto-time input-small"
-                       id="startDate-time"><span class="add-on">
+                       id="startTime"><span class="add-on">
                   <i class="icon-time"></i></span>
               </div>
 
@@ -236,29 +263,15 @@
               <div class="input-append my-time-picker">
                 <input type="text"
                        class="auto-time input-small"
-                       id="endDate-time"><span class="add-on">
+                       id="endTime"><span class="add-on">
                   <i class="icon-time"></i></span>
+                <a id="remove-end-time" href="#">
+                  <i class="icon-remove"></i>
+                </a>
               </div>
 
               <p class="help-block">
               </p>
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="control-label" for="category">Category</label>
-            <div class="controls">
-              <div class="btn-group">
-                <button id="category" class="btn">
-                  Choose a category...
-                </button>
-                <button class="btn dropdown-toggle"
-                        data-toggle="dropdown">
-                  <span class="caret"></span>
-                </button>
-                <ul id="category-list" class="dropdown-menu">
-                </ul>
-              </div>
             </div>
           </div>
 
@@ -290,6 +303,9 @@
   <script src="js/jquery.timePicker.min.js"></script>
   <script src="js/cityPicker.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    window.moment = Kalendae.moment;
+  </script>
   <script type="text/javascript">
   var mapOptions = {
     zoom: 9,

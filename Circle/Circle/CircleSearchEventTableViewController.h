@@ -10,8 +10,15 @@
 #import "CircleSelectCategoryTableViewController.h"
 #import "CircleSelectLocationViewController.h"
 #import "GooglePlacesConnection.h"
+//#import "CircleSearchResultsTableViewController.h"
 
 
+
+@protocol CircleResultsDelegate <NSObject>
+@required
+-(void) userSelectedFilter:(NSArray *) categories: (NSString*) location;
+@optional
+@end
 @interface CircleSearchEventTableViewController : UITableViewController <CircleCategoryDelegate, CityAutocompleteTableViewControllerDelegate, GooglePlacesConnectionDelegate>
 {
     IBOutlet UISearchBar *searchBar;
@@ -21,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *categoryCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *locationCell;
 @property (strong, nonatomic) GooglePlacesConnection *connection;
+@property NSObject<CircleResultsDelegate> *delegate;
 
 - (void) cityAutocompleteTableViewController:(CircleSelectLocationViewController *)controller didSelectCityWithDictionary:(NSDictionary *)dict;
 

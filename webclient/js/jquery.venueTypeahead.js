@@ -42,8 +42,8 @@
               });
             },
             property: "description",
-            // onselect: this.getLocationDetails
-          }).on('select', $.proxy(this.getLocationDetails, this));
+            onselect: $.proxy(this.getLocationDetails, this)
+          });
 
 
       // set up the location link, and set it to be replaced with the
@@ -58,6 +58,10 @@
           .typeahead({
             // gets autocomplete data from the google maps API
             source: function (typeahead, query) {
+              if (!query || query == '') {
+                console.log('empty');
+                return;
+              }
               var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' +
                   query +
                   '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
@@ -81,8 +85,8 @@
               });
             },
             property: "description",
-            // onselect: this.getVenueDetails
-          }).on('select', $.proxy(this.getVenueDetails, this));
+            onselect: $.proxy(this.getVenueDetails, this)
+          });
     },
 
     /**
@@ -111,10 +115,11 @@
           val.reference +
           '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
 
-      $.getJSON(that.services[that.options['service']] + encodeURIComponent(url) + '&callback=?', function (data) {
-        console.dir(data);
+      url = that.services[that.options['service']] + encodeURIComponent(url) + '&callback=?';
 
-        var response = (typeof(data.contents) === 'string') ? $.parseJSON(data.contents) : data.contents;
+      $.getJSON(url, function (data) {
+        var response = (typeof(data.contents) === 'string') ?
+            $.parseJSON(data.contents) : data.contents;
 
         that.venue = {
           address: response.result.formatted_address,
@@ -127,7 +132,8 @@
         }
 
         // got the venue data, so trigger an event!
-        that.$element.trigger('change', [that.venue]);
+        that.$element.trigger('change', that.venue);
+
       });
     },
 
