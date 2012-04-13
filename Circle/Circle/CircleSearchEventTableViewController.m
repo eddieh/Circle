@@ -7,6 +7,7 @@
 //
 
 #import "CircleSearchEventTableViewController.h"
+#import "CircleSearchResultsTableViewController.h"
 
 @interface CircleSearchEventTableViewController ()
 @property (strong, nonatomic) NSArray *categories;
@@ -19,6 +20,8 @@
 @synthesize locationCell = _locationCell;
 @synthesize location = _location;
 @synthesize connection = _connection;
+@synthesize delegate = _delegate;
+
 
 - (void)viewDidUnload
 {
@@ -62,6 +65,8 @@
 }
 - (void) searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
     
+    NSLog(@"@%@",searchBar.text);
+    [self performSegueWithIdentifier:@"searchResultsTransition" sender:self];
     
 }
 
@@ -72,6 +77,11 @@
     self.tableView.scrollEnabled = YES;
     
     [self.tableView reloadData];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self.delegate userSelectedFilter:self.categories:self.location];
+    NSLog(@"CAT@%@",self.categories);
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -105,6 +115,27 @@
         CircleSelectLocationViewController *vc = (CircleSelectLocationViewController *)segue.destinationViewController;
         vc.delegate = self;
     }
+   if ([segue.destinationViewController isKindOfClass:[CircleSearchResultsTableViewController class]]) {
+       PFQuery *query = [PFQuery queryWithClassName:@"Event"];
+       if(![self.categoryCell.detailTextLabel.text isEqualToString:@""])
+       {
+           [query whereKey:@"category" containedIn:self.categories];
+       }
+       if(![self.locationCell.detailTextLabel.text isEqualToString:@""])
+       {
+           [query whereKey:@"location" equalTo:self.location];
+       }
+       if(![searchBar.text isEqualToString:@""])
+       {
+           [query whereKey:@"name" equalTo:searchBar.text];
+       }
+
+       //TODO; be able to search by dates
+       //NSLog(@"LOGGED@%@",[query get:@"category"]);
+       [segue.destinationViewController setMyQuery:query];
+    }
+    
+    
 }
 
 - (void)userSelectedCategories:(NSArray *)categories {
