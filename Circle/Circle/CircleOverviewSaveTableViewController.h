@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CircleEventCategoryViewController.h"
+#import "LocationSingleton.h"
 
 @class PFObject;
 
-@interface CircleOverviewSaveTableViewController : UITableViewController
+@interface CircleOverviewSaveTableViewController : UITableViewController <CircleEventCategoryChooserDelegate, PF_MBProgressHUDDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableViewCell *nameCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *detailsCell;
 
@@ -25,5 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 
 @property (strong, nonatomic) PFObject *event;
+
+- (IBAction)saveButtonPressed:(id)sender;
 
 @end

@@ -1,31 +1,24 @@
 //
-//  CircleSelectCategoryTableViewController.m
+//  CircleEventCategoryViewController.m
 //  Circle
 //
-//  Created by Sam Olson on 4/10/12.
-//  Copyright (c) 2012 Northern Arizona University. All rights reserved.
+//  Created by Joshua Conner on 4/13/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CircleSelectCategoryTableViewController.h"
-#import <UIKit/UIKit.h>
-#import "Parse/Parse.h"
+#import "CircleEventCategoryViewController.h"
 
-@interface CircleSelectCategoryTableViewController ()
+@interface CircleEventCategoryViewController ()
 
 @end
 
-@implementation CircleSelectCategoryTableViewController
+@implementation CircleEventCategoryViewController
 @synthesize delegate = _delegate;
-@synthesize selectedCategories = _selectedCategories;
-
-//
-// This is the template PFQueryTableViewController subclass file. Use it to customize your own subclass.
-//
-
+@synthesize event = _event;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithClassName:@"Category"];
+    self = [super initWithClassName:@"Foo"];
     self = [super initWithCoder:aDecoder];
     if (self) {        
         // The className to query on
@@ -35,16 +28,17 @@
         self.keyToDisplay = @"name";
         
         // Whether the built-in pull-to-refresh is enabled
-        //self.pullToRefreshEnabled = YES;
+        self.pullToRefreshEnabled = NO;
         
         // Whether the built-in pagination is enabled
-        self.paginationEnabled = YES;
+        self.paginationEnabled = NO;
         
         // The number of objects to show per page
         self.objectsPerPage = 25;
     }
     return self;
 }
+
 
 #pragma mark - View lifecycle
 
@@ -69,44 +63,21 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-   
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSLog(@"@%@", self.selectedCategories);
-    for (UITableViewCell *cell in self.tableView.visibleCells)
-    {
-        
-        for (NSString *temp in self.selectedCategories)
-        {
-            if ([cell.textLabel.text isEqualToString:temp])
-            {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
-        }
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    NSMutableArray *selectedCategories = [[NSMutableArray alloc] init];
-    for (UITableViewCell *Cell in self.tableView.visibleCells)
-    {
-        if(Cell.accessoryType == UITableViewCellAccessoryCheckmark)
-        {
-            [selectedCategories addObject:Cell.textLabel.text];
-        }
-    }
-    [self.delegate userSelectedCategories:selectedCategories];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated
+{
     [super viewDidDisappear:animated];
-    
-   
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -137,24 +108,6 @@
     // This method is called before a PFQuery is fired to get more objects
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-    if ([tableView cellForRowAtIndexPath:indexPath].accessoryType == UITableViewCellAccessoryNone)
-    {
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-    else {
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
-    }
-}
-
 /*
  // Override to customize what kind of query to perform on the class. The default is to query for
  // all objects ordered by createdAt descending.
@@ -177,18 +130,20 @@
  // Override to customize the look of a cell representing an object. The default is to display
  // a UITableViewCellStyleDefault style cell with the label being the first key in the object. 
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
- static NSString *CellIdentifier = @"CategoriesCell";
- 
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
- if (cell == nil) {
- cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
- }
- 
- // Configure the cell
+     static NSString *CellIdentifier = @"Cell";
+     
+     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+     if (cell == nil) {
+         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+     }
+     
+     if ([object isEqual:[self.event objectForKey:@"category"]]) {
+         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+     }
+     // Configure the cell
      cell.textLabel.text = [object objectForKey:@"name"];
-     cell.selectionStyle = UITableViewCellSelectionStyleNone;
- 
- return cell;
+     
+     return cell;
  }
 
 
@@ -258,5 +213,23 @@
  return YES;
  }
  */
-@end 
 
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //if the tableview selected is the current category, we remove it from the event
+    if ([[self.objects objectAtIndex:indexPath.row] isEqual:[self.event objectForKey:@"category"]]) {
+        [self.event setObject:nil forKey:@"category"];
+        
+    //otherwise we add it to the event
+    } else {
+        [self.event setObject:[self.objects objectAtIndex:indexPath.row] forKey:@"category"];
+    }
+    
+    //then notify our delegate and pop from view
+    [self.delegate circleEventCategoryViewController:self didModifyPFObject:self.event];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+@end

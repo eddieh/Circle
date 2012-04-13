@@ -8,8 +8,11 @@
 
 #import "CircleOverviewSaveTableViewController.h"
 #import "Parse/Parse.h"
+#import "LocationSingleton.h"
 
-@interface CircleOverviewSaveTableViewController ()
+@interface CircleOverviewSaveTableViewController () {
+    PF_MBProgressHUD *HUD;
+}
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @end
 
@@ -25,24 +28,11 @@
 @synthesize saveButton = _saveButton;
 @synthesize event = _event;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
+#pragma mark - View lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     NSLog(@"%@", self.event);
     
@@ -95,16 +85,118 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([[segue identifier] isEqualToString:@"didEnterEventNameDetailsSegue"]) {
-        id viewController = [segue destinationViewController];
-        if ([viewController respondsToSelector:@selector(setEvent:)]) {
-            
+    id viewController = [segue destinationViewController];
+    if ([viewController respondsToSelector:@selector(setEvent:)]) {
+        
 //            [self.event setObject:self.nameTextField.text forKey:@"name"];
 //            [self.event setObject:self.detailsTextField.text forKey:@"details"];
-            
-            [viewController setEvent:self.event];
-        }
+        
+        [viewController setEvent:self.event];
     }
+    
+    if ([viewController isKindOfClass:[CircleEventCategoryViewController class]]) {
+        CircleEventCategoryViewController *vc = viewController;
+        vc.delegate = self;
+    }
+}
+
+#pragma mark - Table View delegate methods
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    int count = [self.navigationController.viewControllers count];
+    
+    switch (indexPath.section) {
+        case 0:
+            [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:(count - 4)] animated:YES];
+            break;
+        case 2:
+            [self.navigationController popViewControllerAnimated:YES];
+            break;
+        case 3:
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - CircleEventCategoryChooser delegate method
+- (void)circleEventCategoryViewController:(CircleEventCategoryViewController *)controller didModifyPFObject:(PFObject *)event; {
+    NSLog(@"Modified: %@", event);
+    self.event = event;
+    self.categoryCell.detailTextLabel.text = [[event objectForKey:@"category"] objectForKey:@"name"];
+}
+
+//pop up a spinner, save, then pop to rootviewcontroller
+- (IBAction)saveButtonPressed:(id)sender {
+    HUD = [self configureHUD];
+    HUD.labelText = @"Saving...";
+    [HUD show:YES];
+    
+    [self.event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [self setHUDCustomViewWithImageNamed:@"37x-Checkmark.png" labelText:@"Success!" detailsLabelText:@"Event created." hideDelay:1.5];
+    }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.5 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+        /**
+         * HACK: (the hackiest!)
+         * We get a reference back to the "Nearby view" in probably the worst way possible,
+         * tell it to reload, and then pop back to it.
+         *
+         * Also, we set our own's rootviewcontroller's event property to nil so the user can create
+         * another event if they want.
+         */
+
+        //tell nearby view to reload
+        UINavigationController *nearbyNC = [self.tabBarController.viewControllers objectAtIndex:2];
+        [[nearbyNC.viewControllers objectAtIndex:0] loadObjects];
+        
+        //go to it
+        [self.tabBarController setSelectedIndex:2];
+
+        //reset "new event" flow's state
+        UINavigationController *thisNC = [self.tabBarController.viewControllers objectAtIndex:1];
+        [thisNC popToRootViewControllerAnimated:NO];
+        if ([[thisNC.viewControllers objectAtIndex:0] respondsToSelector:@selector(setEvent:)]) {
+            [[thisNC.viewControllers objectAtIndex:0] setEvent:nil];
+        }
+    });
+
+}
+
+#pragma mark - HUD helper methods
+/**
+ * The way the HUD is supposed to work is that you init it every time you use it, so use this method to configure
+ * with appropriate fonts and delegate and all that.
+ */
+- (PF_MBProgressHUD *)configureHUD {
+    //init and set up HUD    
+    HUD = [[PF_MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:HUD];
+    HUD.delegate = self;
+    HUD.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0];
+    HUD.detailsLabelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0];
+    
+    return HUD;
+}
+
+/**
+ * Displays a message and image in the HUD and then hides it after hideDelay.
+ */
+- (void)setHUDCustomViewWithImageNamed:(NSString *)imageName 
+                             labelText:(NSString *)labelText 
+                      detailsLabelText:(NSString *)detailsLabelText 
+                             hideDelay:(float)hideDelay {
+    
+    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+    HUD.mode = PF_MBProgressHUDModeCustomView;
+    HUD.labelText = labelText;
+    HUD.detailsLabelText = detailsLabelText;
+    [HUD hide:YES afterDelay:hideDelay];
+}
+
+#pragma mark - MBProgressHUDDelegate methods
+- (void)hudWasHidden:(PF_MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidden
+	[HUD removeFromSuperview];
+	HUD = nil;
 }
 
 @end

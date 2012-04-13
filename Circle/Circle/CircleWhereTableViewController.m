@@ -9,7 +9,8 @@
 #import "CircleWhereTableViewController.h"
 #import "Parse/Parse.h"
 
-@interface CircleWhereTableViewController ()
+
+@interface CircleWhereTableViewController () 
 
 @end
 
@@ -17,28 +18,21 @@
 @synthesize venueCell = _venueCell;
 @synthesize savedAddressesCell = _savedAddresseCell;
 @synthesize addAddressCell = _addAddressCell;
+@synthesize currentLocationCell = _currentLocationCell;
 
 @synthesize nextButton = _nextButton;
 @synthesize event = _event;
+@synthesize currentLocation = _currentLocation;
+@synthesize l = _l;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.l = [LocationSingleton sharedInstance];
+    self.l.delegate = self;
     
     NSLog(@"%@", self.event);
 }
@@ -49,6 +43,7 @@
     [self setSavedAddressesCell:nil];
     [self setNextButton:nil];
     [self setAddAddressCell:nil];
+    [self setCurrentLocationCell:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -72,5 +67,14 @@
     }
 }
 
-
+#pragma mark - LocationSingletonDelegate method
+- (void)didRecieveLocationUpdate:(CLLocation *)location; {
+    NSLog(@"Location received: %@", location);
+    self.currentLocation = location; //to use later?
+    
+    //for now, we're just going to set every event's location with our current location
+    PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+    [self.event setObject:point forKey:@"location"];
+    self.currentLocationCell.textLabel.text = [NSString stringWithFormat:@"%f, %f", location.coordinate.latitude, location.coordinate.longitude];
+}
 @end

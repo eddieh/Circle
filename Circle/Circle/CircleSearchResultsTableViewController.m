@@ -11,31 +11,47 @@
 #import "Parse/Parse.h"
 
 @interface CircleSearchResultsTableViewController ()
-
+@property (strong, nonatomic) NSArray *categories;
+@property (strong, nonatomic) NSString *location;
 @end
-
 @implementation CircleSearchResultsTableViewController
+@synthesize categories = _categories;
+@synthesize location = _location;
+@synthesize myQuery = _myQuery;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithClassName:@"Category"];
     self = [super initWithCoder:aDecoder];
-    if (self) {        
-        // The className to query on
-        self.className = @"Category";
-        
-        // The key of the PFObject to display in the label of the default cell style
-        self.keyToDisplay = @"name";
-        
-        // Whether the built-in pull-to-refresh is enabled
-        self.pullToRefreshEnabled = YES;
-        
-        // Whether the built-in pagination is enabled
-        self.paginationEnabled = YES;
-        
-        // The number of objects to show per page
-        self.objectsPerPage = 25;
-    }
+//    if (self) {        
+//        // The className to query on
+//        self.className = @"Category";
+//        
+//        // The key of the PFObject to display in the label of the default cell style
+//        self.keyToDisplay = @"name";
+//        
+//        // Whether the built-in pull-to-refresh is enabled
+//        self.pullToRefreshEnabled = YES;
+//        
+//        // Whether the built-in pagination is enabled
+//        self.paginationEnabled = YES;
+//        
+//        // The number of objects to show per page
+//        self.objectsPerPage = 25;
+//    }
+    
+    PFQuery *query = self.myQuery;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // The find succeeded.
+            NSLog(@"Successfully retrieved %d scores.", objects.count);
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+    
+    
     return self;
 }
 
@@ -50,6 +66,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+   
 }
 
 - (void)viewDidUnload
@@ -62,6 +79,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -106,24 +124,36 @@
     
     // This method is called before a PFQuery is fired to get more objects
 }
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    //if ([segue.destinationViewController isKindOfClass:[CircleSearchEventTableViewController class]]) {
+//        //CircleSearchEventTableViewController *vc = (CircleSearchEventTableViewController *)segue.destinationViewController;
+//        //vc.delegate = self;
+//        //vc.selectedCategories = self.categories;
+//    }
+//}
 
-/*
+
+
  // Override to customize what kind of query to perform on the class. The default is to query for
  // all objects ordered by createdAt descending.
  - (PFQuery *)queryForTable {
- PFQuery *query = [PFQuery queryWithClassName:self.className];
- 
- // If no objects are loaded in memory, we look to the cache first to fill the table
- // and then subsequently do a query against the network.
- if ([self.objects count] == 0) {
- query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+     PFQuery *query;
+     if (self.myQuery) {
+         query = self.myQuery;
+     } else { 
+         query = [PFQuery queryWithClassName:self.className];
+     }
+     
+     // If no objects are loaded in memory, we look to the cache first to fill the table
+     // and then subsequently do a query against the network.
+     if ([self.objects count] == 0) {
+         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+     }
+
+     [query orderByDescending:@"createdAt"];
+     return query;
  }
  
- [query orderByDescending:@"createdAt"];
- 
- return query;
- }
- */
 
 /*
  // Override to customize the look of a cell representing an object. The default is to display
@@ -210,11 +240,18 @@
  }
  */
 
-#pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-}
 
+//#pragma mark - Table view delegate
+//
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+//}
+
+//#pragma mark - filter delegate
+//-(void) userSelectedFilter:(NSArray *) categories: (NSString*) location
+//{
+//    NSLog(@"RESULTS@%@", self.categories);
+//}
 @end

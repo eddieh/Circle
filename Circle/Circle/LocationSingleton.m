@@ -65,6 +65,7 @@
 #pragma mark - CLLocationManagerDelegate methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     self.currentLocation = newLocation;
+    [self.delegate didRecieveLocationUpdate:self.currentLocation];
     
     //stop updating location when it gets 100m accuracy
     if (newLocation.horizontalAccuracy <= 100.0f) { 

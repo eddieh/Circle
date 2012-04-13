@@ -25,13 +25,11 @@
 @synthesize cancelButton;
 
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+#pragma mark - View lifecycle
+//scroll to top of the tableview everytime so the user doesn't get stuck with the details section at the 
+//top of their view
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
 - (void)viewDidLoad
@@ -45,6 +43,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.detailsTextView.placeholder = @"Details";
+    self.detailsTextView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0];
     
     if (self.event) {
         self.nameTextField.text = [self.event objectForKey:@"name"];

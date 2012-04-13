@@ -103,13 +103,13 @@
             </objects>
             <point key="canvasLocation" x="1420" y="-872"/>
         </scene>
-        <!--Table View Controller - Select Event-->
+        <!--Circle Search Results Table View Controller - Select Event-->
         <scene sceneID="fOD-Ug-sac">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ksj-fG-Mbk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="Aem-G3-1vU" sceneMemberID="viewController">
+                <tableViewController id="Aem-G3-1vU" customClass="CircleSearchResultsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="aVo-F6-fSo">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -131,7 +131,7 @@
                     <navigationItem key="navigationItem" title="Select Event" id="hxS-En-6dC"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1342" y="294"/>
+            <point key="canvasLocation" x="1395" y="292"/>
         </scene>
         <!--Circle Select Location View Controller - Select Location-->
         <scene sceneID="jMK-3q-GTl">
@@ -309,6 +309,31 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="t9q-am-rQy">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="rUN-kH-PH0" style="IBUITableViewCellStyleDefault" id="uN4-FO-KGZ">
+                                        <rect key="frame" x="0.0" y="208" width="320" height="46"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="1" width="280" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Search" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rUN-kH-PH0">
+                                                    <rect key="frame" x="10" y="0.0" width="260" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <segue destination="Aem-G3-1vU" kind="push" id="PHA-az-JrA"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="Ug2-lC-abV" id="u4O-hb-LmK"/>
@@ -320,6 +345,7 @@
                         <outlet property="categoryCell" destination="QBf-oL-J4z" id="ke0-kv-9da"/>
                         <outlet property="locationCell" destination="at0-XD-xFx" id="guG-mh-Yei"/>
                         <outlet property="searchBar" destination="RD7-G1-VYh" id="Gb7-BU-AcX"/>
+                        <segue destination="Aem-G3-1vU" kind="push" identifier="searchResultsTransition" id="i03-gC-bPp"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -369,7 +395,7 @@
                                     </date>
                                     <locale key="locale" localeIdentifier="en_US"/>
                                     <timeZone key="timeZone" name="America/Los_Angeles">
-                                        <mutableData key="data">
+                                        <data key="data">
 VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
 y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
 5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
@@ -387,7 +413,7 @@ f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</mutableData>
+</data>
                                     </timeZone>
                                     <connections>
                                         <action selector="changeDate:" destination="UAL-6G-kky" eventType="valueChanged" id="Yxa-5f-Hta"/>
@@ -475,9 +501,53 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
     <resources>
         <image name="tabbar-search.png" width="30" height="30"/>
     </resources>
+    <classes>
+        <class className="CircleSearchEventTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleSearchEventTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="categoryCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="locationCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="CircleSearchResultsTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleSearchResultsTableViewController.h"/>
+        </class>
+        <class className="CircleSelectCategoryTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleSelectCategoryTableViewController.h"/>
+        </class>
+        <class className="CircleSelectDateViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleSelectDateViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeDate:"/>
+                <relationship kind="action" name="plusOneDay:"/>
+                <relationship kind="action" name="plusOneMonth:"/>
+                <relationship kind="action" name="plusOneWeek:"/>
+                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
+                <relationship kind="outlet" name="endsCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="plusOneDayButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="plusOneMonthButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="plusOneWeekButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="startsCell" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="CircleSelectLocationViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleSelectLocationViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="PFQueryTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="i03-gC-bPp"/>
+    </inferredMetricsTieBreakers>
 </document>
