@@ -25,8 +25,12 @@
 @synthesize responseData = _responseData;
 @synthesize locations = _locations;
 @synthesize delegate = _delegate;
+@synthesize searchText = _searchText;
+
 
 - (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"Searchtext: %@", self.searchText);
+    self.searchBar.text = self.searchText;
     [self.searchBar becomeFirstResponder];
 }
 
@@ -139,6 +143,11 @@
     if (![searchBar.text isEqualToString:@""]) { 
         [self.googlePlacesConnection getGoogleObjectsWithQuery:searchBar.text andCoordinates:CLLocationCoordinate2DMake(self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude)];
     }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self.delegate selectionCancelledInCityAutocompleteTableViewController:self];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

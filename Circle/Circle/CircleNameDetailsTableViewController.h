@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CircleSignInViewController.h"
 
 @class UIPlaceHolderTextView;
 @class PFObject;
 
-@interface CircleNameDetailsTableViewController : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate>
+@interface CircleNameDetailsTableViewController : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate, CircleSignInDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UIPlaceHolderTextView *detailsTextView;

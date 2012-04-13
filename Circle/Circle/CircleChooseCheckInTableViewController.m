@@ -1,41 +1,34 @@
 //
-//  CircleSelectCategoryTableViewController.m
+//  CircleChooseCheckInTableViewController.m
 //  Circle
 //
-//  Created by Sam Olson on 4/10/12.
-//  Copyright (c) 2012 Northern Arizona University. All rights reserved.
+//  Created by Joshua Conner on 4/13/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CircleSelectCategoryTableViewController.h"
-#import <UIKit/UIKit.h>
-#import "Parse/Parse.h"
+#import "CircleChooseCheckInTableViewController.h"
 
-@interface CircleSelectCategoryTableViewController ()
+@interface CircleChooseCheckInTableViewController ()
 
 @end
 
-@implementation CircleSelectCategoryTableViewController
-@synthesize delegate = _delegate;
-@synthesize selectedCategories = _selectedCategories;
-
-//
-// This is the template PFQueryTableViewController subclass file. Use it to customize your own subclass.
-//
+@implementation CircleChooseCheckInTableViewController
 
 
+#pragma mark - View lifecycle
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithClassName:@"Category"];
+    self = [super initWithClassName:@"Event"];
     self = [super initWithCoder:aDecoder];
     if (self) {        
         // The className to query on
-        self.className = @"Category";
+        self.className = @"Event";
         
         // The key of the PFObject to display in the label of the default cell style
-        self.keyToDisplay = @"name";
+        self.keyToDisplay = @"Event";
         
         // Whether the built-in pull-to-refresh is enabled
-        //self.pullToRefreshEnabled = YES;
+        self.pullToRefreshEnabled = YES;
         
         // Whether the built-in pagination is enabled
         self.paginationEnabled = YES;
@@ -45,8 +38,6 @@
     }
     return self;
 }
-
-#pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
@@ -69,53 +60,33 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-   
+    [super viewWillAppear:animated];
+    if (![PFUser currentUser]) {
+        UINavigationController *modalNavigationController = [[UIStoryboard storyboardWithName:@"CircleAuthStoryboard" bundle:nil] instantiateInitialViewController];
+        
+        if ([modalNavigationController.topViewController isKindOfClass:[CircleSignInViewController class]]) {
+            CircleSignInViewController *signInVC = (CircleSignInViewController *)modalNavigationController.topViewController;
+            signInVC.delegate = self;
+        }
+        
+        [self presentModalViewController:modalNavigationController animated:YES];
+    }
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSLog(@"@%@", self.selectedCategories);
-    for (UITableViewCell *cell in self.tableView.visibleCells)
-    {
-        
-        for (PFObject *temp in self.selectedCategories)
-        {
-            if ([cell.textLabel.text isEqualToString:[temp objectForKey:@"name"]])
-            {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
-        }
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    NSMutableArray *selectedCategories = [[NSMutableArray alloc] init];
-    UITableViewCell *tempCell;
-    
-    for (int i = 0; i < [self.tableView.visibleCells count]; ++i) {
-        tempCell = [self.tableView.visibleCells objectAtIndex:i];
-        if (tempCell.accessoryType == UITableViewCellAccessoryCheckmark) {
-            [selectedCategories addObject:[self.objects objectAtIndex:i]];
-        }
-    }
-//    for (UITableViewCell *Cell in self.tableView.visibleCells)
-//    {
-//        if(Cell.accessoryType == UITableViewCellAccessoryCheckmark)
-//        {
-//            Cell.
-//            [selectedCategories addObject:Cell.textLabel.text];
-//        }
-//    }
-    [self.delegate userSelectedCategories:selectedCategories];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated
+{
     [super viewDidDisappear:animated];
-    
-   
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -146,24 +117,6 @@
     // This method is called before a PFQuery is fired to get more objects
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-    if ([tableView cellForRowAtIndexPath:indexPath].accessoryType == UITableViewCellAccessoryNone)
-    {
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-    else {
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
-    }
-}
-
 /*
  // Override to customize what kind of query to perform on the class. The default is to query for
  // all objects ordered by createdAt descending.
@@ -185,21 +138,33 @@
 
  // Override to customize the look of a cell representing an object. The default is to display
  // a UITableViewCellStyleDefault style cell with the label being the first key in the object. 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
- static NSString *CellIdentifier = @"CategoriesCell";
- 
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
- if (cell == nil) {
- cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
- }
- 
- // Configure the cell
-     cell.textLabel.text = [object objectForKey:@"name"];
-     cell.selectionStyle = UITableViewCellSelectionStyleNone;
- 
- return cell;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
+    static NSString *CellIdentifier = @"location";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+    
+    // Configure the cell
+    cell.textLabel.text = [object objectForKey:@"name"];  
+    cell.detailTextLabel.text = [object objectForKey:@"venueName"];
+    if ([[object objectForKey:@"image"] isKindOfClass:[UIImage class]]) {
+        [cell.imageView setImage:[object objectForKey:@"image"]];
+    }
+    
+    return cell;
  }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
+        PFObject *event = [self.objects objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+        
+        if ([segue.destinationViewController respondsToSelector:@selector(setEvent:)]) {
+            [segue.destinationViewController performSelector:@selector(setEvent:) withObject:event];
+        }
+    }
+}
 
 /*
  // Override if you need to change the ordering of objects in the table.
@@ -267,5 +232,22 @@
  return YES;
  }
  */
-@end 
 
+#pragma mark - Table view delegate
+//
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+//}
+
+#pragma mark - CircleSignInDelegateMethods
+- (void) signInSuccessful; {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void) userCancelledSignIn {
+    [self dismissModalViewControllerAnimated:YES];
+    [self.tabBarController setSelectedIndex:2];
+}
+
+@end

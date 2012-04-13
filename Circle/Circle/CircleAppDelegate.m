@@ -22,16 +22,6 @@
                   clientKey:@"geygOrU0M6zm1hKLYJntO4nr1ekoMcffESHVKd71"];
     [PFFacebookUtils initializeWithApplicationId:FACEBOOK_APP_ID];
     
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"cities_US" 
-                                                     ofType:@"json"];
-    NSData* data = [NSData dataWithContentsOfFile:path];
-    NSError* error;
-    NSArray *cities = [NSJSONSerialization JSONObjectWithData:data
-                                                      options:kNilOptions 
-                                                        error:&error];
-    //NSLog(@"%@", cities);
-    
-    
     return YES;
 }
 							

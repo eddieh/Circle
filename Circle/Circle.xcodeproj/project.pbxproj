@@ -88,6 +88,9 @@
 		863C1EB215318A6F0014DA1D /* CircleNearbyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 863C1EB115318A6F0014DA1D /* CircleNearbyStoryboard.storyboard */; };
 		863C1EB515318B2D0014DA1D /* CircleAuthStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 863C1EB415318B2D0014DA1D /* CircleAuthStoryboard.storyboard */; };
 		863C1EBF153190170014DA1D /* CircleMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 863C1EBE153190160014DA1D /* CircleMainViewController.m */; };
+		8669731915388C0100B02F39 /* daftpunk.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8669731815388C0100B02F39 /* daftpunk.jpg */; };
+		8669732215388DED00B02F39 /* CircleEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8669732115388DEC00B02F39 /* CircleEventDetailViewController.m */; };
+		866973251538DE4800B02F39 /* CircleChooseCheckInTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 866973241538DE4800B02F39 /* CircleChooseCheckInTableViewController.m */; };
 		868CDBCD15343FF5000058F3 /* CircleSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CDBCC15343FF5000058F3 /* CircleSignUpViewController.m */; };
 		868CDBD015344CBA000058F3 /* camerawhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 868CDBCE15344CBA000058F3 /* camerawhite.png */; };
 		868CDBD115344CBA000058F3 /* camerawhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 868CDBCF15344CBA000058F3 /* camerawhite@2x.png */; };
@@ -263,6 +266,11 @@
 		863C1EB415318B2D0014DA1D /* CircleAuthStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CircleAuthStoryboard.storyboard; sourceTree = "<group>"; };
 		863C1EBD153190160014DA1D /* CircleMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMainViewController.h; sourceTree = SOURCE_ROOT; };
 		863C1EBE153190160014DA1D /* CircleMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMainViewController.m; sourceTree = SOURCE_ROOT; };
+		8669731815388C0100B02F39 /* daftpunk.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = daftpunk.jpg; sourceTree = "<group>"; };
+		8669732015388DEC00B02F39 /* CircleEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleEventDetailViewController.h; sourceTree = "<group>"; };
+		8669732115388DEC00B02F39 /* CircleEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleEventDetailViewController.m; sourceTree = "<group>"; };
+		866973231538DE4800B02F39 /* CircleChooseCheckInTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleChooseCheckInTableViewController.h; sourceTree = "<group>"; };
+		866973241538DE4800B02F39 /* CircleChooseCheckInTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleChooseCheckInTableViewController.m; sourceTree = "<group>"; };
 		868CDBCB15343FF5000058F3 /* CircleSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSignUpViewController.h; sourceTree = "<group>"; };
 		868CDBCC15343FF5000058F3 /* CircleSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSignUpViewController.m; sourceTree = "<group>"; };
 		868CDBCE15344CBA000058F3 /* camerawhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camerawhite.png; sourceTree = "<group>"; };
@@ -508,6 +516,7 @@
 				861FE1321533FEBB00D3DA03 /* 37x-Checkmark.png */,
 				861FE1331533FEBB00D3DA03 /* 37x-Checkmark@2x.png */,
 				861FE1471534236900D3DA03 /* connectfacebook-pressed.png */,
+				8669731815388C0100B02F39 /* daftpunk.jpg */,
 				861FE1481534236900D3DA03 /* connectfacebook-pressed@2x.png */,
 				861FE1491534236900D3DA03 /* connectfacebook.png */,
 				861FE14A1534236900D3DA03 /* connectfacebook@2x.png */,
@@ -541,6 +550,8 @@
 				863C1EA8153187AA0014DA1D /* CircleCheckInViewController.m */,
 				86E0EEE11531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.h */,
 				86E0EEE21531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m */,
+				866973231538DE4800B02F39 /* CircleChooseCheckInTableViewController.h */,
+				866973241538DE4800B02F39 /* CircleChooseCheckInTableViewController.m */,
 			);
 			name = "Check In";
 			sourceTree = "<group>";
@@ -581,6 +592,8 @@
 				863C1EB115318A6F0014DA1D /* CircleNearbyStoryboard.storyboard */,
 				860EFA37152FFE3500F9540F /* CircleNearbyViewController.h */,
 				860EFA38152FFE3500F9540F /* CircleNearbyViewController.m */,
+				8669732015388DEC00B02F39 /* CircleEventDetailViewController.h */,
+				8669732115388DEC00B02F39 /* CircleEventDetailViewController.m */,
 			);
 			name = Nearby;
 			sourceTree = "<group>";
@@ -802,6 +815,7 @@
 				2C4FFD9B1535F022001AD2FC /* tabbar-new-event@2x.png in Resources */,
 				2C4FFD9C1535F022001AD2FC /* tabbar-search.png in Resources */,
 				2C4FFD9D1535F022001AD2FC /* tabbar-search@2x.png in Resources */,
+				8669731915388C0100B02F39 /* daftpunk.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -851,6 +865,8 @@
 				9CB8803515381245006F06D8 /* SBJsonUTF8Stream.m in Sources */,
 				9CB8803615381245006F06D8 /* SBJsonWriter.m in Sources */,
 				8605DB4C153844A6004FE9D1 /* CircleEventCategoryViewController.m in Sources */,
+				8669732215388DED00B02F39 /* CircleEventDetailViewController.m in Sources */,
+				866973251538DE4800B02F39 /* CircleChooseCheckInTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

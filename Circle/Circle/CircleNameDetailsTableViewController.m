@@ -29,7 +29,19 @@
 //scroll to top of the tableview everytime so the user doesn't get stuck with the details section at the 
 //top of their view
 - (void)viewWillAppear:(BOOL)animated {
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    [super viewWillAppear:animated];
+    if (![PFUser currentUser]) {
+        UINavigationController *modalNavigationController = [[UIStoryboard storyboardWithName:@"CircleAuthStoryboard" bundle:nil] instantiateInitialViewController];
+        
+        if ([modalNavigationController.topViewController isKindOfClass:[CircleSignInViewController class]]) {
+            CircleSignInViewController *signInVC = (CircleSignInViewController *)modalNavigationController.topViewController;
+            signInVC.delegate = self;
+        }
+        
+        [self presentModalViewController:modalNavigationController animated:YES];
+    } else {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
 }
 
 - (void)viewDidLoad
@@ -136,5 +148,16 @@
         [self.tabBarController setSelectedViewController:((CircleMainViewController*)self.tabBarController).lastSelectedViewController];
     }
 }
+
+#pragma mark - CircleSignInDelegateMethods
+- (void) signInSuccessful; {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void) userCancelledSignIn {
+    [self dismissModalViewControllerAnimated:YES];
+    [self.tabBarController setSelectedIndex:2];
+}
+
 
 @end

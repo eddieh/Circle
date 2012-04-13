@@ -13,11 +13,13 @@
 #import "Parse/Parse.h"
 #import "CircleNearbyViewController.h"
 #import "LocationSingleton.h"
+#import "CircleEventDetailViewController.h"
 
 
 @interface CircleNearbyViewController () {
     PF_MBProgressHUD *HUD;
     LocationSingleton *location;
+    NSDateFormatter *dateFormatter;
 }
 
 @end
@@ -25,10 +27,14 @@
 @implementation CircleNearbyViewController
 @synthesize logOutSignInButton;
 
+#pragma mark - View lifecycle
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithClassName:@"Event"];
     self = [super initWithCoder:aDecoder];
+    
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEEE, MMMM d 'at' h:mm a"];
     
     if (self) {        
         // The className to query on
@@ -47,6 +53,13 @@
         self.objectsPerPage = 25;
     }
     return self;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[CircleEventDetailViewController class]]) {
+        CircleEventDetailViewController *vc = segue.destinationViewController;
+        vc.event = [self.objects objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    }
 }
 
 // show a modal view with the sign in view
@@ -176,23 +189,26 @@
  }
  */
 
-/*
+
  // Override to customize the look of a cell representing an object. The default is to display
  // a UITableViewCellStyleDefault style cell with the label being the first key in the object. 
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
- static NSString *CellIdentifier = @"Cell";
- 
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
- if (cell == nil) {
- cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
- }
- 
- // Configure the cell
- cell.textLabel.text = [object objectForKey:@"key"];
- 
- return cell;
- }
- */
+     static NSString *CellIdentifier = @"nearbyCell";
+     
+     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+     if (cell == nil) {
+         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+     }
+     
+     // Configure the cell
+     cell.textLabel.text = [object objectForKey:@"name"];
+     if ([object objectForKey:@"startDate"]) {
+         cell.detailTextLabel.text = [dateFormatter stringFromDate:[object objectForKey:@"startDate"]];
+     }
+     
+     return cell;
+}
+
 
 /*
  // Override if you need to change the ordering of objects in the table.
@@ -261,12 +277,12 @@
  }
  */
 
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-}
+//#pragma mark - Table view delegate
+//
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+//}
 
 #pragma mark - CircleSignInDelegateMethods
 - (void) signInSuccessful; {

@@ -62,7 +62,7 @@
                             </items>
                         </toolbar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" editingAccessoryType="disclosureIndicator" textLabel="4Dt-pU-ubZ" imageView="BAd-Zn-udm" rowHeight="60" style="IBUITableViewCellStyleDefault" id="rgv-Ud-zDa">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nearbyCell" editingAccessoryType="disclosureIndicator" textLabel="4Dt-pU-ubZ" detailTextLabel="ti5-B6-cjK" imageView="BAd-Zn-udm" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="rgv-Ud-zDa">
                                 <rect key="frame" x="0.0" y="66" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -70,9 +70,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Dt-pU-ubZ">
-                                            <rect key="frame" x="69" y="0.0" width="221" height="59"/>
+                                            <rect key="frame" x="69" y="8" width="34" height="25"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
@@ -80,9 +80,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="59" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ti5-B6-cjK">
+                                            <rect key="frame" x="69" y="33" width="48" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <segue destination="MgB-m3-U9q" kind="push" id="axF-S8-O2n"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -103,6 +113,46 @@
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1921" y="-71"/>
+        </scene>
+        <!--Circle Event Detail View Controller - Details-->
+        <scene sceneID="OGK-aj-cCz">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G7P-av-gtD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="MgB-m3-U9q" customClass="CircleEventDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C06-u2-2DI">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="daftpunk.jpg" id="oKq-he-5jt">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="212"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Event Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="wHF-ZW-vRB">
+                                <rect key="frame" x="8" y="214" width="303" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="36"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="iqY-6Q-sPN">
+                                <rect key="frame" x="8" y="260" width="303" height="199"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Details" id="mJ5-qP-raY"/>
+                    <connections>
+                        <outlet property="descriptionLabel" destination="iqY-6Q-sPN" id="Fyq-Qz-cSS"/>
+                        <outlet property="imageView" destination="oKq-he-5jt" id="cFP-mz-NL6"/>
+                        <outlet property="titleLabel" destination="wHF-ZW-vRB" id="Pac-Gg-sHM"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2374" y="-57"/>
         </scene>
         <!--Navigation Controller - Nearby-->
         <scene sceneID="aPD-HC-dga">
@@ -126,10 +176,19 @@
         </scene>
     </scenes>
     <resources>
+        <image name="daftpunk.jpg" width="640" height="480"/>
         <image name="profile.png" width="75" height="75"/>
         <image name="tabbar-nearby.png" width="30" height="30"/>
     </resources>
     <classes>
+        <class className="CircleEventDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventDetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="CircleNearbyViewController" superclassName="PFQueryTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleNearbyViewController.h"/>
             <relationships>
