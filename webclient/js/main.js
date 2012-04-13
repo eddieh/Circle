@@ -317,9 +317,17 @@ Circle.CreateEventView = Backbone.View.extend({
 });
 
 Circle.currentLocation = '';
+Circle.position = {};
+Circle.mapOptions = {
+  zoom: 9,
+  mapTypeId: google.maps.MapTypeId.ROADMAP,
+  scrollwheel: false
+};
+Circle.map = null;
 
 Circle.gotPosition = function (pos) {
   Circle.position = pos;
+  Circle.setMapCenter(pos);
 
   var latlng = new google.maps.LatLng(pos.coords.latitude,
                                       pos.coords.longitude),
@@ -334,8 +342,30 @@ Circle.gotPosition = function (pos) {
       alert("Geocoder failed due to: " + status);
     }
   });
-
 };
+
+Circle.setMapCenter = function (pos) {
+  var latlng = new google.maps.LatLng(pos.coords.latitude,
+                                      pos.coords.longitude);
+
+  if (!Circle.map) {
+    Circle.map = new google.maps.Map(document.getElementById('map_canvas'),
+                                     Circle.mapOptions);
+    var markerImage = new google.maps.MarkerImage(
+      'img/blue dot.png',
+      new google.maps.Size(50, 50),
+      new google.maps.Point(0,0),
+      new google.maps.Point(25, 25));
+
+    var marker = new google.maps.Marker({
+      map: Circle.map,
+      position: latlng,
+      icon: markerImage
+    });
+  }
+
+  Circle.map.setCenter(latlng);
+}
 
 Circle.errorPosition = function () {
 };
@@ -371,29 +401,51 @@ Circle.Router = Backbone.Router.extend({
 });
 
 $(function () {
+  // make moment.js global
+  window.moment = Kalendae.moment;
+
+  // set up the backbone.js router
   Circle.app = new Circle.Router();
   Backbone.history.start();
 
+  // get the location from the browser, if supported
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(Circle.gotPosition,
                                              Circle.errorPosition);
   }
 
-  if (false) {
-  // the collections of models
-  Circle.events = new Circle.EventList();
+  // setup our fancy carousel
+  $('.carousel').carousel();
 
-  // the list view
-  Circle.eventsView = new Circle.EventListView({
-    // the selector corresponding to the element this view should be
-    // attached to
-    el: '#event-list',
-
-    // the collection
-	  model: Circle.events
+  // setup our fancy city selector
+  $('.city-picker').cityPicker({
+    attachedTo: $('#search-field')
+  }).on('change', function (e, val) {
+    Circle.currentLocation = val.formatted_address;
+    Circle.position = {
+      coords: {
+        latitude: val.geometry.location.lat,
+        longitude: val.geometry.location.lng
+      }
+    };
+    Circle.setMapCenter(Circle.position);
   });
 
-  // get the data from parse
-  Circle.events.fetch();
+  if (false) {
+    // the collections of models
+    Circle.events = new Circle.EventList();
+
+    // the list view
+    Circle.eventsView = new Circle.EventListView({
+      // the selector corresponding to the element this view should be
+      // attached to
+      el: '#event-list',
+
+      // the collection
+	    model: Circle.events
+    });
+
+    // get the data from parse
+    Circle.events.fetch();
   }
 });
