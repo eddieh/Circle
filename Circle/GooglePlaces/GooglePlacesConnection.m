@@ -78,6 +78,41 @@
         //NSLog(@"connection failed");
 	}
 }
+
+//TODO: this is copied from the above, need to merge back
+//Method is called during UISearchBar search
+-(void)getPlaceSuggestionsWithQuery:(NSString *)query 
+                  andCoordinates:(CLLocationCoordinate2D)coords 
+{
+    
+    //NEW setting userlocation to the coords passed in for later use
+    userLocation = coords;
+    
+	double centerLat = coords.latitude;
+	double centerLng = coords.longitude;
+    
+    query = [query gtm_stringByEscapingForURLArgument];
+    
+    NSString* gurl               = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/autocomplete/json?location=%f,%f&radius=80000&input=%@&sensor=true&key=%@",
+                                    centerLat, centerLng, query, kGOOGLE_API_KEY];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:gurl] 
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy 
+                                                       timeoutInterval:10];
+    
+	[self cancelGetGoogleObjects];
+	
+	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+    
+	if (connection) 
+    {
+		responseData = [NSMutableData data];
+		connectionIsActive = YES;
+	} else {
+        //NSLog(@"connection failed");
+	}
+}
+
+
 //Method is called to get details of place
 -(void)getGoogleObjectDetails:(NSString *)reference
 {	
