@@ -431,7 +431,6 @@
 		8613D46E152EC6CE0002579B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9CB8800415381244006F06D8 /* GooglePlaces */,
 				9CB8800915381244006F06D8 /* GTM */,
 				9CB8800E15381245006F06D8 /* SBJSON */,
 				2C5DF07C15315F6700F85C63 /* libxml2.dylib */,
@@ -470,6 +469,7 @@
 				863C1EBD153190160014DA1D /* CircleMainViewController.h */,
 				863C1EBE153190160014DA1D /* CircleMainViewController.m */,
 				8613D49C152ED1BE0002579B /* Assets */,
+				9CB8800415381244006F06D8 /* GooglePlaces */,
 				8613D476152EC6CF0002579B /* Supporting Files */,
 			);
 			path = Circle;
@@ -600,7 +600,8 @@
 				9CB8800715381244006F06D8 /* GooglePlacesObject.h */,
 				9CB8800815381244006F06D8 /* GooglePlacesObject.m */,
 			);
-			path = GooglePlaces;
+			name = GooglePlaces;
+			path = ../GooglePlaces;
 			sourceTree = "<group>";
 		};
 		9CB8800915381244006F06D8 /* GTM */ = {
