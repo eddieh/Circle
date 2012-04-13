@@ -27,13 +27,22 @@ var Circle = {};
 
 /* Models */
 Circle.Event = Backbone.Model.extend({
-  // Parse uses objectId tor the entities id, so tell backbone about
+  // Parse uses objectId for the entities id, so tell backbone about
   // it
   idAttribute: 'objectId',
 
   // this is where backbone will POST to when creating a new Event
   // entity.
   urlRoot: 'https://api.parse.com/1/classes/Event'
+
+  // toJSON_: function (options) {
+  //   options = {
+  //     'categoryName': function () {
+  //     }
+  //   }
+  //   return _.extend(_.clone(this.attributes), {
+  //   });
+  // }
 });
 
 Circle.EventList = Backbone.Collection.extend({
@@ -59,13 +68,14 @@ Circle.EventList = Backbone.Collection.extend({
 
 /* Views */
 Circle.EventListItemView = Backbone.View.extend({
-  tagName: 'li',
+  tagName: 'tr',
+  className: 'event',
 
   initialize: function () {
     // since we're extending Backbone.View objects before the DOM is
     // ready we must set the view's template inside of initialize() so
     // that _.template is not called when we extend Backbone.View.
-    this.template = _.template($('#item-template').html());
+    this.template = t('event-list-item-view');
   },
 
 	render: function () {
@@ -106,7 +116,7 @@ Circle.EventListView = Backbone.View.extend({
 });
 
 Circle.Category = Backbone.Model.extend({
-  // Parse uses objectId tor the entities id, so tell backbone about
+  // Parse uses objectId for the entities id, so tell backbone about
   // it
   idAttribute: 'objectId',
 
@@ -316,10 +326,18 @@ Circle.CreateEventView = Backbone.View.extend({
 
 });
 
-Circle.currentLocation = '';
+Circle.currentLocation = null;
+Circle.position = null;
+Circle.mapOptions = {
+  zoom: 9,
+  mapTypeId: google.maps.MapTypeId.ROADMAP,
+  scrollwheel: false
+};
+Circle.map = null;
 
 Circle.gotPosition = function (pos) {
   Circle.position = pos;
+  Circle.setMapCenter(pos);
 
   var latlng = new google.maps.LatLng(pos.coords.latitude,
                                       pos.coords.longitude),
@@ -329,20 +347,125 @@ Circle.gotPosition = function (pos) {
     if (status == google.maps.GeocoderStatus.OK) {
       if (results[1]) {
         Circle.currentLocation = results[1].formatted_address;
+        $(window).trigger('location:change');
       }
     } else {
       alert("Geocoder failed due to: " + status);
     }
   });
-
 };
+
+Circle.setMapCenter = function (pos) {
+  var latlng = new google.maps.LatLng(pos.coords.latitude,
+                                      pos.coords.longitude);
+
+
+    Circle.map = new google.maps.Map(document.getElementById('map_canvas'),
+                                     Circle.mapOptions);
+    var markerImage = new google.maps.MarkerImage(
+      'img/blue dot.png',
+      new google.maps.Size(50, 50),
+      new google.maps.Point(0,0),
+      new google.maps.Point(25, 25));
+
+    var marker = new google.maps.Marker({
+      map: Circle.map,
+      position: latlng,
+      icon: markerImage
+    });
+
+
+  Circle.map.setCenter(latlng);
+}
 
 Circle.errorPosition = function () {
 };
 
+Circle.getPosition = function () {
+  if (!Circle.position) {
+    // get the location from the browser, if supported
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(Circle.gotPosition,
+                                               Circle.errorPosition);
+    }
+  }
+}
+
 Circle.Router = Backbone.Router.extend({
   routes: {
+    '': 'home',
+    'events': 'events',
+    'search': 'search',
     'create-event-modal': 'createEvent'
+  },
+
+  home: function () {
+    $('#layout.container').html(t('home-layout')());
+    Circle.getPosition();
+
+    // setup our fancy carousel
+    $('.carousel').carousel();
+
+    // setup our fancy city selector
+    $('.city-picker').cityPicker({
+      attachedTo: $('#search-field')
+    }).on('change', function (e, val) {
+      Circle.currentLocation = val.formatted_address;
+      Circle.position = {
+        coords: {
+          latitude: val.geometry.location.lat,
+          longitude: val.geometry.location.lng
+        }
+      };
+      Circle.setMapCenter(Circle.position);
+    });
+    Circle.setMapCenter(Circle.position);
+  },
+
+  events: function () {
+    $('#layout.container').html(t('events-layout')());
+    Circle.getPosition();
+
+    // the collections of models
+    Circle.events = new Circle.EventList();
+
+    // the list view
+    Circle.eventsView = new Circle.EventListView({
+      // the selector corresponding to the element this view should be
+      // attached to
+      el: '#event-list',
+
+      // the collection
+	    model: Circle.events
+    });
+
+    function get_em () {
+      // get the data from Parse
+      Circle.events.fetch({
+        data: 'where=' + JSON.stringify({
+          location: {
+            '$nearSphere': {
+              '__type': 'GeoPoint',
+              'latitude': Circle.position.coords.latitude,
+              'longitude': Circle.position.coords.longitude
+            },
+            '$maxDistanceInMiles': 20.0
+          }
+        })
+      });
+      Circle.setMapCenter(Circle.position);
+    }
+
+    if (Circle.position) {
+      get_em();
+    }
+
+    $(window).on('location:change', function () {
+      get_em();
+    });
+  },
+
+  search: function () {
   },
 
   createEvent: function () {
@@ -371,29 +494,10 @@ Circle.Router = Backbone.Router.extend({
 });
 
 $(function () {
+  // make moment.js global
+  window.moment = Kalendae.moment;
+
+  // set up the backbone.js router
   Circle.app = new Circle.Router();
   Backbone.history.start();
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(Circle.gotPosition,
-                                             Circle.errorPosition);
-  }
-
-  if (false) {
-  // the collections of models
-  Circle.events = new Circle.EventList();
-
-  // the list view
-  Circle.eventsView = new Circle.EventListView({
-    // the selector corresponding to the element this view should be
-    // attached to
-    el: '#event-list',
-
-    // the collection
-	  model: Circle.events
-  });
-
-  // get the data from parse
-  Circle.events.fetch();
-  }
 });

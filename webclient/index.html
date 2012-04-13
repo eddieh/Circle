@@ -46,6 +46,28 @@
       margin-left: auto;
       margin-right: auto;
       }
+      .event .info {
+      width: 70%;
+      }
+      .event .info a {
+      display: block;
+      min-height: 65px;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-decoration: none;
+      color: #666;
+      }
+      .event .info a .name,
+      .event .location .name {
+      font-weight: bold;
+      }
+      .img-box {
+      display: inline-block;
+      float: left;
+      width: 64px;
+      height: 64px;
+      margin-right: 12px;
+      }
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
     <link rel="stylesheet" href="css/timePicker.css">
@@ -76,12 +98,26 @@
     </div>
   </div>
 
-  <div class="container">
+  <div id="main" class="container">
 
-    <!-- Main hero unit for a primary marketing message or call to action -->
+    <div id="layout" class="container">
+    </div>
+
+    <hr>
+    <footer>
+      <p>&copy; Company 2012</p>
+    </footer>
+  </div> <!-- /container -->
+
+  <div class="modal fade" id="create-event-modal">
+  </div>
+
+  <!-- Templates -->
+
+  <script id="home-layout-template" type="text/x-handlebars-template">
     <div class="row">
       <div class="span8">
-        <div class="hero-unit">
+        <div id="main-search" class="hero-unit">
           <h1>Find an Event</h1>
           <p>What would you like to be doing tonight?</p>
 
@@ -90,7 +126,11 @@
                  type="text" /> near <a class="city-picker"
                                         href="#choose-city">Flagstaff, AZ</a>
 
-          <p><a class="btn btn-primary btn-large">Search &raquo;</a></p>
+          <p><a id="search-button"
+                class="btn btn-primary btn-large"
+                href="#search">
+              Search &raquo;
+          </a></p>
         </div>
       </div>
 
@@ -151,23 +191,26 @@
         </a></p>
       </div>
     </div>
+  </script>
 
-    <hr>
-
-    <footer>
-      <p>&copy; Company 2012</p>
-    </footer>
-
-  </div> <!-- /container -->
-
-  <div class="modal fade" id="create-event-modal">
-  </div>
-
-  <!-- Templates -->
-
-  <script type="text/template" id="item-template">
-    <div class="name"><%= name %></div>
-    <div class="description"><%= description %></div>
+  <script id="event-list-item-view-template" type="text/x-handlebars-template">
+    <td class="info">
+      <a href="#event/{{id}}">
+        <div class="img-box">
+          <img class="attach"
+               height="64"
+               width="64"
+               src="img/category/concert.jpg" />
+        </div>
+        <div><span class="name">{{name}}</name></div>
+      </a>
+    </td>
+    <td class="location">
+      <div>
+        <span class="name">{{venueName}}</span>
+      </div>
+      <span class="address">{{address}}</span>
+    </td>
   </script>
 
   <script id="create-event-view-template" type="text/x-handlebars-template">
@@ -289,6 +332,36 @@
     <a>{{name}}</a>
   </script>
 
+  <script id="events-layout-template" type="text/x-handlebars-template">
+    <div class="row">
+    <div class="span7">
+      <div id="in-search">
+        <form class="well form-search">
+          <input type="text" class="input-xlarge search-query">
+          <button type="submit" class="btn">Search</button>
+          <a class="close pull-right">&times;</a>
+        </form>
+
+        <table id="event-list" class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nearest</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="span5">
+      <div id="map_canvas">
+      </div>
+    </div>
+    </div>
+  </script>
+
   <script src="js/jquery-1.7.1.min.js"></script>
   <script src="js/underscore-min.js"></script>
   <script src="js/autocomplete.js"></script>
@@ -303,82 +376,6 @@
   <script src="js/jquery.timePicker.min.js"></script>
   <script src="js/cityPicker.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    window.moment = Kalendae.moment;
-  </script>
-  <script type="text/javascript">
-  var mapOptions = {
-    zoom: 9,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    scrollwheel: false
-  }
-
-  var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      function(pos) {
-        var latlng = new google.maps.LatLng(pos.coords.latitude,
-                                              pos.coords.longitude);
-        map.setCenter(latlng);
-
-        var markerImage = new google.maps.MarkerImage(
-          'img/blue dot.png',
-          new google.maps.Size(50, 50),
-          new google.maps.Point(0,0),
-          new google.maps.Point(25, 25));
-
-        var marker = new google.maps.Marker({
-          map: map,
-          position: latlng,
-          icon: markerImage
-
-        })
-
-        //Geocode LatLng into an address
-        geocoder = new google.maps.Geocoder();
-        geocoder.geocode({'latLng': latlng}, function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK) {
-            if (results[1]) {
-              Circle.currentLocation = results[1].formatted_address;
-              $('.venue-typeahead').venueTypeahead();
-
-            } else {
-              alert("Geocoder failed due to: " + status);
-            }
-          }
-        });
-
-
-      },
-      function(msg) {
-        error(msg);
-      }
-    );
-  } else {
-    error('not supported');
-  }
-
-  $(function() {
-    $('.carousel').carousel();
-  })
-
-  $('.city-picker').cityPicker({
-    attachedTo: $('#search-field')
-  }).on('change', function (e, val) {
-    Circle.currentLocation = val.formatted_address;
-    Circle.position = {
-      coords: {
-        latitude: val.geometry.location.lat,
-        longitude: val.geometry.location.lng
-      }
-    };
-    // TODO: update the map!
-  });
-
-
-
-  </script>
 </body>
 
 </html>
