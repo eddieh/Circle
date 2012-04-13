@@ -349,7 +349,17 @@
 
   $('.city-picker').cityPicker({
     attachedTo: $('#search-field')
+  }).on('change', function (e, val) {
+    Circle.currentLocation = val.formatted_address;
+    Circle.position = {
+      coords: {
+        latitude: val.geometry.location.lat,
+        longitude: val.geometry.location.lng
+      }
+    };
+    // TODO: update the map!
   });
+
 
 
   </script>
