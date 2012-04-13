@@ -8,7 +8,6 @@
     <meta name="author" content="">
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
     <style>
       body {
       padding-top: 60px;
@@ -43,6 +42,7 @@
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
     <link rel="stylesheet" href="css/timePicker.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 
 </head>
 
@@ -298,8 +298,8 @@
 
         var markerImage = new google.maps.MarkerImage(
           'img/blue dot.png',
-          new google.maps.Size(50, 50), 
-          new google.maps.Point(0,0), 
+          new google.maps.Size(50, 50),
+          new google.maps.Point(0,0),
           new google.maps.Point(25, 25));
 
         var marker = new google.maps.Marker({
@@ -316,7 +316,7 @@
             if (results[1]) {
               Circle.currentLocation = results[1].formatted_address;
               $('.venue-typeahead').venueTypeahead();
-            
+
             } else {
               alert("Geocoder failed due to: " + status);
             }
