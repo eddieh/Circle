@@ -1,27 +1,20 @@
 //
-//  CircleSelectCategoryTableViewController.m
+//  CircleSearchResultsTableViewController.m
 //  Circle
 //
-//  Created by Sam Olson on 4/10/12.
+//  Created by Sam Olson on 4/13/12.
 //  Copyright (c) 2012 Northern Arizona University. All rights reserved.
 //
 
-#import "CircleSelectCategoryTableViewController.h"
+#import "CircleSearchResultsTableViewController.h"
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
 
-@interface CircleSelectCategoryTableViewController ()
+@interface CircleSearchResultsTableViewController ()
 
 @end
 
-@implementation CircleSelectCategoryTableViewController
-@synthesize delegate = _delegate;
-@synthesize selectedCategories = _selectedCategories;
-
-//
-// This is the template PFQueryTableViewController subclass file. Use it to customize your own subclass.
-//
-
+@implementation CircleSearchResultsTableViewController
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -69,44 +62,21 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-   
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSLog(@"@%@", self.selectedCategories);
-    for (UITableViewCell *cell in self.tableView.visibleCells)
-    {
-        
-        for (NSString *temp in self.selectedCategories)
-        {
-            if ([cell.textLabel.text isEqualToString:temp])
-            {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
-        }
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    NSMutableArray *selectedCategories = [[NSMutableArray alloc] init];
-    for (UITableViewCell *Cell in self.tableView.visibleCells)
-    {
-        if(Cell.accessoryType == UITableViewCellAccessoryCheckmark)
-        {
-            [selectedCategories addObject:Cell.textLabel.text];
-        }
-    }
-    [self.delegate userSelectedCategories:selectedCategories];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated
+{
     [super viewDidDisappear:animated];
-    
-   
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -137,24 +107,6 @@
     // This method is called before a PFQuery is fired to get more objects
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-    if ([tableView cellForRowAtIndexPath:indexPath].accessoryType == UITableViewCellAccessoryNone)
-    {
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-    else {
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
-    }
-}
-
 /*
  // Override to customize what kind of query to perform on the class. The default is to query for
  // all objects ordered by createdAt descending.
@@ -173,11 +125,11 @@
  }
  */
 
-
+/*
  // Override to customize the look of a cell representing an object. The default is to display
  // a UITableViewCellStyleDefault style cell with the label being the first key in the object. 
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
- static NSString *CellIdentifier = @"CategoriesCell";
+ static NSString *CellIdentifier = @"Cell";
  
  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
  if (cell == nil) {
@@ -185,12 +137,11 @@
  }
  
  // Configure the cell
-     cell.textLabel.text = [object objectForKey:@"name"];
-     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+ cell.textLabel.text = [object objectForKey:@"key"];
  
  return cell;
  }
-
+ */
 
 /*
  // Override if you need to change the ordering of objects in the table.
@@ -258,5 +209,12 @@
  return YES;
  }
  */
-@end 
 
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+}
+
+@end

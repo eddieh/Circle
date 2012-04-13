@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CircleSelectLocationTableViewController : UITableViewController
-
+@protocol CircleLocationDelegate <NSObject>
+@required
+-(void)userSelectedLocation:(NSString *)location;
 @end
+
+@interface CircleSelectLocationTableViewController : UITableViewController
+@property NSObject <CircleLocationDelegate> *delegate;
+@end
+
+

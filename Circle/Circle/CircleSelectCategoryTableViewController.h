@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Parse/Parse.h"
+
 @protocol CircleCategoryDelegate <NSObject>
 @required
 -(void) userSelectedCategories:(NSArray *)categories;
@@ -14,6 +16,7 @@
 
 
 
-@interface CircleSelectCategoryTableViewController : UITableViewController
+@interface CircleSelectCategoryTableViewController : PFQueryTableViewController
+@property (strong, nonatomic) NSArray *selectedCategories;
 @property NSObject<CircleCategoryDelegate> *delegate;
 @end

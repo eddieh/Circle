@@ -9,10 +9,12 @@
 #import "CircleSelectLocationTableViewController.h"
 
 @interface CircleSelectLocationTableViewController ()
-
+@property (nonatomic,strong) NSString * locationSelection;
 @end
 
 @implementation CircleSelectLocationTableViewController
+@synthesize delegate = _delegate;
+@synthesize locationSelection = _locationSelection;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

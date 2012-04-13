@@ -94,6 +94,26 @@
 		86E0EEDE1531B02A00C5C4F0 /* LocationSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E0EEDD1531B02A00C5C4F0 /* LocationSingleton.m */; };
 		86E0EEE01531B0B600C5C4F0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E0EEDF1531B0B600C5C4F0 /* CoreLocation.framework */; };
 		86E0EEE31531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E0EEE21531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m */; };
+		9C8906D11536B39F00311526 /* CircleSearchEventTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8906C51536B39F00311526 /* CircleSearchEventTableViewController.m */; };
+		9C8906D41536B39F00311526 /* CircleSelectCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8906CA1536B39F00311526 /* CircleSelectCategoryTableViewController.m */; };
+		9CB87FF81537E94B006F06D8 /* CircleSelectDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB87FF71537E94A006F06D8 /* CircleSelectDateViewController.m */; };
+		9CB87FFC1537FB02006F06D8 /* CircleSelectLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB87FFB1537FB02006F06D8 /* CircleSelectLocationViewController.m */; };
+		9CB87FFF1538079A006F06D8 /* CircleSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB87FFE1538079A006F06D8 /* CircleSearchResultsTableViewController.m */; };
+		9CB8802815381245006F06D8 /* GooglePlacesConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8800615381244006F06D8 /* GooglePlacesConnection.m */; };
+		9CB8802915381245006F06D8 /* GooglePlacesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8800815381244006F06D8 /* GooglePlacesObject.m */; };
+		9CB8802A15381245006F06D8 /* GTMNSString+URLArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8800D15381245006F06D8 /* GTMNSString+URLArguments.m */; };
+		9CB8802B15381245006F06D8 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8801015381245006F06D8 /* NSObject+SBJson.m */; };
+		9CB8802C15381245006F06D8 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8801315381245006F06D8 /* SBJsonParser.m */; };
+		9CB8802D15381245006F06D8 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8801515381245006F06D8 /* SBJsonStreamParser.m */; };
+		9CB8802E15381245006F06D8 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8801715381245006F06D8 /* SBJsonStreamParserAccumulator.m */; };
+		9CB8802F15381245006F06D8 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8801915381245006F06D8 /* SBJsonStreamParserAdapter.m */; };
+		9CB8803015381245006F06D8 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8801B15381245006F06D8 /* SBJsonStreamParserState.m */; };
+		9CB8803115381245006F06D8 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8801D15381245006F06D8 /* SBJsonStreamWriter.m */; };
+		9CB8803215381245006F06D8 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8801F15381245006F06D8 /* SBJsonStreamWriterAccumulator.m */; };
+		9CB8803315381245006F06D8 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8802115381245006F06D8 /* SBJsonStreamWriterState.m */; };
+		9CB8803415381245006F06D8 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8802315381245006F06D8 /* SBJsonTokeniser.m */; };
+		9CB8803515381245006F06D8 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8802515381245006F06D8 /* SBJsonUTF8Stream.m */; };
+		9CB8803615381245006F06D8 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8802715381245006F06D8 /* SBJsonWriter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -250,6 +270,49 @@
 		86E0EEDF1531B0B600C5C4F0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		86E0EEE11531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleChooseCheckInLocationViewController.h; sourceTree = "<group>"; };
 		86E0EEE21531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleChooseCheckInLocationViewController.m; sourceTree = "<group>"; };
+		9C8906C41536B39F00311526 /* CircleSearchEventTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSearchEventTableViewController.h; sourceTree = "<group>"; };
+		9C8906C51536B39F00311526 /* CircleSearchEventTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSearchEventTableViewController.m; sourceTree = "<group>"; };
+		9C8906C91536B39F00311526 /* CircleSelectCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSelectCategoryTableViewController.h; sourceTree = "<group>"; };
+		9C8906CA1536B39F00311526 /* CircleSelectCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSelectCategoryTableViewController.m; sourceTree = "<group>"; };
+		9CB87FF61537E94A006F06D8 /* CircleSelectDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSelectDateViewController.h; sourceTree = "<group>"; };
+		9CB87FF71537E94A006F06D8 /* CircleSelectDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSelectDateViewController.m; sourceTree = "<group>"; };
+		9CB87FFA1537FB01006F06D8 /* CircleSelectLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSelectLocationViewController.h; sourceTree = "<group>"; };
+		9CB87FFB1537FB02006F06D8 /* CircleSelectLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSelectLocationViewController.m; sourceTree = "<group>"; };
+		9CB87FFD15380799006F06D8 /* CircleSearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSearchResultsTableViewController.h; sourceTree = "<group>"; };
+		9CB87FFE1538079A006F06D8 /* CircleSearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSearchResultsTableViewController.m; sourceTree = "<group>"; };
+		9CB8800515381244006F06D8 /* GooglePlacesConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooglePlacesConnection.h; sourceTree = "<group>"; };
+		9CB8800615381244006F06D8 /* GooglePlacesConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePlacesConnection.m; sourceTree = "<group>"; };
+		9CB8800715381244006F06D8 /* GooglePlacesObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooglePlacesObject.h; sourceTree = "<group>"; };
+		9CB8800815381244006F06D8 /* GooglePlacesObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePlacesObject.m; sourceTree = "<group>"; };
+		9CB8800A15381245006F06D8 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		9CB8800B15381245006F06D8 /* GTMGarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGarbageCollection.h; sourceTree = "<group>"; };
+		9CB8800C15381245006F06D8 /* GTMNSString+URLArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+URLArguments.h"; sourceTree = "<group>"; };
+		9CB8800D15381245006F06D8 /* GTMNSString+URLArguments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+URLArguments.m"; sourceTree = "<group>"; };
+		9CB8800F15381245006F06D8 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
+		9CB8801015381245006F06D8 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
+		9CB8801115381245006F06D8 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
+		9CB8801215381245006F06D8 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		9CB8801315381245006F06D8 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		9CB8801415381245006F06D8 /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParser.h; sourceTree = "<group>"; };
+		9CB8801515381245006F06D8 /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParser.m; sourceTree = "<group>"; };
+		9CB8801615381245006F06D8 /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAccumulator.h; sourceTree = "<group>"; };
+		9CB8801715381245006F06D8 /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAccumulator.m; sourceTree = "<group>"; };
+		9CB8801815381245006F06D8 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		9CB8801915381245006F06D8 /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		9CB8801A15381245006F06D8 /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserState.h; sourceTree = "<group>"; };
+		9CB8801B15381245006F06D8 /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		9CB8801C15381245006F06D8 /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		9CB8801D15381245006F06D8 /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
+		9CB8801E15381245006F06D8 /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterAccumulator.h; sourceTree = "<group>"; };
+		9CB8801F15381245006F06D8 /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterAccumulator.m; sourceTree = "<group>"; };
+		9CB8802015381245006F06D8 /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterState.h; sourceTree = "<group>"; };
+		9CB8802115381245006F06D8 /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
+		9CB8802215381245006F06D8 /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonTokeniser.h; sourceTree = "<group>"; };
+		9CB8802315381245006F06D8 /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonTokeniser.m; sourceTree = "<group>"; };
+		9CB8802415381245006F06D8 /* SBJsonUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonUTF8Stream.h; sourceTree = "<group>"; };
+		9CB8802515381245006F06D8 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
+		9CB8802615381245006F06D8 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		9CB8802715381245006F06D8 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -368,6 +431,9 @@
 		8613D46E152EC6CE0002579B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9CB8800415381244006F06D8 /* GooglePlaces */,
+				9CB8800915381244006F06D8 /* GTM */,
+				9CB8800E15381245006F06D8 /* SBJSON */,
 				2C5DF07C15315F6700F85C63 /* libxml2.dylib */,
 				2C5DF07A15315F4200F85C63 /* CoreData.framework */,
 				2C5DF06215315D4D00F85C63 /* RestKit.xcodeproj */,
@@ -488,6 +554,16 @@
 			isa = PBXGroup;
 			children = (
 				863C1EAE153189700014DA1D /* CircleSearchStoryboard.storyboard */,
+				9CB87FFD15380799006F06D8 /* CircleSearchResultsTableViewController.h */,
+				9CB87FFE1538079A006F06D8 /* CircleSearchResultsTableViewController.m */,
+				9CB87FF61537E94A006F06D8 /* CircleSelectDateViewController.h */,
+				9CB87FF71537E94A006F06D8 /* CircleSelectDateViewController.m */,
+				9C8906C41536B39F00311526 /* CircleSearchEventTableViewController.h */,
+				9C8906C51536B39F00311526 /* CircleSearchEventTableViewController.m */,
+				9C8906C91536B39F00311526 /* CircleSelectCategoryTableViewController.h */,
+				9C8906CA1536B39F00311526 /* CircleSelectCategoryTableViewController.m */,
+				9CB87FFA1537FB01006F06D8 /* CircleSelectLocationViewController.h */,
+				9CB87FFB1537FB02006F06D8 /* CircleSelectLocationViewController.m */,
 				860EFA431530150100F9540F /* CircleSearchViewController.h */,
 				860EFA441530150100F9540F /* CircleSearchViewController.m */,
 			);
@@ -514,6 +590,60 @@
 				861FE164153431D000D3DA03 /* CircleSignInViewController.m */,
 			);
 			name = Auth;
+			sourceTree = "<group>";
+		};
+		9CB8800415381244006F06D8 /* GooglePlaces */ = {
+			isa = PBXGroup;
+			children = (
+				9CB8800515381244006F06D8 /* GooglePlacesConnection.h */,
+				9CB8800615381244006F06D8 /* GooglePlacesConnection.m */,
+				9CB8800715381244006F06D8 /* GooglePlacesObject.h */,
+				9CB8800815381244006F06D8 /* GooglePlacesObject.m */,
+			);
+			path = GooglePlaces;
+			sourceTree = "<group>";
+		};
+		9CB8800915381244006F06D8 /* GTM */ = {
+			isa = PBXGroup;
+			children = (
+				9CB8800A15381245006F06D8 /* GTMDefines.h */,
+				9CB8800B15381245006F06D8 /* GTMGarbageCollection.h */,
+				9CB8800C15381245006F06D8 /* GTMNSString+URLArguments.h */,
+				9CB8800D15381245006F06D8 /* GTMNSString+URLArguments.m */,
+			);
+			path = GTM;
+			sourceTree = "<group>";
+		};
+		9CB8800E15381245006F06D8 /* SBJSON */ = {
+			isa = PBXGroup;
+			children = (
+				9CB8800F15381245006F06D8 /* NSObject+SBJson.h */,
+				9CB8801015381245006F06D8 /* NSObject+SBJson.m */,
+				9CB8801115381245006F06D8 /* SBJson.h */,
+				9CB8801215381245006F06D8 /* SBJsonParser.h */,
+				9CB8801315381245006F06D8 /* SBJsonParser.m */,
+				9CB8801415381245006F06D8 /* SBJsonStreamParser.h */,
+				9CB8801515381245006F06D8 /* SBJsonStreamParser.m */,
+				9CB8801615381245006F06D8 /* SBJsonStreamParserAccumulator.h */,
+				9CB8801715381245006F06D8 /* SBJsonStreamParserAccumulator.m */,
+				9CB8801815381245006F06D8 /* SBJsonStreamParserAdapter.h */,
+				9CB8801915381245006F06D8 /* SBJsonStreamParserAdapter.m */,
+				9CB8801A15381245006F06D8 /* SBJsonStreamParserState.h */,
+				9CB8801B15381245006F06D8 /* SBJsonStreamParserState.m */,
+				9CB8801C15381245006F06D8 /* SBJsonStreamWriter.h */,
+				9CB8801D15381245006F06D8 /* SBJsonStreamWriter.m */,
+				9CB8801E15381245006F06D8 /* SBJsonStreamWriterAccumulator.h */,
+				9CB8801F15381245006F06D8 /* SBJsonStreamWriterAccumulator.m */,
+				9CB8802015381245006F06D8 /* SBJsonStreamWriterState.h */,
+				9CB8802115381245006F06D8 /* SBJsonStreamWriterState.m */,
+				9CB8802215381245006F06D8 /* SBJsonTokeniser.h */,
+				9CB8802315381245006F06D8 /* SBJsonTokeniser.m */,
+				9CB8802415381245006F06D8 /* SBJsonUTF8Stream.h */,
+				9CB8802515381245006F06D8 /* SBJsonUTF8Stream.m */,
+				9CB8802615381245006F06D8 /* SBJsonWriter.h */,
+				9CB8802715381245006F06D8 /* SBJsonWriter.m */,
+			);
+			path = SBJSON;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -694,6 +824,26 @@
 				861FE165153431D000D3DA03 /* CircleSignInViewController.m in Sources */,
 				868CDBCD15343FF5000058F3 /* CircleSignUpViewController.m in Sources */,
 				2CDBC36E1535BB390015FCF1 /* CircleWhereMapViewControllerViewController.m in Sources */,
+				9C8906D11536B39F00311526 /* CircleSearchEventTableViewController.m in Sources */,
+				9C8906D41536B39F00311526 /* CircleSelectCategoryTableViewController.m in Sources */,
+				9CB87FF81537E94B006F06D8 /* CircleSelectDateViewController.m in Sources */,
+				9CB87FFC1537FB02006F06D8 /* CircleSelectLocationViewController.m in Sources */,
+				9CB87FFF1538079A006F06D8 /* CircleSearchResultsTableViewController.m in Sources */,
+				9CB8802815381245006F06D8 /* GooglePlacesConnection.m in Sources */,
+				9CB8802915381245006F06D8 /* GooglePlacesObject.m in Sources */,
+				9CB8802A15381245006F06D8 /* GTMNSString+URLArguments.m in Sources */,
+				9CB8802B15381245006F06D8 /* NSObject+SBJson.m in Sources */,
+				9CB8802C15381245006F06D8 /* SBJsonParser.m in Sources */,
+				9CB8802D15381245006F06D8 /* SBJsonStreamParser.m in Sources */,
+				9CB8802E15381245006F06D8 /* SBJsonStreamParserAccumulator.m in Sources */,
+				9CB8802F15381245006F06D8 /* SBJsonStreamParserAdapter.m in Sources */,
+				9CB8803015381245006F06D8 /* SBJsonStreamParserState.m in Sources */,
+				9CB8803115381245006F06D8 /* SBJsonStreamWriter.m in Sources */,
+				9CB8803215381245006F06D8 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				9CB8803315381245006F06D8 /* SBJsonStreamWriterState.m in Sources */,
+				9CB8803415381245006F06D8 /* SBJsonTokeniser.m in Sources */,
+				9CB8803515381245006F06D8 /* SBJsonUTF8Stream.m in Sources */,
+				9CB8803615381245006F06D8 /* SBJsonWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
