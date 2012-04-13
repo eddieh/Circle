@@ -185,6 +185,7 @@ Circle.CreateEventView = Backbone.View.extend({
     'click .my-date-picker .add-on': 'showDatePicker',
     'click .my-time-picker .add-on': 'showTimePicker',
     'click #add-end-time': 'addEndTime',
+    'click #remove-end-time': 'removeEndTime',
     'click #close': 'close',
     'click #save': 'save'
   },
@@ -195,8 +196,16 @@ Circle.CreateEventView = Backbone.View.extend({
   },
 
   whereChanged: function (e, venueInfo) {
-    console.log('it changed:');
+    console.log('>>>>>');
     console.dir(venueInfo);
+    if (!venueInfo) return;
+    this.model.set('address', venueInfo.address);
+    this.model.set('location', {
+      '__type': 'GeoPoint',
+      'latitude': venueInfo.location.lat,
+      'longitude': venueInfo.location.lng
+    });
+    this.model.set('venueName', venueInfo.name);
   },
 
   showDatePicker: function (e) {
@@ -214,9 +223,15 @@ Circle.CreateEventView = Backbone.View.extend({
     $('#end-time-group').show();
   },
 
+  removeEndTime: function (e) {
+    $('#add-end-time').show();
+    $('#end-time-group').hide();
+  },
+
   selectCategory: function (category) {
     this.selectedCategory = category;
     $('#category').html(this.selectedCategory.get('name'));
+    this.model.set('category', this.selectedCategory.id);
   },
 
   close: function (e) {
@@ -224,6 +239,42 @@ Circle.CreateEventView = Backbone.View.extend({
   },
 
   save: function (e) {
+    var startDate = null,
+        endDate = null;
+    try {
+      startDate = moment($('#startDate').val() +
+             ' ' +
+             $('#startTime').val(),
+             'MM/DD/YYYY h:mm a').toDate();
+    } catch (e) {
+      startDate = new Date();
+    }
+    try {
+      endDate = moment($('#endDate').val() +
+                       ' ' +
+                       $('#endTime').val(),
+                       'MM/DD/YYYY hh:mm a').toDate();
+    } catch (e) {
+      endDate = new Date();
+    }
+
+    this.model.set({
+      name: $('#name').val(),
+      details: $('#details').val(),
+      startDate: {
+        '__type': 'Date',
+        'iso': startDate
+      },
+      endDate: {
+        '__type': 'Date',
+        'iso': endDate
+      }
+    });
+    if (this.model.isNew()) {
+      this.model.save();
+    } else {
+      this.model.save();
+    }
     this.$el.modal('hide');
   },
 
@@ -242,7 +293,7 @@ Circle.CreateEventView = Backbone.View.extend({
     if (!this.venueTypeaheadConfigured) {
       $('.venue-typeahead', this.$el)
           .venueTypeahead()
-          .on('change', this.whereChanged);
+          .on('change', $.proxy(this.whereChanged, this));
       this.venueTypeaheadConfigured = true;
     }
 

@@ -239,7 +239,7 @@
               <div class="input-append my-time-picker">
                 <input type="text"
                        class="auto-time input-small"
-                       id="startDate-time"><span class="add-on">
+                       id="startTime"><span class="add-on">
                   <i class="icon-time"></i></span>
               </div>
 
@@ -263,8 +263,11 @@
               <div class="input-append my-time-picker">
                 <input type="text"
                        class="auto-time input-small"
-                       id="endDate-time"><span class="add-on">
+                       id="endTime"><span class="add-on">
                   <i class="icon-time"></i></span>
+                <a id="remove-end-time" href="#">
+                  <i class="icon-remove"></i>
+                </a>
               </div>
 
               <p class="help-block">
@@ -300,6 +303,9 @@
   <script src="js/jquery.timePicker.min.js"></script>
   <script src="js/cityPicker.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    window.moment = Kalendae.moment;
+  </script>
   <script type="text/javascript">
   var mapOptions = {
     zoom: 9,
