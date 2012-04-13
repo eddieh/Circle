@@ -39,6 +39,13 @@
       .carousel {
         height: 327px;
       }
+      #create-event {
+      text-align: center;
+      }
+      #create-event a {
+      margin-left: auto;
+      margin-right: auto;
+      }
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
     <link rel="stylesheet" href="css/timePicker.css">
@@ -128,16 +135,17 @@
 
     </div>
 
-    <!-- Example row of columns -->
     <div class="row">
       <div id="map_canvas" class="span8">`
       </div>
 
       <div class="span4">
         <h2>Create your own event</h2>
-        <ul id="event-list"></ul>
-        <label>Venue: <input id="venue" class="input-xlarge venue-typeahead" type="text" /></label>
-        <p><a class="btn"
+        <p>You can create and share your own events on Circle. So
+        whether you're hosing a party at your home, or promoting the
+        biggest rock band in the world, you can add your event right
+        here right now.</p>
+        <p id="create-event"><a class="btn btn-large btn-success"
               href="#create-event-modal">
             Create Event &raquo;
         </a></p>
@@ -192,7 +200,9 @@
           <div class="control-group">
             <label class="control-label" for="where">Where</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="where">
+              <input type="text"
+                     class="input-xlarge venue-typeahead"
+                     id="where">
               <p class="help-block">
               </p>
             </div>

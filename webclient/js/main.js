@@ -314,6 +314,7 @@ $(function () {
                                              Circle.errorPosition);
   }
 
+  if (false) {
   // the collections of models
   Circle.events = new Circle.EventList();
 
@@ -329,4 +330,5 @@ $(function () {
 
   // get the data from parse
   Circle.events.fetch();
+  }
 });
