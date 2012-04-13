@@ -27,6 +27,10 @@ var Circle = {};
 
 /* Models */
 Circle.Event = Backbone.Model.extend({
+  // Parse uses objectId tor the entities id, so tell backbone about
+  // it
+  idAttribute: 'objectId',
+
   // this is where backbone will POST to when creating a new Event
   // entity.
   urlRoot: 'https://api.parse.com/1/classes/Event'
@@ -102,6 +106,10 @@ Circle.EventListView = Backbone.View.extend({
 });
 
 Circle.Category = Backbone.Model.extend({
+  // Parse uses objectId tor the entities id, so tell backbone about
+  // it
+  idAttribute: 'objectId',
+
   // this is where backbone will POST to when creating a new Category
   // entity.
   urlRoot: 'https://api.parse.com/1/classes/Category'
@@ -196,7 +204,7 @@ Circle.CreateEventView = Backbone.View.extend({
   },
 
   whereChanged: function (e, venueInfo) {
-    console.log('>>>>>');
+    console.log('Loc>>>>>');
     console.dir(venueInfo);
     if (!venueInfo) return;
     this.model.set('address', venueInfo.address);
@@ -229,9 +237,15 @@ Circle.CreateEventView = Backbone.View.extend({
   },
 
   selectCategory: function (category) {
+    console.log('Cat>>>>');
+    console.dir(category);
     this.selectedCategory = category;
     $('#category').html(this.selectedCategory.get('name'));
-    this.model.set('category', this.selectedCategory.id);
+    this.model.set('category', {
+      '__type': 'Pointer',
+      'className': 'Category',
+      'objectId': this.selectedCategory.id
+    });
   },
 
   close: function (e) {
