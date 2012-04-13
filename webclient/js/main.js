@@ -27,13 +27,22 @@ var Circle = {};
 
 /* Models */
 Circle.Event = Backbone.Model.extend({
-  // Parse uses objectId tor the entities id, so tell backbone about
+  // Parse uses objectId for the entities id, so tell backbone about
   // it
   idAttribute: 'objectId',
 
   // this is where backbone will POST to when creating a new Event
   // entity.
   urlRoot: 'https://api.parse.com/1/classes/Event'
+
+  // toJSON_: function (options) {
+  //   options = {
+  //     'categoryName': function () {
+  //     }
+  //   }
+  //   return _.extend(_.clone(this.attributes), {
+  //   });
+  // }
 });
 
 Circle.EventList = Backbone.Collection.extend({
@@ -107,7 +116,7 @@ Circle.EventListView = Backbone.View.extend({
 });
 
 Circle.Category = Backbone.Model.extend({
-  // Parse uses objectId tor the entities id, so tell backbone about
+  // Parse uses objectId for the entities id, so tell backbone about
   // it
   idAttribute: 'objectId',
 
