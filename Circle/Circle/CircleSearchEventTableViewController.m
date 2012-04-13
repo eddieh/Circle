@@ -12,6 +12,7 @@
 @interface CircleSearchEventTableViewController ()
 @property (strong, nonatomic) NSArray *categories;
 @property (strong, nonatomic) NSString *location;
+@property (strong, nonatomic) PFGeoPoint *point;
 @end
 
 @implementation CircleSearchEventTableViewController
@@ -20,8 +21,11 @@
 @synthesize locationCell = _locationCell;
 @synthesize location = _location;
 @synthesize connection = _connection;
-@synthesize delegate = _delegate;
+@synthesize point = _point;
 
+- (void)viewDidLoad {
+    self.connection = [[GooglePlacesConnection alloc] initWithDelegate:self];
+}
 
 - (void)viewDidUnload
 {
@@ -36,9 +40,9 @@
     [super viewWillAppear:animated];
     NSString *categoryString = [[NSString alloc] init];
     
-    if (self.categories) {
-        for (NSString *category in self.categories) {
-            categoryString = [categoryString stringByAppendingFormat:@"%@, ", category];
+    if ([self.categories count] > 0) {
+        for (PFObject *category in self.categories) {
+            categoryString = [categoryString stringByAppendingFormat:@"%@, ", [category objectForKey:@"name"]];
         }
         categoryString = [categoryString substringToIndex:[categoryString length] - 2];
         self.categoryCell.detailTextLabel.text = categoryString;
@@ -50,27 +54,28 @@
     //add search button
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                               initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
-                                              target:self action:@selector(searchBarSearchButtonClicked:)];
+                                              target:self action:@selector(searchBarSearchButtonClicked)];
     
 }
 
+#pragma mark - UISearchBar delegate
 - (void) searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
     
     self.tableView.scrollEnabled = NO;
     //add cancel button when keyboard appears
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
                                              initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                             target:self action:@selector(cancelSearchButtonClick:)];
+                                             target:self action:@selector(cancelSearchButtonClick)];
     
 }
-- (void) searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
+- (void) searchBarSearchButtonClicked {
     
     NSLog(@"@%@",searchBar.text);
     [self performSegueWithIdentifier:@"searchResultsTransition" sender:self];
     
 }
 
--(void) cancelSearchButtonClick:(id)sender{
+-(void) cancelSearchButtonClick {
     [searchBar resignFirstResponder];
     
     self.navigationItem.leftBarButtonItem = nil;
@@ -80,8 +85,7 @@
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [self.delegate userSelectedFilter:self.categories:self.location];
-    NSLog(@"CAT@%@",self.categories);
+    [super viewWillDisappear:animated];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -94,16 +98,12 @@
 }
 
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    // Navigation logic may go here. Create and push another view controller.
-//    /*
-//     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-//     // ...
-//     // Pass the selected object to the new view controller.
-//     [self.navigationController pushViewController:detailViewController animated:YES];
-//     */
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1) {
+        [self searchBarSearchButtonClicked];
+    }
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[CircleSelectCategoryTableViewController class]]) {
@@ -113,7 +113,10 @@
     }
     if ([segue.destinationViewController isKindOfClass:[CircleSelectLocationViewController class]]) {
         CircleSelectLocationViewController *vc = (CircleSelectLocationViewController *)segue.destinationViewController;
+        NSLog(@"Prepare for segue. Location: %@", self.location);
         vc.delegate = self;
+        vc.searchText = self.locationCell.detailTextLabel.text;
+        
     }
    if ([segue.destinationViewController isKindOfClass:[CircleSearchResultsTableViewController class]]) {
        PFQuery *query = [PFQuery queryWithClassName:@"Event"];
@@ -123,11 +126,12 @@
        }
        if(![self.locationCell.detailTextLabel.text isEqualToString:@""])
        {
-           [query whereKey:@"location" equalTo:self.location];
+           [query whereKey:@"location" nearGeoPoint:self.point withinMiles:50.0];
        }
        if(![searchBar.text isEqualToString:@""])
        {
-           [query whereKey:@"name" equalTo:searchBar.text];
+        
+           [query whereKey:@"name" containsString:searchBar.text];
        }
 
        //TODO; be able to search by dates
@@ -149,10 +153,16 @@
     [self.connection getGoogleObjectDetails:[dict objectForKey:@"reference"]];
 }
 
+- (void) selectionCancelledInCityAutocompleteTableViewController:(CircleSelectLocationViewController *)controller; {
+    self.point = nil;
+    self.location = nil;
+    self.locationCell.detailTextLabel.text = @"";
+}
 
 #pragma mark - GooglePlacesConnection delegate
 - (void) googlePlacesConnection:(GooglePlacesConnection *)conn didFinishLoadingWithGooglePlacesObject:(GooglePlacesObject *)detailObject; {
     NSLog(@"Details loaded! \n\n%@", detailObject);
+    self.point = [PFGeoPoint geoPointWithLatitude:detailObject.coordinate.latitude longitude:detailObject.coordinate.longitude];
 }
 
 - (void) googlePlacesConnection:(GooglePlacesConnection *)conn didFailWithError:(NSError *)error; {

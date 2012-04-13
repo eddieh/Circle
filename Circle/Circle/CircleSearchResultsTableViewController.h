@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
 #import "CircleSearchEventTableViewController.h"
+#import "CircleEventDetailViewController.h"
 
 //@protocol CircleResultsDelegate <NSObject>
 //@required

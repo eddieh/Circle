@@ -61,7 +61,6 @@
     
     NSString* gurl               = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/autocomplete/json?location=%f,%f&radius=80000&types=(cities)&input=%@&sensor=true&key=%@",
                                     centerLat, centerLng, query, kGOOGLE_API_KEY];
-    //NSLog(@"URL: %@", gurl);
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:gurl] 
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy 
                                                        timeoutInterval:10];
@@ -120,6 +119,7 @@
     NSString* gurl  = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?reference=%@&sensor=true&key=%@",
                        reference, kGOOGLE_API_KEY];
     
+    
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:gurl] 
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy 
                                                        timeoutInterval:10];
@@ -172,6 +172,7 @@
     
         if ([responseStatus isEqualToString:@"OK"]) 
         {
+            NSLog(@"JSON returned: %@", parsedJSON);
             if ([parsedJSON objectForKey: @"predictions"] == nil) {
                 //Perform Place Details results
                 NSDictionary *gResponseDetailData = [parsedJSON objectForKey: @"result"];

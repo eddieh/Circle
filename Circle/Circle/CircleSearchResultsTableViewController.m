@@ -111,6 +111,13 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[CircleEventDetailViewController class]]) {
+        CircleEventDetailViewController *vc = segue.destinationViewController;
+        vc.event = [self.objects objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    }
+}
+
 #pragma mark - Parse
 
 - (void)objectsDidLoad:(NSError *)error {
@@ -155,23 +162,28 @@
  }
  
 
-/*
+
  // Override to customize the look of a cell representing an object. The default is to display
  // a UITableViewCellStyleDefault style cell with the label being the first key in the object. 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
- static NSString *CellIdentifier = @"Cell";
- 
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
- if (cell == nil) {
- cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
+    static NSString *CellIdentifier = @"searchLocation";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+    
+    // Configure the cell
+    cell.textLabel.text = [object objectForKey:@"name"];
+    cell.detailTextLabel.text = [object objectForKey:@"venueName"];
+    
+    if ([[object objectForKey:@"image"] isKindOfClass:[UIImage class]]) {
+        [cell.imageView setImage:[object objectForKey:@"image"]];
+    }
+    
+    return cell;
  }
  
- // Configure the cell
- cell.textLabel.text = [object objectForKey:@"key"];
- 
- return cell;
- }
- */
 
 /*
  // Override if you need to change the ordering of objects in the table.

@@ -21,9 +21,11 @@
 @property (nonatomic, strong) NSURLConnection   *urlConnection;
 @property (nonatomic, strong) NSMutableData     *responseData;
 @property (nonatomic, strong) NSMutableArray    *locations;
+@property (nonatomic, strong) NSString *searchText;
 @end
 
 @protocol CityAutocompleteTableViewControllerDelegate <NSObject>
 @required
 - (void) cityAutocompleteTableViewController:(CircleSelectLocationViewController *)controller didSelectCityWithDictionary:(NSDictionary *)dict;
+- (void) selectionCancelledInCityAutocompleteTableViewController:(CircleSelectLocationViewController *)controller;
 @end
