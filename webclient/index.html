@@ -22,7 +22,7 @@
       .controls .thumbnail {
       width: 160px;
       }
-      #city-field {
+      .input-tall {
       height: 28px;
       }
       #category {
@@ -76,10 +76,14 @@
       <div class="span8">
         <div class="hero-unit">
           <h1>Find an Event</h1>
-          <p>This is a template for a simple marketing or informational
-            website. It includes a large callout</p>
-          <input class="input-xlarge cityTypeahead" type="text" />
-          <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+          <p>What would you like to be doing tonight?</p>
+
+          <input id="search-field"
+                 class="input-xlarge input-tall"
+                 type="text" /> near <a class="city-picker"
+                                        href="#choose-city">Flagstaff, AZ</a>
+
+          <p><a class="btn btn-primary btn-large">Search &raquo;</a></p>
         </div>
       </div>
 
@@ -132,7 +136,7 @@
       <div class="span4">
         <h2>Create your own event</h2>
         <ul id="event-list"></ul>
-       <label>Venue: <input id="venue" class="input-xlarge venue-typeahead" type="text" /></label>
+        <label>Venue: <input id="venue" class="input-xlarge venue-typeahead" type="text" /></label>
         <p><a class="btn"
               href="#create-event-modal">
             Create Event &raquo;
@@ -284,6 +288,7 @@
   <script src="js/bootstrap-carousel.js"></script>
   <script src="js/kalendae.js"></script>
   <script src="js/jquery.timePicker.min.js"></script>
+  <script src="js/cityPicker.js"></script>
   <script src="js/main.js"></script>
   <script type="text/javascript">
   var mapOptions = {
@@ -341,6 +346,10 @@
   $(function() {
     $('.carousel').carousel();
   })
+
+  $('.city-picker').cityPicker({
+    attachedTo: $('#search-field')
+  });
 
 
   </script>
