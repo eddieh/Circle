@@ -6,7 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
     <scenes>
-        <!--Circle Choose Check In Table View Controller-->
+        <!--Circle Choose Check In Table View Controller - Choose Event-->
         <scene sceneID="I82-My-YmO">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mGH-HS-frs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -54,7 +54,7 @@
                             <outlet property="delegate" destination="esR-fX-Rtb" id="o2F-8R-aiV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="OqC-8T-oLP"/>
+                    <navigationItem key="navigationItem" title="Choose Event" id="OqC-8T-oLP"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="576" y="950"/>
