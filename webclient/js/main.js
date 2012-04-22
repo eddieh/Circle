@@ -22,6 +22,17 @@ function t(name) {
 	return Handlebars.compile($('#' + name + '-template').html());
 }
 
+Handlebars.registerHelper('dateAsCalendar', function(date) {
+  //text = Handlebars.Utils.escapeExpression(text);
+  date = moment(date.iso);
+  var json = {
+    month: date.monthStr(),
+    weekday: date.weekdayStr(),
+    day: date.date()
+  };
+  return new Handlebars.SafeString(t('calendar-day')(json));
+});
+
 /* Setup the Circle namespace */
 var Circle = {};
 
@@ -601,12 +612,20 @@ Circle.Router = Backbone.Router.extend({
   },
 
   detail: function (event_id) {
-    var event = Circle.events.get(event_id);
-    if (!event) {
-      event = Circle.Event({id: event_id});
-      event.fetch();
+    var event = Circle.events ? Circle.events.get(event_id) : null;
+
+    function success () {
+      $('#layout.container').html(t('detail-layout')(event.toJSON()));
     }
-    $('#layout.container').html(t('detail-layout')(event.toJSON()));
+
+    if (!event) {
+      event = new Circle.Event({objectId: event_id});
+      event.fetch({
+        success: success
+      });
+    } else {
+      success();
+    }
   },
 
   search: function () {
@@ -640,6 +659,12 @@ Circle.Router = Backbone.Router.extend({
 $(function () {
   // make moment.js global
   window.moment = Kalendae.moment;
+  window.moment.fn.weekdayStr = function () {
+    return moment.weekdaysShort[this.day()];
+  };
+  window.moment.fn.monthStr = function () {
+    return moment.monthsShort[this.month()];
+  };
 
   // set up the backbone.js router
   Circle.app = new Circle.Router();
