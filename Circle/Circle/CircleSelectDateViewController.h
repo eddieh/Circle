@@ -1,15 +1,21 @@
-//
-//  MSEWhenTableViewController.h
-//  MultiStepEditor
-//
-//  Created by Eddie Hillenbrand on 4/8/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
+//  CircleSelectDateViewController.h
+
 
 #import <UIKit/UIKit.h>
 @class PFObject;
 
+//custom picker
+IBOutlet UIPickerView *pickerView;
+NSMutableArray *pickerArray;
+//added
+@protocol CircleDateDelegate <NSObject>
+-(void) userSelectedStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
+@end
+
+
+
 @interface CircleSelectDateViewController : UITableViewController
+
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *startsCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *endsCell;
@@ -31,4 +37,12 @@
 - (IBAction)plusOneWeek:(id)sender;
 - (IBAction)plusOneMonth:(id)sender;
 
+//added
+@property (strong, nonatomic) NSDate *selectedStartDate;
+@property (strong, nonatomic) NSDate *selectedEndDate;
+@property NSObject <CircleDateDelegate> *delegate;
+
+
+
 @end
+

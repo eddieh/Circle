@@ -87,6 +87,7 @@
             }
         }
     }
+//[[self selectedCategories:[[NSArray alloc]init]]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -101,14 +102,6 @@
             [selectedCategories addObject:[self.objects objectAtIndex:i]];
         }
     }
-//    for (UITableViewCell *Cell in self.tableView.visibleCells)
-//    {
-//        if(Cell.accessoryType == UITableViewCellAccessoryCheckmark)
-//        {
-//            Cell.
-//            [selectedCategories addObject:Cell.textLabel.text];
-//        }
-//    }
     [self.delegate userSelectedCategories:selectedCategories];
 }
 

@@ -13,11 +13,18 @@
 @interface CircleSearchResultsTableViewController ()
 @property (strong, nonatomic) NSArray *categories;
 @property (strong, nonatomic) NSString *location;
+//added
+@property (strong, nonatomic) NSDate *startDate;
+@property (strong, nonatomic) NSDate *endDate;
+
 @end
 @implementation CircleSearchResultsTableViewController
 @synthesize categories = _categories;
 @synthesize location = _location;
 @synthesize myQuery = _myQuery;
+//added
+@synthesize startDate = _startDate;
+@synthesize endDate = _endDate;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {

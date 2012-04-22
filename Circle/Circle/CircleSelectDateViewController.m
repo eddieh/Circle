@@ -5,6 +5,7 @@
 //  Created by Eddie Hillenbrand on 4/8/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
+//off by +7 hours?
 
 #import "CircleSelectDateViewController.h"
 #import "CircleConstants.h"
@@ -30,6 +31,11 @@
 @synthesize datePicker = _datePicker;
 @synthesize nextButton = _nextButton;
 @synthesize event = _event;
+
+//added
+@synthesize selectedEndDate = _selectedEndDate;
+@synthesize selectedStartDate = _selectedStartDate;
+@synthesize delegate = _delegate;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -65,7 +71,10 @@
     
     // set up the start date
     // TODO: the date picker should be configured so that dates in the past can not be selected
-    self.startDate = [self.event objectForKey:@"startDate"];
+    //added uses start date from event search screen
+    if (self.selectedStartDate) self.startDate = self.selectedStartDate;
+        
+    //self.startDate = [self.event objectForKey:@"startDate"];
     if (self.startDate) {
         self.datePicker.date = self.startDate;
     } else {
@@ -74,15 +83,23 @@
     self.startsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.startDate];
     
     // set up the end date
-    if (![[NSNull null] isEqual:[self.event objectForKey:@"endDate"]]) {
-        self.endDate = [self.event objectForKey:@"endDate"];
-    }
+//    if (![[NSNull null] isEqual:[self.event objectForKey:@"endDate"]]) {
+//        self.endDate = [self.event objectForKey:@"endDate"];
+//    }
+    
+    //added uses end date from event search screen
+    if (self.selectedEndDate) self.endDate = self.selectedEndDate;
     
     if (self.endDate) {
         self.endsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.endDate];
     } else {
         self.endsCell.detailTextLabel.text = @"None";
     }
+    
+    //custom UIPicker
+    pickerArray = [[NSMutableArray alloc]init];
+    
+    
 }
 
 - (void)viewDidUnload
@@ -94,9 +111,23 @@
     [self setPlusOneMonthButton:nil];
     [self setDatePicker:nil];
     [self setNextButton:nil];
+    [self setDateFormatter:nil];
+    [self setSelectedStartDate:nil];
+    [self setSelectedEndDate:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+//added
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSLog(@"Start Date(DateCon): %@",self.startDate);
+    NSLog(@"End Date(DateCon): %@",self.endDate);
+    [self.delegate userSelectedStartDate:self.startDate endDate:self.endDate];
+}
+-(void) viewWillAppear:(BOOL)animated{
+    NSLog(@"Test %@",self.delegate);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

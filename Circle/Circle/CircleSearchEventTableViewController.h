@@ -10,23 +10,22 @@
 #import "CircleSelectCategoryTableViewController.h"
 #import "CircleSelectLocationViewController.h"
 #import "GooglePlacesConnection.h"
-//#import "CircleSearchResultsTableViewController.h"
+#import "CircleSelectDateViewController.h"
 
 
 
 
-@interface CircleSearchEventTableViewController : UITableViewController <CircleCategoryDelegate, CityAutocompleteTableViewControllerDelegate, GooglePlacesConnectionDelegate>
+@interface CircleSearchEventTableViewController : UITableViewController <CircleCategoryDelegate, CityAutocompleteTableViewControllerDelegate, GooglePlacesConnectionDelegate, CircleDateDelegate>
 {
     IBOutlet UISearchBar *searchBar;
-    
 }
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *categoryCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *locationCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *dateCell;
 @property (strong, nonatomic) GooglePlacesConnection *connection;
 
 - (void) cityAutocompleteTableViewController:(CircleSelectLocationViewController *)controller didSelectCityWithDictionary:(NSDictionary *)dict;
 
 
 @end
-
