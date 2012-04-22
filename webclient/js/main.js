@@ -127,6 +127,7 @@ Circle.EventSlideshowSlideView = Backbone.View.extend ({
   render: function() {
     //the first slide needs to have class "active" so we set that here
     var json = this.model.toJSON();
+    console.dir(json);
     json[0].active = ' active';
 
     this.$el.html(this.template(json));
@@ -229,7 +230,8 @@ Circle.CreateEventView = Backbone.View.extend({
     'click #add-end-time': 'addEndTime',
     'click #remove-end-time': 'removeEndTime',
     'click #close': 'close',
-    'click #save': 'save'
+    'click #save': 'save', 
+    'click #image-close-button': 'reshowUploadButton'
   },
 
   initialize: function (args) {
@@ -275,6 +277,71 @@ Circle.CreateEventView = Backbone.View.extend({
       '__type': 'Pointer',
       'className': 'Category',
       'objectId': this.selectedCategory.id
+    });
+  },
+  
+  // when you use the server files they give you, the server returns two other parameters 
+  // that parse doesn't, so ignore the first two parameters because they're junk
+  showUploadedImageAndHideUploadButton: function(useless_variable, useless_also, json) {
+    var that = this;
+
+    //show a thumbnail of the uploaded image
+    var $container = $('#uploaded-image');
+    $container.find('img').attr('src', json.url);
+
+    var $uploader = $("#file-uploader").fadeOut();
+
+    $container.fadeIn();
+
+    //remove the filename now that we're done uploading
+    $uploader.find('li').remove();
+    
+    //change the label
+    $('#upload-label')
+      .html('<a>Choose a different image?</a>')
+      .click(that.reshowUploadButton);
+
+    this.imageUploadedNamed(json.name);
+  },
+
+  reshowUploadButton: function(e) {
+    $('#uploaded-image').fadeOut();
+    var $uploader = $('#file-uploader').fadeIn();
+    $('#upload-label').off('click').text('Upload an image?');
+  },
+
+  /*
+   the first two parameters are returned by the server files included with 
+   this plugin, but not by parse, so they're basically junk for our purposes
+   */
+  imageUploadedNamed: function(name) {
+    this.model.set('image', {
+      '__type': 'File',
+      'name': name
+    });
+  },
+
+  setupUploader: function() {
+    var that = this;
+    var uploader = new qq.FileUploader({
+      allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
+      
+      // pass the dom node (ex. $(selector)[0] for jQuery users)
+      element: document.getElementById('file-uploader'),
+      
+      // path to server-side upload script
+      action: 'https://api.parse.com/1/files', 
+      
+      // override to change the button text or style (css classes defined in fileuploader.css).
+      // the upload area allows you to drag and drop files to upload, and the upload list is a 
+      // list of the files uploaded. neither of these can be removed without breaking the plugin.
+      template: '<div class="qq-uploader">' + 
+                '<div class="qq-upload-drop-area"><span>Drop files here to upload</span></div>' +
+                '<div class="qq-upload-button btn btn-success">Choose file</div>' +
+                '<ul class="qq-upload-list"></ul>' + 
+             '</div>',
+
+      onComplete: $.proxy(that.showUploadedImageAndHideUploadButton, that)
     });
   },
 
@@ -340,16 +407,8 @@ Circle.CreateEventView = Backbone.View.extend({
           .on('change', $.proxy(this.whereChanged, this));
       this.venueTypeaheadConfigured = true;
     }
-    $('#file').fileupload({
-        dataType: 'json',
-        done: function (e, data) {
-            console.dir(data);
-        },
-        headers: {
-          "X-Parse-Application-Id" : "FFO9TzzLbMB5A4PM8A0vzNpb0M8DSeAgbsP0fGNB",
-          "X-Parse-REST-API-Key" : "YwfE7q918UGjEkpufKPpm5GMgPI5jK08Pf2meEkh"
-        }
-    });
+
+    this.setupUploader();
 
     return this;
   }

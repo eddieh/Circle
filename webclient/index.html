@@ -8,6 +8,8 @@
     <meta name="author" content="">
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/fileuploader.css">
+    
     <style>
       body {
       padding-top: 60px;
@@ -38,6 +40,9 @@
       }
       .carousel {
         height: 327px;
+        background-image: url(img/loading.gif);
+        background-repeat: no-repeat;
+        background-position: center center;
       }
         .carousel-inner a {
           color: inherit;
@@ -55,6 +60,14 @@
           font-size: 0.9em;
           padding-bottom: 5px;
         }
+
+      .item {
+        width: 370px;
+        height: 327px;
+        background-repeat: no-repeat;
+        background-position: top center;
+        background-size: cover;
+      }
       #create-event {
       text-align: center;
       }
@@ -83,6 +96,9 @@
       width: 64px;
       height: 64px;
       margin-right: 12px;
+      }
+      img.max-height-75 { 
+        max-height: 75px;
       }
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
@@ -153,15 +169,17 @@
         <div id="myCarousel" class="carousel">
           <div id="slides" class="carousel-inner">
           <!--slides go here-->
+          </div>
+        
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
         </div>
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
       </div>
 
     </div>
 
     <div class="row">
-      <div id="map_canvas" class="span8">
+      <div id="map_canvas" class="span8">`
       </div>
 
       <div class="span4">
@@ -304,14 +322,21 @@
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="image">Upload an image?</label>
+            <label id="upload-label" class="control-label" for="file">Upload an image?</label>
             <div class="controls">
-              <input type="file"
-                     id="file">
+              
+              <div id="file-uploader">       
+                <noscript>          
+                    <p>Please enable JavaScript to use file uploader.</p>
+                    <!-- or put a simple form for upload here -->
+                </noscript>         
+              </div>
+              <div id="uploaded-image" style="display:none;"><img class="max-height-75" /></div>
               <p class="help-block">
               </p>
             </div>
           </div>
+
         </fieldset>
     </form>
 
@@ -358,22 +383,24 @@
 
   <script id="event-slideshow-slide-view-template" type="text/x-handlebars-template">
     {{#each this}}
-      <div class="item{{active}}">
-      <a href="#detail/{{objectId}}">
+      
       {{#if image}}
-        <img src="{{image}}" alt="{{name}}" />
+      <a href="#detail/{{objectId}}" class="item{{active}}" style="background-image: url({{image.url}});">
+        
       {{else}}
-        <img src="img/nutcracker.jpg" alt="Nutcracker" />
+        <a href="#detail/{{objectId}}" class="item{{active}}" style="background-image: url(img/nutcracker.jpg);">
       {{/if}}
+      
         <div class="carousel-caption">
         <h3>{{name}}</h3>
+      
           {{#if venueName}}
             <h5>at {{venueName}}</h5>
           {{/if}}
+      
           <p>{{details}}</p>
         </div>
-        </a>
-      </div>
+      </a>
     {{/each}}
    </script>
 
@@ -382,21 +409,6 @@
       <div class="span8">
         <h1>{{name}}<h1>
         <p class="lead">{{details}}</p>
-        <div class="row">
-          <div class="span4">
-            <h2>{{startDate.iso}}</h2>
-          </div>
-          <div class="span4">
-            <h2>{{venueName}}</h2>
-            <p>{{address}}</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="span8">
-            <div id="map_canvas">
-            </div>
-          </div>
-        </div>
       </div>
       <div class="span4">
         <div class="thumbnail">
@@ -424,24 +436,15 @@
   <script src="js/backbone-min.js"></script>
   <script src="js/handlebars-1.0.0.beta.6.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  
-  <!-- google maps -->
   <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4&sensor=false"></script>
-  
-  <!-- bootstrap js includes -->
   <script src="js/bootstrap-ajax-typeahead.js"></script>
   <script src="js/bootstrap-carousel.js"></script>
-  
-  <!-- date, time and city picker scripts for create event -->
   <script src="js/kalendae.js"></script>
   <script src="js/jquery.timePicker.min.js"></script>
   <script src="js/cityPicker.js"></script>
 
-  <!-- file upload -->
-  <script src="js/vendor/jquery.ui.widget.js"></script>
-  <script src="js/jquery.iframe-transport.js"></script>
-  <script src="js/jquery.fileupload.js"></script>
-  
+  <script src="js/fileuploader.js"></script>
+
   <script src="js/main.js"></script>
 </body>
 
