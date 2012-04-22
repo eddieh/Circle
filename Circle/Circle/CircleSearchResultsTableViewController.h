@@ -11,11 +11,6 @@
 #import "CircleSearchEventTableViewController.h"
 #import "CircleEventDetailViewController.h"
 
-//@protocol CircleResultsDelegate <NSObject>
-//@required
-//-(void) userSelectedFilter:(NSArray *) categories: (NSString*) location;
-//@end
-
 
 @interface CircleSearchResultsTableViewController : PFQueryTableViewController
 @property PFQuery *myQuery;

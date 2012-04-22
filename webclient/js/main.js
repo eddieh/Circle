@@ -128,10 +128,9 @@ Circle.EventSlideshowSlideView = Backbone.View.extend ({
     //the first slide needs to have class "active" so we set that here
     var json = this.model.toJSON();
     json[0].active = ' active';
-    console.dir(json);
 
     this.$el.html(this.template(json));
-    
+
     // setup our fancy carousel
     $('.carousel').carousel();
     return this;
@@ -239,8 +238,6 @@ Circle.CreateEventView = Backbone.View.extend({
   },
 
   whereChanged: function (e, venueInfo) {
-    console.log('Loc>>>>>');
-    console.dir(venueInfo);
     if (!venueInfo) return;
     this.model.set('address', venueInfo.address);
     this.model.set('location', {
@@ -272,8 +269,6 @@ Circle.CreateEventView = Backbone.View.extend({
   },
 
   selectCategory: function (category) {
-    console.log('Cat>>>>');
-    console.dir(category);
     this.selectedCategory = category;
     $('#category').html(this.selectedCategory.get('name'));
     this.model.set('category', {
@@ -370,6 +365,10 @@ Circle.mapOptions = {
 };
 Circle.map = null;
 
+/**
+ * Performs a reverse geocoding given the position and triggers a
+ * 'location:change' event on success.
+ */
 Circle.gotPosition = function (pos) {
   Circle.position = pos;
   Circle.setMapCenter(pos);
@@ -416,14 +415,62 @@ Circle.setMapCenter = function (pos) {
 Circle.errorPosition = function () {
 };
 
-Circle.getPosition = function () {
+/**
+ * Get the geolocation position from the browser if we don't already
+ * have it.
+ *
+ * Calls Circle.gotPosition on success. Circle.gotPositon performs a
+ * reverse geocoding given the position and triggers a
+ * 'location:change' event on success.
+ *
+ * If we already have a position call the callback if provided.
+ */
+Circle.getPositionFromBrowser = function (callback) {
   if (!Circle.position) {
     // get the location from the browser, if supported
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(Circle.gotPosition,
                                                Circle.errorPosition);
     }
+  } else {
+    callback && callback();
   }
+}
+
+/**
+ * Get the events near a position, or near the current position saved
+ * in Circle.position if not position is provided.
+ *
+ * position = {
+ *   coords: {
+ *     latitude: 42.0,
+ *     longitude: 13.1
+ *   }
+ * }
+ *
+ * @param {Dict} position See above.
+ * @param {Number} radius The search radius in miles.
+ */
+Circle.getEventsNearPosition = function (position, radius) {
+  if (!position) position = Circle.position;
+  if (!radius) radius = 20.0;
+
+  // get the data from Parse
+  Circle.events.fetch({
+    data: 'where=' + JSON.stringify({
+      location: {
+        '$nearSphere': {
+          '__type': 'GeoPoint',
+          'latitude': position.coords.latitude,
+          'longitude': position.coords.longitude
+        },
+        '$maxDistanceInMiles': radius
+      }
+    })
+  });
+
+  // set the center of the map too
+  Circle.setMapCenter(position);
 }
 
 Circle.Router = Backbone.Router.extend({
@@ -438,17 +485,16 @@ Circle.Router = Backbone.Router.extend({
   home: function () {
     $('#layout.container').html(t('home-layout')());
 
-    //get current location - when we do, handle it!
-    $(window).on('location:change', $.proxy(this.get_em, this));
-    Circle.getPosition();
-
-    Circle.events = new Circle.EventList();
+    if (!Circle.events) {
+      // create the collections of models
+      Circle.events = new Circle.EventList();
+    }
 
     Circle.eventSlideshow = new Circle.EventSlideshowSlideView({
       el: '#slides',
 
       model: Circle.events
-    });    
+    });
 
     // setup our fancy city selector
     $('.city-picker').cityPicker({
@@ -463,17 +509,19 @@ Circle.Router = Backbone.Router.extend({
       };
       Circle.setMapCenter(Circle.position);
     });
+
+    Circle.getPositionFromBrowser(function () {
+      $(window).trigger('location:change');
+    });
   },
 
   events: function () {
     $('#layout.container').html(t('events-layout')());
-    
-    //get current location - when we do, handle it!
-    $(window).on('location:change', $.proxy(this.get_em, this));
-    Circle.getPosition();
 
-    // the collections of models
-    Circle.events = new Circle.EventList();
+    if (!Circle.events) {
+      // create the collections of models
+      Circle.events = new Circle.EventList();
+    }
 
     // the list view
     Circle.eventsView = new Circle.EventListView({
@@ -484,26 +532,13 @@ Circle.Router = Backbone.Router.extend({
       // the collection
 	    model: Circle.events
     });
+
+    Circle.getPositionFromBrowser(function () {
+      $(window).trigger('location:change');
+    });
   },
 
   search: function () {
-  },
-
-  get_em: function () {
-      // get the data from Parse
-      Circle.events.fetch({
-        data: 'where=' + JSON.stringify({
-          location: {
-            '$nearSphere': {
-              '__type': 'GeoPoint',
-              'latitude': Circle.position.coords.latitude,
-              'longitude': Circle.position.coords.longitude
-            },
-            '$maxDistanceInMiles': 20.0
-          }
-        })
-      });
-      Circle.setMapCenter(Circle.position);
   },
 
   detail: function (event_id) {
@@ -549,6 +584,7 @@ $(function () {
 
   // set up the backbone.js router
   Circle.app = new Circle.Router();
+
   Backbone.history.on('route', function (router, routeName, args) {
 		// get the navigation link, if there is one
 		var selector = '#' + routeName + '-nav';
@@ -560,5 +596,11 @@ $(function () {
 		// make this link active
 		$el.addClass('active');
 	});
+
+  // if our location changes update our events
+  $(window).on('location:change', function (e) {
+    Circle.getEventsNearPosition();
+  });
+
   Backbone.history.start();
 });
