@@ -420,15 +420,14 @@ Circle.Router = Backbone.Router.extend({
   routes: {
     '': 'home',
     'events': 'events',
+    'detail/:event_id': 'detail',
     'search': 'search',
     'create-event-modal': 'createEvent'
   },
 
   home: function () {
     $('#layout.container').html(t('home-layout')());
-    $('#events-nav-btn').removeClass('active');
-    $('#home-nav-btn').addClass('active');
-    
+
     //get current location - when we do, handle it!
     $(window).on('location:change', $.proxy(this.get_em, this));
     Circle.getPosition();
@@ -457,8 +456,6 @@ Circle.Router = Backbone.Router.extend({
   },
 
   events: function () {
-    $('#events-nav-btn').addClass('active');
-    $('#home-nav-btn').removeClass('active');
     $('#layout.container').html(t('events-layout')());
     
     //get current location - when we do, handle it!
@@ -477,11 +474,6 @@ Circle.Router = Backbone.Router.extend({
       // the collection
 	    model: Circle.events
     });
-
-
-    if (Circle.position) {
-      get_em();
-    }
   },
 
   search: function () {
@@ -502,6 +494,18 @@ Circle.Router = Backbone.Router.extend({
         })
       });
       Circle.setMapCenter(Circle.position);
+  },
+
+  detail: function (event_id) {
+    var event = Circle.events.get(event_id);
+    if (!event) {
+      event = Circle.Event({id: event_id});
+      event.fetch();
+    }
+    $('#layout.container').html(t('detail-layout')(event.toJSON()));
+  },
+
+  search: function () {
   },
 
   createEvent: function () {
@@ -535,5 +539,16 @@ $(function () {
 
   // set up the backbone.js router
   Circle.app = new Circle.Router();
+  Backbone.history.on('route', function (router, routeName, args) {
+		// get the navigation link, if there is one
+		var selector = '#' + routeName + '-nav';
+		var $el = $(selector);
+
+		// deactivate the links
+		$('.nav li').removeClass('active');
+
+		// make this link active
+		$el.addClass('active');
+	});
   Backbone.history.start();
 });
