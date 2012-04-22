@@ -400,8 +400,6 @@ Circle.Router = Backbone.Router.extend({
   },
 
   home: function () {
-    $('#events-nav-btn').removeClass('active');
-    $('#home-nav-btn').addClass('active');
     $('#layout.container').html(t('home-layout')());
     Circle.getPosition();
 
@@ -425,8 +423,6 @@ Circle.Router = Backbone.Router.extend({
   },
 
   events: function () {
-    $('#events-nav-btn').addClass('active');
-    $('#home-nav-btn').removeClass('active');
     $('#layout.container').html(t('events-layout')());
     Circle.getPosition();
 
@@ -503,5 +499,16 @@ $(function () {
 
   // set up the backbone.js router
   Circle.app = new Circle.Router();
+  Backbone.history.on('route', function (router, routeName, args) {
+		// get the navigation link, if there is one
+		var selector = '#' + routeName + '-nav';
+		var $el = $(selector);
+
+		// deactivate the links
+		$('.nav li').removeClass('active');
+
+		// make this link active
+		$el.addClass('active');
+	});
   Backbone.history.start();
 });
