@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Multiple DnD Uploader</title>
+    <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#drop').change(function(event){
+          var $this = $(this);
+          var files = event.target.files;
+          
+          for(var i = 0, len = files.length; i < len; i++) {
+            myFile = files[i];
+            console.dir(files[i]);
+
+            var ext = (files[i].fileName+"").substring((files[i].fileName+"").length-4).toLowerCase();
+
+            var url = 'https://api.parse.com/1/files/' + files[i].fileName;
+            
+            if (ext =='.png' || ext == '.jpg' || ext == '.jpeg' || ext == '.gif') {
+              $.ajax({
+                type: "POST",
+                
+                url: url,
+                
+                contentType: files[i].type,
+                
+                headers: {
+                  "X-Parse-Application-Id" : "FFO9TzzLbMB5A4PM8A0vzNpb0M8DSeAgbsP0fGNB",
+                  "X-Parse-REST-API-Key" : "YwfE7q918UGjEkpufKPpm5GMgPI5jK08Pf2meEkh"
+                },
+                
+                beforeSend:  function() {
+                  $('#info').append('<li class="indicator"><span class="label">File Name :</span> '+files[i].fileName+' | <span class="label">Size :</span> ' + files[i].fileSize + ' | <img id="'+i+'" src="img/loading.gif" /></li>');
+                },
+                
+                processData: false,
+                
+                data: files[i],
+                
+                dataType:'json',
+                
+                success: function(data){
+                  console.dir(data);
+                  var img = new Image();
+                  $(img).load(function() {
+                    console.log("load");
+                    $this.replaceWith(img);
+                  });
+
+                  img.src = data.url;
+                },
+                
+                error: function(data){
+                  $('#info').append('Error: ' + data + '<br />');
+                }
+              });
+            } else {
+              $('#info').append('Error: we can\'t upload that file type. Allowed file types are .png, .jpg and .gif.');
+            }
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="drop">
+      <h1>Drop files here</h1>
+      <p>To add them as attachments</p>
+      <input type="file" multiple="true" id="filesUpload" />
+    </div>
+    <div id="info">
+    </div>
+  </body>
+</html>

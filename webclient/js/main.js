@@ -345,6 +345,16 @@ Circle.CreateEventView = Backbone.View.extend({
           .on('change', $.proxy(this.whereChanged, this));
       this.venueTypeaheadConfigured = true;
     }
+    $('#file').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+            console.dir(data);
+        },
+        headers: {
+          "X-Parse-Application-Id" : "FFO9TzzLbMB5A4PM8A0vzNpb0M8DSeAgbsP0fGNB",
+          "X-Parse-REST-API-Key" : "YwfE7q918UGjEkpufKPpm5GMgPI5jK08Pf2meEkh"
+        }
+    });
 
     return this;
   }
