@@ -12,6 +12,9 @@
 @interface CircleSearchEventTableViewController ()
 @property (strong, nonatomic) NSArray *categories;
 @property (strong, nonatomic) NSString *location;
+@property (strong, nonatomic) NSDate *startDate;
+@property (strong, nonatomic) NSDate *endDate;
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property (strong, nonatomic) PFGeoPoint *point;
 @end
 
@@ -20,11 +23,22 @@
 @synthesize categories = _categories;
 @synthesize locationCell = _locationCell;
 @synthesize location = _location;
+//added
+@synthesize dateCell = _dateCell;
+@synthesize startDate = _startDate;
+@synthesize endDate = _endDate;
+@synthesize dateFormatter = _dateFormatter;
+
 @synthesize connection = _connection;
 @synthesize point = _point;
 
 - (void)viewDidLoad {
     self.connection = [[GooglePlacesConnection alloc] initWithDelegate:self];
+    // Set up the date formatter
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+	[self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [self.dateFormatter setDateFormat:@"MM/dd h:mm a"];
 }
 
 - (void)viewDidUnload
@@ -34,6 +48,10 @@
     [self setCategories:nil];
     [self setLocation:nil];
     [self setLocationCell:nil];
+    [self setStartDate:nil];
+    [self setEndDate:nil];
+    [self setDateCell:nil];
+    [self setDateFormatter:nil];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -47,10 +65,27 @@
         categoryString = [categoryString substringToIndex:[categoryString length] - 2];
         self.categoryCell.detailTextLabel.text = categoryString;
     }
-    if (self.location)
-    {
-        self.locationCell.detailTextLabel.text = self.location;
+    else {
+        self.categoryCell.detailTextLabel.text = @"";
     }
+    
+    NSLog(@"Start Date(Event): %@",self.startDate);
+    NSLog(@"End Date(Event): %@",self.endDate);
+    
+    //adds dates to window with a to between the start and end date if the end date is NOT null
+    if (self.startDate)
+    {
+        if (self.endDate)
+        {
+            NSString *selectedDates = [NSString stringWithFormat:@"%@%@%@",[self.dateFormatter stringFromDate:self.startDate],@" to ",[self.dateFormatter stringFromDate:self.endDate]];
+            self.dateCell.detailTextLabel.text = selectedDates;
+        }
+        else {
+            NSString *selectedDates = [self.dateFormatter stringFromDate:self.startDate];
+            self.dateCell.detailTextLabel.text = selectedDates;
+        }
+    }
+
     //add search button
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                               initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
@@ -71,6 +106,7 @@
 - (void) searchBarSearchButtonClicked {
     
     NSLog(@"@%@",searchBar.text);
+    
     [self performSegueWithIdentifier:@"searchResultsTransition" sender:self];
     
 }
@@ -111,14 +147,13 @@
         vc.delegate = self;
         vc.selectedCategories = self.categories;
     }
-    if ([segue.destinationViewController isKindOfClass:[CircleSelectLocationViewController class]]) {
+    else if ([segue.destinationViewController isKindOfClass:[CircleSelectLocationViewController class]]) {
         CircleSelectLocationViewController *vc = (CircleSelectLocationViewController *)segue.destinationViewController;
         NSLog(@"Prepare for segue. Location: %@", self.location);
         vc.delegate = self;
         vc.searchText = self.locationCell.detailTextLabel.text;
-        
     }
-   if ([segue.destinationViewController isKindOfClass:[CircleSearchResultsTableViewController class]]) {
+   else if ([segue.destinationViewController isKindOfClass:[CircleSearchResultsTableViewController class]]) {
        PFQuery *query = [PFQuery queryWithClassName:@"Event"];
        if(![self.categoryCell.detailTextLabel.text isEqualToString:@""])
        {
@@ -128,20 +163,35 @@
        {
            [query whereKey:@"location" nearGeoPoint:self.point withinMiles:50.0];
        }
+       if(![self.dateCell.detailTextLabel.text isEqualToString:@""])
+       {
+           [query whereKey:@"startDate" greaterThanOrEqualTo:self.startDate];
+           [query whereKey:@"startDate" lessThanOrEqualTo:self.endDate];
+       }
        if(![searchBar.text isEqualToString:@""])
        {
-        
            [query whereKey:@"name" containsString:searchBar.text];
        }
-
-       //TODO; be able to search by dates
-       //NSLog(@"LOGGED@%@",[query get:@"category"]);
        [segue.destinationViewController setMyQuery:query];
+    }
+    //Date delegate
+    else if ([segue.destinationViewController isKindOfClass:[CircleSelectDateViewController class]]) {
+        CircleSelectDateViewController *vc = (CircleSelectDateViewController *)segue.destinationViewController;
+        vc.delegate = self;
+        vc.selectedStartDate = self.startDate;
+        vc.selectedEndDate = self.endDate;
     }
     
     
 }
 
+#pragma mark - userSelectedDate delegate
+-(void) userSelectedStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;{
+    self.startDate = startDate;
+    self.endDate = endDate;
+}
+
+#pragma mark - userSelectedCategories delegate
 - (void)userSelectedCategories:(NSArray *)categories {
     self.categories = categories;
 }
