@@ -273,10 +273,17 @@
     <td class="info">
       <a href="#detail/{{objectId}}">
         <div class="img-box">
+          {{#if image}}
+          <img class="attach"
+               height="64"
+               width="64"
+               src="{{image.url}}" />
+          {{else}}
           <img class="attach"
                height="64"
                width="64"
                src="img/category/concert.jpg" />
+          {{/if}}
         </div>
         <div><span class="name">{{name}}</name></div>
       </a>
