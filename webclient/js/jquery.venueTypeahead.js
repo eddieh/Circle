@@ -33,7 +33,7 @@
           .typeahead({
             source: function (typeahead, query) {
               var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' +
-                  query +
+                  encodeURIComponent(query) +
                   '&types=(cities)&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
 
               $.getJSON(that.services[that.options['service']] + encodeURIComponent(url) + '&callback=?', function (data) {
@@ -63,7 +63,7 @@
                 return;
               }
               var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' +
-                  query +
+                  encodeURIComponent(query) +
                   '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
 
               // encode search with location and a 50-mile radius to
