@@ -161,7 +161,7 @@
     </div>
 
     <div class="row">
-      <div id="map_canvas" class="span8">`
+      <div id="map_canvas" class="span8">
       </div>
 
       <div class="span4">
@@ -364,7 +364,7 @@
           <p>{{details}}</p>
         </div>
         </a>
-      </div>  
+      </div>
     {{/each}}
    </script>
 
@@ -373,6 +373,21 @@
       <div class="span8">
         <h1>{{name}}<h1>
         <p class="lead">{{details}}</p>
+        <div class="row">
+          <div class="span4">
+            <h2>{{startDate.iso}}</h2>
+          </div>
+          <div class="span4">
+            <h2>{{venueName}}</h2>
+            <p>{{address}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span8">
+            <div id="map_canvas">
+            </div>
+          </div>
+        </div>
       </div>
       <div class="span4">
         <div class="thumbnail">
