@@ -39,6 +39,22 @@
       .carousel {
         height: 327px;
       }
+        .carousel-inner a {
+          color: inherit;
+        }
+        .carousel-inner a:hover {
+          text-decoration: none;
+        }
+        .carousel-inner {
+          color: #fff;
+        }
+        .carousel-inner h5 {
+          font-style: oblique;
+          font-weight: normal;
+          color: #999;
+          font-size: 0.9em;
+          padding-bottom: 5px;
+        }
       #create-event {
       text-align: center;
       }
@@ -102,7 +118,6 @@
 
     <div id="layout" class="container">
     </div>
-
     <hr>
     <footer>
       <p>&copy; Company 2012</p>
@@ -135,42 +150,12 @@
       </div>
 
       <div class="span4">
-        <div id="myCarousel" class="carousel slide">
-          <div class="carousel-inner">
-            <div class="item active">
-              <img src="img/beer.jpg" alt="">
-              <div class="carousel-caption">
-                <h4>Beer tasting @ Mother Road Brewery</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas
-                eget quam. Donec id elit non mi porta gravida at eget
-                metus. Nullam id dolor id nibh ultricies vehicula ut
-                id elit.</p>
-              </div>
-            </div>
-            <div class="item">
-              <img src="img/chicago.jpg" alt="">
-              <div class="carousel-caption">
-                <h4>Chicago @ Theatrikos</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas
-                eget quam. Donec id elit non mi porta gravida at eget
-                metus. Nullam id dolor id nibh ultricies vehicula ut
-                id elit.</p>
-              </div>
-            </div>
-            <div class="item">
-              <img src="img/nutcracker.jpg" alt="">
-              <div class="carousel-caption">
-                <h4>Tchaikovsky's Nutcracker @ Ardrey Auditorium</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas
-                eget quam. Donec id elit non mi porta gravida at eget
-                metus. Nullam id dolor id nibh ultricies vehicula ut
-                id elit.</p>
-              </div>
-            </div>
-          </div>
-          <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-          <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+        <div id="myCarousel" class="carousel">
+          <div id="slides" class="carousel-inner">
+          <!--slides go here-->
         </div>
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
       </div>
 
     </div>
@@ -361,6 +346,27 @@
     </div>
     </div>
   </script>
+
+  <script id="event-slideshow-slide-view-template" type="text/x-handlebars-template">
+    {{#each this}}
+      <div class="item{{active}}">
+      <a href="#event-detail-{{objectId}}">
+      {{#if image}}
+        <img src="{{image}}" alt="{{name}}" />
+      {{else}}
+        <img src="img/nutcracker.jpg" alt="Nutcracker" />
+      {{/if}}
+        <div class="carousel-caption">
+        <h3>{{name}}</h3>
+          {{#if venueName}}
+            <h5>at {{venueName}}</h5>
+          {{/if}}
+          <p>{{details}}</p>
+        </div>
+        </a>
+      </div>  
+    {{/each}}
+   </script>
 
   <script src="js/jquery-1.7.1.min.js"></script>
   <script src="js/underscore-min.js"></script>

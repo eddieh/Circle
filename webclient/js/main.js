@@ -115,6 +115,31 @@ Circle.EventListView = Backbone.View.extend({
 	}
 });
 
+Circle.EventSlideshowSlideView = Backbone.View.extend ({
+  initialize: function () {
+    // since we're extending Backbone.View objects before the DOM is
+    // ready we must set the view's template inside of initialize() so
+    // that _.template is not called when we extend Backbone.View.
+    this.template = t('event-slideshow-slide-view');
+    this.model.on('reset', this.render, this);
+  },
+
+  render: function() {
+    //the first slide needs to have class "active" so we set that here
+    var json = this.model.toJSON();
+    json[0].active = ' active';
+    console.dir(json);
+
+    this.$el.html(this.template(json));
+    
+    // setup our fancy carousel
+    $('.carousel').carousel();
+    return this;
+  }
+
+}),
+
+
 Circle.Category = Backbone.Model.extend({
   // Parse uses objectId for the entities id, so tell backbone about
   // it
@@ -400,13 +425,21 @@ Circle.Router = Backbone.Router.extend({
   },
 
   home: function () {
+    $('#layout.container').html(t('home-layout')());
     $('#events-nav-btn').removeClass('active');
     $('#home-nav-btn').addClass('active');
-    $('#layout.container').html(t('home-layout')());
+    
+    //get current location - when we do, handle it!
+    $(window).on('location:change', $.proxy(this.get_em, this));
     Circle.getPosition();
 
-    // setup our fancy carousel
-    $('.carousel').carousel();
+    Circle.events = new Circle.EventList();
+
+    Circle.eventSlideshow = new Circle.EventSlideshowSlideView({
+      el: '#slides',
+
+      model: Circle.events
+    });    
 
     // setup our fancy city selector
     $('.city-picker').cityPicker({
@@ -421,13 +454,15 @@ Circle.Router = Backbone.Router.extend({
       };
       Circle.setMapCenter(Circle.position);
     });
-    Circle.setMapCenter(Circle.position);
   },
 
   events: function () {
     $('#events-nav-btn').addClass('active');
     $('#home-nav-btn').removeClass('active');
     $('#layout.container').html(t('events-layout')());
+    
+    //get current location - when we do, handle it!
+    $(window).on('location:change', $.proxy(this.get_em, this));
     Circle.getPosition();
 
     // the collections of models
@@ -443,7 +478,16 @@ Circle.Router = Backbone.Router.extend({
 	    model: Circle.events
     });
 
-    function get_em () {
+
+    if (Circle.position) {
+      get_em();
+    }
+  },
+
+  search: function () {
+  },
+
+  get_em: function () {
       // get the data from Parse
       Circle.events.fetch({
         data: 'where=' + JSON.stringify({
@@ -458,18 +502,6 @@ Circle.Router = Backbone.Router.extend({
         })
       });
       Circle.setMapCenter(Circle.position);
-    }
-
-    if (Circle.position) {
-      get_em();
-    }
-
-    $(window).on('location:change', function () {
-      get_em();
-    });
-  },
-
-  search: function () {
   },
 
   createEvent: function () {
