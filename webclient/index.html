@@ -195,7 +195,7 @@
 
   <script id="event-list-item-view-template" type="text/x-handlebars-template">
     <td class="info">
-      <a href="#event/{{id}}">
+      <a href="#detail/{{objectId}}">
         <div class="img-box">
           <img class="attach"
                height="64"
@@ -359,6 +359,31 @@
       <div id="map_canvas">
       </div>
     </div>
+    </div>
+  </script>
+
+  <script id="detail-layout-template" type="text/x-handlebars-template">
+    <div class="row">
+      <div class="span8">
+        <h1>{{name}}<h1>
+        <p class="lead">{{details}}</p>
+      </div>
+      <div class="span4">
+        <div class="thumbnail">
+            <img src="http://placehold.it/290x280" alt="">
+            <div class="caption">
+              <h5>Thumbnail label</h5>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas
+              eget quam. Donec id elit non mi porta gravida at eget
+              metus. Nullam id dolor id nibh ultricies vehicula ut id
+              elit.</p>
+              <p>
+                <a href="#" class="btn btn-primary">Action</a>
+                <a href="#" class="btn">Action</a>
+              </p>
+            </div>
+        </div>
+      </div>
     </div>
   </script>
 

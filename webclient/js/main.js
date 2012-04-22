@@ -395,6 +395,7 @@ Circle.Router = Backbone.Router.extend({
   routes: {
     '': 'home',
     'events': 'events',
+    'detail/:event_id': 'detail',
     'search': 'search',
     'create-event-modal': 'createEvent'
   },
@@ -463,6 +464,15 @@ Circle.Router = Backbone.Router.extend({
     $(window).on('location:change', function () {
       get_em();
     });
+  },
+
+  detail: function (event_id) {
+    var event = Circle.events.get(event_id);
+    if (!event) {
+      event = Circle.Event({id: event_id});
+      event.fetch();
+    }
+    $('#layout.container').html(t('detail-layout')(event.toJSON()));
   },
 
   search: function () {
