@@ -725,7 +725,18 @@ Circle.Router = Backbone.Router.extend({
     var event = Circle.events ? Circle.events.get(event_id) : null;
 
     function success () {
-      $('#layout.container').html(t('detail-layout')(event.toJSON()));
+      var json = event.toJSON();
+      delete json.details;
+
+      $('#layout.container').html(t('detail-layout')(json));
+
+      var wiki = new WikiCreole.Creole({
+        forIE: document.all,
+        interwiki: {},
+        linkFormat: ''
+      });
+      var element = $('#details')[0];
+      wiki.parse(element, event.get('details'));
     }
 
     if (!event) {
@@ -736,6 +747,10 @@ Circle.Router = Backbone.Router.extend({
     } else {
       success();
     }
+
+    Circle.getPositionFromBrowser(function () {
+      Circle.setMapCenter(Circle.position);
+    });
   },
 
   search: function () {

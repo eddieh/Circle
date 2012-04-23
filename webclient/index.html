@@ -101,17 +101,12 @@
         max-height: 75px;
       }
 
-      .frame.large {
+      .frame {
       display: block;
-      /* width: 251px; */
-      height: 120px;
-      padding: 20px;
-      margin-right: 12px;
       border: none;
       }
 
       .calendar {
-      width: 125px;
       margin-left: auto;
       margin-right: auto;
       text-align: center;
@@ -149,17 +144,11 @@
       background-image: linear-gradient(top, #EE5F5B, #C43C35);
       background-repeat: repeat-x;
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EE5F5B', endColorstr='#C43C35', GradientType=0);
-
-      line-height: 1.5;
-      font-size: 24px;
       }
       .calendar .day {
-      color: #999;
-      line-height: 1;
+      color: #797979;
       font-family: HelveticaNeue-Light,
       'Helvetica Neue Light', Helvetica, Arial, sans-serif;
-      font-size: 80px;
-      letter-spacing: -0.5pc;
       background-color: white;
       -webkit-border-bottom-right-radius: 4px;
       -webkit-border-bottom-left-radius: 4px;
@@ -168,13 +157,102 @@
       border-bottom-right-radius: 4px;
       border-bottom-left-radius: 4px;
       }
-      .calendar .weekday {
+
+      .frame.large {
+      height: 140px;
+      padding: 20px;
+      }
+      .frame.large .calendar {
+      width: 130px;
+      }
+      .frame.large .calendar .month {
+      line-height: 1.5;
+      font-size: 24px;
+      }
+      .frame.large .calendar .weekday {
+      margin-top: 3px;
       font-size: 20px;
       letter-spacing: 0pc;
       }
       .marker {
         float:left;
         padding: 10px;
+      }
+      .frame.large .calendar .day {
+      line-height: 1;
+      font-size: 80px;
+      letter-spacing: -0.25pc;
+      }
+
+      .frame.medium {
+      height: 80px;
+      padding: 10px;
+      }
+      .frame.medium .calendar {
+      width: 100px;
+      }
+      .frame.medium .calendar .month {
+      line-height: 1.5;
+      font-size: 18px;
+      }
+      .frame.medium .calendar .weekday {
+      margin-top: 2px;
+      font-size: 14px;
+      letter-spacing: 0pc;
+      }
+      .frame.medium .calendar .day {
+      line-height: 1;
+      font-size: 64px;
+      letter-spacing: -0.25pc;
+      }
+
+      .frame.small {
+      height: 68px;
+      padding: 5px;
+      }
+      .frame.small .calendar {
+      width: 70px;
+      -webkit-border-radius: 6px;
+      -webkit-border-bottom-right-radius: 4px;
+      -webkit-border-bottom-left-radius: 4px;
+      -moz-border-radius: 6px;
+      -moz-border-radius-bottomright: 4px;
+      -moz-border-radius-bottomleft: 4px;
+      border-radius: 6px;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+      }
+      .frame.small .calendar .month {
+      line-height: 1.5;
+      font-size: 14px;
+      -webkit-border-radius: 6px;
+      -webkit-border-bottom-right-radius: 0;
+      -webkit-border-bottom-left-radius: 0;
+      -moz-border-radius: 6px;
+      -moz-border-radius-bottomright: 0;
+      -moz-border-radius-bottomleft: 0;
+      border-radius: 6px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      }
+      .frame.small .calendar .weekday {
+      margin-top: 2px;
+      font-size: 10px;
+      letter-spacing: 0pc;
+      }
+      .frame.small .calendar .day {
+      line-height: 1;
+      font-size: 32px;
+      letter-spacing: -0.1pc;
+      }
+
+      .space {
+      margin-left: 20px;
+      }
+
+      #detail-heading {
+      border-bottom: 1px solid #EEE;
+      margin-bottom: 12px;
       }
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
@@ -481,8 +559,6 @@
           {{#if venueName}}
             <h5>at {{venueName}}</h5>
           {{/if}}
-
-          <p>{{details}}</p>
         </div>
       </a>
     {{/each}}
@@ -490,19 +566,36 @@
 
   <script id="detail-layout-template" type="text/x-handlebars-template">
     <div class="row">
+      <div class="span12">
+      <h1 id="detail-heading">{{name}}</h1>
+      </div>
+
       <div class="span8">
-        <h1>{{name}}</h1>
-        <p class="lead">{{details}}</p>
+
 
         <div class="row">
-          <div class="span4">
-            <h2>{{venueName}}</h2>
-            <p>{{address}}</p>
+
+          <div class="span8">
+
+            <div class="space well pull-right">
+              <div class="row">
+                {{dateAsCalendar startDate}}
+              </div>
+              <div class="row">
+                <div class="span3">
+                <h2>{{venueName}}</h2>
+                <p>{{address}}</p>
+                </div>
+              </div>
+            </div>
+
+            <p id="details"></p>
+
           </div>
-          <div class="span4">
-            {{dateAsCalendar startDate}}
-          </div>
+
         </div>
+
+        <hr />
         <div class="row">
           <div class="span8">
             <div id="map_canvas">
@@ -512,7 +605,11 @@
       </div>
       <div class="span4">
         <div class="thumbnail">
-            <img src="http://placehold.it/290x280" alt="">
+          {{#if image}}
+          <img src="{{image.url}}" class="" alt="" />
+          {{else}}
+          <img src="http://placehold.it/290x280" alt="">
+          {{/if}}
             <div class="caption">
               <h5>Thumbnail label</h5>
               <p>Cras justo odio, dapibus ac facilisis in, egestas
@@ -530,7 +627,7 @@
   </script>
 
   <script id="calendar-day-template" type="text/x-handlebars-template">
-    <div class="frame large">
+    <div class="frame small">
       <div class="calendar">
         <div class="month">
           {{month}}
@@ -559,7 +656,7 @@
   <script src="js/cityPicker.js"></script>
 
   <script src="js/fileuploader.js"></script>
-
+  <script src="js/wikicreole.js"></script>
   <script src="js/main.js"></script>
 </body>
 
