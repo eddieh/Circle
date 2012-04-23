@@ -565,19 +565,19 @@
 
           <div class="span8">
 
-          <div class="span3 pull-right">
-            <div class="row">
-              {{dateAsCalendar startDate}}
-            </div>
-            <div class="row">
-              <div class="span3">
-              <h2>{{venueName}}</h2>
-              <p>{{address}}</p>
+            <div class="pull-right">
+              <div class="row">
+                {{dateAsCalendar startDate}}
+              </div>
+              <div class="row">
+                <div class="span3">
+                <h2>{{venueName}}</h2>
+                <p>{{address}}</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <p id="details"></p>
+            <p id="details"></p>
 
           </div>
 
@@ -591,7 +591,11 @@
       </div>
       <div class="span4">
         <div class="thumbnail">
-            <img src="http://placehold.it/290x280" alt="">
+          {{#if image}}
+          <img src="{{image.url}}" class="" alt="" />
+          {{else}}
+          <img src="http://placehold.it/290x280" alt="">
+          {{/if}}
             <div class="caption">
               <h5>Thumbnail label</h5>
               <p>Cras justo odio, dapibus ac facilisis in, egestas
