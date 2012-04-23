@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/fileuploader.css">
-    
+
     <style>
       body {
       padding-top: 60px;
@@ -98,21 +98,17 @@
       margin-right: 12px;
       }
 
-      img.max-height-75 { 
+      img.max-height-75 {
         max-height: 75px;
       }
 
-      .frame.large {
+      .frame {
       display: block;
-      /* width: 251px; */
-      height: 120px;
-      padding: 20px;
       margin-right: 12px;
       border: none;
       }
 
       .calendar {
-      width: 125px;
       margin-left: auto;
       margin-right: auto;
       text-align: center;
@@ -150,17 +146,11 @@
       background-image: linear-gradient(top, #EE5F5B, #C43C35);
       background-repeat: repeat-x;
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EE5F5B', endColorstr='#C43C35', GradientType=0);
-
-      line-height: 1.5;
-      font-size: 24px;
       }
       .calendar .day {
-      color: #999;
-      line-height: 1;
+      color: #797979;
       font-family: HelveticaNeue-Light,
       'Helvetica Neue Light', Helvetica, Arial, sans-serif;
-      font-size: 80px;
-      letter-spacing: -0.5pc;
       background-color: white;
       -webkit-border-bottom-right-radius: 4px;
       -webkit-border-bottom-left-radius: 4px;
@@ -169,10 +159,92 @@
       border-bottom-right-radius: 4px;
       border-bottom-left-radius: 4px;
       }
-      .calendar .weekday {
+
+      .frame.large {
+      height: 120px;
+      padding: 20px;
+      }
+      .frame.large .calendar {
+      width: 130px;
+      }
+      .frame.large .calendar .month {
+      line-height: 1.5;
+      font-size: 24px;
+      }
+      .frame.large .calendar .weekday {
+      margin-top: 3px;
       font-size: 20px;
       letter-spacing: 0pc;
       }
+      .frame.large .calendar .day {
+      line-height: 1;
+      font-size: 80px;
+      letter-spacing: -0.25pc;
+      }
+
+      .frame.medium {
+      height: 80px;
+      padding: 10px;
+      }
+      .frame.medium .calendar {
+      width: 100px;
+      }
+      .frame.medium .calendar .month {
+      line-height: 1.5;
+      font-size: 18px;
+      }
+      .frame.medium .calendar .weekday {
+      margin-top: 2px;
+      font-size: 14px;
+      letter-spacing: 0pc;
+      }
+      .frame.medium .calendar .day {
+      line-height: 1;
+      font-size: 64px;
+      letter-spacing: -0.25pc;
+      }
+
+      .frame.small {
+      height: 40px;
+      padding: 5px;
+      }
+      .frame.small .calendar {
+      width: 70px;
+      -webkit-border-radius: 6px;
+      -webkit-border-bottom-right-radius: 4px;
+      -webkit-border-bottom-left-radius: 4px;
+      -moz-border-radius: 6px;
+      -moz-border-radius-bottomright: 4px;
+      -moz-border-radius-bottomleft: 4px;
+      border-radius: 6px;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+      }
+      .frame.small .calendar .month {
+      line-height: 1.5;
+      font-size: 14px;
+      -webkit-border-radius: 6px;
+      -webkit-border-bottom-right-radius: 0;
+      -webkit-border-bottom-left-radius: 0;
+      -moz-border-radius: 6px;
+      -moz-border-radius-bottomright: 0;
+      -moz-border-radius-bottomleft: 0;
+      border-radius: 6px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      }
+      .frame.small .calendar .weekday {
+      margin-top: 2px;
+      font-size: 10px;
+      letter-spacing: 0pc;
+      }
+      .frame.small .calendar .day {
+      line-height: 1;
+      font-size: 32px;
+      letter-spacing: -0.1pc;
+      }
+
+
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
     <link rel="stylesheet" href="css/timePicker.css">
@@ -243,7 +315,7 @@
           <div id="slides" class="carousel-inner">
           <!--slides go here-->
           </div>
-        
+
           <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
           <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
         </div>
@@ -404,12 +476,12 @@
           <div class="control-group">
             <label id="upload-label" class="control-label" for="file">Upload an image?</label>
             <div class="controls">
-              
-              <div id="file-uploader">       
-                <noscript>          
+
+              <div id="file-uploader">
+                <noscript>
                     <p>Please enable JavaScript to use file uploader.</p>
                     <!-- or put a simple form for upload here -->
-                </noscript>         
+                </noscript>
               </div>
               <div id="uploaded-image" style="display:none;"><img class="max-height-75" /></div>
               <p class="help-block">
@@ -463,21 +535,21 @@
 
   <script id="event-slideshow-slide-view-template" type="text/x-handlebars-template">
     {{#each this}}
-      
+
       {{#if image}}
       <a href="#detail/{{objectId}}" class="item{{active}}" style="background-image: url({{image.url}});">
-        
+
       {{else}}
         <a href="#detail/{{objectId}}" class="item{{active}}" style="background-image: url(img/nutcracker.jpg);">
       {{/if}}
-      
+
         <div class="carousel-caption">
         <h3>{{name}}</h3>
-      
+
           {{#if venueName}}
             <h5>at {{venueName}}</h5>
           {{/if}}
-      
+
           <p>{{details}}</p>
         </div>
       </a>
@@ -526,7 +598,7 @@
   </script>
 
   <script id="calendar-day-template" type="text/x-handlebars-template">
-    <div class="frame large">
+    <div class="frame small">
       <div class="calendar">
         <div class="month">
           {{month}}
