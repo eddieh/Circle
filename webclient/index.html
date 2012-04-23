@@ -161,7 +161,7 @@
       }
 
       .frame.large {
-      height: 120px;
+      height: 140px;
       padding: 20px;
       }
       .frame.large .calendar {
@@ -205,7 +205,7 @@
       }
 
       .frame.small {
-      height: 40px;
+      height: 68px;
       padding: 5px;
       }
       .frame.small .calendar {
@@ -244,7 +244,9 @@
       letter-spacing: -0.1pc;
       }
 
-
+      .faux-span {
+      margin-left: 20px;
+      }
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
     <link rel="stylesheet" href="css/timePicker.css">
@@ -559,15 +561,26 @@
     <div class="row">
       <div class="span8">
         <h1>{{name}}</h1>
-        <p id="details"></p>
         <div class="row">
-          <div class="span4">
-            <h2>{{venueName}}</h2>
-            <p>{{address}}</p>
+
+          <div class="span8">
+
+          <div class="span3 pull-right">
+            <div class="row">
+              {{dateAsCalendar startDate}}
+            </div>
+            <div class="row">
+              <div class="span3">
+              <h2>{{venueName}}</h2>
+              <p>{{address}}</p>
+              </div>
+            </div>
           </div>
-          <div class="span4">
-            {{dateAsCalendar startDate}}
+
+          <p id="details"></p>
+
           </div>
+
         </div>
         <div class="row">
           <div class="span8">
