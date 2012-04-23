@@ -82,6 +82,11 @@ Circle.EventListItemView = Backbone.View.extend({
   tagName: 'tr',
   className: 'event',
 
+  events: {
+    'mouseenter': 'showOnlyMyMapPin',
+    'mouseleave': 'showAllMapPins'
+  },
+
   initialize: function () {
     // since we're extending Backbone.View objects before the DOM is
     // ready we must set the view's template inside of initialize() so
@@ -94,7 +99,39 @@ Circle.EventListItemView = Backbone.View.extend({
 
     // render should alway return this
 		return this;
-	}
+	},
+
+  showOnlyMyMapPin: function () {
+    //grey out all of the other map pins but this'
+    var objectId =this.model.attributes.objectId;
+
+    for (id in Circle.markers) {
+      var marker = Circle.markers[id];
+
+      if (id != objectId) {
+        marker.setIcon(Circle.mapOptions.disabledMarkerIcon);
+      } else {
+        marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
+      }
+    }
+  },
+
+  showAllMapPins: function () {
+    //return state of all map pins to normal
+
+    var objectId =this.model.attributes.objectId;
+
+    for (id in Circle.markers) {
+      var marker = Circle.markers[id];
+      marker.setIcon(marker.origIcon);
+
+      //reset the z-index if we made it jump to the front on mouseenter
+      if (id == objectId) {
+        marker.setZIndex(1);
+      }
+    }
+  }
+
 });
 
 Circle.EventListView = Backbone.View.extend({
@@ -241,7 +278,7 @@ Circle.CreateEventView = Backbone.View.extend({
     'click #add-end-time': 'addEndTime',
     'click #remove-end-time': 'removeEndTime',
     'click #close': 'close',
-    'click #save': 'save', 
+    'click #save': 'save',
     'click #image-close-button': 'reshowUploadButton'
   },
 
@@ -290,8 +327,8 @@ Circle.CreateEventView = Backbone.View.extend({
       'objectId': this.selectedCategory.id
     });
   },
-  
-  // when you use the server files they give you, the server returns two other parameters 
+
+  // when you use the server files they give you, the server returns two other parameters
   // that parse doesn't, so ignore the first two parameters because they're junk
   showUploadedImageAndHideUploadButton: function(useless_variable, useless_also, json) {
     var that = this;
@@ -306,7 +343,7 @@ Circle.CreateEventView = Backbone.View.extend({
 
     //remove the filename now that we're done uploading
     $uploader.find('li').remove();
-    
+
     //change the label
     $('#upload-label')
       .html('<a>Choose a different image?</a>')
@@ -322,7 +359,7 @@ Circle.CreateEventView = Backbone.View.extend({
   },
 
   /*
-   the first two parameters are returned by the server files included with 
+   the first two parameters are returned by the server files included with
    this plugin, but not by parse, so they're basically junk for our purposes
    */
   imageUploadedNamed: function(name) {
@@ -336,20 +373,20 @@ Circle.CreateEventView = Backbone.View.extend({
     var that = this;
     var uploader = new qq.FileUploader({
       allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
-      
+
       // pass the dom node (ex. $(selector)[0] for jQuery users)
       element: document.getElementById('file-uploader'),
-      
+
       // path to server-side upload script
-      action: 'https://api.parse.com/1/files', 
-      
+      action: 'https://api.parse.com/1/files',
+
       // override to change the button text or style (css classes defined in fileuploader.css).
-      // the upload area allows you to drag and drop files to upload, and the upload list is a 
+      // the upload area allows you to drag and drop files to upload, and the upload list is a
       // list of the files uploaded. neither of these can be removed without breaking the plugin.
-      template: '<div class="qq-uploader">' + 
+      template: '<div class="qq-uploader">' +
                 '<div class="qq-upload-drop-area"><span>Drop files here to upload</span></div>' +
                 '<div class="qq-upload-button btn btn-success">Choose file</div>' +
-                '<ul class="qq-upload-list"></ul>' + 
+                '<ul class="qq-upload-list"></ul>' +
              '</div>',
 
       onComplete: $.proxy(that.showUploadedImageAndHideUploadButton, that)
@@ -431,7 +468,9 @@ Circle.position = null;
 Circle.mapOptions = {
   zoom: 9,
   mapTypeId: google.maps.MapTypeId.ROADMAP,
-  scrollwheel: false
+  scrollwheel: false,
+  //this is the icon we set non-active map pins to when we hover over an event list row
+  disabledMarkerIcon: new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|CCCCCC")
 };
 Circle.map = null;
 
@@ -489,26 +528,68 @@ Circle.errorPosition = function () {
 Circle.markers = {};
 
 Circle.setMapPinsWithData = function (data) {
+  var newMarkers = {};
   var bounds = new google.maps.LatLngBounds();
 
+  /*
+   Iterate through the list of markers. If it's not in there, already, create it.
+   If it is in the list of markers, but not in the new list of events, remove it.
+   */
   for (var i = 0, len = data.models.length; i < len; i++) {
     var attribs = data.models[i].attributes;
-    var html = '<h1>' + attribs.name + '<div class="infowindow"></h1><h4>at' + attribs.venueName + '</h4><p>' +
-      attribs.details + '</p></div>';
 
-    var markerOpts = {
-      map: Circle.map,
-      position: new google.maps.LatLng(attribs.location.latitude, attribs.location.longitude),
-      title: attribs.name,
-      content: html
+    if (typeof Circle.markers[attribs.objectId] === "undefined") {
+      var html = '<h1>' + attribs.name + '<div class="infowindow"></h1><h4>at' + attribs.venueName + '</h4><p>' +
+        attribs.details + '</p></div>';
+
+      //generate a randomly-colored pin
+      var pinColor = randomColor();
+      var src = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor;
+
+      var pinImage = new google.maps.MarkerImage(src,
+          new google.maps.Size(21, 34),
+          new google.maps.Point(0,0),
+          new google.maps.Point(10, 34));
+      var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+          new google.maps.Size(40, 37),
+          new google.maps.Point(0, 0),
+          new google.maps.Point(12, 35));
+
+      //These are the appearance options for the marker
+      var markerOpts = {
+        map: Circle.map,
+        position: new google.maps.LatLng(attribs.location.latitude, attribs.location.longitude),
+        title: attribs.name,
+        content: html,
+        icon: pinImage,
+        shadow: pinShadow,
+
+        //these aren't necessary for the google maps constructor - just stashing some info
+        origIcon: pinImage, //we save this for when we change marker
+      };
+
+      newMarkers[attribs.objectId] = new google.maps.Marker(markerOpts);
+
+      //here we prepend the marker image to the appropriate table row
+      $('<img />')
+        .attr('src', src)
+        .addClass('marker')
+        .prependTo($('#' + attribs.objectId));
+
+    } else {
+      newMarkers[attribs.objectId] = Circle.markers[attribs.objectId];
+      Circle.markers[attribs.objectId].setMap(null);
     }
 
-    Circle.markers[attribs.objectId] = new google.maps.Marker(markerOpts);
-    bounds.extend(markerOpts.position);
+    //create a bounds object that fits all the objects
+    bounds.extend(newMarkers[attribs.objectId].getPosition());
   }
-
+  //fit the map to the new bounds
   bounds.extend(Circle.youAreHere.getPosition());
   Circle.map.fitBounds(bounds);
+
+  //reset the globla markers object
+  Circle.markers = newMarkers;
 };
 
 /**

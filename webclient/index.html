@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/fileuploader.css">
-    
+
     <style>
       body {
       padding-top: 60px;
@@ -18,6 +18,12 @@
       #map_canvas {
       height: 300px;
       }
+      .map-wrapper {
+        width: 470px;
+        position:fixed;
+        top: 60px;
+        right: 30px;
+       }
       .navbar a.brand {
       font-size: 24px;
       }
@@ -30,13 +36,6 @@
       #category {
       width: 150px;
       text-align: left;
-      }
-      #map_canvas h1 {
-        margin: 10px;
-        padding: 10px;
-        background-color: #fff;
-        display: inline;
-        border-radius: 5px;
       }
       .carousel {
         height: 327px;
@@ -98,7 +97,7 @@
       margin-right: 12px;
       }
 
-      img.max-height-75 { 
+      img.max-height-75 {
         max-height: 75px;
       }
 
@@ -173,6 +172,10 @@
       font-size: 20px;
       letter-spacing: 0pc;
       }
+      .marker {
+        float:left;
+        padding: 10px;
+      }
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
     <link rel="stylesheet" href="css/timePicker.css">
@@ -243,7 +246,7 @@
           <div id="slides" class="carousel-inner">
           <!--slides go here-->
           </div>
-        
+
           <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
           <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
         </div>
@@ -270,7 +273,7 @@
   </script>
 
   <script id="event-list-item-view-template" type="text/x-handlebars-template">
-    <td class="info">
+    <td id="{{objectId}}" class="info">
       <a href="#detail/{{objectId}}">
         <div class="img-box">
           {{#if image}}
@@ -404,12 +407,12 @@
           <div class="control-group">
             <label id="upload-label" class="control-label" for="file">Upload an image?</label>
             <div class="controls">
-              
-              <div id="file-uploader">       
-                <noscript>          
+
+              <div id="file-uploader">
+                <noscript>
                     <p>Please enable JavaScript to use file uploader.</p>
                     <!-- or put a simple form for upload here -->
-                </noscript>         
+                </noscript>
               </div>
               <div id="uploaded-image" style="display:none;"><img class="max-height-75" /></div>
               <p class="help-block">
@@ -455,7 +458,8 @@
     </div>
 
     <div class="span5">
-      <div id="map_canvas">
+      <div class="map-wrapper">
+        <div id="map_canvas" class="event-list-map"></div>
       </div>
     </div>
     </div>
@@ -463,21 +467,21 @@
 
   <script id="event-slideshow-slide-view-template" type="text/x-handlebars-template">
     {{#each this}}
-      
+
       {{#if image}}
       <a href="#detail/{{objectId}}" class="item{{active}}" style="background-image: url({{image.url}});">
-        
+
       {{else}}
         <a href="#detail/{{objectId}}" class="item{{active}}" style="background-image: url(img/nutcracker.jpg);">
       {{/if}}
-      
+
         <div class="carousel-caption">
         <h3>{{name}}</h3>
-      
+
           {{#if venueName}}
             <h5>at {{venueName}}</h5>
           {{/if}}
-      
+
           <p>{{details}}</p>
         </div>
       </a>
@@ -541,6 +545,7 @@
 
   <script src="js/jquery-1.7.1.min.js"></script>
   <script src="js/underscore-min.js"></script>
+  <script src="js/randomcolor.js"></script>
   <script src="js/autocomplete.js"></script>
   <script src="js/jquery.venueTypeahead.js"></script>
   <script src="js/backbone-min.js"></script>
