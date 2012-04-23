@@ -27,7 +27,7 @@
               .typeahead({
                 source: function(typeahead, query) {
                   var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' +
-                      query +
+                      encodeURIComponent(query)    +
                       '&types=(cities)&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
                   url = service + encodeURIComponent(url) + '&callback=?';
 

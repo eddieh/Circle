@@ -138,9 +138,9 @@ Circle.EventSlideshowSlideView = Backbone.View.extend ({
   render: function() {
     //the first slide needs to have class "active" so we set that here
     var json = this.model.toJSON();
-    console.dir(json);
-    json[0].active = ' active';
 
+    //render template
+    json[0].active = ' active';
     this.$el.html(this.template(json));
 
     // setup our fancy carousel
@@ -472,7 +472,7 @@ Circle.setMapCenter = function (pos) {
       new google.maps.Point(0,0),
       new google.maps.Point(25, 25));
 
-    var marker = new google.maps.Marker({
+    Circle.youAreHere = new google.maps.Marker({
       map: Circle.map,
       position: latlng,
       icon: markerImage
@@ -483,6 +483,32 @@ Circle.setMapCenter = function (pos) {
 }
 
 Circle.errorPosition = function () {
+};
+
+//
+Circle.markers = {};
+
+Circle.setMapPinsWithData = function (data) {
+  var bounds = new google.maps.LatLngBounds();
+
+  for (var i = 0, len = data.models.length; i < len; i++) {
+    var attribs = data.models[i].attributes;
+    var html = '<h1>' + attribs.name + '<div class="infowindow"></h1><h4>at' + attribs.venueName + '</h4><p>' +
+      attribs.details + '</p></div>';
+
+    var markerOpts = {
+      map: Circle.map,
+      position: new google.maps.LatLng(attribs.location.latitude, attribs.location.longitude),
+      title: attribs.name,
+      content: html
+    }
+
+    Circle.markers[attribs.objectId] = new google.maps.Marker(markerOpts);
+    bounds.extend(markerOpts.position);
+  }
+
+  bounds.extend(Circle.youAreHere.getPosition());
+  Circle.map.fitBounds(bounds);
 };
 
 /**
@@ -536,7 +562,10 @@ Circle.getEventsNearPosition = function (position, radius) {
         },
         '$maxDistanceInMiles': radius
       }
-    })
+    }),
+    success: function(collection, response) {
+      Circle.setMapPinsWithData(collection);
+    }
   });
 
   // set the center of the map too
@@ -652,7 +681,9 @@ Circle.Router = Backbone.Router.extend({
       show24Hours: false,
       step: 30
     });
-
+    Circle.getPositionFromBrowser(function () {
+      $(window).trigger('location:change');
+    });
   }
 });
 
