@@ -246,6 +246,11 @@
       .space {
       margin-left: 20px;
       }
+
+      #detail-heading {
+      border-bottom: 1px solid #EEE;
+      margin-bottom: 12px;
+      }
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
     <link rel="stylesheet" href="css/timePicker.css">
@@ -558,13 +563,18 @@
 
   <script id="detail-layout-template" type="text/x-handlebars-template">
     <div class="row">
+      <div class="span12">
+      <h1 id="detail-heading">{{name}}</h1>
+      </div>
+
       <div class="span8">
-        <h1>{{name}}</h1>
+
+
         <div class="row">
 
           <div class="span8">
 
-            <div class="space pull-right">
+            <div class="space well pull-right">
               <div class="row">
                 {{dateAsCalendar startDate}}
               </div>
@@ -581,6 +591,8 @@
           </div>
 
         </div>
+
+        <hr />
         <div class="row">
           <div class="span8">
             <div id="map_canvas">

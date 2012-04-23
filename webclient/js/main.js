@@ -666,6 +666,10 @@ Circle.Router = Backbone.Router.extend({
     } else {
       success();
     }
+
+    Circle.getPositionFromBrowser(function () {
+      Circle.setMapCenter(Circle.position);
+    });
   },
 
   search: function () {
