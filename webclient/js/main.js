@@ -241,7 +241,7 @@ Circle.CreateEventView = Backbone.View.extend({
     'click #add-end-time': 'addEndTime',
     'click #remove-end-time': 'removeEndTime',
     'click #close': 'close',
-    'click #save': 'save', 
+    'click #save': 'save',
     'click #image-close-button': 'reshowUploadButton'
   },
 
@@ -290,8 +290,8 @@ Circle.CreateEventView = Backbone.View.extend({
       'objectId': this.selectedCategory.id
     });
   },
-  
-  // when you use the server files they give you, the server returns two other parameters 
+
+  // when you use the server files they give you, the server returns two other parameters
   // that parse doesn't, so ignore the first two parameters because they're junk
   showUploadedImageAndHideUploadButton: function(useless_variable, useless_also, json) {
     var that = this;
@@ -306,7 +306,7 @@ Circle.CreateEventView = Backbone.View.extend({
 
     //remove the filename now that we're done uploading
     $uploader.find('li').remove();
-    
+
     //change the label
     $('#upload-label')
       .html('<a>Choose a different image?</a>')
@@ -322,7 +322,7 @@ Circle.CreateEventView = Backbone.View.extend({
   },
 
   /*
-   the first two parameters are returned by the server files included with 
+   the first two parameters are returned by the server files included with
    this plugin, but not by parse, so they're basically junk for our purposes
    */
   imageUploadedNamed: function(name) {
@@ -336,20 +336,20 @@ Circle.CreateEventView = Backbone.View.extend({
     var that = this;
     var uploader = new qq.FileUploader({
       allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
-      
+
       // pass the dom node (ex. $(selector)[0] for jQuery users)
       element: document.getElementById('file-uploader'),
-      
+
       // path to server-side upload script
-      action: 'https://api.parse.com/1/files', 
-      
+      action: 'https://api.parse.com/1/files',
+
       // override to change the button text or style (css classes defined in fileuploader.css).
-      // the upload area allows you to drag and drop files to upload, and the upload list is a 
+      // the upload area allows you to drag and drop files to upload, and the upload list is a
       // list of the files uploaded. neither of these can be removed without breaking the plugin.
-      template: '<div class="qq-uploader">' + 
+      template: '<div class="qq-uploader">' +
                 '<div class="qq-upload-drop-area"><span>Drop files here to upload</span></div>' +
                 '<div class="qq-upload-button btn btn-success">Choose file</div>' +
-                '<ul class="qq-upload-list"></ul>' + 
+                '<ul class="qq-upload-list"></ul>' +
              '</div>',
 
       onComplete: $.proxy(that.showUploadedImageAndHideUploadButton, that)
@@ -644,7 +644,18 @@ Circle.Router = Backbone.Router.extend({
     var event = Circle.events ? Circle.events.get(event_id) : null;
 
     function success () {
-      $('#layout.container').html(t('detail-layout')(event.toJSON()));
+      var json = event.toJSON();
+      delete json.details;
+
+      $('#layout.container').html(t('detail-layout')(json));
+
+      var wiki = new WikiCreole.Creole({
+        forIE: document.all,
+        interwiki: {},
+        linkFormat: ''
+      });
+      var element = $('#details')[0];
+      wiki.parse(element, event.get('details'));
     }
 
     if (!event) {
