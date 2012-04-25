@@ -758,6 +758,13 @@ Circle.Router = Backbone.Router.extend({
   events: function () {
     $('#layout.container').html(t('events-layout')());
 
+    function resizeMap () {
+      $('.map-wrapper').width($('#map-area').width());
+    };
+    resizeMap();
+
+    $(window).resize(resizeMap);
+
     // if our location changes update our events
     $(window).one('location:change', function (e) {
       Circle.getEventsNearPosition();
