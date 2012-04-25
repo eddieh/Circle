@@ -39,11 +39,11 @@
 	[self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     [self.dateFormatter setDateFormat:@"MM/dd h:mm a"];
+    searchBar.text = @"";
 }
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
     [self setCategoryCell:nil];
     [self setCategories:nil];
     [self setLocation:nil];
@@ -52,6 +52,9 @@
     [self setEndDate:nil];
     [self setDateCell:nil];
     [self setDateFormatter:nil];
+    [self setConnection:nil];
+    [self setPoint:nil];
+    [super viewDidUnload];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -68,15 +71,21 @@
     else {
         self.categoryCell.detailTextLabel.text = @"";
     }
-    
+    //if start date hasnt been declared, set it to current date
+    if (!self.startDate){
+        self.startDate = [[NSDate alloc]init];
+    }
     NSLog(@"Start Date(Event): %@",self.startDate);
     NSLog(@"End Date(Event): %@",self.endDate);
     
     //adds dates to window with a to between the start and end date if the end date is NOT null
     if (self.startDate)
     {
-        if (self.endDate)
+        NSLog(@"end1%@",self.endDate);
+        //NSLog(@"end1%@",[self.endDate compare:self.startDate]);
+        if (self.endDate && !([self.endDate timeIntervalSinceDate:self.startDate]<60.0f))
         {
+            NSLog(@"called");
             NSString *selectedDates = [NSString stringWithFormat:@"%@%@%@",[self.dateFormatter stringFromDate:self.startDate],@" to ",[self.dateFormatter stringFromDate:self.endDate]];
             self.dateCell.detailTextLabel.text = selectedDates;
         }
@@ -89,7 +98,7 @@
     //add search button
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                               initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
-                                              target:self action:@selector(searchBarSearchButtonClicked)];
+                                              target:self action:@selector(searchButtonClicked)];
     
 }
 
@@ -101,15 +110,19 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
                                              initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                              target:self action:@selector(cancelSearchButtonClick)];
-    
 }
-- (void) searchBarSearchButtonClicked {
+
+
+- (void) searchButtonClicked {
     
-    NSLog(@"@%@",searchBar.text);
+    NSLog(@"CALLEDEDEDED%@",searchBar.text);
     
     [self performSegueWithIdentifier:@"searchResultsTransition" sender:self];
-    
 }
+-(void) searchBarSearchButtonClicked:(UISearchBar *) searchBar{
+    [self performSegueWithIdentifier:@"searchResultsTransition" sender:self];
+}
+
 
 -(void) cancelSearchButtonClick {
     [searchBar resignFirstResponder];
@@ -137,7 +150,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
-        [self searchBarSearchButtonClicked];
+        [self searchButtonClicked];
     }
 }
 
@@ -163,14 +176,26 @@
        {
            [query whereKey:@"location" nearGeoPoint:self.point withinMiles:50.0];
        }
+       //checks to see if a start date exists, if not, it uses the current date
        if(![self.dateCell.detailTextLabel.text isEqualToString:@""])
        {
-           [query whereKey:@"startDate" greaterThanOrEqualTo:self.startDate];
-           [query whereKey:@"startDate" lessThanOrEqualTo:self.endDate];
+           if (self.startDate) {
+               [query whereKey:@"startDate" greaterThanOrEqualTo:self.startDate];
+           }
+           //if the start date and end date are within 1 minute, the end date is not used
+           if ([self.endDate timeIntervalSinceDate:self.startDate]>60.0f)
+           {
+               [query whereKey:@"startDate" lessThanOrEqualTo:self.endDate];
+           }
        }
+//       else {
+//           NSDate *currentDate = [NSDate date];
+//           [query whereKey:@"startDate" greaterThanOrEqualTo:currentDate];
+//       }
        if(![searchBar.text isEqualToString:@""])
        {
-           [query whereKey:@"name" containsString:searchBar.text];
+           NSLog(@"searchtextCalled%@",searchBar.text);
+           [query whereKey:@"name" matchesRegex:searchBar.text modifiers:@"i"];
        }
        [segue.destinationViewController setMyQuery:query];
     }
