@@ -725,6 +725,16 @@ Circle.Router = Backbone.Router.extend({
     var event = Circle.events ? Circle.events.get(event_id) : null;
 
     function success () {
+      var attribs = event.attributes;
+
+      var markerOpts = {
+        map: Circle.map,
+        position: new google.maps.LatLng(attribs.location.latitude, attribs.location.longitude),
+        title: attribs.name,
+      };
+
+      Circle.mymarker = new google.maps.Marker(markerOpts);
+
       var json = event.toJSON();
       delete json.details;
 

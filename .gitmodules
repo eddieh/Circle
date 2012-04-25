@@ -13,3 +13,6 @@
 [submodule "Circle/MBProgressHUD"]
 	path = Circle/MBProgressHUD
 	url = git://github.com/matej/MBProgressHUD.git
+[submodule "Circle/SDWebImage"]
+	path = Circle/SDWebImage
+	url = https://github.com/rs/SDWebImage.git
