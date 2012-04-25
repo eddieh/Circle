@@ -7,6 +7,10 @@
 //
 //off by +7 hours?
 
+#define componentCount 2;
+#define column1Component 1;
+#define column2Component 2;
+
 #import "CircleSelectDateViewController.h"
 #import "CircleConstants.h"
 #import "Parse/Parse.h"
@@ -30,7 +34,7 @@
 @synthesize plusOneMonthButton = _plusOneMonthButton;
 @synthesize datePicker = _datePicker;
 @synthesize nextButton = _nextButton;
-@synthesize event = _event;
+//@synthesize event = _event;
 
 //added
 @synthesize selectedEndDate = _selectedEndDate;
@@ -47,6 +51,7 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,8 +61,6 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    NSLog(@"%@", self.event);
     
     // Set up the date formatter
     self.dateFormatter = [[NSDateFormatter alloc] init];
@@ -70,8 +73,7 @@
     self.selectedCell = self.startsCell;
     
     // set up the start date
-    // TODO: the date picker should be configured so that dates in the past can not be selected
-    //added uses start date from event search screen
+    // uses start date from event search screen
     if (self.selectedStartDate) self.startDate = self.selectedStartDate;
         
     //self.startDate = [self.event objectForKey:@"startDate"];
@@ -83,23 +85,19 @@
     self.startsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.startDate];
     
     // set up the end date
-//    if (![[NSNull null] isEqual:[self.event objectForKey:@"endDate"]]) {
-//        self.endDate = [self.event objectForKey:@"endDate"];
-//    }
-    
-    //added uses end date from event search screen
+    // uses end date from event search screen
     if (self.selectedEndDate) self.endDate = self.selectedEndDate;
     
-    if (self.endDate) {
+    if (self.endDate && ([self.endDate timeIntervalSinceDate:self.startDate]>60.0f)) {
         self.endsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.endDate];
     } else {
         self.endsCell.detailTextLabel.text = @"None";
     }
     
-    //custom UIPicker
-    pickerArray = [[NSMutableArray alloc]init];
-    
-    
+    // sets DatePicker to have min interval and cant select before current date
+    self.datePicker.minuteInterval = 15;
+    NSDate *currentDate = [NSDate date];
+    self.datePicker.minimumDate = currentDate;
 }
 
 - (void)viewDidUnload
@@ -114,6 +112,10 @@
     [self setDateFormatter:nil];
     [self setSelectedStartDate:nil];
     [self setSelectedEndDate:nil];
+    [self setEndDate:nil];
+    [self setStartDate:nil];
+    [self setSelectedCell:nil];
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -122,21 +124,25 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    NSLog(@"Start Date(DateCon): %@",self.startDate);
-    NSLog(@"End Date(DateCon): %@",self.endDate);
     [self.delegate userSelectedStartDate:self.startDate endDate:self.endDate];
 }
 -(void) viewWillAppear:(BOOL)animated{
     NSLog(@"Test %@",self.delegate);
+    //add search button
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelBarButtonClicked)];
 }
-
+                                              
+-(void)cancelBarButtonClicked
+{
+    //resets start date and end date/returns to event screen
+    self.startDate = [[NSDate alloc]init];
+    self.endDate = [[NSDate alloc]init];
+    [self.navigationController popViewControllerAnimated:YES]; 
+}
+                                    
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -189,24 +195,6 @@
     
     self.datePicker.date = date;
     self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([[segue identifier] isEqualToString:@"CreateEventNextSegue"]) {
-        id viewController = [segue destinationViewController];
-        if ([viewController respondsToSelector:@selector(setEvent:)]) {
-            
-            [self.event setObject:self.startDate forKey:@"startDate"];
-            if (self.endDate) {
-                [self.event setObject:self.endDate forKey:@"endDate"];
-            } else {
-                [self.event setObject:[NSNull null] forKey:@"endDate"];
-            }
-            
-            
-            [viewController setEvent:self.event];
-        }
-    }
 }
 
 @end

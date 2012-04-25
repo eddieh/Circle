@@ -56,8 +56,8 @@
     [self setResponseData:nil];
     [self setLocations:nil];
     self.googlePlacesConnection.delegate = nil;
-    [self setDelegate:nil];
-    
+    [self setSearchText:nil];
+    [self setLocationManager:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
