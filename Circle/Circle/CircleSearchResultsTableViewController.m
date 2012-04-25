@@ -9,6 +9,8 @@
 #import "CircleSearchResultsTableViewController.h"
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
+#import "NearbyEventCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface CircleSearchResultsTableViewController ()
 @property (strong, nonatomic) NSArray *categories;
@@ -121,7 +123,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[CircleEventDetailViewController class]]) {
         CircleEventDetailViewController *vc = segue.destinationViewController;
-        vc.event = [self.objects objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+
+        vc.event = [self.objects objectAtIndex:indexPath.row];
+        vc.image = [self.tableView cellForRowAtIndexPath:indexPath].imageView.image;        
     }
 }
 
@@ -175,18 +180,30 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
     static NSString *CellIdentifier = @"searchLocation";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    NearbyEventCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[NearbyEventCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell
     cell.textLabel.text = [object objectForKey:@"name"];
-    cell.detailTextLabel.text = [object objectForKey:@"venueName"];
     
-    if ([[object objectForKey:@"image"] isKindOfClass:[UIImage class]]) {
-        [cell.imageView setImage:[object objectForKey:@"image"]];
+    NSString *detailText;
+    if ([object objectForKey:@"venueName"]) {
+        detailText = [NSString stringWithFormat:@"at %@", [object objectForKey:@"venueName"]];
+    } else {
+        detailText = [object objectForKey:@"address"];
     }
+    
+    cell.detailTextLabel.text = detailText;
+    
+    if ([object objectForKey:@"image"] && [[object objectForKey:@"image"] isKindOfClass:[PFFile class]]) {
+        PFFile *image = [object objectForKey:@"image"];
+        [cell.imageView setImageWithURL:[NSURL URLWithString:image.url] placeholderImage:[UIImage imageNamed:@"profile.png"]
+                                success:^(UIImage *image) {}
+                                failure:^(NSError *error) {}];
+    }
+
     
     return cell;
  }
@@ -261,12 +278,15 @@
 
 
 
-//#pragma mark - Table view delegate
-//
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-//}
+#pragma mark - Table view delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([[self objectAtIndex:indexPath] objectForKey:@"image"]) {
+        [self performSegueWithIdentifier:@"eventDetailSegue" sender:self];
+    } else {
+        [self performSegueWithIdentifier:@"eventDetailNoImageSegue" sender:self];
+    }
+}
 
 //#pragma mark - filter delegate
 //-(void) userSelectedFilter:(NSArray *) categories: (NSString*) location

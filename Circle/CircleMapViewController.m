@@ -14,7 +14,6 @@
 
 @implementation CircleMapViewController
 @synthesize mapView;
-@synthesize map;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,7 +32,6 @@
 
 - (void)viewDidUnload
 {
-    [self setMap:nil];
     [self setMapView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
