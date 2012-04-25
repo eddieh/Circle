@@ -6,30 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="M8w-0d-Xkp">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qQw-Bu-dCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="3UH-EU-t0W" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ch9-4C-OcQ">
-                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Social features coming soon!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="grF-Jv-BUZ">
-                                <rect key="frame" x="73" y="50" width="174" height="242"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="48"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="4qW-p9-smJ"/>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="1833" y="-672"/>
-        </scene>
         <!--Circle Event Detail View Controller-->
         <scene sceneID="k7P-UN-FQp">
             <objects>
@@ -190,7 +166,6 @@
                         <outlet property="logOutSignInButton" destination="5YW-Pd-yNB" id="eux-H8-PXl"/>
                         <segue destination="sz8-5h-DfX" kind="push" identifier="eventDetailSegue" id="tRq-vt-EZV"/>
                         <segue destination="HdE-HK-lCR" kind="push" identifier="eventDetailNoImageSegue" id="awh-CS-uKU"/>
-                        <segue destination="3UH-EU-t0W" kind="push" id="9fv-bY-pjY"/>
                     </connections>
                 </tableViewController>
             </objects>
