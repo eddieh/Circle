@@ -14,6 +14,8 @@
 #import "CircleNearbyViewController.h"
 #import "LocationSingleton.h"
 #import "CircleEventDetailViewController.h"
+#import "SDWebImage/UIImageView+WebCache.h"
+#import "NearbyEventCell.h"
 
 
 @interface CircleNearbyViewController () {
@@ -34,7 +36,7 @@
     self = [super initWithCoder:aDecoder];
     
     dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEEE, MMMM d 'at' h:mm a"];
+    [dateFormatter setDateFormat:@"EEE M/d 'at' h:mm a"];
     
     if (self) {        
         // The className to query on
@@ -58,7 +60,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[CircleEventDetailViewController class]]) {
         CircleEventDetailViewController *vc = segue.destinationViewController;
-        vc.event = [self.objects objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+
+        vc.event = [self.objects objectAtIndex:indexPath.row];
+        vc.image = [self.tableView cellForRowAtIndexPath:indexPath].imageView.image;
     }
 }
 
@@ -195,22 +200,26 @@
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
      static NSString *CellIdentifier = @"nearbyCell";
      
-     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+     NearbyEventCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
      if (cell == nil) {
-         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+         cell = [[NearbyEventCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
      }
      
      // Configure the cell
      cell.textLabel.text = [object objectForKey:@"name"];
-//     if ([object objectForKey:@"startDate"]) {
-//         cell.detailTextLabel.text = [dateFormatter stringFromDate:[object objectForKey:@"startDate"]];
-//     }
-     if ([object objectForKey:@"venue"]) {
-         cell.detailTextLabel.text = [object objectForKey:@"venue"];
+     
+     NSString *detailText;
+     if ([object objectForKey:@"venueName"]) {
+         detailText = [NSString stringWithFormat:@"at %@", [object objectForKey:@"venueName"]];
+     } else {
+         detailText = [object objectForKey:@"address"];
      }
-     if ([object objectForKey:@"image"]) {
-         //[cell.imageView setImage:[object objectForKey:@"image"]];
-         [cell.imageView setImageWithURL:[NSURL URLWithString:[object objectForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"profile.png"]
+     
+     cell.detailTextLabel.text = detailText;
+     
+     if ([object objectForKey:@"image"] && [[object objectForKey:@"image"] isKindOfClass:[PFFile class]]) {
+         PFFile *image = [object objectForKey:@"image"];
+         [cell.imageView setImageWithURL:[NSURL URLWithString:image.url] placeholderImage:[UIImage imageNamed:@"profile.png"]
                                      success:^(UIImage *image) {}
                                      failure:^(NSError *error) {}];
      }
@@ -287,11 +296,16 @@
  */
 
 //#pragma mark - Table view delegate
-//
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-//}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //[super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    if ([[self objectAtIndex:indexPath] objectForKey:@"image"]) {
+        [self performSegueWithIdentifier:@"eventDetailSegue" sender:self];
+    } else {
+        [self performSegueWithIdentifier:@"eventDetailNoImageSegue" sender:self];
+    }
+}
 
 #pragma mark - CircleSignInDelegateMethods
 - (void) signInSuccessful; {

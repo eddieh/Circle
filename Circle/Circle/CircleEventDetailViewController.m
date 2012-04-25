@@ -18,8 +18,13 @@
 @synthesize imageView;
 @synthesize titleLabel;
 @synthesize descriptionLabel;
-
+@synthesize timeLabel;
+@synthesize venueLabel;
+@synthesize calendarDayLabel;
+@synthesize calendarMonthLabel;
+@synthesize calendarWeekdayLabel;
 @synthesize event = _event;
+@synthesize image = _image;
 
 #pragma mark - View lifecycle
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -35,15 +40,45 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-    //UGGGGGGLLLLLLYYYYY
-    //
-    //but works for now ^H^H^H^H^H^H^H^H doesn't actually work.
-    //
-    //setting up the view, making a half-hearted, extremely tired attempt at formatting in a "smart"-ish way.
+
     if (self.event) {
+        if (self.image) {
+            [self.imageView setImage:self.image];
+        }
         self.titleLabel.text = [self.event objectForKey:@"name"];
+        
+        //size the description UILabel to the size of its text
+        NSString *details = (NSString *)[self.event objectForKey:@"details"];
+        CGSize size = [details sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0] forWidth:304.0 lineBreakMode:UILineBreakModeWordWrap];
+        CGPoint origin = self.descriptionLabel.frame.origin;
+        self.descriptionLabel.frame = CGRectMake(origin.x, origin.y, size.width, size.height);
+        self.descriptionLabel.text = details;
+
+        NSDate *date = [self.event objectForKey:@"startDate"];
+
+        //set the time label
+        [dateFormatter setDateFormat:@"h:mm a"];
+        NSString *timeString = [dateFormatter stringFromDate:date];
+        if ([self.event objectForKey:@"endDate"]) {
+            NSString *endTimeString = [dateFormatter stringFromDate:[self.event objectForKey:@"endDate"]];
+            timeString = [NSString stringWithFormat:@"from %@ to %@", timeString, endTimeString];
+        }
+        self.timeLabel.text = timeString;
+        
+        //formatting the dayLabel with "Mon," "Tue," etc.
+        [dateFormatter setDateFormat:@"EE"];
+        self.calendarWeekdayLabel.text = [dateFormatter stringFromDate:date];
+        
+        [dateFormatter setDateFormat:@"d"];
+        self.calendarDayLabel.text = [dateFormatter stringFromDate:date];
+        
+        [dateFormatter setDateFormat:@"MMM"];
+        self.calendarMonthLabel.text = [dateFormatter stringFromDate:date];
+        
+        
+        
+        
+        
         
 //        NSString *interval = [[NSString alloc] init];
 //
@@ -103,6 +138,11 @@
     [self setImageView:nil];
     [self setTitleLabel:nil];
     [self setDescriptionLabel:nil];
+    [self setTimeLabel:nil];
+    [self setVenueLabel:nil];
+    [self setCalendarDayLabel:nil];
+    [self setCalendarMonthLabel:nil];
+    [self setCalendarWeekdayLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -112,4 +152,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)mapButtonPressed:(id)sender {
+}
 @end

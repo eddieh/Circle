@@ -30,6 +30,112 @@
             </objects>
             <point key="canvasLocation" x="1833" y="-672"/>
         </scene>
+        <!--Circle Event Detail View Controller-->
+        <scene sceneID="k7P-UN-FQp">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dNc-Ic-och" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="sz8-5h-DfX" customClass="CircleEventDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Jgm-Bb-PaD">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="I7N-Xg-e2l">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="daftpunk.jpg" id="oKq-he-5jt">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="209"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Event Title That Fills 2 Lines" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="wHF-ZW-vRB">
+                                        <rect key="frame" x="9" y="217" width="224" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="29"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="iqY-6Q-sPN">
+                                        <rect key="frame" x="9" y="341" width="304" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="calendaricon.png" id="AUM-6g-cUo">
+                                        <rect key="frame" x="240" y="216" width="75" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="at Pine Mountain Amphitheater" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Q6c-sj-NI1">
+                                        <rect key="frame" x="9" y="313" width="223" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="7:00-10:30pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Gv8-Uq-r3P">
+                                        <rect key="frame" x="10" y="286" width="223" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="hLX-0h-9jh">
+                                        <rect key="frame" x="241" y="215" width="72" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Jan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Uhu-Ra-CBh">
+                                        <rect key="frame" x="240" y="235" width="75" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="y6t-tZ-9Qn">
+                                        <rect key="frame" x="240" y="249" width="74" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="38"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ENe-dn-BVf">
+                                        <rect key="frame" x="241" y="299" width="72" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                        <state key="normal" title="Map">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="mapButtonPressed:" destination="sz8-5h-DfX" eventType="touchUpInside" id="K4x-bA-kfO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="42T-21-gXC"/>
+                    <connections>
+                        <outlet property="calendarDayLabel" destination="y6t-tZ-9Qn" id="7I7-aM-gsb"/>
+                        <outlet property="calendarMonthLabel" destination="Uhu-Ra-CBh" id="eDL-8X-ZgX"/>
+                        <outlet property="calendarWeekdayLabel" destination="hLX-0h-9jh" id="Fjm-Lo-Kci"/>
+                        <outlet property="descriptionLabel" destination="iqY-6Q-sPN" id="Jst-Oy-Fjo"/>
+                        <outlet property="imageView" destination="oKq-he-5jt" id="iGX-p0-4oV"/>
+                        <outlet property="timeLabel" destination="Gv8-Uq-r3P" id="hMS-0f-Th4"/>
+                        <outlet property="titleLabel" destination="wHF-ZW-vRB" id="mT5-77-K0f"/>
+                        <outlet property="venueLabel" destination="Q6c-sj-NI1" id="6by-Wk-4kj"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2297" y="-615"/>
+        </scene>
         <!--Circle Nearby View Controller - Circle-->
         <scene sceneID="Lw9-dm-ctl">
             <objects>
@@ -50,8 +156,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <segments>
                                             <segment title="Nearby"/>
-                                            <segment title="Friends"/>
-                                            <segment title="Your Feed"/>
+                                            <segment title="Map"/>
                                         </segments>
                                         <connections>
                                             <segue destination="3UH-EU-t0W" kind="push" id="aZm-VD-hB0"/>
@@ -62,26 +167,22 @@
                             </items>
                         </toolbar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nearbyCell" editingAccessoryType="disclosureIndicator" textLabel="4Dt-pU-ubZ" detailTextLabel="ti5-B6-cjK" imageView="BAd-Zn-udm" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="rgv-Ud-zDa">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nearbyCell" editingAccessoryType="disclosureIndicator" textLabel="4Xc-op-ari" detailTextLabel="flT-ws-VuK" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="rgv-Ud-zDa" customClass="NearbyEventCell">
                                 <rect key="frame" x="0.0" y="66" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Dt-pU-ubZ">
-                                            <rect key="frame" x="69" y="8" width="34" height="25"/>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Xc-op-ari">
+                                            <rect key="frame" x="10" y="7" width="37" height="27"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="21"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="profile.png" id="BAd-Zn-udm">
-                                            <rect key="frame" x="0.0" y="0.0" width="59" height="59"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ti5-B6-cjK">
-                                            <rect key="frame" x="69" y="33" width="48" height="18"/>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="flT-ws-VuK">
+                                            <rect key="frame" x="10" y="34" width="48" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                             <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
@@ -90,9 +191,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <segue destination="MgB-m3-U9q" kind="push" id="axF-S8-O2n"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -109,50 +207,107 @@
                     </navigationItem>
                     <connections>
                         <outlet property="logOutSignInButton" destination="5YW-Pd-yNB" id="eux-H8-PXl"/>
+                        <segue destination="sz8-5h-DfX" kind="push" identifier="eventDetailSegue" id="tRq-vt-EZV"/>
+                        <segue destination="HdE-HK-lCR" kind="push" identifier="eventDetailNoImageSegue" id="awh-CS-uKU"/>
                     </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1921" y="-71"/>
         </scene>
-        <!--Circle Event Detail View Controller - Details-->
-        <scene sceneID="OGK-aj-cCz">
+        <!--Circle Event Detail View Controller-->
+        <scene sceneID="SDN-0G-Npp">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="G7P-av-gtD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="MgB-m3-U9q" customClass="CircleEventDetailViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="C06-u2-2DI">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ys0-U0-O50" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="HdE-HK-lCR" customClass="CircleEventDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GgI-SU-5AX">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="daftpunk.jpg" id="oKq-he-5jt">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="212"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Event Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="wHF-ZW-vRB">
-                                <rect key="frame" x="8" y="214" width="303" height="47"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Event Title That Fills 2 Lines" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ycq-fb-b9l">
+                                <rect key="frame" x="8" y="12" width="224" height="69"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="36"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="29"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="iqY-6Q-sPN">
-                                <rect key="frame" x="8" y="260" width="303" height="199"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="U3h-ih-oGV">
+                                <rect key="frame" x="8" y="136" width="303" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="calendaricon.png" id="e9R-H2-Tc7">
+                                <rect key="frame" x="238" y="11" width="75" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="at Pine Mountain Amphitheater" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sT0-pw-UGg">
+                                <rect key="frame" x="8" y="108" width="223" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="7:00-10:30pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="QVZ-hK-2RW">
+                                <rect key="frame" x="9" y="81" width="223" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="1uh-7q-4J6">
+                                <rect key="frame" x="239" y="10" width="72" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Jan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="yiA-33-3TC">
+                                <rect key="frame" x="238" y="30" width="75" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="fDw-qV-6cK">
+                                <rect key="frame" x="238" y="44" width="74" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="38"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Tkx-xq-SYE">
+                                <rect key="frame" x="239" y="94" width="72" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="Map">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="mapButtonPressed:" destination="HdE-HK-lCR" eventType="touchUpInside" id="ulB-tY-gcY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Details" id="mJ5-qP-raY"/>
+                    <navigationItem key="navigationItem" id="AWU-aq-b4m"/>
                     <connections>
-                        <outlet property="descriptionLabel" destination="iqY-6Q-sPN" id="Fyq-Qz-cSS"/>
-                        <outlet property="imageView" destination="oKq-he-5jt" id="cFP-mz-NL6"/>
-                        <outlet property="titleLabel" destination="wHF-ZW-vRB" id="Pac-Gg-sHM"/>
+                        <outlet property="calendarDayLabel" destination="fDw-qV-6cK" id="eQd-xy-D1l"/>
+                        <outlet property="calendarMonthLabel" destination="yiA-33-3TC" id="s5f-ho-TRf"/>
+                        <outlet property="calendarWeekdayLabel" destination="1uh-7q-4J6" id="dFN-XL-fTN"/>
+                        <outlet property="descriptionLabel" destination="U3h-ih-oGV" id="Mig-tc-bzT"/>
+                        <outlet property="timeLabel" destination="QVZ-hK-2RW" id="AfQ-bB-DQh"/>
+                        <outlet property="titleLabel" destination="ycq-fb-b9l" id="3jQ-m9-Zi5"/>
+                        <outlet property="venueLabel" destination="sT0-pw-UGg" id="PKM-ht-d7c"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2374" y="-57"/>
+            <point key="canvasLocation" x="2367" y="-14"/>
         </scene>
         <!--Navigation Controller - Nearby-->
         <scene sceneID="aPD-HC-dga">
@@ -176,30 +331,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="calendaricon.png" width="75" height="75"/>
         <image name="daftpunk.jpg" width="640" height="480"/>
-        <image name="profile.png" width="75" height="75"/>
         <image name="tabbar-nearby.png" width="30" height="30"/>
     </resources>
-    <classes>
-        <class className="CircleEventDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventDetailViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CircleNearbyViewController" superclassName="PFQueryTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleNearbyViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="signInLogOutButtonPressed:"/>
-                <relationship kind="outlet" name="logOutSignInButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="PFQueryTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
