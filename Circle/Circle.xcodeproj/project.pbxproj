@@ -104,8 +104,10 @@
 		867F4CAC154798F600324D26 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 867F4C9E154798F600324D26 /* UIImageView+WebCache.m */; };
 		867F4CB11547992500324D26 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867F4CB01547992500324D26 /* MapKit.framework */; };
 		867F4CB415479BC200324D26 /* NearbyEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 867F4CB315479BC200324D26 /* NearbyEventCell.m */; };
-		867F4CC71547B80400324D26 /* calendaricon.png in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CC51547B80400324D26 /* calendaricon.png */; };
-		867F4CC81547B80400324D26 /* calendaricon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CC61547B80400324D26 /* calendaricon@2x.png */; };
+		867F4CCF1547EE4B00324D26 /* calendaricon.png in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CCD1547EE4B00324D26 /* calendaricon.png */; };
+		867F4CD01547EE4B00324D26 /* calendaricon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CCE1547EE4B00324D26 /* calendaricon@2x.png */; };
+		867F4CD3154808B300324D26 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CD1154808B300324D26 /* map.png */; };
+		867F4CD4154808B300324D26 /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CD2154808B300324D26 /* map@2x.png */; };
 		868CDBCD15343FF5000058F3 /* CircleSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CDBCC15343FF5000058F3 /* CircleSignUpViewController.m */; };
 		868CDBD015344CBA000058F3 /* camerawhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 868CDBCE15344CBA000058F3 /* camerawhite.png */; };
 		868CDBD115344CBA000058F3 /* camerawhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 868CDBCF15344CBA000058F3 /* camerawhite@2x.png */; };
@@ -320,8 +322,10 @@
 		867F4CB01547992500324D26 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		867F4CB215479BC200324D26 /* NearbyEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyEventCell.h; sourceTree = "<group>"; };
 		867F4CB315479BC200324D26 /* NearbyEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyEventCell.m; sourceTree = "<group>"; };
-		867F4CC51547B80400324D26 /* calendaricon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendaricon.png; sourceTree = "<group>"; };
-		867F4CC61547B80400324D26 /* calendaricon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendaricon@2x.png"; sourceTree = "<group>"; };
+		867F4CCD1547EE4B00324D26 /* calendaricon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendaricon.png; sourceTree = "<group>"; };
+		867F4CCE1547EE4B00324D26 /* calendaricon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendaricon@2x.png"; sourceTree = "<group>"; };
+		867F4CD1154808B300324D26 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		867F4CD2154808B300324D26 /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map@2x.png"; sourceTree = "<group>"; };
 		868CDBCB15343FF5000058F3 /* CircleSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSignUpViewController.h; sourceTree = "<group>"; };
 		868CDBCC15343FF5000058F3 /* CircleSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSignUpViewController.m; sourceTree = "<group>"; };
 		868CDBCE15344CBA000058F3 /* camerawhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camerawhite.png; sourceTree = "<group>"; };
@@ -407,6 +411,8 @@
 		2C4FFD891535EC97001AD2FC /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				867F4CD1154808B300324D26 /* map.png */,
+				867F4CD2154808B300324D26 /* map@2x.png */,
 				2C4FFD871535EC91001AD2FC /* tabbar-checkin.png */,
 				2C4FFD851535EBE0001AD2FC /* tabbar-checkin@2x.png */,
 				2C4FFD8A1535F022001AD2FC /* tabbar-checkin.png */,
@@ -556,8 +562,8 @@
 		8613D49C152ED1BE0002579B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				867F4CC51547B80400324D26 /* calendaricon.png */,
-				867F4CC61547B80400324D26 /* calendaricon@2x.png */,
+				867F4CCD1547EE4B00324D26 /* calendaricon.png */,
+				867F4CCE1547EE4B00324D26 /* calendaricon@2x.png */,
 				2CD4FE2B153525F400312D46 /* cities_US.json */,
 				860EFA33152FF8BA00F9540F /* profile.png */,
 				860EFA34152FF8BA00F9540F /* profile@2x.png */,
@@ -927,8 +933,10 @@
 				867F4CA2154798F600324D26 /* .gitignore in Resources */,
 				867F4CA3154798F600324D26 /* LICENSE in Resources */,
 				867F4CA5154798F600324D26 /* README.md in Resources */,
-				867F4CC71547B80400324D26 /* calendaricon.png in Resources */,
-				867F4CC81547B80400324D26 /* calendaricon@2x.png in Resources */,
+				867F4CCF1547EE4B00324D26 /* calendaricon.png in Resources */,
+				867F4CD01547EE4B00324D26 /* calendaricon@2x.png in Resources */,
+				867F4CD3154808B300324D26 /* map.png in Resources */,
+				867F4CD4154808B300324D26 /* map@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

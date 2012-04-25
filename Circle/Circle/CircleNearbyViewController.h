@@ -13,4 +13,5 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logOutSignInButton;
 - (IBAction)signInLogOutButtonPressed:(id)sender;
+- (IBAction)segmentedButtonChanged:(UISegmentedControl *)sender;
 @end
