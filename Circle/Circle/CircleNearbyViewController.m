@@ -202,8 +202,17 @@
      
      // Configure the cell
      cell.textLabel.text = [object objectForKey:@"name"];
-     if ([object objectForKey:@"startDate"]) {
-         cell.detailTextLabel.text = [dateFormatter stringFromDate:[object objectForKey:@"startDate"]];
+//     if ([object objectForKey:@"startDate"]) {
+//         cell.detailTextLabel.text = [dateFormatter stringFromDate:[object objectForKey:@"startDate"]];
+//     }
+     if ([object objectForKey:@"venue"]) {
+         cell.detailTextLabel.text = [object objectForKey:@"venue"];
+     }
+     if ([object objectForKey:@"image"]) {
+         //[cell.imageView setImage:[object objectForKey:@"image"]];
+         [cell.imageView setImageWithURL:[NSURL URLWithString:[object objectForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"profile.png"]
+                                     success:^(UIImage *image) {}
+                                     failure:^(NSError *error) {}];
      }
      
      return cell;
