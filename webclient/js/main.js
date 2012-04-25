@@ -531,59 +531,67 @@ Circle.setMapPinsWithData = function (data) {
   var newMarkers = {};
   var bounds = new google.maps.LatLngBounds();
 
+  // ensure we start with no markers
+  Circle.markers && delete Circle.markers;
+  Circle.markers = {};
+
   /*
-   Iterate through the list of markers. If it's not in there, already, create it.
-   If it is in the list of markers, but not in the new list of events, remove it.
+   Iterate through the list of markers. If it's not in there, already,
+   create it.
+
+   If it is in the list of markers, but not in the new list of events,
+   remove it.
    */
   for (var i = 0, len = data.models.length; i < len; i++) {
     var attribs = data.models[i].attributes;
 
-    if (typeof Circle.markers[attribs.objectId] === "undefined") {
-      var html = '<h1>' + attribs.name + '<div class="infowindow"></h1><h4>at' + attribs.venueName + '</h4><p>' +
+    var html = '<h1>' + attribs.name +
+        '<div class="infowindow"></h1><h4>at' +
+        attribs.venueName + '</h4><p>' +
         attribs.details + '</p></div>';
 
-      //generate a randomly-colored pin
-      var pinColor = randomColor();
-      var src = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor;
+    //generate a randomly-colored pin
+    var pinColor = randomColor();
+    var src = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor;
 
-      var pinImage = new google.maps.MarkerImage(src,
-          new google.maps.Size(21, 34),
-          new google.maps.Point(0,0),
-          new google.maps.Point(10, 34));
-      var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
-          new google.maps.Size(40, 37),
-          new google.maps.Point(0, 0),
-          new google.maps.Point(12, 35));
+    var pinImage = new google.maps.MarkerImage(src,
+                                               new google.maps.Size(21, 34),
+                                               new google.maps.Point(0,0),
+                                               new google.maps.Point(10, 34));
+    var pinShadow = new google.maps.MarkerImage(
+      "http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+      new google.maps.Size(40, 37),
+      new google.maps.Point(0, 0),
+      new google.maps.Point(12, 35));
 
-      //These are the appearance options for the marker
-      var markerOpts = {
-        map: Circle.map,
-        position: new google.maps.LatLng(attribs.location.latitude, attribs.location.longitude),
-        title: attribs.name,
-        content: html,
-        icon: pinImage,
-        shadow: pinShadow,
+    //These are the appearance options for the marker
+    var markerOpts = {
+      map: Circle.map,
+      position: new google.maps.LatLng(
+        attribs.location.latitude,
+        attribs.location.longitude
+      ),
+      title: attribs.name,
+      content: html,
+      icon: pinImage,
+      shadow: pinShadow,
+      //these aren't necessary for the google maps constructor - just
+      //stashing some info
+      origIcon: pinImage, //we save this for when we change marker
+    };
 
-        //these aren't necessary for the google maps constructor - just stashing some info
-        origIcon: pinImage, //we save this for when we change marker
-      };
+    newMarkers[attribs.objectId] = new google.maps.Marker(markerOpts);
 
-      newMarkers[attribs.objectId] = new google.maps.Marker(markerOpts);
-
-      //here we prepend the marker image to the appropriate table row
-      $('<img />')
+    //here we prepend the marker image to the appropriate table row
+    $('<img />')
         .attr('src', src)
         .addClass('marker')
         .prependTo($('#' + attribs.objectId));
 
-    } else {
-      newMarkers[attribs.objectId] = Circle.markers[attribs.objectId];
-      Circle.markers[attribs.objectId].setMap(null);
-    }
-
     //create a bounds object that fits all the objects
     bounds.extend(newMarkers[attribs.objectId].getPosition());
   }
+
   //fit the map to the new bounds
   bounds.extend(Circle.youAreHere.getPosition());
   Circle.map.fitBounds(bounds);
@@ -602,7 +610,7 @@ Circle.setMapPinsWithData = function (data) {
  *
  * If we already have a position call the callback if provided.
  */
-Circle.getPositionFromBrowser = function (callback) {
+Circle.getPositionFromBrowser = function () {
   if (!Circle.position) {
     // get the location from the browser, if supported
     if (navigator.geolocation) {
@@ -610,7 +618,7 @@ Circle.getPositionFromBrowser = function (callback) {
                                                Circle.errorPosition);
     }
   } else {
-    callback && callback();
+    Circle.gotPosition(Circle.position);
   }
 }
 
@@ -690,9 +698,7 @@ Circle.Router = Backbone.Router.extend({
       Circle.setMapCenter(Circle.position);
     });
 
-    Circle.getPositionFromBrowser(function () {
-      $(window).trigger('location:change');
-    });
+    Circle.getPositionFromBrowser();
   },
 
   events: function () {
@@ -713,9 +719,7 @@ Circle.Router = Backbone.Router.extend({
 	    model: Circle.events
     });
 
-    Circle.getPositionFromBrowser(function () {
-      $(window).trigger('location:change');
-    });
+    Circle.getPositionFromBrowser();
   },
 
   search: function () {
@@ -758,9 +762,7 @@ Circle.Router = Backbone.Router.extend({
       success();
     }
 
-    Circle.getPositionFromBrowser(function () {
-      Circle.setMapCenter(Circle.position);
-    });
+    Circle.getPositionFromBrowser();
   },
 
   search: function () {
@@ -787,9 +789,7 @@ Circle.Router = Backbone.Router.extend({
       show24Hours: false,
       step: 30
     });
-    Circle.getPositionFromBrowser(function () {
-      $(window).trigger('location:change');
-    });
+    Circle.getPositionFromBrowser();
   }
 });
 
