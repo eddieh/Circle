@@ -714,8 +714,8 @@ Circle.Router = Backbone.Router.extend({
   routes: {
     '': 'home',
     'events': 'events',
+    'events/:query': 'events',
     'detail/:event_id': 'detail',
-    'search': 'search',
     'create-event-modal': 'createEvent'
   },
 
@@ -727,6 +727,13 @@ Circle.Router = Backbone.Router.extend({
       Circle.getEventsNearPosition();
     });
 
+    $('#search-button').on('click', function (e) {
+      var query = $('#search-field').val();
+      Circle.app.navigate('events/' + query, {
+        trigger: true
+      });
+    });
+
     if (!Circle.events) {
       // create the collections of models
       Circle.events = new Circle.EventList();
@@ -734,7 +741,6 @@ Circle.Router = Backbone.Router.extend({
 
     Circle.eventSlideshow = new Circle.EventSlideshowSlideView({
       el: '#slides',
-
       model: Circle.events
     });
 
@@ -755,14 +761,17 @@ Circle.Router = Backbone.Router.extend({
     Circle.getPositionFromBrowser();
   },
 
-  events: function () {
+  events: function (query) {
     $('#layout.container').html(t('events-layout')());
 
+    // put the query into the search field
+    $('#search-field').val(query ? query : '');
+
+    // handle window resizing
     function resizeMap () {
       $('.map-wrapper').width($('#map-area').width());
     };
     resizeMap();
-
     $(window).resize(resizeMap);
 
     // if our location changes update our events
@@ -770,12 +779,21 @@ Circle.Router = Backbone.Router.extend({
       Circle.getEventsNearPosition();
     });
 
+     // create the collections of models, if needed
     if (!Circle.events) {
-      // create the collections of models
       Circle.events = new Circle.EventList();
     }
 
-    // the list view
+    /*
+    Circle.events.comparator = function(event1, event2) {
+      // "sort" comparator functions take two models, and return -1 if
+      // the first model should come before the second, 0 if they are
+      // of the same rank and 1 if the first model should come after.
+
+    };
+    */
+
+    // the event list
     Circle.eventsView = new Circle.EventListView({
       // the selector corresponding to the element this view should be
       // attached to

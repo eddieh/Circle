@@ -316,8 +316,7 @@
                                         href="#choose-city">Flagstaff, AZ</a>
 
           <p><a id="search-button"
-                class="btn btn-primary btn-large"
-                href="#events">
+                class="btn btn-primary btn-large">
               Search &raquo;
           </a></p>
         </div>
@@ -329,8 +328,12 @@
           <!--slides go here-->
           </div>
 
-          <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-          <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+          <a class="left carousel-control"
+             href="#myCarousel"
+             data-slide="prev">&lsaquo;</a>
+          <a class="right carousel-control"
+             href="#myCarousel"
+             data-slide="next">&rsaquo;</a>
         </div>
       </div>
 
@@ -519,11 +522,13 @@
     <div class="row">
     <div class="span7">
       <div id="in-search">
-        <form class="well form-search">
-          <input type="text" class="input-xlarge search-query">
+        <div class="well form-search">
+          <input id="search-field"
+                 type="text"
+                 class="input-xlarge search-query">
           <button type="submit" class="btn">Search</button>
           <a class="close pull-right">&times;</a>
-        </form>
+        </div>
 
         <table id="event-list" class="table table-striped">
           <thead>
