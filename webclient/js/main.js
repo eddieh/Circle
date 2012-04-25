@@ -445,12 +445,17 @@ Circle.CreateEventView = Backbone.View.extend({
         'iso': endDate
       }
     });
-    if (this.model.isNew()) {
-      this.model.save();
-    } else {
-      this.model.save();
-    }
-    this.$el.modal('hide');
+
+    var self = this;
+    this.model.save().done(function (response, status) {
+      self.$el.modal('hide');
+
+      // Parse sends the objectId back in the response, so let's use
+      // it to navigate to the event's detail page.
+      Circle.app.navigate('detail/' + response.objectId, {
+        trigger: true
+      });
+    });
   },
 
   render: function () {
