@@ -546,10 +546,17 @@ Circle.gotPosition = function (pos) {
 };
 
 Circle.setMapCenter = function (pos) {
+  var mapElement = document.getElementById('map_canvas');
+  if (!mapElement) {
+    console.log('no map');
+    return;
+  }
+
   var latlng = new google.maps.LatLng(pos.coords.latitude,
                                       pos.coords.longitude);
 
-  Circle.map = new google.maps.Map(document.getElementById('map_canvas'),
+
+  Circle.map = new google.maps.Map(mapElement,
                                    Circle.mapOptions);
 
   var markerImage = new google.maps.MarkerImage(
@@ -894,6 +901,7 @@ Circle.Router = Backbone.Router.extend({
       show24Hours: false,
       step: 30
     });
+
     Circle.getPositionFromBrowser();
   }
 });

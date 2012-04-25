@@ -52,6 +52,12 @@
           .appendTo(this.$container)
           .click($.proxy(this.showSearchLocationField, this));
 
+      $(window).on('location:change', function (e) {
+        if (that.$searchLocationLink.text() == '') {
+          that.$searchLocationLink.text(Circle.currentLocation);
+        }
+      });
+
       // finally, we set up autocomplete for the form field
       this.$element
           .typeahead({
