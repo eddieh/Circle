@@ -107,6 +107,10 @@
     }
 }
 
+- (IBAction)segmentedButtonChanged:(UISegmentedControl *)sender {
+    NSLog(@"Selected: %d", sender.selectedSegmentIndex);
+}
+
 #pragma mark - View lifecycle
 - (void)viewDidLoad
 {
