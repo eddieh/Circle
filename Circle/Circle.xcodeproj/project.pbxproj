@@ -106,8 +106,10 @@
 		867F4CB415479BC200324D26 /* NearbyEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 867F4CB315479BC200324D26 /* NearbyEventCell.m */; };
 		867F4CCF1547EE4B00324D26 /* calendaricon.png in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CCD1547EE4B00324D26 /* calendaricon.png */; };
 		867F4CD01547EE4B00324D26 /* calendaricon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CCE1547EE4B00324D26 /* calendaricon@2x.png */; };
-		867F4CD3154808B300324D26 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CD1154808B300324D26 /* map.png */; };
-		867F4CD4154808B300324D26 /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CD2154808B300324D26 /* map@2x.png */; };
+		867F4CD615480A4A00324D26 /* MapStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CD515480A4A00324D26 /* MapStoryboard.storyboard */; };
+		867F4CDE15480D4C00324D26 /* tabbar-map.png in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CDC15480D4C00324D26 /* tabbar-map.png */; };
+		867F4CDF15480D4D00324D26 /* tabbar-map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 867F4CDD15480D4C00324D26 /* tabbar-map@2x.png */; };
+		867F4CE215480F2000324D26 /* CircleMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867F4CE115480F2000324D26 /* CircleMapViewController.m */; };
 		868CDBCD15343FF5000058F3 /* CircleSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CDBCC15343FF5000058F3 /* CircleSignUpViewController.m */; };
 		868CDBD015344CBA000058F3 /* camerawhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 868CDBCE15344CBA000058F3 /* camerawhite.png */; };
 		868CDBD115344CBA000058F3 /* camerawhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 868CDBCF15344CBA000058F3 /* camerawhite@2x.png */; };
@@ -324,8 +326,11 @@
 		867F4CB315479BC200324D26 /* NearbyEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyEventCell.m; sourceTree = "<group>"; };
 		867F4CCD1547EE4B00324D26 /* calendaricon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendaricon.png; sourceTree = "<group>"; };
 		867F4CCE1547EE4B00324D26 /* calendaricon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendaricon@2x.png"; sourceTree = "<group>"; };
-		867F4CD1154808B300324D26 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
-		867F4CD2154808B300324D26 /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map@2x.png"; sourceTree = "<group>"; };
+		867F4CD515480A4A00324D26 /* MapStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MapStoryboard.storyboard; sourceTree = "<group>"; };
+		867F4CDC15480D4C00324D26 /* tabbar-map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-map.png"; sourceTree = "<group>"; };
+		867F4CDD15480D4C00324D26 /* tabbar-map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-map@2x.png"; sourceTree = "<group>"; };
+		867F4CE015480F2000324D26 /* CircleMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMapViewController.h; sourceTree = "<group>"; };
+		867F4CE115480F2000324D26 /* CircleMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMapViewController.m; sourceTree = "<group>"; };
 		868CDBCB15343FF5000058F3 /* CircleSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSignUpViewController.h; sourceTree = "<group>"; };
 		868CDBCC15343FF5000058F3 /* CircleSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSignUpViewController.m; sourceTree = "<group>"; };
 		868CDBCE15344CBA000058F3 /* camerawhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camerawhite.png; sourceTree = "<group>"; };
@@ -411,8 +416,8 @@
 		2C4FFD891535EC97001AD2FC /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				867F4CD1154808B300324D26 /* map.png */,
-				867F4CD2154808B300324D26 /* map@2x.png */,
+				867F4CDC15480D4C00324D26 /* tabbar-map.png */,
+				867F4CDD15480D4C00324D26 /* tabbar-map@2x.png */,
 				2C4FFD871535EC91001AD2FC /* tabbar-checkin.png */,
 				2C4FFD851535EBE0001AD2FC /* tabbar-checkin@2x.png */,
 				2C4FFD8A1535F022001AD2FC /* tabbar-checkin.png */,
@@ -531,6 +536,7 @@
 				863C1EB315318B130014DA1D /* Auth */,
 				863C1EA6153187730014DA1D /* Check In */,
 				2C5DF08015316F6000F85C63 /* Create Event */,
+				867F4CD715480A5400324D26 /* Map */,
 				863C1EAA153188E30014DA1D /* Messages */,
 				863C1EB015318A2B0014DA1D /* Nearby */,
 				863C1EAD1531895A0014DA1D /* Search */,
@@ -711,6 +717,17 @@
 				867F4CAF154798F600324D26 /* libSDWebImage.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		867F4CD715480A5400324D26 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				867F4CD515480A4A00324D26 /* MapStoryboard.storyboard */,
+				867F4CE015480F2000324D26 /* CircleMapViewController.h */,
+				867F4CE115480F2000324D26 /* CircleMapViewController.m */,
+			);
+			name = Map;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		9CB8800415381244006F06D8 /* GooglePlaces */ = {
@@ -935,8 +952,9 @@
 				867F4CA5154798F600324D26 /* README.md in Resources */,
 				867F4CCF1547EE4B00324D26 /* calendaricon.png in Resources */,
 				867F4CD01547EE4B00324D26 /* calendaricon@2x.png in Resources */,
-				867F4CD3154808B300324D26 /* map.png in Resources */,
-				867F4CD4154808B300324D26 /* map@2x.png in Resources */,
+				867F4CD615480A4A00324D26 /* MapStoryboard.storyboard in Resources */,
+				867F4CDE15480D4C00324D26 /* tabbar-map.png in Resources */,
+				867F4CDF15480D4D00324D26 /* tabbar-map@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -997,6 +1015,7 @@
 				867F4CAB154798F600324D26 /* UIButton+WebCache.m in Sources */,
 				867F4CAC154798F600324D26 /* UIImageView+WebCache.m in Sources */,
 				867F4CB415479BC200324D26 /* NearbyEventCell.m in Sources */,
+				867F4CE215480F2000324D26 /* CircleMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
