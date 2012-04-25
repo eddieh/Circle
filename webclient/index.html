@@ -158,8 +158,14 @@
       border-bottom-left-radius: 4px;
       }
 
+      .time {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 8px;
+      text-align: center;
+      }
+
       .frame.large {
-      height: 140px;
       padding: 20px;
       }
       .frame.large .calendar {
@@ -185,7 +191,6 @@
       }
 
       .frame.medium {
-      height: 80px;
       padding: 10px;
       }
       .frame.medium .calendar {
@@ -207,7 +212,6 @@
       }
 
       .frame.small {
-      height: 68px;
       padding: 5px;
       }
       .frame.small .calendar {
@@ -579,7 +583,7 @@
 
             <div class="space well pull-right">
               <div class="row">
-                {{dateAsCalendar startDate}}
+                {{dateAsCalendarWithTime startDate}}
               </div>
               <div class="row">
                 <div class="span3">
@@ -636,6 +640,23 @@
           <div class="weekday">{{month}}</div>
           {{day}}
         </div>
+      </div>
+    </div>
+  </script>
+
+  <script id="calendar-day-time-template" type="text/x-handlebars-template">
+    <div class="frame small">
+      <div class="calendar">
+        <div class="month">
+          {{weekday}}
+        </div>
+        <div class="day">
+          <div class="weekday">{{month}}</div>
+          {{day}}
+        </div>
+      </div>
+      <div class="time">
+        {{time}}
       </div>
     </div>
   </script>

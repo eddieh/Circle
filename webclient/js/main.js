@@ -33,6 +33,18 @@ Handlebars.registerHelper('dateAsCalendar', function(date) {
   return new Handlebars.SafeString(t('calendar-day')(json));
 });
 
+Handlebars.registerHelper('dateAsCalendarWithTime', function(date) {
+  //text = Handlebars.Utils.escapeExpression(text);
+  date = moment(date.iso);
+  var json = {
+    month: date.monthStr(),
+    weekday: date.weekdayStr(),
+    day: date.date(),
+    time: date.format('h:mm a')
+  };
+  return new Handlebars.SafeString(t('calendar-day-time')(json));
+});
+
 /* Setup the Circle namespace */
 var Circle = {};
 
