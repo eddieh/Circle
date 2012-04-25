@@ -875,7 +875,9 @@ Circle.Router = Backbone.Router.extend({
     $('#create-event-modal').modal('show');
     $('#create-event-modal').on('hidden', function () {
       Circle.app.navigate('', {
-        trigger: false
+        // if there isn't a layout loaded then trigger the route, so
+        // that we load a layout
+        trigger: ($('#layout.container').html().trim() == '')
       });
       $('.kalendae').remove();
       $('.time-picker').remove();
