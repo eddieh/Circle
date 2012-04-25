@@ -479,8 +479,13 @@ Circle.map = null;
  * 'location:change' event on success.
  */
 Circle.gotPosition = function (pos) {
+  console.log('Circle.gotPosition');
+  console.dir(pos);
+
+  console.log(1);
   Circle.position = pos;
   Circle.setMapCenter(pos);
+  console.log(2);
 
   var latlng = new google.maps.LatLng(pos.coords.latitude,
                                       pos.coords.longitude),
@@ -490,7 +495,9 @@ Circle.gotPosition = function (pos) {
     if (status == google.maps.GeocoderStatus.OK) {
       if (results[1]) {
         Circle.currentLocation = results[1].formatted_address;
+        console.log(1);
         $(window).trigger('location:change');
+        console.log(2);
       }
     } else {
       alert("Geocoder failed due to: " + status);
@@ -499,26 +506,32 @@ Circle.gotPosition = function (pos) {
 };
 
 Circle.setMapCenter = function (pos) {
+  console.log('a');
   var latlng = new google.maps.LatLng(pos.coords.latitude,
                                       pos.coords.longitude);
+  console.log('b');
 
 
-    Circle.map = new google.maps.Map(document.getElementById('map_canvas'),
-                                     Circle.mapOptions);
-    var markerImage = new google.maps.MarkerImage(
-      'img/blue dot.png',
-      new google.maps.Size(50, 50),
-      new google.maps.Point(0,0),
-      new google.maps.Point(25, 25));
+  Circle.map = new google.maps.Map(document.getElementById('map_canvas'),
+                                   Circle.mapOptions);
+  console.log('c');
 
-    Circle.youAreHere = new google.maps.Marker({
-      map: Circle.map,
-      position: latlng,
-      icon: markerImage
-    });
+  var markerImage = new google.maps.MarkerImage(
+    'img/blue dot.png',
+    new google.maps.Size(50, 50),
+    new google.maps.Point(0,0),
+    new google.maps.Point(25, 25));
+  console.log('d');
 
+  Circle.youAreHere = new google.maps.Marker({
+    map: Circle.map,
+    position: latlng,
+    icon: markerImage
+  });
+  console.log('e');
 
   Circle.map.setCenter(latlng);
+  console.log('f');
 }
 
 Circle.errorPosition = function () {
@@ -528,6 +541,9 @@ Circle.errorPosition = function () {
 Circle.markers = {};
 
 Circle.setMapPinsWithData = function (data) {
+  // allow for a passed in collection or a passed in array of models
+  var models = data.models ? data.models : data;
+
   var newMarkers = {};
   var bounds = new google.maps.LatLngBounds();
 
@@ -542,8 +558,8 @@ Circle.setMapPinsWithData = function (data) {
    If it is in the list of markers, but not in the new list of events,
    remove it.
    */
-  for (var i = 0, len = data.models.length; i < len; i++) {
-    var attribs = data.models[i].attributes;
+  for (var i = 0, len = models.length; i < len; i++) {
+    var attribs = models[i].attributes;
 
     var html = '<h1>' + attribs.name +
         '<div class="infowindow"></h1><h4>at' +
@@ -673,6 +689,11 @@ Circle.Router = Backbone.Router.extend({
   home: function () {
     $('#layout.container').html(t('home-layout')());
 
+    // if our location changes update our events
+    $(window).one('location:change', function (e) {
+      Circle.getEventsNearPosition();
+    });
+
     if (!Circle.events) {
       // create the collections of models
       Circle.events = new Circle.EventList();
@@ -704,6 +725,11 @@ Circle.Router = Backbone.Router.extend({
   events: function () {
     $('#layout.container').html(t('events-layout')());
 
+    // if our location changes update our events
+    $(window).one('location:change', function (e) {
+      Circle.getEventsNearPosition();
+    });
+
     if (!Circle.events) {
       // create the collections of models
       Circle.events = new Circle.EventList();
@@ -726,7 +752,15 @@ Circle.Router = Backbone.Router.extend({
   },
 
   detail: function (event_id) {
+    $(window).off('location:change');
+
     var event = Circle.events ? Circle.events.get(event_id) : null;
+
+    // if our location changes set the marker
+    $(window).one('location:change', function (e) {
+      Circle.setMapCenter(Circle.position);
+      Circle.setMapPinsWithData([event]);
+    });
 
     function success () {
       var attribs = event.attributes;
@@ -743,6 +777,13 @@ Circle.Router = Backbone.Router.extend({
       delete json.details;
 
       $('#layout.container').html(t('detail-layout')(json));
+
+      if (Circle.position) {
+        Circle.setMapCenter(Circle.position);
+        Circle.setMapPinsWithData([event]);
+      } else {
+        Circle.getPositionFromBrowser();
+      }
 
       var wiki = new WikiCreole.Creole({
         forIE: document.all,
@@ -817,11 +858,6 @@ $(function () {
 		// make this link active
 		$el.addClass('active');
 	});
-
-  // if our location changes update our events
-  $(window).on('location:change', function (e) {
-    Circle.getEventsNearPosition();
-  });
 
   Backbone.history.start();
 });
