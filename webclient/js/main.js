@@ -33,6 +33,22 @@ Handlebars.registerHelper('dateAsCalendar', function(date) {
   return new Handlebars.SafeString(t('calendar-day')(json));
 });
 
+Handlebars.registerHelper('dateAsCalendarWithTime', function(date) {
+  //text = Handlebars.Utils.escapeExpression(text);
+  date = moment(date.iso);
+  var json = {
+    month: date.monthStr(),
+    weekday: date.weekdayStr(),
+    day: date.date(),
+    time: date.format('h:mm a')
+  };
+  return new Handlebars.SafeString(t('calendar-day-time')(json));
+});
+
+Handlebars.registerHelper('directionsLink', function(destLocation) {
+  return Circle.directionsLink(destLocation);
+});
+
 /* Setup the Circle namespace */
 var Circle = {};
 
@@ -429,12 +445,17 @@ Circle.CreateEventView = Backbone.View.extend({
         'iso': endDate
       }
     });
-    if (this.model.isNew()) {
-      this.model.save();
-    } else {
-      this.model.save();
-    }
-    this.$el.modal('hide');
+
+    var self = this;
+    this.model.save().done(function (response, status) {
+      self.$el.modal('hide');
+
+      // Parse sends the objectId back in the response, so let's use
+      // it to navigate to the event's detail page.
+      Circle.app.navigate('detail/' + response.objectId, {
+        trigger: true
+      });
+    });
   },
 
   render: function () {
@@ -463,16 +484,42 @@ Circle.CreateEventView = Backbone.View.extend({
 
 });
 
-Circle.currentLocation = null;
+/** Geolocation */
 Circle.position = null;
+
+/** Formatted address */
+Circle.currentLocation = null;
+
+
 Circle.mapOptions = {
   zoom: 9,
   mapTypeId: google.maps.MapTypeId.ROADMAP,
   scrollwheel: false,
-  //this is the icon we set non-active map pins to when we hover over an event list row
-  disabledMarkerIcon: new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|CCCCCC")
+  //this is the icon we set non-active map pins to when we hover over
+  //an event list row
+  disabledMarkerIcon: new google.maps.MarkerImage(
+    "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|CCCCCC")
 };
 Circle.map = null;
+
+/**
+ * Construct a Google maps directions link given a destination
+ * address. The start address is the current value of Circle.position
+ * or Circle.currentLocation.
+ */
+Circle.directionsLink = function (destLocation) {
+  var startLocation = Circle.position ?
+      '' + Circle.position.coords.latitude
+      + ',' +
+      Circle.position.coords.longitude :
+      Circle.currentLocation ?
+      Circle.currentLocation : '';
+
+  return ('http://maps.google.com/maps?saddr=' +
+          startLocation +
+          '&daddr=' +
+          destLocation);
+};
 
 /**
  * Performs a reverse geocoding given the position and triggers a
@@ -499,24 +546,30 @@ Circle.gotPosition = function (pos) {
 };
 
 Circle.setMapCenter = function (pos) {
+  var mapElement = document.getElementById('map_canvas');
+  if (!mapElement) {
+    console.log('no map');
+    return;
+  }
+
   var latlng = new google.maps.LatLng(pos.coords.latitude,
                                       pos.coords.longitude);
 
 
-    Circle.map = new google.maps.Map(document.getElementById('map_canvas'),
-                                     Circle.mapOptions);
-    var markerImage = new google.maps.MarkerImage(
-      'img/blue dot.png',
-      new google.maps.Size(50, 50),
-      new google.maps.Point(0,0),
-      new google.maps.Point(25, 25));
+  Circle.map = new google.maps.Map(mapElement,
+                                   Circle.mapOptions);
 
-    Circle.youAreHere = new google.maps.Marker({
-      map: Circle.map,
-      position: latlng,
-      icon: markerImage
-    });
+  var markerImage = new google.maps.MarkerImage(
+    'img/blue dot.png',
+    new google.maps.Size(50, 50),
+    new google.maps.Point(0,0),
+    new google.maps.Point(25, 25));
 
+  Circle.youAreHere = new google.maps.Marker({
+    map: Circle.map,
+    position: latlng,
+    icon: markerImage
+  });
 
   Circle.map.setCenter(latlng);
 }
@@ -528,6 +581,9 @@ Circle.errorPosition = function () {
 Circle.markers = {};
 
 Circle.setMapPinsWithData = function (data) {
+  // allow for a passed in collection or a passed in array of models
+  var models = data.models ? data.models : data;
+
   var newMarkers = {};
   var bounds = new google.maps.LatLngBounds();
 
@@ -542,8 +598,8 @@ Circle.setMapPinsWithData = function (data) {
    If it is in the list of markers, but not in the new list of events,
    remove it.
    */
-  for (var i = 0, len = data.models.length; i < len; i++) {
-    var attribs = data.models[i].attributes;
+  for (var i = 0, len = models.length; i < len; i++) {
+    var attribs = models[i].attributes;
 
     var html = '<h1>' + attribs.name +
         '<div class="infowindow"></h1><h4>at' +
@@ -665,13 +721,25 @@ Circle.Router = Backbone.Router.extend({
   routes: {
     '': 'home',
     'events': 'events',
+    'events/:query': 'events',
     'detail/:event_id': 'detail',
-    'search': 'search',
     'create-event-modal': 'createEvent'
   },
 
   home: function () {
     $('#layout.container').html(t('home-layout')());
+
+    // if our location changes update our events
+    $(window).one('location:change', function (e) {
+      Circle.getEventsNearPosition();
+    });
+
+    $('#search-button').on('click', function (e) {
+      var query = $('#search-field').val();
+      Circle.app.navigate('events/' + query, {
+        trigger: true
+      });
+    });
 
     if (!Circle.events) {
       // create the collections of models
@@ -680,7 +748,6 @@ Circle.Router = Backbone.Router.extend({
 
     Circle.eventSlideshow = new Circle.EventSlideshowSlideView({
       el: '#slides',
-
       model: Circle.events
     });
 
@@ -701,15 +768,39 @@ Circle.Router = Backbone.Router.extend({
     Circle.getPositionFromBrowser();
   },
 
-  events: function () {
+  events: function (query) {
     $('#layout.container').html(t('events-layout')());
 
+    // put the query into the search field
+    $('#search-field').val(query ? query : '');
+
+    // handle window resizing
+    function resizeMap () {
+      $('.map-wrapper').width($('#map-area').width());
+    };
+    resizeMap();
+    $(window).resize(resizeMap);
+
+    // if our location changes update our events
+    $(window).one('location:change', function (e) {
+      Circle.getEventsNearPosition();
+    });
+
+     // create the collections of models, if needed
     if (!Circle.events) {
-      // create the collections of models
       Circle.events = new Circle.EventList();
     }
 
-    // the list view
+    /*
+    Circle.events.comparator = function(event1, event2) {
+      // "sort" comparator functions take two models, and return -1 if
+      // the first model should come before the second, 0 if they are
+      // of the same rank and 1 if the first model should come after.
+
+    };
+    */
+
+    // the event list
     Circle.eventsView = new Circle.EventListView({
       // the selector corresponding to the element this view should be
       // attached to
@@ -726,14 +817,26 @@ Circle.Router = Backbone.Router.extend({
   },
 
   detail: function (event_id) {
+    $(window).off('location:change');
+
     var event = Circle.events ? Circle.events.get(event_id) : null;
+
+    // if our location changes set the marker
+    $(window).one('location:change', function (e) {
+      Circle.setMapCenter(Circle.position);
+      Circle.setMapPinsWithData([event]);
+
+      $('#get-directions-button')
+          .attr('href', Circle.directionsLink(event.get('address')));
+    });
 
     function success () {
       var attribs = event.attributes;
 
       var markerOpts = {
         map: Circle.map,
-        position: new google.maps.LatLng(attribs.location.latitude, attribs.location.longitude),
+        position: new google.maps.LatLng(attribs.location.latitude,
+                                         attribs.location.longitude),
         title: attribs.name,
       };
 
@@ -743,6 +846,13 @@ Circle.Router = Backbone.Router.extend({
       delete json.details;
 
       $('#layout.container').html(t('detail-layout')(json));
+
+      if (Circle.position) {
+        Circle.setMapCenter(Circle.position);
+        Circle.setMapPinsWithData([event]);
+      } else {
+        Circle.getPositionFromBrowser();
+      }
 
       var wiki = new WikiCreole.Creole({
         forIE: document.all,
@@ -772,7 +882,9 @@ Circle.Router = Backbone.Router.extend({
     $('#create-event-modal').modal('show');
     $('#create-event-modal').on('hidden', function () {
       Circle.app.navigate('', {
-        trigger: false
+        // if there isn't a layout loaded then trigger the route, so
+        // that we load a layout
+        trigger: ($('#layout.container').html().trim() == '')
       });
       $('.kalendae').remove();
       $('.time-picker').remove();
@@ -789,6 +901,7 @@ Circle.Router = Backbone.Router.extend({
       show24Hours: false,
       step: 30
     });
+
     Circle.getPositionFromBrowser();
   }
 });
@@ -817,11 +930,6 @@ $(function () {
 		// make this link active
 		$el.addClass('active');
 	});
-
-  // if our location changes update our events
-  $(window).on('location:change', function (e) {
-    Circle.getEventsNearPosition();
-  });
 
   Backbone.history.start();
 });
