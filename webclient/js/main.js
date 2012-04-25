@@ -45,6 +45,10 @@ Handlebars.registerHelper('dateAsCalendarWithTime', function(date) {
   return new Handlebars.SafeString(t('calendar-day-time')(json));
 });
 
+Handlebars.registerHelper('directionsLink', function(destLocation) {
+  return Circle.directionsLink(destLocation);
+});
+
 /* Setup the Circle namespace */
 var Circle = {};
 
@@ -475,29 +479,50 @@ Circle.CreateEventView = Backbone.View.extend({
 
 });
 
-Circle.currentLocation = null;
+/** Geolocation */
 Circle.position = null;
+
+/** Formatted address */
+Circle.currentLocation = null;
+
+
 Circle.mapOptions = {
   zoom: 9,
   mapTypeId: google.maps.MapTypeId.ROADMAP,
   scrollwheel: false,
-  //this is the icon we set non-active map pins to when we hover over an event list row
-  disabledMarkerIcon: new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|CCCCCC")
+  //this is the icon we set non-active map pins to when we hover over
+  //an event list row
+  disabledMarkerIcon: new google.maps.MarkerImage(
+    "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|CCCCCC")
 };
 Circle.map = null;
+
+/**
+ * Construct a Google maps directions link given a destination
+ * address. The start address is the current value of Circle.position
+ * or Circle.currentLocation.
+ */
+Circle.directionsLink = function (destLocation) {
+  var startLocation = Circle.position ?
+      '' + Circle.position.coords.latitude
+      + ',' +
+      Circle.position.coords.longitude :
+      Circle.currentLocation ?
+      Circle.currentLocation : '';
+
+  return ('http://maps.google.com/maps?saddr=' +
+          startLocation +
+          '&daddr=' +
+          destLocation);
+};
 
 /**
  * Performs a reverse geocoding given the position and triggers a
  * 'location:change' event on success.
  */
 Circle.gotPosition = function (pos) {
-  console.log('Circle.gotPosition');
-  console.dir(pos);
-
-  console.log(1);
   Circle.position = pos;
   Circle.setMapCenter(pos);
-  console.log(2);
 
   var latlng = new google.maps.LatLng(pos.coords.latitude,
                                       pos.coords.longitude),
@@ -507,9 +532,7 @@ Circle.gotPosition = function (pos) {
     if (status == google.maps.GeocoderStatus.OK) {
       if (results[1]) {
         Circle.currentLocation = results[1].formatted_address;
-        console.log(1);
         $(window).trigger('location:change');
-        console.log(2);
       }
     } else {
       alert("Geocoder failed due to: " + status);
@@ -518,32 +541,25 @@ Circle.gotPosition = function (pos) {
 };
 
 Circle.setMapCenter = function (pos) {
-  console.log('a');
   var latlng = new google.maps.LatLng(pos.coords.latitude,
                                       pos.coords.longitude);
-  console.log('b');
-
 
   Circle.map = new google.maps.Map(document.getElementById('map_canvas'),
                                    Circle.mapOptions);
-  console.log('c');
 
   var markerImage = new google.maps.MarkerImage(
     'img/blue dot.png',
     new google.maps.Size(50, 50),
     new google.maps.Point(0,0),
     new google.maps.Point(25, 25));
-  console.log('d');
 
   Circle.youAreHere = new google.maps.Marker({
     map: Circle.map,
     position: latlng,
     icon: markerImage
   });
-  console.log('e');
 
   Circle.map.setCenter(latlng);
-  console.log('f');
 }
 
 Circle.errorPosition = function () {
@@ -772,6 +788,9 @@ Circle.Router = Backbone.Router.extend({
     $(window).one('location:change', function (e) {
       Circle.setMapCenter(Circle.position);
       Circle.setMapPinsWithData([event]);
+
+      $('#get-directions-button')
+          .attr('href', Circle.directionsLink(event.get('address')));
     });
 
     function success () {
@@ -779,7 +798,8 @@ Circle.Router = Backbone.Router.extend({
 
       var markerOpts = {
         map: Circle.map,
-        position: new google.maps.LatLng(attribs.location.latitude, attribs.location.longitude),
+        position: new google.maps.LatLng(attribs.location.latitude,
+                                         attribs.location.longitude),
         title: attribs.name,
       };
 
