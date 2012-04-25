@@ -387,123 +387,122 @@
       <h3>Create Event</h3>
     </div>
 
-    <form class="form-horizontal">
-        <fieldset>
+    <div class="form-horizontal">
+      <fieldset>
 
-          <legend></legend>
+        <legend></legend>
 
-          <div class="control-group">
-            <label class="control-label" for="name">Name</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="name">
-              <p class="help-block">
-              </p>
+        <div class="control-group">
+          <label class="control-label" for="name">Name</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="name">
+            <p class="help-block">
+            </p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="details">Details</label>
+          <div class="controls">
+            <textarea class="input-xlarge" id="details" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="category">Category</label>
+          <div class="controls">
+            <div class="btn-group">
+              <button id="category" class="btn" data-toggle="dropdown">
+                Choose a category...
+              </button>
+              <button class="btn dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+              </button>
+              <ul id="category-list" class="dropdown-menu">
+              </ul>
             </div>
           </div>
+        </div>
 
-          <div class="control-group">
-            <label class="control-label" for="details">Details</label>
-            <div class="controls">
-              <textarea class="input-xlarge" id="details" rows="3"></textarea>
-            </div>
+        <div class="control-group">
+          <label class="control-label" for="where">Where</label>
+          <div class="controls">
+            <input type="text"
+                   class="input-xlarge venue-typeahead"
+                   id="where">
+            <p class="help-block">
+            </p>
           </div>
+        </div>
 
-          <div class="control-group">
-            <label class="control-label" for="category">Category</label>
-            <div class="controls">
-              <div class="btn-group">
-                <button id="category" class="btn">
-                  Choose a category...
-                </button>
-                <button class="btn dropdown-toggle"
-                        data-toggle="dropdown">
-                  <span class="caret"></span>
-                </button>
-                <ul id="category-list" class="dropdown-menu">
-                </ul>
-              </div>
-            </div>
-          </div>
+        <div class="control-group">
+          <label class="control-label" for="startDate">Starts</label>
+          <div class="controls">
 
-          <div class="control-group">
-            <label class="control-label" for="where">Where</label>
-            <div class="controls">
+            <div class="input-append my-date-picker">
               <input type="text"
-                     class="input-xlarge venue-typeahead"
-                     id="where">
-              <p class="help-block">
-              </p>
+                     class="auto-kal input-small"
+                     id="startDate"><span class="add-on">
+                <i class="icon-calendar"></i></span>
             </div>
-          </div>
 
-          <div class="control-group">
-            <label class="control-label" for="startDate">Starts</label>
-            <div class="controls">
-
-              <div class="input-append my-date-picker">
-                <input type="text"
-                       class="auto-kal input-small"
-                       id="startDate"><span class="add-on">
-                  <i class="icon-calendar"></i></span>
-              </div>
-
-              <div class="input-append my-time-picker">
-                <input type="text"
-                       class="auto-time input-small"
-                       id="startTime"><span class="add-on">
-                  <i class="icon-time"></i></span>
-              </div>
-
-              <p class="help-block">
-                <a id="add-end-time" href="#">End time?</a>
-              </p>
+            <div class="input-append my-time-picker">
+              <input type="text"
+                     class="auto-time input-small"
+                     id="startTime"><span class="add-on">
+                <i class="icon-time"></i></span>
             </div>
+
+            <p class="help-block">
+              <a id="add-end-time" href="#">End time?</a>
+            </p>
           </div>
+        </div>
 
-          <div id="end-time-group" class="control-group" style="display: none">
-            <label class="control-label" for="endDate">Ends</label>
-            <div class="controls">
+        <div id="end-time-group" class="control-group" style="display: none">
+          <label class="control-label" for="endDate">Ends</label>
+          <div class="controls">
 
-              <div class="input-append my-date-picker">
-                <input type="text"
-                       class="auto-kal input-small"
-                       id="endDate"><span class="add-on">
-                  <i class="icon-calendar"></i></span>
-              </div>
-
-              <div class="input-append my-time-picker">
-                <input type="text"
-                       class="auto-time input-small"
-                       id="endTime"><span class="add-on">
-                  <i class="icon-time"></i></span>
-                <a id="remove-end-time" href="#">
-                  <i class="icon-remove"></i>
-                </a>
-              </div>
-
-              <p class="help-block">
-              </p>
+            <div class="input-append my-date-picker">
+              <input type="text"
+                     class="auto-kal input-small"
+                     id="endDate"><span class="add-on">
+                <i class="icon-calendar"></i></span>
             </div>
-          </div>
 
-          <div class="control-group">
-            <label id="upload-label" class="control-label" for="file">Upload an image?</label>
-            <div class="controls">
-
-              <div id="file-uploader">
-                <noscript>
-                    <p>Please enable JavaScript to use file uploader.</p>
-                    <!-- or put a simple form for upload here -->
-                </noscript>
-              </div>
-              <div id="uploaded-image" style="display:none;"><img class="max-height-75" /></div>
-              <p class="help-block">
-              </p>
+            <div class="input-append my-time-picker">
+              <input type="text"
+                     class="auto-time input-small"
+                     id="endTime"><span class="add-on">
+                <i class="icon-time"></i></span>
+              <a id="remove-end-time" href="#">
+                <i class="icon-remove"></i>
+              </a>
             </div>
-          </div>
 
-        </fieldset>
-    </form>
+            <p class="help-block">
+            </p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label id="upload-label" class="control-label" for="file">Upload an image?</label>
+          <div class="controls">
+
+            <div id="file-uploader">
+              <noscript>
+                <p>Please enable JavaScript to use file uploader.</p>
+                <!-- or put a simple form for upload here -->
+              </noscript>
+            </div>
+            <div id="uploaded-image" style="display:none;"><img class="max-height-75" /></div>
+            <p class="help-block">
+            </p>
+          </div>
+        </div>
+
+      </fieldset>
+    </div>
 
     <div class="modal-footer">
       <a href="#" id="close" class="btn">Close</a>
