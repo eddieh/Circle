@@ -45,13 +45,18 @@
             onselect: $.proxy(this.getLocationDetails, this)
           });
 
-
       // set up the location link, and set it to be replaced with the
       // textfield when clicked
       this.$searchLocationLink = $('<a />')
-          .text(Circle.currentLocation)
+          .text(Circle.currentLocation ? Circle.currentLocation : '')
           .appendTo(this.$container)
           .click($.proxy(this.showSearchLocationField, this));
+
+      $(window).on('location:change', function (e) {
+        if (that.$searchLocationLink.text() == '') {
+          that.$searchLocationLink.text(Circle.currentLocation);
+        }
+      });
 
       // finally, we set up autocomplete for the form field
       this.$element
@@ -66,21 +71,37 @@
                   encodeURIComponent(query) +
                   '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
 
+              var coords = null;
+
+              // try to use the user selected location
+              if (that.searchCoords) {
+                coords = {
+                  latitude: that.searchCoords.lat,
+                  longitude: that.searchCoords.lng
+                };
+              }
+
+              // If we don't have coords yet, try to get them from
+              // Circle.position
+              if (!coords && Circle.position) {
+                coords = Circle.position.coords;
+              }
+
               // encode search with location and a 50-mile radius to
               // locally-biased results
-              if (typeof(Circle.searchLocation) !== "undefined") {
-                var coords = Circle.searchLocation.coords;
-              } else {
-                var coords = Circle.position.coords;
+              if (coords) {
+                url += '&location=' +
+                    coords.latitude + ',' +
+                    coords.longitude + '&radius=80000';
               }
 
-              if (typeof(coords) !== "undefined") {
-                url += '&location=' + coords.latitude + ',' + coords.longitude + '&radius=80000';
-              }
+              url = that.services[that.options['service']] +
+                  encodeURIComponent(url) + '&callback=?';
 
               // do the request!
-              $.getJSON(that.services[that.options['service']] + encodeURIComponent(url) + '&callback=?', function (data) {
-                var response = (typeof(data.contents) === 'string') ? $.parseJSON(data.contents) : data.contents;
+              $.getJSON(url, function (data) {
+                var response = (typeof(data.contents) === 'string') ?
+                    $.parseJSON(data.contents) : data.contents;
                 typeahead.process(response.predictions);
               });
             },
@@ -90,7 +111,9 @@
     },
 
     /**
-     * hides the clicked link, and replaces it with a form field so the user can input a custom location
+     * Hides the clicked link, and replaces it with a form field so
+     * the user can input a custom location.
+     *
      * @return {void}
      */
     showSearchLocationField: function () {
@@ -99,8 +122,12 @@
     },
 
     /**
-     * When a user selects a venue, get the venue details (esp. lat/lng data) from Google Places API
-     * @param  {Object} val The Google Places Autocomplete object for the venue the user selected
+     * When a user selects a venue, get the venue details
+     * (esp. lat/lng data) from Google Places API
+     *
+     * @param {Object} val The Google Places Autocomplete object for
+     * the venue the user selected
+     *
      * @return {void}
      */
     getVenueDetails: function (val) {
@@ -115,7 +142,8 @@
           val.reference +
           '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
 
-      url = that.services[that.options['service']] + encodeURIComponent(url) + '&callback=?';
+      url = that.services[that.options['service']] +
+          encodeURIComponent(url) + '&callback=?';
 
       $.getJSON(url, function (data) {
         var response = (typeof(data.contents) === 'string') ?
@@ -148,9 +176,12 @@
       var url = 'https://maps.googleapis.com/maps/api/place/details/json?reference=' +
           val.reference +
           '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
+      url = that.services[that.options['service']] +
+          encodeURIComponent(url) + '&callback=?'
 
-      $.getJSON(that.services[that.options['service']] + encodeURIComponent(url) + '&callback=?', function (data) {
-        var response = (typeof(data.contents) === 'string') ? $.parseJSON(data.contents) : data.contents;
+      $.getJSON(url, function (data) {
+        var response = (typeof(data.contents) === 'string') ?
+            $.parseJSON(data.contents) : data.contents;
         that.searchCoords = response.result.geometry.location;
       });
     }

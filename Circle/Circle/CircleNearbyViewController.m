@@ -14,7 +14,7 @@
 #import "CircleNearbyViewController.h"
 #import "LocationSingleton.h"
 #import "CircleEventDetailViewController.h"
-#import "SDWebImage/UIImageView+WebCache.h"
+#import "UIImageView+WebCache.h"
 #import "NearbyEventCell.h"
 
 

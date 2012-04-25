@@ -94,8 +94,9 @@
         self.endsCell.detailTextLabel.text = @"None";
     }
     
-    // sets DatePicker to have min interval and cant select before current date
+    // sets DatePicker to use 15 min intervals
     self.datePicker.minuteInterval = 15;
+    // sets minimum date to the current date
     NSDate *currentDate = [NSDate date];
     self.datePicker.minimumDate = currentDate;
 }
@@ -147,6 +148,28 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+    if (indexPath.row == 0) {
+        self.datePicker.date = self.startDate;
+        //start date cannot be before end date
+        //error avoidance, when end date is not set it gets set as current date
+        //can cause all options to be grayed out
+        if([self.endDate timeIntervalSinceDate:self.startDate]>60.0f)
+        {
+            self.datePicker.maximumDate = self.endDate;
+            NSDate *currentDate = [NSDate date];
+            self.datePicker.minimumDate = currentDate;
+        }
+    }
+    else if (indexPath.row == 1)
+    {
+        if (self.endDate)
+        {
+            self.datePicker.date = self.endDate;
+        }
+        //end date cannot be before start date
+        self.datePicker.minimumDate = self.startDate;
+        self.datePicker.maximumDate = nil;
+    }
 }
 
 - (IBAction)changeDate:(id)sender; {
