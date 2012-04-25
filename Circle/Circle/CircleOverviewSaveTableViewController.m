@@ -28,6 +28,8 @@
 @synthesize saveButton = _saveButton;
 @synthesize event = _event;
 
+bool userCanContinue = YES;
+
 
 #pragma mark - View lifecycle
 - (void)viewDidLoad
@@ -36,20 +38,11 @@
     
     NSLog(@"%@", self.event);
     
+    
+    
     if (self.event) {
         self.nameCell.detailTextLabel.text = [self.event objectForKey:@"name"];
         self.detailsCell.detailTextLabel.text = [self.event objectForKey:@"details"];
-    }
-    
-    // Set up the date formatter
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-	[self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
-	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    [self.dateFormatter setDateFormat:@"MM/dd h:mm a"];
-
-    NSDate *startDate = [self.event objectForKey:@"startDate"];
-    if (startDate) {
-        self.startsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:startDate];
     }
     
     NSDate *endDate = nil;
@@ -63,7 +56,74 @@
         self.endsCell.detailTextLabel.text = @"None";
     }
 }
-
+-(void) viewWillAppear:(BOOL)animated
+{
+    
+    // user can coninue if all the following fields are filled out
+    userCanContinue = YES;
+    
+    // incomplete field color
+    UIColor *incompleteFieldColor = [UIColor colorWithRed: 1.0f green: 0.0f blue: 0.0f alpha: 0.1f];
+    UIColor *incompleteLabelColor = [UIColor colorWithRed: 1.0f green: 0.0f blue: 0.0f alpha: 0.00f];
+    
+    // event name cell
+    if ([self.nameCell.detailTextLabel.text isEqualToString: @""]){
+        self.nameCell.backgroundColor = incompleteFieldColor;
+        self.nameCell.textLabel.backgroundColor = incompleteLabelColor;
+        userCanContinue = NO; 
+    }
+    else {
+        self.nameCell.backgroundColor = [UIColor whiteColor];
+    }
+    
+    // event detail cell
+    if ([self.detailsCell.detailTextLabel.text isEqualToString: @""]){
+        self.detailsCell.backgroundColor = incompleteFieldColor;
+        self.detailsCell.textLabel.backgroundColor = incompleteLabelColor;
+        userCanContinue = NO; 
+    }
+    else {
+        self.detailsCell.backgroundColor = [UIColor whiteColor];
+    }
+    
+    // event category cell
+    if ([self.categoryCell.detailTextLabel.text isEqualToString: @""]){
+        self.categoryCell.backgroundColor = incompleteFieldColor;
+        self.categoryCell.textLabel.backgroundColor = incompleteLabelColor;
+        userCanContinue = NO; 
+    }
+    else {
+        self.categoryCell.backgroundColor = [UIColor whiteColor];
+    }
+    
+    // event start date cell, not needed, but just in case?
+    if ([self.startsCell.detailTextLabel.text isEqualToString: @""]){
+        self.startsCell.backgroundColor = incompleteFieldColor;
+        self.startsCell.textLabel.backgroundColor = incompleteLabelColor;
+        userCanContinue = NO; 
+    }
+    else {
+        self.startsCell.backgroundColor = [UIColor whiteColor];
+    }
+    
+    NSLog(@"USER CAN START: %s", userCanContinue ? "true" : "false");
+    
+    
+    // Set up the date formatter
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+	[self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [self.dateFormatter setDateFormat:@"MM/dd h:mm a"];
+    
+    NSDate *startDate = [self.event objectForKey:@"startDate"];
+    if (startDate) {
+        self.startsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:startDate];
+    }
+    else {
+        userCanContinue = NO;
+    }
+    [super viewWillAppear:animated];
+}
 - (void)viewDidUnload
 {
     [self setNameCell:nil];
@@ -127,37 +187,44 @@
 
 //pop up a spinner, save, then pop to rootviewcontroller
 - (IBAction)saveButtonPressed:(id)sender {
-    HUD = [self configureHUD];
-    HUD.labelText = @"Saving...";
-    [HUD show:YES];
-    
-    [self.event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [self setHUDCustomViewWithImageNamed:@"37x-Checkmark.png" labelText:@"Success!" detailsLabelText:@"Event created." hideDelay:1.5];
-    }];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.5 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
-        /**
-         * HACK: (the hackiest!)
-         * We get a reference back to the "Nearby view" in probably the worst way possible,
-         * tell it to reload, and then pop back to it.
-         *
-         * Also, we set our own's rootviewcontroller's event property to nil so the user can create
-         * another event if they want.
-         */
-
-        //tell nearby view to reload
-        UINavigationController *nearbyNC = [self.tabBarController.viewControllers objectAtIndex:2];
-        [[nearbyNC.viewControllers objectAtIndex:0] loadObjects];
+    if(userCanContinue){
+        HUD = [self configureHUD];
+        HUD.labelText = @"Saving...";
+        [HUD show:YES];
         
-        //go to it
-        [self.tabBarController setSelectedIndex:2];
-
-        //reset "new event" flow's state
-        UINavigationController *thisNC = [self.tabBarController.viewControllers objectAtIndex:1];
-        [thisNC popToRootViewControllerAnimated:NO];
-        if ([[thisNC.viewControllers objectAtIndex:0] respondsToSelector:@selector(setEvent:)]) {
-            [[thisNC.viewControllers objectAtIndex:0] setEvent:nil];
-        }
-    });
+        [self.event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [self setHUDCustomViewWithImageNamed:@"37x-Checkmark.png" labelText:@"Success!" detailsLabelText:@"Event created." hideDelay:1.5];
+        }];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.5 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+            /**
+             * HACK: (the hackiest!)
+             * We get a reference back to the "Nearby view" in probably the worst way possible,
+             * tell it to reload, and then pop back to it.
+             *
+             * Also, we set our own's rootviewcontroller's event property to nil so the user can create
+             * another event if they want.
+             */
+            
+            //tell nearby view to reload
+            UINavigationController *nearbyNC = [self.tabBarController.viewControllers objectAtIndex:2];
+            [[nearbyNC.viewControllers objectAtIndex:0] loadObjects];
+            
+            //go to it
+            [self.tabBarController setSelectedIndex:2];
+            
+            //reset "new event" flow's state
+            UINavigationController *thisNC = [self.tabBarController.viewControllers objectAtIndex:1];
+            [thisNC popToRootViewControllerAnimated:NO];
+            if ([[thisNC.viewControllers objectAtIndex:0] respondsToSelector:@selector(setEvent:)]) {
+                [[thisNC.viewControllers objectAtIndex:0] setEvent:nil];
+            }
+        });
+    }
+    else{
+        HUD = [self configureHUD];
+        [HUD show:YES];
+        [self setHUDCustomViewWithImageNamed: @"problem.png" labelText:@"Error" detailsLabelText:@"Complete the required fields" hideDelay:3.0];
+    }
 
 }
 

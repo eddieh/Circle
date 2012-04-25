@@ -133,6 +133,7 @@
 		9CB8803415381245006F06D8 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8802315381245006F06D8 /* SBJsonTokeniser.m */; };
 		9CB8803515381245006F06D8 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8802515381245006F06D8 /* SBJsonUTF8Stream.m */; };
 		9CB8803615381245006F06D8 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8802715381245006F06D8 /* SBJsonWriter.m */; };
+		9CC360A41548021A00A7166F /* problem.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CC360A31548021A00A7166F /* problem.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -375,6 +376,7 @@
 		9CB8802515381245006F06D8 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		9CB8802615381245006F06D8 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		9CB8802715381245006F06D8 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		9CC360A31548021A00A7166F /* problem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = problem.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -556,6 +558,7 @@
 		8613D49C152ED1BE0002579B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				9CC360A31548021A00A7166F /* problem.png */,
 				867F4CC51547B80400324D26 /* calendaricon.png */,
 				867F4CC61547B80400324D26 /* calendaricon@2x.png */,
 				2CD4FE2B153525F400312D46 /* cities_US.json */,
@@ -929,6 +932,7 @@
 				867F4CA5154798F600324D26 /* README.md in Resources */,
 				867F4CC71547B80400324D26 /* calendaricon.png in Resources */,
 				867F4CC81547B80400324D26 /* calendaricon@2x.png in Resources */,
+				9CC360A41548021A00A7166F /* problem.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
