@@ -680,7 +680,8 @@ Circle.getPositionFromBrowser = function () {
 
 /**
  * Get the events near a position, or near the current position saved
- * in Circle.position if not position is provided.
+ * in Circle.position if no position is provided. Optionally pass a
+ * radius in miles and/or a query.
  *
  * position = {
  *   coords: {
@@ -690,24 +691,32 @@ Circle.getPositionFromBrowser = function () {
  * }
  *
  * @param {Dict} position See above.
- * @param {Number} radius The search radius in miles.
+ * @param {Number} radius The search radius in miles (defaults to 20
+ *                        miles).
+ * @param {Dict} query See <https://parse.com/docs/rest#queries>.
+ *
  */
-Circle.getEventsNearPosition = function (position, radius) {
+Circle.getEventsNearPosition = function (position, radius, query) {
   if (!position) position = Circle.position;
   if (!radius) radius = 20.0;
 
+  var base_query = {
+    location: {
+      '$nearSphere': {
+        '__type': 'GeoPoint',
+        'latitude': position.coords.latitude,
+        'longitude': position.coords.longitude
+      },
+      '$maxDistanceInMiles': radius
+    }
+  };
+
+  // since: _.extend({one:1}, undefined) => {one:1}
+  query = _.extend(base_query, query);
+
   // get the data from Parse
   Circle.events.fetch({
-    data: 'where=' + JSON.stringify({
-      location: {
-        '$nearSphere': {
-          '__type': 'GeoPoint',
-          'latitude': position.coords.latitude,
-          'longitude': position.coords.longitude
-        },
-        '$maxDistanceInMiles': radius
-      }
-    }),
+    data: 'where=' + JSON.stringify(query),
     success: function(collection, response) {
       Circle.setMapPinsWithData(collection);
     }
@@ -715,6 +724,17 @@ Circle.getEventsNearPosition = function (position, radius) {
 
   // set the center of the map too
   Circle.setMapCenter(position);
+}
+
+/**
+ * Get events that match 'query'. This calls
+ * Circle.getEventsNerPosition passing undefined as the first two
+ * arguments.
+ *
+ * @param {Dict} query See <https://parse.com/docs/rest#queries>.
+ */
+Circle.getEventsWithQuery = function (query) {
+  Circle.getEventsNearPosition(undefined, undefined, query);
 }
 
 Circle.Router = Backbone.Router.extend({
@@ -769,6 +789,8 @@ Circle.Router = Backbone.Router.extend({
   },
 
   events: function (query) {
+    $(window).off('location:change');
+
     $('#layout.container').html(t('events-layout')());
 
     // put the query into the search field
@@ -781,9 +803,26 @@ Circle.Router = Backbone.Router.extend({
     resizeMap();
     $(window).resize(resizeMap);
 
+    var parse_query = {
+      '$or': [
+        {'name': {'$regex': query, '$options': 'im'}},
+        {'details': {'$regex': query, '$options': 'im'}},
+        {'venueName': {'$regex': query, '$options': 'im'}},
+        {'category': {
+          '$inQuery': {
+            'where' : {
+              'name': {'$regex': query, '$options': 'im'}
+            },
+            'className': 'Category'
+          }
+        }}
+      ]
+    };
+
     // if our location changes update our events
     $(window).one('location:change', function (e) {
-      Circle.getEventsNearPosition();
+      //Circle.getEventsNearPosition();
+      Circle.getEventsWithQuery(parse_query);
     });
 
      // create the collections of models, if needed
@@ -811,9 +850,6 @@ Circle.Router = Backbone.Router.extend({
     });
 
     Circle.getPositionFromBrowser();
-  },
-
-  search: function () {
   },
 
   detail: function (event_id) {
