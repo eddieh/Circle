@@ -740,6 +740,7 @@ Circle.getEventsWithQuery = function (query) {
 Circle.Router = Backbone.Router.extend({
   routes: {
     '': 'home',
+    'events': 'events',
     'events/': 'events',
     'events/:query': 'events',
     'detail/:event_id': 'detail',
@@ -812,28 +813,29 @@ Circle.Router = Backbone.Router.extend({
     resizeMap();
     $(window).resize(resizeMap);
 
-    var terms = [];
-    _.each(query.split(/\s/), function (q) {
-      _.each([
-        {'name': {'$regex': q, '$options': 'im'}},
-        {'details': {'$regex': q, '$options': 'im'}},
-        {'venueName': {'$regex': q, '$options': 'im'}},
-        {'category': {
-          '$inQuery': {
-            'where' : {
-              'name': {'$regex': q, '$options': 'im'}
-            },
-            'className': 'Category'
-          }
-        }}], function (t) {
-          terms.push(t);
-        });
-    });
-    console.dir(terms);
+    var parse_query;
+    if (query) {
+      parse_query = {
+        '$or': []
+      };
+      _.each(query.split(/\s/), function (q) {
+        _.each([
+          {'name': {'$regex': q, '$options': 'im'}},
+          {'details': {'$regex': q, '$options': 'im'}},
+          {'venueName': {'$regex': q, '$options': 'im'}},
+          {'category': {
+            '$inQuery': {
+              'where' : {
+                'name': {'$regex': q, '$options': 'im'}
+              },
+              'className': 'Category'
+            }
+          }}], function (t) {
+            parse_query['$or'].push(t);
+          });
+      });
+    }
 
-    var parse_query = {
-      '$or': terms
-    };
 
     // if our location changes update our events
     $(window).one('location:change', function (e) {
