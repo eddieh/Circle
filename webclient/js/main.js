@@ -740,7 +740,7 @@ Circle.getEventsWithQuery = function (query) {
 Circle.Router = Backbone.Router.extend({
   routes: {
     '': 'home',
-    'events': 'events',
+    'events/': 'events',
     'events/:query': 'events',
     'detail/:event_id': 'detail',
     'create-event-modal': 'createEvent'
@@ -783,6 +783,8 @@ Circle.Router = Backbone.Router.extend({
         }
       };
       Circle.setMapCenter(Circle.position);
+
+      Circle.getEventsNearPosition();
     });
 
     Circle.getPositionFromBrowser();
