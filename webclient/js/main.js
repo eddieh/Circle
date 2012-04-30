@@ -812,20 +812,27 @@ Circle.Router = Backbone.Router.extend({
     resizeMap();
     $(window).resize(resizeMap);
 
-    var parse_query = {
-      '$or': [
-        {'name': {'$regex': query, '$options': 'im'}},
-        {'details': {'$regex': query, '$options': 'im'}},
-        {'venueName': {'$regex': query, '$options': 'im'}},
+    var terms = [];
+    _.each(query.split(/\s/), function (q) {
+      _.each([
+        {'name': {'$regex': q, '$options': 'im'}},
+        {'details': {'$regex': q, '$options': 'im'}},
+        {'venueName': {'$regex': q, '$options': 'im'}},
         {'category': {
           '$inQuery': {
             'where' : {
-              'name': {'$regex': query, '$options': 'im'}
+              'name': {'$regex': q, '$options': 'im'}
             },
             'className': 'Category'
           }
-        }}
-      ]
+        }}], function (t) {
+          terms.push(t);
+        });
+    });
+    console.dir(terms);
+
+    var parse_query = {
+      '$or': terms
     };
 
     // if our location changes update our events
