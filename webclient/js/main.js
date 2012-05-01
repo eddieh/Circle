@@ -60,16 +60,18 @@ Circle.Event = Backbone.Model.extend({
 
   // this is where backbone will POST to when creating a new Event
   // entity.
-  urlRoot: 'https://api.parse.com/1/classes/Event'
+  urlRoot: 'https://api.parse.com/1/classes/Event',
 
-  // toJSON_: function (options) {
-  //   options = {
-  //     'categoryName': function () {
-  //     }
-  //   }
-  //   return _.extend(_.clone(this.attributes), {
-  //   });
-  // }
+  validate: function (attrs) {
+    var errors = {};
+
+    if (attrs.name == '') errors.name = 'required';
+    if (attrs.details == '') errors.details = 'required';
+
+    if (!attrs.location) errors.where = 'required';
+
+    if (errors != {}) return errors;
+  }
 });
 
 Circle.EventList = Backbone.Collection.extend({
@@ -447,14 +449,38 @@ Circle.CreateEventView = Backbone.View.extend({
     });
 
     var self = this;
-    this.model.save().done(function (response, status) {
-      self.$el.modal('hide');
+    var attrs = {
+      name: $('#name').val(),
+      details: $('#details').val(),
+      startDate: {
+        '__type': 'Date',
+        'iso': startDate
+      },
+      endDate: {
+        '__type': 'Date',
+        'iso': endDate
+      }
+    };
+    this.model.save(attrs, {
+      error: function (model, response) {
+        console.dir(arguments);
+        _.each(response, function (error, key) {
+          var $el = $('#' + key);
+          var controlGroup = $el.parents('.control-group');
+          controlGroup.addClass('error');
 
-      // Parse sends the objectId back in the response, so let's use
-      // it to navigate to the event's detail page.
-      Circle.app.navigate('detail/' + response.objectId, {
-        trigger: true
-      });
+          var helpBlock = $el.siblings('.help-inline').text(error);
+        });
+      },
+      success: function (model, response) {
+        self.$el.modal('hide');
+
+        // Parse sends the objectId back in the response, so let's use
+        // it to navigate to the event's detail page.
+        Circle.app.navigate('detail/' + response.objectId, {
+          trigger: true
+        });
+      }
     });
   },
 
