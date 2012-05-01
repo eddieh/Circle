@@ -352,6 +352,18 @@ Circle.CreateEventView = Backbone.View.extend({
     $('#end-time-group').hide();
   },
 
+  startDateChanged: function () {
+  },
+
+  startTimeChanged: function () {
+  },
+
+  endDateChanged: function () {
+  },
+
+  endTimeChanged: function () {
+  },
+
   selectCategory: function (category) {
     var $el = $('#category');
     this.selectedCategory = category;
@@ -986,10 +998,32 @@ Circle.Router = Backbone.Router.extend({
     }).render();
 
 
-    $('.auto-kal').kalendae();
-    $('.auto-time').timePicker({
+    var ksd = new Kalendae.Input('startDate', {
+      subscribe: {
+        'change': function () {
+          createEventView.startDateChanged();
+        }
+      }
+    });
+    $('#startTime').timePicker({
       show24Hours: false,
       step: 30
+    }).change(function () {
+      createEventView.startTimeChanged();
+    });
+
+    var ked = new Kalendae.Input('endDate', {
+      subscribe: {
+        'change': function () {
+          createEventView.endDateChanged();
+        }
+      }
+    });
+    $('#endTime').timePicker({
+      show24Hours: false,
+      step: 30
+    }).change(function () {
+      createEventView.endTimeChanged();
     });
 
     Circle.getPositionFromBrowser();
