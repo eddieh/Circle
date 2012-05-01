@@ -545,6 +545,8 @@ Circle.gotPosition = function (pos) {
   });
 };
 
+Circle.infoWindow = new google.maps.InfoWindow;
+
 Circle.setMapCenter = function (pos) {
   var mapElement = document.getElementById('map_canvas');
   if (!mapElement) {
@@ -572,6 +574,9 @@ Circle.setMapCenter = function (pos) {
   });
 
   Circle.map.setCenter(latlng);
+  google.maps.event.addListener(Circle.map, 'click', function () {
+    Circle.infoWindow.close();
+  });
 }
 
 Circle.errorPosition = function () {
@@ -580,7 +585,14 @@ Circle.errorPosition = function () {
 //
 Circle.markers = {};
 
-Circle.setMapPinsWithData = function (data) {
+
+/**
+ * Set up up the map pins and assigns infowindow content to each
+ * @param {backbone collection or array}  data The models or data for each event
+ * @param {Boolean} isDetailView If isDetailView, renders a different template
+ *     without the "find out more!" link
+ */
+Circle.setMapPinsWithData = function (data, isDetailView) {
   // allow for a passed in collection or a passed in array of models
   var models = data.models ? data.models : data;
 
@@ -600,11 +612,24 @@ Circle.setMapPinsWithData = function (data) {
    */
   for (var i = 0, len = models.length; i < len; i++) {
     var attribs = models[i].attributes;
+    console.dir(attribs.details);
 
-    var html = '<h1>' + attribs.name +
-        '<div class="infowindow"></h1><h4>at' +
-        attribs.venueName + '</h4><p>' +
-        attribs.details + '</p></div>';
+    //get the first 15 words for the infowindow snippet
+    var detailsArray = attribs.details.split(' ');
+    if (detailsArray.length > 15) {
+      detailsArray = detailsArray.slice(0, 15);
+      attribs.detailsSnippet = detailsArray.join(" ") + " ...";
+    } else {
+      attribs.detailsSnippet = attribs.details;
+    }
+    console.dir(attribs.details);
+
+    var content;
+    if (isDetailView) {
+      content = t('infowindow-detail')(attribs);
+    } else {
+      content = t('infowindow')(attribs);
+    }
 
     //generate a randomly-colored pin
     var pinColor = randomColor();
@@ -628,7 +653,7 @@ Circle.setMapPinsWithData = function (data) {
         attribs.location.longitude
       ),
       title: attribs.name,
-      content: html,
+      content: content,
       icon: pinImage,
       shadow: pinShadow,
       //these aren't necessary for the google maps constructor - just
@@ -636,7 +661,11 @@ Circle.setMapPinsWithData = function (data) {
       origIcon: pinImage, //we save this for when we change marker
     };
 
-    newMarkers[attribs.objectId] = new google.maps.Marker(markerOpts);
+    var marker = new google.maps.Marker(markerOpts);
+    google.maps.event.addListener(marker, 'click', function() {
+      Circle.infoWindow.setContent(this.content);
+      Circle.infoWindow.open(Circle.map, this);
+    });
 
     //here we prepend the marker image to the appropriate table row
     $('<img />')
@@ -645,7 +674,8 @@ Circle.setMapPinsWithData = function (data) {
         .prependTo($('#' + attribs.objectId));
 
     //create a bounds object that fits all the objects
-    bounds.extend(newMarkers[attribs.objectId].getPosition());
+    bounds.extend(marker.getPosition());
+    newMarkers[attribs.objectId] = marker;
   }
 
   //fit the map to the new bounds
@@ -654,6 +684,7 @@ Circle.setMapPinsWithData = function (data) {
 
   //reset the globla markers object
   Circle.markers = newMarkers;
+
 };
 
 /**
@@ -860,7 +891,7 @@ Circle.Router = Backbone.Router.extend({
     // if our location changes set the marker
     $(window).one('location:change', function (e) {
       Circle.setMapCenter(Circle.position);
-      Circle.setMapPinsWithData([event]);
+      Circle.setMapPinsWithData([event], true);
 
       $('#get-directions-button')
           .attr('href', Circle.directionsLink(event.get('address')));
@@ -885,7 +916,7 @@ Circle.Router = Backbone.Router.extend({
 
       if (Circle.position) {
         Circle.setMapCenter(Circle.position);
-        Circle.setMapPinsWithData([event]);
+        Circle.setMapPinsWithData([event], true);
       } else {
         Circle.getPositionFromBrowser();
       }
