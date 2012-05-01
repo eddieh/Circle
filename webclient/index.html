@@ -79,7 +79,6 @@
       width: 70%;
       }
       .event .info a {
-      display: block;
       min-height: 65px;
       padding-left: 10px;
       padding-right: 10px;
@@ -89,6 +88,7 @@
       .event .info a .name,
       .event .location .name {
       font-weight: bold;
+      font-size: 1.2em;
       }
       .img-box {
       display: inline-block;
@@ -268,6 +268,61 @@
       color: #B94A48;
       border-color: #B94A48;
       }
+
+      .infowindow {
+        width: 300px;
+      }
+        .infowindow .frame.small {
+          display: inline-block;
+          float: left;
+          padding: 5px 15px 5px 0px;
+        }
+
+      .small-calendar {
+        display: inline;
+        float:right;
+      }
+        .infowindow .small-calendar {
+          float: left;
+        }
+        .small-calendar .frame.small .calendar {
+          width: 40px;
+          -webkit-border-radius: 3px;
+          -webkit-border-bottom-right-radius: 2px;
+          -webkit-border-bottom-left-radius: 2px;
+          -moz-border-radius: 3px;
+          -moz-border-radius-bottomright: 2px;
+          -moz-border-radius-bottomleft: 2px;
+          border-radius: 3px;
+          border-bottom-right-radius: 2px;
+          border-bottom-left-radius: 2px;
+        }
+        .small-calendar .frame.small .calendar .month {
+          line-height: 1.5;
+          font-size: 11px;
+          -webkit-border-radius: 3px;
+          -webkit-border-bottom-right-radius: 0;
+          -webkit-border-bottom-left-radius: 0;
+          -moz-border-radius: 3px;
+          -moz-border-radius-bottomright: 0;
+          -moz-border-radius-bottomleft: 0;
+          border-radius: 3px;
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+          }
+          .small-calendar .frame.small .calendar .weekday {
+          margin-top: 2px;
+          font-size: 10px;
+          letter-spacing: 0pc;
+          }
+          .small-calendar .frame.small .calendar .day {
+          line-height: 1;
+          font-size: 18px;
+          letter-spacing: -0.1pc;
+          }
+          .small-calendar .frame.small .time {
+            font-size: 10px;
+          }
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
     <link rel="stylesheet" href="css/timePicker.css">
@@ -382,7 +437,11 @@
                src="img/category/concert.jpg" />
           {{/if}}
         </div>
-        <div><span class="name">{{name}}</name></div>
+        <span class="name">{{name}}</span>
+
+        <div class="small-calendar" style="float:right">
+          {{dateAsCalendarWithTime startDate}}
+        </div>
       </a>
     </td>
     <td class="location">
@@ -681,6 +740,29 @@
       <div class="time">
         {{time}}
       </div>
+    </div>
+  </script>
+
+  <script id="infowindow-template" type="text/x-handlebars-template">
+    <div class="infowindow">
+      <h3>{{name}}</h3>
+      <div class="small-calendar">
+        {{dateAsCalendarWithTime startDate}}
+      </div>
+      <h4>at {{venueName}}</h4>
+      <p>{{detailsSnippet}}</p>
+      <a href="#detail/{{objectId}}">Find out more!</a>
+    </div>
+  </script>
+
+  <script id="infowindow-detail-template" type="text/x-handlebars-template">
+    <div class="infowindow">
+      <h3>{{name}}</h3>
+      <div class="small-calendar">
+        {{dateAsCalendarWithTime startDate}}
+      </div>
+      <h4>at {{venueName}}</h4>
+      <p>{{detailsSnippet}}</p>
     </div>
   </script>
 

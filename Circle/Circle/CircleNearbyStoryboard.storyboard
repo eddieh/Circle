@@ -114,7 +114,7 @@
             </objects>
             <point key="canvasLocation" x="2297" y="-615"/>
         </scene>
-        <!--Circle Nearby View Controller - Circle: Events Near You-->
+        <!--Circle Nearby View Controller - Circle-->
         <scene sceneID="Lw9-dm-ctl">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YlZ-rf-pFs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -155,7 +155,7 @@
                             <outlet property="delegate" destination="HAZ-cn-CV1" id="SgN-jm-QwA"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Circle: Events Near You" id="oBK-3x-p3i">
+                    <navigationItem key="navigationItem" title="Circle" id="oBK-3x-p3i">
                         <barButtonItem key="rightBarButtonItem" title="Log Out" id="5YW-Pd-yNB">
                             <connections>
                                 <action selector="signInLogOutButtonPressed:" destination="HAZ-cn-CV1" id="JIt-5H-DVh"/>
@@ -293,6 +293,38 @@
         <image name="daftpunk.jpg" width="640" height="480"/>
         <image name="tabbar-nearby.png" width="30" height="30"/>
     </resources>
+    <classes>
+        <class className="CircleEventDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="mapButtonPressed:"/>
+                <relationship kind="outlet" name="calendarDayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="calendarMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="calendarWeekdayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="venueLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CircleNearbyViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleNearbyViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="segmentedButtonChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="signInLogOutButtonPressed:"/>
+                <relationship kind="outlet" name="logOutSignInButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="NearbyEventCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyEventCell.h"/>
+        </class>
+        <class className="PFQueryTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
