@@ -69,6 +69,9 @@ Circle.Event = Backbone.Model.extend({
     if (attrs.details == '') errors.details = 'required';
 
     if (!attrs.location) errors.where = 'required';
+    if (!attrs.category) errors.category = 'required';
+
+    if (!attrs.startDate) errors.startDate = 'invalid';
 
     if (errors != {}) return errors;
   }
@@ -297,12 +300,22 @@ Circle.CreateEventView = Backbone.View.extend({
     'click #remove-end-time': 'removeEndTime',
     'click #close': 'close',
     'click #save': 'save',
-    'click #image-close-button': 'reshowUploadButton'
+    'click #image-close-button': 'reshowUploadButton',
+    'keyup #name': 'changeText',
+    'keyup #details': 'changeText'
   },
 
   initialize: function (args) {
 		this.template = t('create-event-view');
     this.categories = new Circle.CategoryList();
+  },
+
+  changeText: function (e) {
+    var $el = $(e.target);
+    if ($el.val().length > 0) {
+      $el.parents('.control-group').removeClass('error');
+      $el.siblings('.help-inline').text('');
+    }
   },
 
   whereChanged: function (e, venueInfo) {
@@ -314,6 +327,9 @@ Circle.CreateEventView = Backbone.View.extend({
       'longitude': venueInfo.location.lng
     });
     this.model.set('venueName', venueInfo.name);
+    var $el = $('#where');
+    $el.parents('.control-group').removeClass('error');
+    $el.siblings('.help-inline').text('');
   },
 
   showDatePicker: function (e) {
@@ -337,13 +353,16 @@ Circle.CreateEventView = Backbone.View.extend({
   },
 
   selectCategory: function (category) {
+    var $el = $('#category');
     this.selectedCategory = category;
-    $('#category').html(this.selectedCategory.get('name'));
+    $el.html(this.selectedCategory.get('name'));
     this.model.set('category', {
       '__type': 'Pointer',
       'className': 'Category',
       'objectId': this.selectedCategory.id
     });
+    $el.parents('.control-group').removeClass('error');
+    $el.siblings('.help-inline').text('');
   },
 
   // when you use the server files they give you, the server returns two other parameters
@@ -424,7 +443,7 @@ Circle.CreateEventView = Backbone.View.extend({
              $('#startTime').val(),
              'MM/DD/YYYY h:mm a').toDate();
     } catch (e) {
-      startDate = new Date();
+      startDate = null;
     }
     try {
       endDate = moment($('#endDate').val() +
@@ -432,44 +451,34 @@ Circle.CreateEventView = Backbone.View.extend({
                        $('#endTime').val(),
                        'MM/DD/YYYY hh:mm a').toDate();
     } catch (e) {
-      endDate = new Date();
+      endDate = null;
     }
 
-    this.model.set({
-      name: $('#name').val(),
-      details: $('#details').val(),
-      startDate: {
-        '__type': 'Date',
-        'iso': startDate
-      },
-      endDate: {
-        '__type': 'Date',
-        'iso': endDate
-      }
-    });
-
-    var self = this;
     var attrs = {
       name: $('#name').val(),
       details: $('#details').val(),
-      startDate: {
+      startDate: startDate ? {
         '__type': 'Date',
         'iso': startDate
-      },
-      endDate: {
+      } : null,
+      endDate: endDate ? {
         '__type': 'Date',
         'iso': endDate
-      }
+      } : null
     };
+
+    var self = this;
     this.model.save(attrs, {
       error: function (model, response) {
-        console.dir(arguments);
         _.each(response, function (error, key) {
-          var $el = $('#' + key);
-          var controlGroup = $el.parents('.control-group');
-          controlGroup.addClass('error');
-
-          var helpBlock = $el.siblings('.help-inline').text(error);
+          var $el = $('#' + key),
+              help = null;
+          $el.parents('.control-group').addClass('error');
+          help = $el.siblings('.help-inline');
+          if (help.length == 0) {
+            help = $el.parent().siblings('.help-inline');
+          }
+          help.text(error);
         });
       },
       success: function (model, response) {
@@ -975,6 +984,7 @@ Circle.Router = Backbone.Router.extend({
       model: newEvent,
       el: '#create-event-modal'
     }).render();
+
 
     $('.auto-kal').kalendae();
     $('.auto-time').timePicker({
