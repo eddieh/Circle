@@ -90,6 +90,44 @@ Circle.EventList = Backbone.Collection.extend({
   // get only the values like so:
   parse: function (response) {
     return response.results;
+  },
+  /**
+   * the sorting function for the collection.
+   * defaults to sorting by "happening soonest", but will sort differently
+   * if Circle.EventList.sortBy is set.
+   * @type {function}
+   */
+  comparator: function (event) {
+    if (typeof Circle.sortBy === 'undefined'
+      || Circle.sortBy === 'soonest') {
+      /* compare the start dates to the current date/time.
+       *
+       * since our query to Parse only returns events that have yet to begin or in
+       * progress, we don't have to worry about negative values; just means they'll
+       * get sorted sooner in the list.
+       */
+      var now = new Date();
+      var start = new Date(event.attributes.startDate.iso);
+      return start - now;
+
+    } else if (Circle.sortBy === 'nearest') {
+      //convert from degrees to radians
+      function toRad(x) {
+        return x * Math.PI/180;
+      };
+
+      var lat1 = toRad(Circle.position.coords.latitude);
+      var lon1 = toRad(Circle.position.coords.longitude);
+
+      var lat2 = toRad(event.attributes.location.latitude);
+      var lon2 = toRad(event.attributes.location.longitude);
+
+      //this times 6371 would be the distance in KM
+      ////or times 3959 for the distance in miles
+      return Math.acos(Math.sin(lat1)*Math.sin(lat2) +
+                  Math.cos(lat1)*Math.cos(lat2) *
+                  Math.cos(lon2-lon1));
+    }
   }
 });
 
@@ -168,11 +206,22 @@ Circle.EventListView = Backbone.View.extend({
   // single model of the collection. note: this is called be addAll.
 	addOne: function (item) {
     var view = new Circle.EventListItemView({model: item});
-    this.$el.append(view.render().el);
+    var row = view.render().el;
+    this.$el.append(row);
+
+    if (typeof Circle.markers[item.id] !== 'undefined') {
+      var src = Circle.markers[item.id].origIcon.url;
+
+      $('<img />')
+          .attr('src', src)
+          .addClass('marker')
+          .prependTo($(row).find('td').eq(0));
+    }
 	},
 
   // add all the models in the collection 'this.model' to the list
 	addAll: function () {
+    $('tbody',this.$el).html('');
     // note the last parameter 'this' ensures that addOne is run in
     // the correct context
 		this.model.each(this.addOne, this);
@@ -728,6 +777,7 @@ Circle.getPositionFromBrowser = function () {
 Circle.getEventsNearPosition = function (position, radius, query) {
   if (!position) position = Circle.position;
   if (!radius) radius = 20.0;
+  var now = new Date();
 
   var base_query = {
     location: {
@@ -736,16 +786,23 @@ Circle.getEventsNearPosition = function (position, radius, query) {
         'latitude': position.coords.latitude,
         'longitude': position.coords.longitude
       },
-      '$maxDistanceInMiles': radius
-    }
+      '$maxDistanceInMiles': radius,
+    },
+    //'startDate': { '$gte': { "__type": "Date", "iso":now.toISOString() }}
+    //get only events that are now or in the future
   };
 
   // since: _.extend({one:1}, undefined) => {one:1}
   query = _.extend(base_query, query);
 
+  //HACK: (the hackiest!) We need to "or" constraints "and"-ed together, so we kludge in some
+  //handwritten JSON
+  var dateConstraint = ',"$or":[{"startDate":{"$gte":{"__type":"Date","iso":"'
+    + now.toISOString() + '"}}},{"endDate":{"$gte":{"__type":"Date","iso":"' + now.toISOString() +'"}}}]}';
+  query = JSON.stringify(query).slice(0, -1) + dateConstraint;
   // get the data from Parse
   Circle.events.fetch({
-    data: 'where=' + JSON.stringify(query),
+    data: 'where=' + query,
     success: function(collection, response) {
       Circle.setMapPinsWithData(collection);
     }
@@ -879,6 +936,11 @@ Circle.Router = Backbone.Router.extend({
     });
 
     Circle.getPositionFromBrowser();
+
+    $('#event-sort').change(function () {
+      Circle.sortBy = $(this).val();
+      Circle.events.sort();
+    });
   },
 
   detail: function (event_id) {

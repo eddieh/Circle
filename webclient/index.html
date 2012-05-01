@@ -75,7 +75,7 @@
       margin-right: auto;
       }
       .event .info {
-      width: 70%;
+      width: 60%;
       }
       .event .info a {
       min-height: 65px;
@@ -86,11 +86,12 @@
       }
       .event .info a .name,
       .event .location .name {
+        display: block;
       font-weight: bold;
       font-size: 1.2em;
       }
       .img-box {
-      display: inline-block;
+      display: block;
       float: left;
       width: 64px;
       height: 64px;
@@ -265,16 +266,14 @@
         .infowindow .frame.small {
           display: inline-block;
           float: left;
-          padding: 5px 15px 5px 0px;
+          padding: 5px 5px 5px 0px;
         }
 
       .small-calendar {
         display: inline;
-        float:right;
+        float:left;
+        margin-right: 10px;
       }
-        .infowindow .small-calendar {
-          float: left;
-        }
         .small-calendar .frame.small .calendar {
           width: 40px;
           -webkit-border-radius: 3px;
@@ -430,13 +429,12 @@
           {{/if}}
         </div>
         <span class="name">{{name}}</span>
-
-        <div class="small-calendar" style="float:right">
-          {{dateAsCalendarWithTime startDate}}
-        </div>
       </a>
     </td>
     <td class="location">
+      <div class="small-calendar">
+          {{dateAsCalendarWithTime startDate}}
+        </div>
       <div>
         <span class="name">{{venueName}}</span>
       </div>
@@ -593,8 +591,14 @@
         <table id="event-list" class="table table-striped">
           <thead>
             <tr>
-              <th>Nearest</th>
               <th></th>
+              <th>
+                Sort by:
+                <select id="event-sort">
+                  <option value="soonest">Happening soon</option>
+                  <option value="nearest">Closest to me</option>
+                </select>
+              </th>
             </tr>
           </thead>
           <tbody>
