@@ -612,7 +612,6 @@ Circle.setMapPinsWithData = function (data, isDetailView) {
    */
   for (var i = 0, len = models.length; i < len; i++) {
     var attribs = models[i].attributes;
-    console.dir(attribs.details);
 
     //get the first 15 words for the infowindow snippet
     var detailsArray = attribs.details.split(' ');
@@ -622,7 +621,6 @@ Circle.setMapPinsWithData = function (data, isDetailView) {
     } else {
       attribs.detailsSnippet = attribs.details;
     }
-    console.dir(attribs.details);
 
     var content;
     if (isDetailView) {
