@@ -23,7 +23,12 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIButton *mapButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *attendingCheckboxButton;
+@property (weak, nonatomic) IBOutlet UIButton *attendeesButton;
+
 - (IBAction)mapButtonPressed:(id)sender;
+- (IBAction)attendingCheckboxPressed:(id)sender;
+- (IBAction)attendeesButtonPressed:(id)sender;
 
 
 //non-UI

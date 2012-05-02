@@ -7,6 +7,7 @@
 //
 
 #import "CircleEventDetailViewController.h"
+#import "Parse/Parse.h"
 
 @interface CircleEventDetailViewController ()
 
@@ -28,6 +29,9 @@
 @synthesize event = _event;
 @synthesize image = _image;
 
+@synthesize attendeesButton;
+@synthesize attendingCheckboxButton;
+
 #pragma mark - View lifecycle
 - (void)viewDidLoad
 {
@@ -48,7 +52,19 @@
         CGPoint origin = self.descriptionLabel.frame.origin;
         self.descriptionLabel.frame = CGRectMake(origin.x, origin.y, size.width, size.height);
         self.descriptionLabel.text = details;
+        
+        //set attending button images
+        UIImage *buttonCheckedBackground = [UIImage imageNamed:@"checkbox-checked.png"];
+        [self.attendingCheckboxButton setImage: buttonCheckedBackground forState:UIControlStateSelected];
 
+        //set attending button state
+        PFQuery *query = [PFQuery queryWithClassName:@"Rsvp"];
+        [query whereKey:@"event" equalTo: self.event];
+        [query whereKey:@"user" equalTo:[PFUser currentUser]];
+        if ([query getFirstObject] != NULL)
+        {
+            [self.attendingCheckboxButton setSelected:YES];
+        }
         
         //set up the calendar
         NSDate *date = [self.event objectForKey:@"startDate"];
@@ -102,6 +118,8 @@
     [self setCalendarWeekdayLabel:nil];
     [self setScrollView:nil];
     [self setMapButton:nil];
+    [self setAttendeesButton:nil];
+    [self setAttendingCheckboxButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -120,6 +138,29 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
         
     }
-
+}
+// Bring user to attendees page
+- (IBAction)attendeesButtonPressed:(id)sender{
+    
+}
+// Update attending selection
+- (IBAction)attendingCheckboxPressed:(id)sender{
+    //if already attending and button is clicked, set selected to false and remove rsvp from parse
+    if (self.attendingCheckboxButton.selected){
+        [self.attendingCheckboxButton setSelected:NO];
+        PFQuery *query = [PFQuery queryWithClassName:@"Rsvp"];
+        [query whereKey:@"event" equalTo: self.event];
+        [query whereKey:@"user" equalTo:[PFUser currentUser]];
+        PFObject *unrsvp = [query getFirstObject];
+        [unrsvp deleteInBackground];
+    }
+    //if not attending and button is clicked, set selected to true and add rsvp to parse
+    else {
+        [self.attendingCheckboxButton setSelected:YES];
+        PFObject *rsvp = [PFObject objectWithClassName:@"Rsvp"];
+        [rsvp setObject:self.event forKey:@"event"];
+        [rsvp setObject:[PFUser currentUser] forKey:@"user"];
+        [rsvp saveInBackground];
+    }
 }
 @end

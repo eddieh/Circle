@@ -52,9 +52,11 @@
     NSArray *storyboardNames = [NSArray arrayWithObjects:@"CircleCheckInStoryboard", 
                                                          @"CircleCreateEventStoryboard",
                                                          @"CircleNearbyStoryboard",
-                                                         @"MapStoryboard",
+                                                         @"CircleManageFriendsStoryboard",
                                                          @"CircleSearchStoryboard",
                                                          nil];
+    
+    //@"MapStoryboard",
     
     [self setViewControllersWithStoryboardNames:storyboardNames];
     

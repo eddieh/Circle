@@ -117,6 +117,13 @@
 		86E0EEDE1531B02A00C5C4F0 /* LocationSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E0EEDD1531B02A00C5C4F0 /* LocationSingleton.m */; };
 		86E0EEE01531B0B600C5C4F0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E0EEDF1531B0B600C5C4F0 /* CoreLocation.framework */; };
 		86E0EEE31531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E0EEE21531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m */; };
+		9C118DCA154F71BD00AEC722 /* checkbox-notChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C118DC7154F71BD00AEC722 /* checkbox-notChecked.png */; };
+		9C118DCB154F71BD00AEC722 /* checkbox-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C118DC8154F71BD00AEC722 /* checkbox-pressed.png */; };
+		9C118DCC154F71BD00AEC722 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C118DC9154F71BD00AEC722 /* checkbox-checked.png */; };
+		9C118DCF154F863800AEC722 /* CircleAttendeesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C118DCE154F863800AEC722 /* CircleAttendeesViewController.m */; };
+		9C118DDE154F8F7000AEC722 /* CircleManageFriendsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C118DDD154F8F7000AEC722 /* CircleManageFriendsStoryboard.storyboard */; };
+		9C118DE4154FA3FF00AEC722 /* CircleFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C118DE3154FA3FF00AEC722 /* CircleFriendsTableViewController.m */; };
+		9C118DE7154FAA0400AEC722 /* CircleFindFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C118DE6154FAA0400AEC722 /* CircleFindFriendsTableViewController.m */; };
 		9C8906D11536B39F00311526 /* CircleSearchEventTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8906C51536B39F00311526 /* CircleSearchEventTableViewController.m */; };
 		9C8906D41536B39F00311526 /* CircleSelectCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8906CA1536B39F00311526 /* CircleSelectCategoryTableViewController.m */; };
 		9CB87FF81537E94B006F06D8 /* CircleSelectDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB87FF71537E94A006F06D8 /* CircleSelectDateViewController.m */; };
@@ -341,6 +348,16 @@
 		86E0EEDF1531B0B600C5C4F0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		86E0EEE11531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleChooseCheckInLocationViewController.h; sourceTree = "<group>"; };
 		86E0EEE21531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleChooseCheckInLocationViewController.m; sourceTree = "<group>"; };
+		9C118DC7154F71BD00AEC722 /* checkbox-notChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-notChecked.png"; sourceTree = "<group>"; };
+		9C118DC8154F71BD00AEC722 /* checkbox-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-pressed.png"; sourceTree = "<group>"; };
+		9C118DC9154F71BD00AEC722 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
+		9C118DCD154F863800AEC722 /* CircleAttendeesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleAttendeesViewController.h; sourceTree = "<group>"; };
+		9C118DCE154F863800AEC722 /* CircleAttendeesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleAttendeesViewController.m; sourceTree = "<group>"; };
+		9C118DDD154F8F7000AEC722 /* CircleManageFriendsStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CircleManageFriendsStoryboard.storyboard; sourceTree = "<group>"; };
+		9C118DE2154FA3FF00AEC722 /* CircleFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleFriendsTableViewController.h; sourceTree = "<group>"; };
+		9C118DE3154FA3FF00AEC722 /* CircleFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleFriendsTableViewController.m; sourceTree = "<group>"; };
+		9C118DE5154FAA0400AEC722 /* CircleFindFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleFindFriendsTableViewController.h; sourceTree = "<group>"; };
+		9C118DE6154FAA0400AEC722 /* CircleFindFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleFindFriendsTableViewController.m; sourceTree = "<group>"; };
 		9C8906C41536B39F00311526 /* CircleSearchEventTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSearchEventTableViewController.h; sourceTree = "<group>"; };
 		9C8906C51536B39F00311526 /* CircleSearchEventTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSearchEventTableViewController.m; sourceTree = "<group>"; };
 		9C8906C91536B39F00311526 /* CircleSelectCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSelectCategoryTableViewController.h; sourceTree = "<group>"; };
@@ -536,6 +553,7 @@
 				863C1EB315318B130014DA1D /* Auth */,
 				863C1EA6153187730014DA1D /* Check In */,
 				2C5DF08015316F6000F85C63 /* Create Event */,
+				9C118DD0154F8B2500AEC722 /* Friends */,
 				867F4CD715480A5400324D26 /* Map */,
 				863C1EAA153188E30014DA1D /* Messages */,
 				863C1EB015318A2B0014DA1D /* Nearby */,
@@ -568,6 +586,9 @@
 		8613D49C152ED1BE0002579B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				9C118DC7154F71BD00AEC722 /* checkbox-notChecked.png */,
+				9C118DC8154F71BD00AEC722 /* checkbox-pressed.png */,
+				9C118DC9154F71BD00AEC722 /* checkbox-checked.png */,
 				867F4CCD1547EE4B00324D26 /* calendaricon.png */,
 				867F4CCE1547EE4B00324D26 /* calendaricon@2x.png */,
 				2CD4FE2B153525F400312D46 /* cities_US.json */,
@@ -660,6 +681,8 @@
 				867F4CB215479BC200324D26 /* NearbyEventCell.h */,
 				867F4CB315479BC200324D26 /* NearbyEventCell.m */,
 				863C1EB115318A6F0014DA1D /* CircleNearbyStoryboard.storyboard */,
+				9C118DCD154F863800AEC722 /* CircleAttendeesViewController.h */,
+				9C118DCE154F863800AEC722 /* CircleAttendeesViewController.m */,
 				860EFA37152FFE3500F9540F /* CircleNearbyViewController.h */,
 				860EFA38152FFE3500F9540F /* CircleNearbyViewController.m */,
 				8669732015388DEC00B02F39 /* CircleEventDetailViewController.h */,
@@ -728,6 +751,18 @@
 			);
 			name = Map;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		9C118DD0154F8B2500AEC722 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				9C118DDD154F8F7000AEC722 /* CircleManageFriendsStoryboard.storyboard */,
+				9C118DE5154FAA0400AEC722 /* CircleFindFriendsTableViewController.h */,
+				9C118DE6154FAA0400AEC722 /* CircleFindFriendsTableViewController.m */,
+				9C118DE2154FA3FF00AEC722 /* CircleFriendsTableViewController.h */,
+				9C118DE3154FA3FF00AEC722 /* CircleFriendsTableViewController.m */,
+			);
+			name = Friends;
 			sourceTree = "<group>";
 		};
 		9CB8800415381244006F06D8 /* GooglePlaces */ = {
@@ -955,6 +990,10 @@
 				867F4CD615480A4A00324D26 /* MapStoryboard.storyboard in Resources */,
 				867F4CDE15480D4C00324D26 /* tabbar-map.png in Resources */,
 				867F4CDF15480D4D00324D26 /* tabbar-map@2x.png in Resources */,
+				9C118DCA154F71BD00AEC722 /* checkbox-notChecked.png in Resources */,
+				9C118DCB154F71BD00AEC722 /* checkbox-pressed.png in Resources */,
+				9C118DCC154F71BD00AEC722 /* checkbox-checked.png in Resources */,
+				9C118DDE154F8F7000AEC722 /* CircleManageFriendsStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1016,6 +1055,9 @@
 				867F4CAC154798F600324D26 /* UIImageView+WebCache.m in Sources */,
 				867F4CB415479BC200324D26 /* NearbyEventCell.m in Sources */,
 				867F4CE215480F2000324D26 /* CircleMapViewController.m in Sources */,
+				9C118DCF154F863800AEC722 /* CircleAttendeesViewController.m in Sources */,
+				9C118DE4154FA3FF00AEC722 /* CircleFriendsTableViewController.m in Sources */,
+				9C118DE7154FAA0400AEC722 /* CircleFindFriendsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -116,7 +116,7 @@
 
 #pragma mark - Google Places connection delegate
 - (void) googlePlacesConnection:(GooglePlacesConnection *)conn didFailWithError:(NSError *)error; {
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error finding place - Try again" 
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error finding place Try again" 
 //                                                    message:[error localizedDescription] 
 //                                                   delegate:nil 
 //                                          cancelButtonTitle:@"OK" 
