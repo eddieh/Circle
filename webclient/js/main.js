@@ -1102,7 +1102,8 @@ Circle.setupLoginAndSignup = function () {
         $that.popover('show');
 
         // bind the login button
-        $('#login-button').one('click', function () {
+        $('#login-button').on('click', function () {
+          var $this = $(this).button('loading');
           $.ajax('https://api.parse.com/1/login', {
             type: 'GET',
             headers: PARSE_HEADERS,
@@ -1117,8 +1118,7 @@ Circle.setupLoginAndSignup = function () {
               $('#account').html(t('logged-in')(Circle.me.toJSON()));
             },
             error: function (response, status) {
-              console.log('Login:error');
-              console.dir(response);
+              $this.button('incorrect');
             }
           });
         });
@@ -1147,7 +1147,8 @@ Circle.Router = Backbone.Router.extend({
     'detail/:event_id': 'detail',
     'create-event-modal': 'createEvent',
     'sign-up-modal': 'signUp',
-    'logout': 'logout'
+    'logout': 'logout',
+    '*default': 'home'
   },
 
   home: function () {
