@@ -347,6 +347,10 @@
             <!-- <li><a href="#friends">Friends</a></li> -->
             <!-- <li><a href="#inbox">Inbox</a></li> -->
           </ul>
+          <ul class="nav pull-right">
+            <li id="login-nav"><a href="#" id="login">Log In</a></li>
+            <li id="signup-nav"><a href="#sign-up-modal" id="sign-up">Sign Up</a></li>
+          </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -358,13 +362,15 @@
     </div>
     <hr>
     <footer>
-      <p>&copy; Company 2012</p>
+      <p>&copy; 2012 Team Think Different</p>
     </footer>
   </div> <!-- /container -->
 
   <div class="modal fade" id="create-event-modal">
   </div>
 
+  <div class="modal fade" id="sign-up-modal">
+  </div>
   <!-- Templates -->
 
   <script id="home-layout-template" type="text/x-handlebars-template">
@@ -452,7 +458,7 @@
 
   <script id="create-event-view-template" type="text/x-handlebars-template">
     <div class="modal-header">
-      <a class="close" data-dismiss="modal">×</a>
+      <a class="close" data-dismiss="modal">&times;</a>
       <h3>Create Event</h3>
     </div>
 
@@ -465,7 +471,7 @@
           <label class="control-label" for="name">Name</label>
           <div class="controls">
             <input type="text" class="input-xlarge" id="name">
-            <span class="help-inline"></spane>
+            <span class="help-inline"></span>
           </div>
         </div>
 
@@ -770,6 +776,82 @@
     </div>
   </script>
 
+  <script id="login-template" type="text/x-handlebars-template">
+    <form id="login-form">
+      <label>Email: <input type="text" name="email" /></label>
+      <label>Password: <input type="text" name="password"/></label>
+      <button class="btn btn-primary">Log in!</button>
+    </form>
+  </script>
+
+  <script id="sign-up-template" type="text/x-handlebars-template">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">&times;</a>
+      <h3>Sign Up</h3>
+    </div>
+
+    <div class="form-horizontal">
+      <fieldset>
+
+        <legend></legend>
+
+        <div class="control-group">
+          <label class="control-label" for="username">Username</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="username">
+            <span class="help-inline"></span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="email">Email</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="email">
+            <span class="help-inline"></span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="password">Password</label>
+          <div class="controls">
+            <input type="password" class="input-xlarge" id="password">
+            <span class="help-inline"></span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="confirmPassword">Confirm Password</label>
+          <div class="controls">
+            <input type="password" class="input-xlarge" id="confirmPassword">
+            <span class="help-inline"></span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label id="upload-label" class="control-label" for="file">Profile picture</label>
+          <div class="controls">
+
+            <div id="file-uploader">
+              <noscript>
+                <p>Please enable JavaScript to use file uploader.</p>
+                <!-- or put a simple form for upload here -->
+              </noscript>
+            </div>
+            <div id="uploaded-image" style="display:none;"><img class="max-height-75" /></div>
+            <p class="help-block">
+            </p>
+          </div>
+        </div>
+
+      </fieldset>
+    </div>
+
+    <div class="modal-footer">
+      <a href="#" id="close" class="btn">Cancel</a>
+      <a href="#" id="save" class="btn btn-primary">Sign up</a>
+    </div>
+  </script>
+
   <script src="js/jquery-1.7.1.min.js"></script>
   <script src="js/underscore-min.js"></script>
   <script src="js/randomcolor.js"></script>
@@ -778,6 +860,8 @@
   <script src="js/backbone-min.js"></script>
   <script src="js/handlebars-1.0.0.beta.6.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-tooltip.js"></script>
+  <script src="js/bootstrap-popover.js"></script>
   <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4&sensor=false"></script>
   <script src="js/bootstrap-ajax-typeahead.js"></script>
   <script src="js/bootstrap-carousel.js"></script>

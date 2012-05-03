@@ -53,6 +53,173 @@ Handlebars.registerHelper('directionsLink', function(destLocation) {
 var Circle = {};
 
 /* Models */
+Circle.User = Backbone.Model.extend({
+  // Parse uses objectId for the entities id, so tell backbone about
+  // it
+  idAttribute: 'objectId',
+
+  // this is where backbone will POST to when creating a new User
+  // entity.
+  urlRoot: 'https://api.parse.com/1/users',
+
+  validate: function (attrs) {
+    var errors = {};
+
+    // don't validate the created response
+    if (attrs.objectId) return;
+
+    if (attrs.username == '') errors.username = 'required';
+    if (attrs.email == '') errors.email = 'required';
+    if (attrs.password == '') errors.password = 'required';
+    if (attrs.password != this.confirmPassword) {
+      errors.password = 'Passwords must match.';
+      errors.confirmPassword = ''; //so both fields are error-colored
+    }
+
+    if (!_.isEmpty(errors)) return errors;
+  }
+});
+
+/* Views */
+Circle.SignUpView = Backbone.View.extend({
+  template: null, //josh says: why? we define it in the initialize function? all well...
+
+  events: {
+    'click #close': 'close',
+    'click #save': 'save',
+    'click #image-close-button': 'reshowUploadButton',
+  },
+
+  initialize: function (args) {
+    this.template = t('sign-up');
+  },
+
+  // when you use the server files they give you, the server returns two other parameters
+  // that parse doesn't, so ignore the first two parameters because they're junk
+  showUploadedImageAndHideUploadButton: function(useless_variable, useless_also, json) {
+    var that = this;
+
+    //show a thumbnail of the uploaded image
+    var $container = $('#uploaded-image');
+    $container.find('img').attr('src', json.url);
+
+    var $uploader = $("#file-uploader").fadeOut();
+
+    $container.fadeIn();
+
+    //remove the filename now that we're done uploading
+    $uploader.find('li').remove();
+
+    //change the label
+    $('#upload-label')
+      .html('<a>Choose a different image?</a>')
+      .click(that.reshowUploadButton);
+
+    this.imageUploadedNamed(json.name);
+  },
+
+  reshowUploadButton: function(e) {
+    $('#uploaded-image').fadeOut();
+    var $uploader = $('#file-uploader').fadeIn();
+    $('#upload-label').off('click').text('Upload an image?');
+  },
+
+  /*
+   the first two parameters are returned by the server files included with
+   this plugin, but not by parse, so they're basically junk for our purposes
+   */
+  imageUploadedNamed: function(name) {
+    this.model.set('image', {
+      '__type': 'File',
+      'name': name
+    });
+  },
+
+  setupUploader: function() {
+    var that = this;
+    var uploader = new qq.FileUploader({
+      allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
+
+      // pass the dom node (ex. $(selector)[0] for jQuery users)
+      element: document.getElementById('file-uploader'),
+
+      // path to server-side upload script
+      action: 'https://api.parse.com/1/files',
+
+      // override to change the button text or style (css classes defined in fileuploader.css).
+      // the upload area allows you to drag and drop files to upload, and the upload list is a
+      // list of the files uploaded. neither of these can be removed without breaking the plugin.
+      template: '<div class="qq-uploader">' +
+                '<div class="qq-upload-drop-area"><span>Drop files here to upload</span></div>' +
+                '<div class="qq-upload-button btn btn-success">Choose file</div>' +
+                '<ul class="qq-upload-list"></ul>' +
+             '</div>',
+
+      onComplete: $.proxy(that.showUploadedImageAndHideUploadButton, that)
+    });
+  },
+
+  close: function (e) {
+    this.$el.modal('hide');
+  },
+
+  save: function (e) {
+    var attrs = {
+      username: $('#username').val(),
+      email: $('#email').val(),
+      password: $('#password').val(),
+    };
+
+    // store the confirmPassword as a model property, but not as an
+    // attribute
+    this.model.confirmPassword = $('#confirmPassword').val();
+
+    var self = this;
+    this.model.save(attrs, {
+      error: function (model, response) {
+        console.log('User:save:error');
+        console.dir(arguments);
+        _.each(response, function (error, key) {
+          var $el = $('#' + key),
+              help = null;
+          $el.parents('.control-group').addClass('error');
+          help = $el.siblings('.help-inline');
+          if (help.length == 0) {
+            help = $el.parent().siblings('.help-inline');
+          }
+          help.text(error);
+        });
+      },
+      success: function (model, response) {
+        self.$el.modal('hide');
+
+        // TODO: handle sign in response!
+        //
+        // In partcular, we may need to hold on to response.sessionToken,
+        // though I don't think we have access control set up for
+        // anything right now
+        console.dir(response);
+      }
+    });
+
+    // remove password from the attributes
+    this.model.unset('password');
+
+    // ensure that we delete confirmPassword regardless of success
+    // or fail
+    delete this.model.confirmPassword;
+
+  },
+
+  render: function () {
+    this.$el.html(this.template(this.model.toJSON()));
+    this.setupUploader();
+
+    return this;
+  }
+
+});
+
 Circle.Event = Backbone.Model.extend({
   // Parse uses objectId for the entities id, so tell backbone about
   // it
@@ -73,7 +240,7 @@ Circle.Event = Backbone.Model.extend({
 
     if (!attrs.startDate) errors.startDate = 'invalid';
 
-    if (errors != {}) return errors;
+    if (!_.isEmpty(errors)) return errors;
   }
 });
 
@@ -877,7 +1044,8 @@ Circle.Router = Backbone.Router.extend({
     'events/': 'events',
     'events/:query': 'events',
     'detail/:event_id': 'detail',
-    'create-event-modal': 'createEvent'
+    'create-event-modal': 'createEvent',
+    'sign-up-modal': 'signUp'
   },
 
   home: function () {
@@ -922,6 +1090,36 @@ Circle.Router = Backbone.Router.extend({
     });
 
     Circle.getPositionFromBrowser();
+
+    //set up login and signup popover/modal views
+    $('#login-nav')
+      .popover({
+        title: '<a id="close-login" class="close">&times;</a><h3>Login</h3>',
+        content: t('login'),
+        placement: 'bottom',
+        trigger: 'manual'
+      })
+      .click(function(e) {
+        e.stopPropagation(); // otherwise we bind the body's click.hideLoginPopover
+                             // event before THIS click bubbles up, hiding the login
+                             // popover before we even see it.
+
+        var $that = $(this);
+        $that.popover('show');
+
+        //bind a close event to the popover close &times;
+        $('#close-login').one('click', function() {
+          $that.popover('hide');
+        });
+
+        //bind a close event to the everywhere else BUT the popover
+        $('body').on('click.hideLoginPopover',function(e) {
+          if( $(e.srcElement).closest('.popover').length == 0) {
+            $that.popover('hide');
+            $('body').off('click.hideLoginPopover');
+          }
+        })
+      });
   },
 
   events: function (query) {
@@ -1013,7 +1211,7 @@ Circle.Router = Backbone.Router.extend({
 
     var event = Circle.events ? Circle.events.get(event_id) : null;
 
-    // if our location changes set the marker
+    // if our location changes set the markers
     $(window).one('location:change', function (e) {
       Circle.setMapCenter(Circle.position);
       Circle.setMapPinsWithData([event], true);
@@ -1118,6 +1316,24 @@ Circle.Router = Backbone.Router.extend({
     });
 
     Circle.getPositionFromBrowser();
+  },
+
+  signUp: function () {
+    $('#sign-up-modal').modal('show');
+    $('#sign-up-modal').on('hidden', function () {
+      Circle.app.navigate('', {
+        // if there isn't a layout loaded then trigger the route, so
+        // that we load a layout
+        trigger: ($('#layout.container').html().trim() == '')
+      });
+    });
+
+    var newUser = new Circle.User();
+    var signUpView = new Circle.SignUpView({
+      model: newUser,
+      el: '#sign-up-modal'
+    }).render();
+
   }
 });
 
