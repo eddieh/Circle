@@ -7,7 +7,9 @@
 //
 
 #import "CircleAttendeesViewController.h"
+#import "CircleUserDetailTableViewController.h"
 #import <UIKit/UIKit.h>
+#import "UIImageView+WebCache.h"
 #import "Parse/Parse.h"
 
 //@interface CircleAttendeesViewController : PFQueryTableViewController
@@ -15,6 +17,11 @@
 //@end
 
 @implementation CircleAttendeesViewController
+@synthesize filteredAttendees = _filteredAttendees;
+@synthesize event = _event;
+
+//gets all users once and uses to populate table
+PFQuery *userQuery;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -26,7 +33,7 @@
         self.className = @"Rsvp";
         
         // The key of the PFObject to display in the label of the default cell style
-        self.keyToDisplay = @"user";
+        //self.keyToDisplay = @"user";
         
         // Whether the built-in pull-to-refresh is enabled
         self.pullToRefreshEnabled = YES;
@@ -51,6 +58,8 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    userQuery = [PFQuery queryForUser];
+    NSLog(@"Event Loaded: %@", [self.event objectForKey:@"name"]);
 }
 
 - (void)viewDidUnload
@@ -108,11 +117,15 @@
     // This method is called before a PFQuery is fired to get more objects
 }
 
-/*
+
  // Override to customize what kind of query to perform on the class. The default is to query for
  // all objects ordered by createdAt descending.
  - (PFQuery *)queryForTable {
  PFQuery *query = [PFQuery queryWithClassName:self.className];
+     NSLog(@"Before search: %@",[query findObjects]);
+     NSLog(@"Event id: %@",[self.event objectId]);
+     [query whereKey:@"event" equalTo : self.event];
+     NSLog(@"After search: %@",[query findObjects]);
  
  // If no objects are loaded in memory, we look to the cache first to fill the table
  // and then subsequently do a query against the network.
@@ -124,25 +137,49 @@
  
  return query;
  }
- */
+ 
 
-/*
+
  // Override to customize the look of a cell representing an object. The default is to display
- // a UITableViewCellStyleDefault style cell with the label being the first key in the object. 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
- static NSString *CellIdentifier = @"Cell";
- 
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
- if (cell == nil) {
- cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+// a UITableViewCellStyleDefault style cell with the label being the first key in the object. 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
+    static NSString *CellIdentifier = @"AttendeeDetailCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    // Configure the cell 
+    PFUser *attendingUser = [object objectForKey:@"user"];
+    PFObject *currentCellAttendee = [userQuery getObjectWithId:[attendingUser objectId]];
+    cell.textLabel.text = [currentCellAttendee objectForKey:@"name"];
+    
+    NSString *detailText;
+    if ((detailText = [currentCellAttendee objectForKey:@"email"]) != NULL) {
+        cell.detailTextLabel.text = detailText;
+    }
+    else {
+        cell.detailTextLabel.text = @"N/A";
+    }
+    NSLog(@"detail text: %@",detailText);
+    
+    if ([object objectForKey:@"image"] && [[currentCellAttendee objectForKey:@"image"] isKindOfClass:[PFFile class]]) {
+        PFFile *userImage = [object objectForKey:@"image"];
+        [cell.imageView setImageWithURL:[NSURL URLWithString:userImage.url] placeholderImage:[UIImage imageNamed:@"profile.png"]
+                                success:^(UIImage *image) {}
+                                failure:^(NSError *error) {}];
+    }
+    else {
+        [cell.imageView setImage:[UIImage imageNamed:@"profile.png"]];
+    }
+    
+    
+    return cell;
  }
+
+
  
- // Configure the cell
- cell.textLabel.text = [object objectForKey:@"key"];
- 
- return cell;
- }
- */
 
 /*
  // Override if you need to change the ordering of objects in the table.
@@ -211,11 +248,33 @@
  }
  */
 
+// send current user to user detail page
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[CircleUserDetailTableViewController class]]) {
+        CircleUserDetailTableViewController *vc = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        
+        
+        PFObject *userCellSelection = [[self.objects objectAtIndex:indexPath.row] objectForKey:@"user"];
+        PFObject *userSelection = [userQuery getObjectWithId:[userCellSelection objectId]];
+        NSLog(@"data %@",userSelection);
+        NSLog(@"data2 %@",[userSelection objectForKey:@"name"]);
+        
+        vc.selectedUser = userSelection;
+        
+        
+        
+    }
+    NSLog(@"SEGUE CALLED");
+    
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    //[self performSegueWithIdentifier:@"userDetailSegue" sender:self];
 }
 
 @end

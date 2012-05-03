@@ -14,8 +14,8 @@
 @implementation CircleFindFriendsTableViewController
 
 
-@synthesize nameTextField = _nameTextField;
-@synthesize emailTextField = _emailTextField;
+//@synthesize nameTextField = _nameTextField;
+//@synthesize emailTextField = _emailTextField;
 @synthesize searchBar = _searchBar;
 @synthesize searchText = _searchText;
 @synthesize filteredFriends = _filteredFriends;

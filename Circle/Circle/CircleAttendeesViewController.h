@@ -11,4 +11,7 @@
 
 @interface CircleAttendeesViewController : PFQueryTableViewController
 
+@property (strong,nonatomic) NSMutableArray *filteredAttendees;
+@property (strong, nonatomic) PFObject *event;
+
 @end

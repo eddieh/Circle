@@ -124,6 +124,7 @@
 		9C118DDE154F8F7000AEC722 /* CircleManageFriendsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C118DDD154F8F7000AEC722 /* CircleManageFriendsStoryboard.storyboard */; };
 		9C118DE4154FA3FF00AEC722 /* CircleFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C118DE3154FA3FF00AEC722 /* CircleFriendsTableViewController.m */; };
 		9C118DE7154FAA0400AEC722 /* CircleFindFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C118DE6154FAA0400AEC722 /* CircleFindFriendsTableViewController.m */; };
+		9C37E3591552764A00390080 /* CircleUserDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C37E3581552764A00390080 /* CircleUserDetailTableViewController.m */; };
 		9C8906D11536B39F00311526 /* CircleSearchEventTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8906C51536B39F00311526 /* CircleSearchEventTableViewController.m */; };
 		9C8906D41536B39F00311526 /* CircleSelectCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8906CA1536B39F00311526 /* CircleSelectCategoryTableViewController.m */; };
 		9CB87FF81537E94B006F06D8 /* CircleSelectDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB87FF71537E94A006F06D8 /* CircleSelectDateViewController.m */; };
@@ -358,6 +359,8 @@
 		9C118DE3154FA3FF00AEC722 /* CircleFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleFriendsTableViewController.m; sourceTree = "<group>"; };
 		9C118DE5154FAA0400AEC722 /* CircleFindFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleFindFriendsTableViewController.h; sourceTree = "<group>"; };
 		9C118DE6154FAA0400AEC722 /* CircleFindFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleFindFriendsTableViewController.m; sourceTree = "<group>"; };
+		9C37E3571552764A00390080 /* CircleUserDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleUserDetailTableViewController.h; sourceTree = "<group>"; };
+		9C37E3581552764A00390080 /* CircleUserDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleUserDetailTableViewController.m; sourceTree = "<group>"; };
 		9C8906C41536B39F00311526 /* CircleSearchEventTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSearchEventTableViewController.h; sourceTree = "<group>"; };
 		9C8906C51536B39F00311526 /* CircleSearchEventTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSearchEventTableViewController.m; sourceTree = "<group>"; };
 		9C8906C91536B39F00311526 /* CircleSelectCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSelectCategoryTableViewController.h; sourceTree = "<group>"; };
@@ -681,6 +684,8 @@
 				867F4CB215479BC200324D26 /* NearbyEventCell.h */,
 				867F4CB315479BC200324D26 /* NearbyEventCell.m */,
 				863C1EB115318A6F0014DA1D /* CircleNearbyStoryboard.storyboard */,
+				9C37E3571552764A00390080 /* CircleUserDetailTableViewController.h */,
+				9C37E3581552764A00390080 /* CircleUserDetailTableViewController.m */,
 				9C118DCD154F863800AEC722 /* CircleAttendeesViewController.h */,
 				9C118DCE154F863800AEC722 /* CircleAttendeesViewController.m */,
 				860EFA37152FFE3500F9540F /* CircleNearbyViewController.h */,
@@ -1058,6 +1063,7 @@
 				9C118DCF154F863800AEC722 /* CircleAttendeesViewController.m in Sources */,
 				9C118DE4154FA3FF00AEC722 /* CircleFriendsTableViewController.m in Sources */,
 				9C118DE7154FAA0400AEC722 /* CircleFindFriendsTableViewController.m in Sources */,
+				9C37E3591552764A00390080 /* CircleUserDetailTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
