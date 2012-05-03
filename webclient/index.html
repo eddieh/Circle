@@ -714,10 +714,26 @@
                 <a href="#" class="btn btn-primary">Action</a>
                 <a href="#" class="btn">Action</a>
               </p>
+              <table id="attendees" class="table table-striped">
+                <tbody>
+                </tbody>
+              </table>
             </div>
         </div>
       </div>
     </div>
+  </script>
+
+  <script id="attendee-list-item-view-template"
+          type="text/x-handlebars-template">
+    <td>
+      {{#if image}}
+      <img src="{{image.url}}" class="" alt="" width="24" height="24" />
+      {{else}}
+      <img src="http://placehold.it/24x24" alt="">
+      {{/if}}
+    </td>
+    <td>{{username}}</td>
   </script>
 
   <script id="calendar-day-template" type="text/x-handlebars-template">

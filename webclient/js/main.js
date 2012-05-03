@@ -131,6 +131,59 @@ Circle.restoreSession = function () {
   }
 }
 
+Circle.AttendeeList = Backbone.Collection.extend({
+  model: Circle.User,
+
+  url:'https://api.parse.com/1/classes/Rsvp',
+
+  parse: function (response) {
+    var users = _.map(response.results, function (item) {
+      return item.user;
+    });
+    return users;
+  }
+});
+
+Circle.AttendeeListItemView = Backbone.View.extend({
+  tagName: 'tr',
+  className: 'attendee',
+
+  events: {
+  },
+
+  initialize: function () {
+    this.template = t('attendee-list-item-view');
+  },
+
+	render: function () {
+		this.$el.html(this.template(this.model.toJSON()));
+    return this;
+	}
+});
+
+Circle.AttendeeListView = Backbone.View.extend({
+  initialize: function () {
+    this.model.on('add', this.addOne, this);
+		this.model.on('reset', this.addAll, this);
+		this.model.on('all', this.render, this);
+  },
+
+	render: function () {
+		return this;
+	},
+
+	addOne: function (item) {
+    var view = new Circle.AttendeeListItemView({model: item});
+    var row = view.render().el;
+    this.$el.append(row);
+	},
+
+	addAll: function () {
+    $('tbody', this.$el).html('');
+		this.model.each(this.addOne, this);
+	}
+});
+
 /* Views */
 Circle.SignUpView = Backbone.View.extend({
   template: null, //josh says: why? we define it in the initialize function? all well...
@@ -1309,6 +1362,22 @@ Circle.Router = Backbone.Router.extend({
       delete json.details;
 
       $('#layout.container').html(t('detail-layout')(json));
+
+
+      var attendees = new Circle.AttendeeList();
+      var attendeeView = new Circle.AttendeeListView({
+        el: '#attendees tbody',
+        model: attendees
+      });
+      attendees.fetch({
+        data: 'include=user&where=' + JSON.stringify({
+          event: {
+            '__type': 'Pointer',
+            'className': 'Event',
+            'objectId': event.id
+          }
+        })
+      });
 
       if (Circle.position) {
         Circle.setMapCenter(Circle.position);
