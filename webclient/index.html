@@ -348,8 +348,10 @@
             <!-- <li><a href="#inbox">Inbox</a></li> -->
           </ul>
           <ul class="nav pull-right">
-            <li id="login-nav"><a href="#" id="login">Log In</a></li>
-            <li id="signup-nav"><a href="#sign-up-modal" id="sign-up">Sign Up</a></li>
+            <li id="login-nav"><a id="login">Log In</a></li>
+            <li id="signup-nav">
+              <a href="#sign-up-modal" id="sign-up">Sign Up</a>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -777,11 +779,11 @@
   </script>
 
   <script id="login-template" type="text/x-handlebars-template">
-    <form id="login-form">
-      <label>Email: <input type="text" name="email" /></label>
-      <label>Password: <input type="text" name="password"/></label>
-      <button class="btn btn-primary">Log in!</button>
-    </form>
+    <div id="login-form">
+      <label>Username: <input type="text" name="username" /></label>
+      <label>Password: <input type="password" name="password"/></label>
+      <button id="login-button" class="btn btn-primary">Log in!</button>
+    </div>
   </script>
 
   <script id="sign-up-template" type="text/x-handlebars-template">

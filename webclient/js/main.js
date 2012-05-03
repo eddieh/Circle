@@ -4,14 +4,18 @@
  *  We must include the X-Parse-Application-Id and
  *  X-Parse-REST-API-Key headers.
  */
+var PARSE_HEADERS = {
+  'X-Parse-Application-Id':'FFO9TzzLbMB5A4PM8A0vzNpb0M8DSeAgbsP0fGNB',
+  'X-Parse-REST-API-Key': 'YwfE7q918UGjEkpufKPpm5GMgPI5jK08Pf2meEkh'
+};
 var originalSync = Backbone.sync;
 Backbone.sync = function (method, model, options) {
   if (!options) options = {};
+
+  // add to options 'X-Parse-Session-Token':
+
   return originalSync(method, model, _.extend(options, {
-    headers: {
-      'X-Parse-Application-Id':'FFO9TzzLbMB5A4PM8A0vzNpb0M8DSeAgbsP0fGNB',
-      'X-Parse-REST-API-Key': 'YwfE7q918UGjEkpufKPpm5GMgPI5jK08Pf2meEkh'
-    }
+    headers: PARSE_HEADERS
   }));
 }
 
@@ -1099,26 +1103,47 @@ Circle.Router = Backbone.Router.extend({
         placement: 'bottom',
         trigger: 'manual'
       })
-      .click(function(e) {
-        e.stopPropagation(); // otherwise we bind the body's click.hideLoginPopover
-                             // event before THIS click bubbles up, hiding the login
-                             // popover before we even see it.
+      .click(function (e) {
+        // stop proagation of the event, otherwise we bind the body's
+        // click.hideLoginPopover event before THIS click bubbles up,
+        // hiding the login popover before we even see it.
+        e.stopPropagation();
 
         var $that = $(this);
         $that.popover('show');
 
-        //bind a close event to the popover close &times;
-        $('#close-login').one('click', function() {
+        // bind the login button
+        $('#login-button').one('click', function () {
+          $.ajax('https://api.parse.com/1/login', {
+            type: 'GET',
+            headers: PARSE_HEADERS,
+            data: {
+              username: $('input[name="username"]').val(),
+              password: $('input[name="password"]').val()
+            },
+            success: function (response, status) {
+              $that.popover('hide');
+              Circle.me = new Circle.User(response);
+            },
+            error: function (response, status) {
+              console.log('Login:error');
+              console.dir(response);
+            }
+          });
+        });
+
+        // bind a close event to the popover close &times;
+        $('#close-login').one('click', function () {
           $that.popover('hide');
         });
 
-        //bind a close event to the everywhere else BUT the popover
-        $('body').on('click.hideLoginPopover',function(e) {
-          if( $(e.srcElement).closest('.popover').length == 0) {
+        // bind a close event to everywhere else BUT the popover
+        $('body').on('click.hideLoginPopover',function (e) {
+          if ($(e.srcElement).closest('.popover').length == 0) {
             $that.popover('hide');
             $('body').off('click.hideLoginPopover');
           }
-        })
+        });
       });
   },
 
