@@ -348,7 +348,7 @@
             <!-- <li><a href="#inbox">Inbox</a></li> -->
           </ul>
           <ul id="account" class="nav pull-right">
-            <li id="login-nav"><a id="login">Log In</a></li>
+            <li id="login-nav"><a href="#login" id="login">Log In</a></li>
             <li id="signup-nav">
               <a href="#sign-up-modal" id="sign-up">Sign Up</a>
             </li>
@@ -788,7 +788,7 @@
 
   <script id="logged-in-template" type="text/x-handlebars-template">
     <li id="user-nav">
-      <p class="navbar-text">Hello, <a>{{username}}</a>.</p>
+      <p class="navbar-text">Hello, <a href="#account">{{username}}</a>.</p>
     </li>
     <li class="divider-vertical"></li>
     <li id="logout-nav">
@@ -883,6 +883,7 @@
 
   <script src="js/fileuploader.js"></script>
   <script src="js/wikicreole.js"></script>
+  <script src="js/monster.js"></script>
   <script src="js/main.js"></script>
 </body>
 

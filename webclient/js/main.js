@@ -11,12 +11,17 @@ var PARSE_HEADERS = {
 var originalSync = Backbone.sync;
 Backbone.sync = function (method, model, options) {
   if (!options) options = {};
+  var session;
 
-  // add to options 'X-Parse-Session-Token':
+  _.extend(options,
+           // add default headers
+           { headers: PARSE_HEADERS },
+           // add to options 'X-Parse-Session-Token':
+           Circle.me && (session = Circle.me.get('sessionToken')) ?
+           { 'X-Parse-Session-Token': session } :
+           {});
 
-  return originalSync(method, model, _.extend(options, {
-    headers: PARSE_HEADERS
-  }));
+  return originalSync(method, model, options);
 }
 
 /*
@@ -66,6 +71,10 @@ Circle.User = Backbone.Model.extend({
   // entity.
   urlRoot: 'https://api.parse.com/1/users',
 
+  initialize: function() {
+    this.on('change:sessionToken', this.renewSession, this);
+  },
+
   validate: function (attrs) {
     var errors = {};
 
@@ -81,8 +90,33 @@ Circle.User = Backbone.Model.extend({
     }
 
     if (!_.isEmpty(errors)) return errors;
+  },
+
+  renewSession: function (e) {
+    // set a cookie to keep the sessionToken around for 7 days
+    monster.set('ParseSessionToken', this.get('sessionToken'), 7);
+    // also store the user id for 7 days
+    monster.set('ParseUserId', this.id, 7);
   }
 });
+
+Circle.restoreSession = function () {
+  var id = monster.get('ParseUserId');
+  var sessionToken = monster.get('ParseSessionToken');
+  if (id) {
+    Circle.me = new Circle.User({objectId: id});
+    Circle.me.fetch({
+      success: function (response, status) {
+        Circle.me.set('sessionToken', sessionToken);
+        $('#account').html(t('logged-in')(Circle.me.toJSON()));
+      },
+      error: function (response, status) {
+        console.log('couldn not restore session');
+      }
+    });
+
+  }
+}
 
 /* Views */
 Circle.SignUpView = Backbone.View.extend({
@@ -196,13 +230,8 @@ Circle.SignUpView = Backbone.View.extend({
       },
       success: function (model, response) {
         self.$el.modal('hide');
-
-        // TODO: handle sign in response!
-        //
-        // In partcular, we may need to hold on to response.sessionToken,
-        // though I don't think we have access control set up for
-        // anything right now
-        console.dir(response);
+        Circle.me = self.model;
+        $('#account').html(t('logged-in')(Circle.me.toJSON()));
       }
     });
 
@@ -1124,6 +1153,7 @@ Circle.Router = Backbone.Router.extend({
             success: function (response, status) {
               $that.popover('hide');
               Circle.me = new Circle.User(response);
+              Circle.me.renewSession();
               $('#account').html(t('logged-in')(Circle.me.toJSON()));
             },
             error: function (response, status) {
@@ -1389,4 +1419,6 @@ $(function () {
 	});
 
   Backbone.history.start();
+
+  Circle.restoreSession();
 });
