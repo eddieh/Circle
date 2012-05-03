@@ -97,12 +97,24 @@ Circle.User = Backbone.Model.extend({
     monster.set('ParseSessionToken', this.get('sessionToken'), 7);
     // also store the user id for 7 days
     monster.set('ParseUserId', this.id, 7);
+  },
+
+  logout: function () {
+    Circle.me = null;
+    monster.remove('ParseSessionToken');
+    monster.remove('ParseUserId');
   }
 });
 
 Circle.restoreSession = function () {
   var id = monster.get('ParseUserId');
   var sessionToken = monster.get('ParseSessionToken');
+
+  function notLoggedIn() {
+    $('#account').html(t('not-logged-in')());
+    Circle.setupLoginAndSignup();
+  }
+
   if (id) {
     Circle.me = new Circle.User({objectId: id});
     Circle.me.fetch({
@@ -111,10 +123,11 @@ Circle.restoreSession = function () {
         $('#account').html(t('logged-in')(Circle.me.toJSON()));
       },
       error: function (response, status) {
-        console.log('couldn not restore session');
+        notLoggedIn();
       }
     });
-
+  } else {
+    notLoggedIn();
   }
 }
 
@@ -1070,62 +1083,9 @@ Circle.getEventsWithQuery = function (query) {
   Circle.getEventsNearPosition(undefined, undefined, query);
 }
 
-Circle.Router = Backbone.Router.extend({
-  routes: {
-    '': 'home',
-    'events': 'events',
-    'events/': 'events',
-    'events/:query': 'events',
-    'detail/:event_id': 'detail',
-    'create-event-modal': 'createEvent',
-    'sign-up-modal': 'signUp'
-  },
-
-  home: function () {
-    $('#layout.container').html(t('home-layout')());
-
-    // if our location changes update our events
-    $(window).one('location:change', function (e) {
-      Circle.getEventsNearPosition();
-    });
-
-    $('#search-button').on('click', function (e) {
-      var query = $('#search-field').val();
-      Circle.app.navigate('events/' + query, {
-        trigger: true
-      });
-    });
-
-    if (!Circle.events) {
-      // create the collections of models
-      Circle.events = new Circle.EventList();
-    }
-
-    Circle.eventSlideshow = new Circle.EventSlideshowSlideView({
-      el: '#slides',
-      model: Circle.events
-    });
-
-    // setup our fancy city selector
-    $('.city-picker').cityPicker({
-      attachedTo: $('#search-field')
-    }).on('change', function (e, val) {
-      Circle.currentLocation = val.formatted_address;
-      Circle.position = {
-        coords: {
-          latitude: val.geometry.location.lat,
-          longitude: val.geometry.location.lng
-        }
-      };
-      Circle.setMapCenter(Circle.position);
-
-      Circle.getEventsNearPosition();
-    });
-
-    Circle.getPositionFromBrowser();
-
-    //set up login and signup popover/modal views
-    $('#login-nav')
+Circle.setupLoginAndSignup = function () {
+  //set up login and signup popover/modal views
+  $('#login-nav')
       .popover({
         title: '<a id="close-login" class="close">&times;</a><h3>Login</h3>',
         content: t('login'),
@@ -1176,6 +1136,62 @@ Circle.Router = Backbone.Router.extend({
           }
         });
       });
+}
+
+Circle.Router = Backbone.Router.extend({
+  routes: {
+    '': 'home',
+    'events': 'events',
+    'events/': 'events',
+    'events/:query': 'events',
+    'detail/:event_id': 'detail',
+    'create-event-modal': 'createEvent',
+    'sign-up-modal': 'signUp',
+    'logout': 'logout'
+  },
+
+  home: function () {
+    $('#layout.container').html(t('home-layout')());
+
+    // if our location changes update our events
+    $(window).one('location:change', function (e) {
+      Circle.getEventsNearPosition();
+    });
+
+    $('#search-button').on('click', function (e) {
+      var query = $('#search-field').val();
+      Circle.app.navigate('events/' + query, {
+        trigger: true
+      });
+    });
+
+    if (!Circle.events) {
+      // create the collections of models
+      Circle.events = new Circle.EventList();
+    }
+
+    Circle.eventSlideshow = new Circle.EventSlideshowSlideView({
+      el: '#slides',
+      model: Circle.events
+    });
+
+    // setup our fancy city selector
+    $('.city-picker').cityPicker({
+      attachedTo: $('#search-field')
+    }).on('change', function (e, val) {
+      Circle.currentLocation = val.formatted_address;
+      Circle.position = {
+        coords: {
+          latitude: val.geometry.location.lat,
+          longitude: val.geometry.location.lng
+        }
+      };
+      Circle.setMapCenter(Circle.position);
+
+      Circle.getEventsNearPosition();
+    });
+
+    Circle.getPositionFromBrowser();
   },
 
   events: function (query) {
@@ -1389,8 +1405,15 @@ Circle.Router = Backbone.Router.extend({
       model: newUser,
       el: '#sign-up-modal'
     }).render();
+  },
 
+  logout: function () {
+    $('#account').html(t('not-logged-in')());
+    Circle.setupLoginAndSignup();
+    Circle.me && Circle.me.logout()
+    Circle.app.navigate('', { trigger: true });
   }
+
 });
 
 $(function () {

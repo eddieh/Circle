@@ -348,10 +348,6 @@
             <!-- <li><a href="#inbox">Inbox</a></li> -->
           </ul>
           <ul id="account" class="nav pull-right">
-            <li id="login-nav"><a href="#login" id="login">Log In</a></li>
-            <li id="signup-nav">
-              <a href="#sign-up-modal" id="sign-up">Sign Up</a>
-            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -784,6 +780,13 @@
       <label>Password: <input type="password" name="password"/></label>
       <button id="login-button" class="btn btn-primary">Log in!</button>
     </div>
+  </script>
+
+  <script id="not-logged-in-template" type="text/x-handlebars-template">
+    <li id="login-nav"><a href="#login" id="login">Log In</a></li>
+    <li id="signup-nav">
+      <a href="#sign-up-modal" id="sign-up">Sign Up</a>
+    </li>
   </script>
 
   <script id="logged-in-template" type="text/x-handlebars-template">
