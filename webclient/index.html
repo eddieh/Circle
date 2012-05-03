@@ -347,7 +347,7 @@
             <!-- <li><a href="#friends">Friends</a></li> -->
             <!-- <li><a href="#inbox">Inbox</a></li> -->
           </ul>
-          <ul class="nav pull-right">
+          <ul id="account" class="nav pull-right">
             <li id="login-nav"><a id="login">Log In</a></li>
             <li id="signup-nav">
               <a href="#sign-up-modal" id="sign-up">Sign Up</a>
@@ -784,6 +784,16 @@
       <label>Password: <input type="password" name="password"/></label>
       <button id="login-button" class="btn btn-primary">Log in!</button>
     </div>
+  </script>
+
+  <script id="logged-in-template" type="text/x-handlebars-template">
+    <li id="user-nav">
+      <p class="navbar-text">Hello, <a>{{username}}</a>.</p>
+    </li>
+    <li class="divider-vertical"></li>
+    <li id="logout-nav">
+      <a id="logout" href="#logout">Logout</a>
+    </li>
   </script>
 
   <script id="sign-up-template" type="text/x-handlebars-template">

@@ -1124,6 +1124,7 @@ Circle.Router = Backbone.Router.extend({
             success: function (response, status) {
               $that.popover('hide');
               Circle.me = new Circle.User(response);
+              $('#account').html(t('logged-in')(Circle.me.toJSON()));
             },
             error: function (response, status) {
               console.log('Login:error');
