@@ -63,18 +63,20 @@ Circle.User = Backbone.Model.extend({
   urlRoot: 'https://api.parse.com/1/users',
 
   validate: function (attrs) {
-    console.dir(attrs);
     var errors = {};
 
-    if (attrs.name == '') errors.name = 'required';
+    // don't validate the created response
+    if (attrs.objectId) return;
+
+    if (attrs.username == '') errors.username = 'required';
     if (attrs.email == '') errors.email = 'required';
     if (attrs.password == '') errors.password = 'required';
-    if (attrs.password != attrs.confirmPassword) {
+    if (attrs.password != this.confirmPassword) {
       errors.password = 'Passwords must match.';
       errors.confirmPassword = ''; //so both fields are error-colored
     }
 
-    if (errors != {}) return errors;
+    if (!_.isEmpty(errors)) return errors;
   }
 });
 
@@ -163,15 +165,20 @@ Circle.SignUpView = Backbone.View.extend({
 
   save: function (e) {
     var attrs = {
-      name: $('#name').val(),
+      username: $('#username').val(),
       email: $('#email').val(),
       password: $('#password').val(),
-      confirmPassword: $('#confirmPassword').val(),
     };
+
+    // store the confirmPassword as a model property, but not as an
+    // attribute
+    this.model.confirmPassword = $('#confirmPassword').val();
 
     var self = this;
     this.model.save(attrs, {
       error: function (model, response) {
+        console.log('User:save:error');
+        console.dir(arguments);
         _.each(response, function (error, key) {
           var $el = $('#' + key),
               help = null;
@@ -189,10 +196,19 @@ Circle.SignUpView = Backbone.View.extend({
         // TODO: handle sign in response!
         //
         // In partcular, we may need to hold on to response.sessionToken,
-        // though I don't think we have access control set up for anything right now
+        // though I don't think we have access control set up for
+        // anything right now
         console.dir(response);
       }
     });
+
+    // remove password from the attributes
+    this.model.unset('password');
+
+    // ensure that we delete confirmPassword regardless of success
+    // or fail
+    delete this.model.confirmPassword;
+
   },
 
   render: function () {
@@ -224,7 +240,7 @@ Circle.Event = Backbone.Model.extend({
 
     if (!attrs.startDate) errors.startDate = 'invalid';
 
-    if (errors != {}) return errors;
+    if (!_.isEmpty(errors)) return errors;
   }
 });
 
