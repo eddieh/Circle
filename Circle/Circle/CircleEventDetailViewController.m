@@ -7,6 +7,7 @@
 //
 
 #import "CircleEventDetailViewController.h"
+#import "CircleAttendeesViewController.h"
 #import "Parse/Parse.h"
 
 @interface CircleEventDetailViewController ()
@@ -137,6 +138,13 @@
         NSString *urlString = [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
         
+    }
+}
+// send current event to attendees page
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[CircleAttendeesViewController class]]) {
+        CircleAttendeesViewController *vc = segue.destinationViewController;
+        vc.event = self.event;
     }
 }
 // Bring user to attendees page
