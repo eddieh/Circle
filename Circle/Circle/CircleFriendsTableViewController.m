@@ -224,19 +224,15 @@
  return YES;
  }
  */
+
+//sets variables for user detail page
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[CircleUserDetailTableViewController class]]) {
         CircleUserDetailTableViewController *vc = segue.destinationViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        
-        
-        //PFObject *userCellSelection = [[self.objects objectAtIndex:indexPath.row] objectForKey:@"user"];
-        //PFObject *userSelection = [userQuery getObjectWithId:[userCellSelection objectId]];
-        
         vc.selectedUser = [[self.objects objectAtIndex:indexPath.row] objectForKey:@"friend2"];
         
     }
-    NSLog(@"SEGUE CALLED");
 }
 
 #pragma mark - Table view delegate

@@ -159,8 +159,6 @@ else {
  // all objects ordered by createdAt descending.
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryWithClassName:self.className];
-    //NSLog(@"userQ: %@", [query findObjects]);
-    //NSLog(@"userQ2: %@", [self.selectedUser objectId]);
     [query whereKey: @"user" equalTo: self.selectedUser];
     [query includeKey:@"event"];
     
@@ -225,36 +223,26 @@ else {
     [isFriend1 whereKey:@"friend1" equalTo:[PFUser currentUser]];
     [isFriend1 whereKey:@"friend2" equalTo:self.selectedUser];
     
-    PFQuery *isFriend2 = [PFQuery queryWithClassName:@"Friendships"];
-    [isFriend2 whereKey:@"friend1" equalTo:self.selectedUser];
-    [isFriend2 whereKey:@"friend2" equalTo:[PFUser currentUser]];
     
-    if (([isFriend1 countObjects]>0) || ([isFriend2 countObjects]>0))
+    if ([isFriend1 countObjects]>0)
     {
+        [self.addFriendButton setTitle:@"Add Friend" forState:UIControlStateNormal];
         PFObject *tempFriend1;
         for (tempFriend1 in [isFriend1 findObjects])
         {
             [tempFriend1 deleteInBackground];
-            NSLog(@"FRIEND DELETED1!");
+            NSLog(@"FRIEND DELETED!");
         }
-        PFObject *tempFriend2;
-        for (tempFriend2 in [isFriend1 findObjects])
-        {
-            [tempFriend2 deleteInBackground];
-            NSLog(@"FRIEND DELETED2!");
-        }
-        self.addFriendButton.titleLabel.text = @"Add Friend";
     }
     else {
         NSLog(@"FRIEND ADDED");
-        self.addFriendButton.titleLabel.text = @"Delete Friend";
+        [self.addFriendButton setTitle:@"Delete Friend" forState:UIControlStateNormal];
         PFObject *friendship = [PFObject objectWithClassName:@"Friendships"];
         [friendship setObject:[PFUser currentUser] forKey:@"friend1"];
         [friendship setObject:self.selectedUser forKey:@"friend2"];
         [friendship saveInBackground];
     }
 
-    
     
     
     

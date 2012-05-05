@@ -123,14 +123,13 @@ PFQuery *userQuery;
  - (PFQuery *)queryForTable {
      PFQuery *query = [PFQuery queryWithClassName:self.className];
      [query whereKey:@"event" equalTo : self.event];
+     [query includeKey:@"user"];
  
  // If no objects are loaded in memory, we look to the cache first to fill the table
  // and then subsequently do a query against the network.
  if ([self.objects count] == 0) {
  query.cachePolicy = kPFCachePolicyCacheThenNetwork;
  }
- 
- //[query orderByDescending:@"createdAt"];
  
  return query;
  }
@@ -148,12 +147,11 @@ PFQuery *userQuery;
     }
     
     // Configure the cell 
-    PFUser *attendingUser = [object objectForKey:@"user"];
-    PFObject *currentCellAttendee = [userQuery getObjectWithId:[attendingUser objectId]];
-    cell.textLabel.text = [currentCellAttendee objectForKey:@"name"];
+    PFObject *attendeeObject = [object objectForKey:@"user"];
+    cell.textLabel.text = [attendeeObject objectForKey:@"name"];
     
     NSString *detailText;
-    if ((detailText = [currentCellAttendee objectForKey:@"email"]) != NULL) {
+    if ((detailText = [attendeeObject objectForKey:@"email"]) != NULL) {
         cell.detailTextLabel.text = detailText;
     }
     else {
@@ -161,8 +159,8 @@ PFQuery *userQuery;
     }
     NSLog(@"detail text: %@",detailText);
     
-    if ([object objectForKey:@"image"] && [[currentCellAttendee objectForKey:@"image"] isKindOfClass:[PFFile class]]) {
-        PFFile *userImage = [object objectForKey:@"image"];
+    PFFile *userImage = [attendeeObject objectForKey:@"image"];
+    if (userImage && [userImage isKindOfClass:[PFFile class]]) {
         [cell.imageView setImageWithURL:[NSURL URLWithString:userImage.url] placeholderImage:[UIImage imageNamed:@"profile.png"]
                                 success:^(UIImage *image) {}
                                 failure:^(NSError *error) {}];

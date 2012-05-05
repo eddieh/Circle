@@ -62,6 +62,7 @@ PFQuery *userQuery;
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    [self setSearchBar:nil];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -186,9 +187,9 @@ PFQuery *userQuery;
         cell.detailTextLabel.text = @"";
     }
     
-    //cell.imageView.frame = CGRectMake(5,5,40,32.5);
-    if ([object objectForKey:@"image"] && [[object objectForKey:@"image"] isKindOfClass:[PFFile class]]) {
-        PFFile *userImage = [object objectForKey:@"image"];
+    cell.imageView.frame = CGRectMake(5,5,40,32.5);
+    PFFile *userImage = [object objectForKey:@"image"];
+    if (userImage && [userImage  isKindOfClass:[PFFile class]]) {
         [cell.imageView setImageWithURL:[NSURL URLWithString:userImage.url] placeholderImage:[UIImage imageNamed:@"profile.png"]
                                 success:^(UIImage *image) {}
                                 failure:^(NSError *error) {}];
@@ -270,22 +271,18 @@ PFQuery *userQuery;
  }
  */
 
+//sets variables for user detail page
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[CircleUserDetailTableViewController class]]) {
         CircleUserDetailTableViewController *vc = segue.destinationViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSLog(@"USER SELECTION1: %@",indexPath);
         
         PFObject *userCellSelection = [self.objects objectAtIndex:indexPath.row];
-        NSLog(@"USER SELECTION2: %@",userCellSelection);
         PFObject *userSelection = [userQuery getObjectWithId:[userCellSelection objectId]];
         
         vc.selectedUser = userSelection;
-        NSLog(@"USER SELECTION3: %@",userSelection);
         
     }
-    
-    NSLog(@"SEGUE CALLED");
 }
 
 #pragma mark - Table view delegate
