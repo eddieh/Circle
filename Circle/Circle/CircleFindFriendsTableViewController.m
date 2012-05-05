@@ -3,6 +3,7 @@
 //
 
 #import "CircleFindFriendsTableViewController.h"
+#import "CircleUserDetailTableViewController.h"
 #import <UIKit/UIKit.h>
 #import "UIImageView+WebCache.h"
 #import "Parse/Parse.h"
@@ -13,9 +14,8 @@
 
 @implementation CircleFindFriendsTableViewController
 
-
-//@synthesize nameTextField = _nameTextField;
-//@synthesize emailTextField = _emailTextField;
+//gets all users once and uses to populate table
+PFQuery *userQuery;
 @synthesize searchBar = _searchBar;
 @synthesize searchText = _searchText;
 @synthesize filteredFriends = _filteredFriends;
@@ -36,7 +36,7 @@
         self.pullToRefreshEnabled = YES;
         
         // Whether the built-in pagination is enabled
-        self.paginationEnabled = YES;
+        //self.paginationEnabled = YES;
         
         // The number of objects to show per page
         self.objectsPerPage = 25;
@@ -54,7 +54,7 @@
         
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
-    
+    userQuery = [PFQuery queryForUser];
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -195,6 +195,7 @@
     else {
         [cell.imageView setImage:[UIImage imageNamed:@"profile.png"]];
     }
+    //cell.imageView.frame = CGRectMake(5,5,40,32.5);
     
     
     return cell;
@@ -267,6 +268,24 @@
  return YES;
  }
  */
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[CircleUserDetailTableViewController class]]) {
+        CircleUserDetailTableViewController *vc = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        NSLog(@"USER SELECTION1: %@",indexPath);
+        
+        PFObject *userCellSelection = [self.objects objectAtIndex:indexPath.row];
+        NSLog(@"USER SELECTION2: %@",userCellSelection);
+        PFObject *userSelection = [userQuery getObjectWithId:[userCellSelection objectId]];
+        
+        vc.selectedUser = userSelection;
+        NSLog(@"USER SELECTION3: %@",userSelection);
+        
+    }
+    
+    NSLog(@"SEGUE CALLED");
+}
 
 #pragma mark - Table view delegate
 

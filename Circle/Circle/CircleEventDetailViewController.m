@@ -142,6 +142,10 @@
 }
 // send current event to attendees page
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSLog(@"Source Controller: %@", segue.sourceViewController);
+    NSLog(@"Called");
+    //segue.sourceViewController
+    //if ([segue.sourceViewController isKindOfClass:[Circle
     if ([segue.destinationViewController isKindOfClass:[CircleAttendeesViewController class]]) {
         CircleAttendeesViewController *vc = segue.destinationViewController;
         vc.event = self.event;
@@ -167,6 +171,7 @@
         [self.attendingCheckboxButton setSelected:YES];
         PFObject *rsvp = [PFObject objectWithClassName:@"Rsvp"];
         [rsvp setObject:self.event forKey:@"event"];
+        [rsvp setObject:[self.event objectForKey:@"startDate"] forKey:@"eventStartDate"];
         [rsvp setObject:[PFUser currentUser] forKey:@"user"];
         [rsvp saveInBackground];
     }

@@ -19,11 +19,11 @@
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     //TODO: Displays current friends (categories are being used to test if everythings working)
-    self = [super initWithClassName:@"Category"];
+    self = [super initWithClassName:@"Friendships"];
     self = [super initWithCoder:aDecoder];
     if (self) {        
         // The className to query on
-        self.className = @"Category";
+        self.className = @"Friendships";
         
         // The key of the PFObject to display in the label of the default cell style
         self.keyToDisplay = @"name";
@@ -108,11 +108,22 @@
     // This method is called before a PFQuery is fired to get more objects
 }
 
-/*
+//swipe to delete
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (editingStyle == UITableViewCellEditingStyleDelete)
+	{
+		//[self.friend removeObjectAtIndex:indexPath.row];
+		//[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	}   
+}
+
+
  // Override to customize what kind of query to perform on the class. The default is to query for
  // all objects ordered by createdAt descending.
  - (PFQuery *)queryForTable {
- PFQuery *query = [PFQuery queryWithClassName:self.className];
+     PFQuery *query = [PFQuery queryWithClassName:self.className];
+     [query whereKey:@"friend1" equalTo : [PFUser currentUser]];
  
  // If no objects are loaded in memory, we look to the cache first to fill the table
  // and then subsequently do a query against the network.
@@ -124,9 +135,9 @@
  
  return query;
  }
- */
+ 
 
-/*
+
  // Override to customize the look of a cell representing an object. The default is to display
  // a UITableViewCellStyleDefault style cell with the label being the first key in the object. 
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
@@ -138,11 +149,11 @@
  }
  
  // Configure the cell
- cell.textLabel.text = [object objectForKey:@"key"];
+     cell.textLabel.text = [object objectForKey:@"name"];
  
  return cell;
  }
- */
+ 
 
 /*
  // Override if you need to change the ordering of objects in the table.

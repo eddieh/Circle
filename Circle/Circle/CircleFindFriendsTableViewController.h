@@ -13,8 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSString *searchText;
-//@property (strong, nonatomic) NSString *nameTextField;
-//@property (strong, nonatomic) NSString *emailTextField;
 @property (strong, nonatomic) NSMutableArray *filteredFriends;
 
 
