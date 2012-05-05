@@ -172,7 +172,7 @@ PFQuery *userQuery;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell
@@ -186,6 +186,7 @@ PFQuery *userQuery;
         cell.detailTextLabel.text = @"";
     }
     
+    //cell.imageView.frame = CGRectMake(5,5,40,32.5);
     if ([object objectForKey:@"image"] && [[object objectForKey:@"image"] isKindOfClass:[PFFile class]]) {
         PFFile *userImage = [object objectForKey:@"image"];
         [cell.imageView setImageWithURL:[NSURL URLWithString:userImage.url] placeholderImage:[UIImage imageNamed:@"profile.png"]
@@ -195,7 +196,7 @@ PFQuery *userQuery;
     else {
         [cell.imageView setImage:[UIImage imageNamed:@"profile.png"]];
     }
-    //cell.imageView.frame = CGRectMake(5,5,40,32.5);
+    
     
     
     return cell;
