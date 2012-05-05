@@ -1134,10 +1134,9 @@ Circle.getEventsNearPosition = function (position, radius, query) {
 
   //HACK: (the hackiest!) We need to "or" constraints "and"-ed together, so we kludge in some
   //handwritten JSON
-  var dateConstraint = ',"$or":[{"startDate":{"$gte":{"__type":"Date","iso":"'
-    + now.toISOString() + '"}}},{"endDate":{"$gte":{"__type":"Date","iso":"' + now.toISOString() +'"}}}]}';
-  query = JSON.stringify(query).slice(0, -1) + dateConstraint;
-  // get the data from Parse
+  // var dateConstraint = ',"$or":[{"startDate":{"$gte":{"__type":"Date","iso":"'
+  //   + now.toISOString() + '"}}},{"endDate":{"$gte":{"__type":"Date","iso":"' + now.toISOString() +'"}}}]}';
+  query = JSON.stringify(query);
   Circle.events.fetch({
     data: 'where=' + query,
     success: function(collection, response) {
@@ -1202,7 +1201,7 @@ Circle.setupLoginAndSignup = function () {
         // bind the login button
         $('#login-button').on('click', performLogin);
         $('#login-username, #login-password').on('keyup', function(e) {
-          if (e.which == 13) performLogin;
+          if (e.which == 13) performLogin();
         });
 
         // bind a close event to the popover close &times;
