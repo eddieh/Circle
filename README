@@ -11,4 +11,6 @@ The iOS app was built in XCode and uses the aforementioned really nice Parse cla
 ### Hope you like it! ##
 Shoot us a line with any questions.
 
-- Eddie, Josh and Sam
+\- Eddie, Josh and Sam
+
+\* The only AJAX upload we could get working on Safari. Safari, get on it already? Firefox has had this feature for 10+ major versions now...
