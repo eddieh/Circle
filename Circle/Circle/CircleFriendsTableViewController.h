@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
+#import "CircleSignInViewController.h"
 
-@interface CircleFriendsTableViewController : PFQueryTableViewController
+@interface CircleFriendsTableViewController : PFQueryTableViewController <CircleSignInDelegate>
 
 
 @end

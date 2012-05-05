@@ -42,6 +42,8 @@
 
 - (void)viewDidUnload
 {
+    HUD.delegate = nil;
+    HUD = nil;
     [self setEmailTextField:nil];
     [self setPasswordTextField:nil];
     [self setRepeatPasswordTextField:nil];
@@ -96,6 +98,8 @@
     //sanity checking!
     if (![self.passwordTextField.text isEqualToString:@""] && [self.passwordTextField.text isEqualToString:self.repeatPasswordTextField.text]) {
         
+        [self.view endEditing:YES];
+        
         //show the HUD, attempt to do signup...
         HUD.labelText = @"Signing up...";
         HUD.dimBackground = YES;
@@ -116,7 +120,9 @@
                 // Hooray! Let them use the app now.
                 [self setHUDCustomViewWithImageNamed:@"37x-Checkmark.png" labelText:@"Success" detailsLabelText:nil hideDelay:1.5];
                 
-                [self.delegate signUpSuccessful];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.5 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+                    [self.delegate signUpSuccessful];
+                });
                 
             } else {
                 NSString *errorString = [[error userInfo] objectForKey:@"error"];

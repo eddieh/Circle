@@ -40,8 +40,9 @@
         
         [self presentModalViewController:modalNavigationController animated:YES];
     } else {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
+    [self.view endEditing:YES];
 }
 
 - (void)viewDidLoad
@@ -61,9 +62,7 @@
         self.nameTextField.text = [self.event objectForKey:@"name"];
         self.detailsTextView.text = [self.event objectForKey:@"details"];
     }
-    
-    [self.nameTextField becomeFirstResponder];
-                            
+                        
 }
 
 - (void)viewDidUnload

@@ -186,6 +186,10 @@
            if ([self.endDate timeIntervalSinceDate:self.startDate]>60.0f)
            {
                [query whereKey:@"startDate" lessThanOrEqualTo:self.endDate];
+           } else {
+               //restrict search to four hour window
+               NSDate *fourHoursLater = [self.startDate dateByAddingTimeInterval:4*60*60];
+               [query whereKey:@"startDate" lessThanOrEqualTo:fourHoursLater];
            }
        }
 //       else {

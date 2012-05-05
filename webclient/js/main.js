@@ -358,7 +358,7 @@ Circle.Event = Backbone.Model.extend({
     if (attrs.details == '') errors.details = 'required';
 
     if (!attrs.location) errors.where = 'required';
-    if (!attrs.category) errors.category = 'required';
+    if (!this.selectedCategory) errors.category = 'required';
 
     if (!attrs.startDate) errors.startDate = 'invalid';
 
@@ -817,7 +817,8 @@ Circle.CreateEventView = Backbone.View.extend({
       endDate: endDate ? {
         '__type': 'Date',
         'iso': endDate
-      } : null
+      } : null,
+
     };
 
     var self = this;

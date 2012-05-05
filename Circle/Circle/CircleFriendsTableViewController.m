@@ -12,6 +12,7 @@
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
 
+
 //@interface CircleFriendsTableViewController : PFQueryTableViewController
 //
 //@end
@@ -70,6 +71,17 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
+    if (![PFUser currentUser]) {
+        UINavigationController *modalNavigationController = [[UIStoryboard storyboardWithName:@"CircleAuthStoryboard" bundle:nil] instantiateInitialViewController];
+        
+        if ([modalNavigationController.topViewController isKindOfClass:[CircleSignInViewController class]]) {
+            CircleSignInViewController *signInVC = (CircleSignInViewController *)modalNavigationController.topViewController;
+            signInVC.delegate = self;
+        }
+        
+        [self presentModalViewController:modalNavigationController animated:YES];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -114,7 +126,9 @@
  // all objects ordered by createdAt descending.
  - (PFQuery *)queryForTable {
      PFQuery *query = [PFQuery queryWithClassName:self.className];
-     [query whereKey:@"friend1" equalTo : [PFUser currentUser]];
+     if ([PFUser currentUser]) {
+         [query whereKey:@"friend1" equalTo : [PFUser currentUser]];
+     }
      [query includeKey:@"friend2"];
  
  // If no objects are loaded in memory, we look to the cache first to fill the table
@@ -241,6 +255,17 @@
 {
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     //TODO: if a friend is selected, their user page should appear
+}
+
+#pragma mark - CircleSignInDelegateMethods
+- (void) signInSuccessful; {
+    [self dismissModalViewControllerAnimated:YES];
+    [self loadObjects];
+}
+
+- (void) userCancelledSignIn {
+    [self dismissModalViewControllerAnimated:YES];
+    [self.tabBarController setSelectedIndex:2];
 }
 
 @end

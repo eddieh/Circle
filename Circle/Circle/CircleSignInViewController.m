@@ -50,10 +50,13 @@
     // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[CircleSignUpViewController class]]) {
+        CircleSignUpViewController *controller = (CircleSignUpViewController *)segue.destinationViewController;
+        controller.delegate = self;
+    }
 }
+
 
 #pragma mark - UI Callback methods
 //the background above the sign in form is a button that the user can "press" to dismiss the keyboard

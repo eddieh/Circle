@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="un5-AI-UmH">
     <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
@@ -407,9 +408,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Circle" id="oBK-3x-p3i">
-                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="5YW-Pd-yNB">
+                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="5YW-Pd-yNB">
                             <connections>
                                 <action selector="signInLogOutButtonPressed:" destination="HAZ-cn-CV1" id="JIt-5H-DVh"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Sort" id="Q9Z-iC-NlX">
+                            <connections>
+                                <action selector="sortButtonPressed:" destination="HAZ-cn-CV1" id="w1z-Dm-JfZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -627,7 +633,9 @@
             <relationships>
                 <relationship kind="action" name="segmentedButtonChanged:" candidateClass="UISegmentedControl"/>
                 <relationship kind="action" name="signInLogOutButtonPressed:"/>
+                <relationship kind="action" name="sortButtonPressed:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="logOutSignInButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
         <class className="CircleUserDetailTableViewController" superclassName="PFQueryTableViewController">

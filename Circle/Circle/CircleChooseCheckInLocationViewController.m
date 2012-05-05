@@ -8,6 +8,8 @@
 
 #import "CircleChooseCheckInLocationViewController.h"
 #import "Parse/Parse.h"
+#import "NearbyEventCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface CircleChooseCheckInLocationViewController ()
 @end
@@ -84,15 +86,25 @@
     static NSString *CellIdentifier = @"location";
     PFObject *event= [self.events objectAtIndex:indexPath.row];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+     NearbyEventCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"location"];
+        cell = [[NearbyEventCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"location"];
     }
     
     // Configure the cell...
     cell.textLabel.text = [event objectForKey:@"name"];
     cell.detailTextLabel.text = [[event objectForKey:@"Venue"] objectForKey:@"name"];
-    NSLog(@"%@", event);
+    NSLog(@"event: %@", event);
+    
+    
+    if ([event objectForKey:@"image"] && [[event objectForKey:@"image"] isKindOfClass:[PFFile class]]) {
+        PFFile *image = [event objectForKey:@"image"];
+        NSLog(@"image: %@", image);
+        [cell.imageView setImageWithURL:[NSURL URLWithString:image.url] placeholderImage:[UIImage imageNamed:@"profile.png"]
+                                success:^(UIImage *image) {}
+                                failure:^(NSError *error) {}];
+    }
+
     return cell;
 }
 

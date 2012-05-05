@@ -29,7 +29,6 @@
 
 #pragma mark - viewWillAppear, viewDidLoad, shouldAutoRotate, etc.
 - (void)viewWillAppear:(BOOL)animated {
-    [self.descriptionTextView becomeFirstResponder];
     checkInSuccess = NO;
 }
 

@@ -20,14 +20,31 @@
 
 @interface CircleNearbyViewController () {
     PF_MBProgressHUD *HUD;
-    LocationSingleton *location;
+    LocationSingleton *locationSingleton;
     NSDateFormatter *dateFormatter;
+    BOOL gotLocation;
 }
-
+@property (nonatomic, strong) NSArray *actionSheetButtonTitles;
+@property (nonatomic, strong) NSString *sortOrder;
+@property (nonatomic, strong) NSArray *origObjects;
+@property (nonatomic, strong) CLLocation *currentLocation;
 @end
 
 @implementation CircleNearbyViewController
+@synthesize pickerView;
 @synthesize logOutSignInButton;
+@synthesize sortOrder = _sortOrder;
+@synthesize origObjects = _origObjects;
+@synthesize currentLocation = _currentLocation;
+@synthesize actionSheetButtonTitles = _actionSheetButtonTitles;
+
+- (void) setCurrentLocation:(CLLocation *)currentLocation {
+    _currentLocation = currentLocation;
+    if (!gotLocation) {
+        [self loadObjects];
+        gotLocation = YES;
+    }
+}
 
 #pragma mark - View lifecycle
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -37,6 +54,10 @@
     
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE M/d 'at' h:mm a"];
+    locationSingleton = [LocationSingleton sharedInstance];
+    locationSingleton.delegate = self;
+    
+    self.actionSheetButtonTitles = [NSArray arrayWithObjects:@"✓ Sort by nearby", @"Sort by soonest",  nil];
     
     if (self) {        
         // The className to query on
@@ -56,6 +77,7 @@
     }
     return self;
 }
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[CircleEventDetailViewController class]]) {
@@ -111,11 +133,27 @@
     NSLog(@"Selected: %d", sender.selectedSegmentIndex);
 }
 
+- (IBAction)sortButtonPressed:(UIBarButtonItem *)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
+                                                             delegate:self
+                                                    cancelButtonTitle:nil
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:nil];
+    
+    for (NSString *title in self.actionSheetButtonTitles) {
+        [actionSheet addButtonWithTitle:title];
+    }
+    
+    [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    [actionSheet addSubview:self.pickerView];
+    [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
+    [actionSheet setBounds:CGRectMake(0, 0, 320, 225)];
+}
+
 #pragma mark - View lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -125,6 +163,7 @@
 
 - (void)viewDidUnload
 {
+    [self setPickerView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -170,7 +209,7 @@
 #pragma mark - Parse
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
-    
+    self.origObjects = [self.objects copy];
     // This method is called every time objects are loaded from Parse via the PFQuery
 }
 
@@ -180,23 +219,28 @@
     // This method is called before a PFQuery is fired to get more objects
 }
 
-/*
+
  // Override to customize what kind of query to perform on the class. The default is to query for
  // all objects ordered by createdAt descending.
  - (PFQuery *)queryForTable {
- PFQuery *query = [PFQuery queryWithClassName:self.className];
- 
- // If no objects are loaded in memory, we look to the cache first to fill the table
- // and then subsequently do a query against the network.
- if ([self.objects count] == 0) {
- query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+     PFQuery *query = [PFQuery queryWithClassName:self.className];
+     
+     // If no objects are loaded in memory, we look to the cache first to fill the table
+     // and then subsequently do a query against the network.
+     if ([self.objects count] == 0) {
+         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+     }
+     
+     if (self.currentLocation) {
+         NSLog(@"Querying with location");
+         PFGeoPoint *g = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude longitude:self.currentLocation.coordinate.longitude];
+         [query whereKey:@"location" nearGeoPoint:g];
+     }
+     //[query orderByAscending:@"startTime"];
+     
+     return query;
  }
- 
- [query orderByDescending:@"createdAt"];
- 
- return query;
- }
- */
+
 
 
  // Override to customize the look of a cell representing an object. The default is to display
@@ -358,5 +402,25 @@
 	// Remove HUD from screen when the HUD was hidden
 	[HUD removeFromSuperview];
 	HUD = nil;
+}
+
+#pragma mark - LocationSingletondelegate methods
+- (void)didRecieveLocationUpdate:(CLLocation *)location; {
+    self.currentLocation = location;
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    //NSLog(@"Index: %d", buttonIndex);
+    if (buttonIndex == 0) {
+        self.actionSheetButtonTitles = [NSArray arrayWithObjects:@"✓ Sort by nearby", @"Sort by soonest",  nil];
+        self.objects = [self.origObjects mutableCopy];
+    } else {
+        self.actionSheetButtonTitles = [NSArray arrayWithObjects:@"Sort by nearby", @"✓ Sort by soonest",  nil];
+
+        NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:YES]; // If you want newest at the top, pass NO instead.
+        self.objects = [[self.origObjects sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]] mutableCopy];
+    }
+    [self.tableView reloadData];
 }
 @end

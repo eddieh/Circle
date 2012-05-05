@@ -7,6 +7,8 @@
 //
 
 #import "CircleChooseCheckInTableViewController.h"
+#import "NearbyEventCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface CircleChooseCheckInTableViewController ()
 
@@ -59,7 +61,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     [super viewWillAppear:animated];
     if (![PFUser currentUser]) {
         UINavigationController *modalNavigationController = [[UIStoryboard storyboardWithName:@"CircleAuthStoryboard" bundle:nil] instantiateInitialViewController];
@@ -140,21 +141,28 @@
  // a UITableViewCellStyleDefault style cell with the label being the first key in the object. 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
     static NSString *CellIdentifier = @"location";
+    PFObject *event= [self.objects objectAtIndex:indexPath.row];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    NearbyEventCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[NearbyEventCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"location"];
     }
     
-    // Configure the cell
-    cell.textLabel.text = [object objectForKey:@"name"];  
-    cell.detailTextLabel.text = [object objectForKey:@"venueName"];
-    if ([[object objectForKey:@"image"] isKindOfClass:[UIImage class]]) {
-        [cell.imageView setImage:[object objectForKey:@"image"]];
+    // Configure the cell...
+    cell.textLabel.text = [event objectForKey:@"name"];
+    cell.detailTextLabel.text = [event objectForKey:@"venueName"];
+    
+    
+    if ([event objectForKey:@"image"] && [[event objectForKey:@"image"] isKindOfClass:[PFFile class]]) {
+        PFFile *image = [event objectForKey:@"image"];
+
+        [cell.imageView setImageWithURL:[NSURL URLWithString:image.url] placeholderImage:[UIImage imageNamed:@"profile.png"]
+                                success:^(UIImage *image) {}
+                                failure:^(NSError *error) {}];
     }
     
-    return cell;
- }
+    return cell; 
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([sender isKindOfClass:[UITableViewCell class]]) {
