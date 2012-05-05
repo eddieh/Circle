@@ -535,12 +535,15 @@ Circle.EventSlideshowSlideView = Backbone.View.extend ({
     //the first slide needs to have class "active" so we set that here
     var json = this.model.toJSON();
 
-    //render template
-    json[0].active = ' active';
-    this.$el.html(this.template(json));
+    if (json.length != 0) {
+      //render template
+      json[0].active = ' active';
+      this.$el.html(this.template(json));
 
-    // setup our fancy carousel
-    $('.carousel').carousel();
+      // setup our fancy carousel
+      $('.carousel').carousel();
+    }
+
     return this;
   }
 
