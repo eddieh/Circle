@@ -4,15 +4,24 @@
  *  We must include the X-Parse-Application-Id and
  *  X-Parse-REST-API-Key headers.
  */
+var PARSE_HEADERS = {
+  'X-Parse-Application-Id':'FFO9TzzLbMB5A4PM8A0vzNpb0M8DSeAgbsP0fGNB',
+  'X-Parse-REST-API-Key': 'YwfE7q918UGjEkpufKPpm5GMgPI5jK08Pf2meEkh'
+};
 var originalSync = Backbone.sync;
 Backbone.sync = function (method, model, options) {
   if (!options) options = {};
-  return originalSync(method, model, _.extend(options, {
-    headers: {
-      'X-Parse-Application-Id':'FFO9TzzLbMB5A4PM8A0vzNpb0M8DSeAgbsP0fGNB',
-      'X-Parse-REST-API-Key': 'YwfE7q918UGjEkpufKPpm5GMgPI5jK08Pf2meEkh'
-    }
-  }));
+  var session;
+
+  _.extend(options,
+           // add default headers
+           { headers: PARSE_HEADERS },
+           // add to options 'X-Parse-Session-Token':
+           Circle.me && (session = Circle.me.get('sessionToken')) ?
+           { 'X-Parse-Session-Token': session } :
+           {});
+
+  return originalSync(method, model, options);
 }
 
 /*
@@ -62,6 +71,10 @@ Circle.User = Backbone.Model.extend({
   // entity.
   urlRoot: 'https://api.parse.com/1/users',
 
+  initialize: function() {
+    this.on('change:sessionToken', this.renewSession, this);
+  },
+
   validate: function (attrs) {
     var errors = {};
 
@@ -77,7 +90,98 @@ Circle.User = Backbone.Model.extend({
     }
 
     if (!_.isEmpty(errors)) return errors;
+  },
+
+  renewSession: function (e) {
+    // set a cookie to keep the sessionToken around for 7 days
+    monster.set('ParseSessionToken', this.get('sessionToken'), 7);
+    // also store the user id for 7 days
+    monster.set('ParseUserId', this.id, 7);
+  },
+
+  logout: function () {
+    Circle.me = null;
+    monster.remove('ParseSessionToken');
+    monster.remove('ParseUserId');
   }
+});
+
+Circle.restoreSession = function () {
+  var id = monster.get('ParseUserId');
+  var sessionToken = monster.get('ParseSessionToken');
+
+  function notLoggedIn() {
+    $('#account').html(t('not-logged-in')());
+    Circle.setupLoginAndSignup();
+  }
+
+  if (id) {
+    Circle.me = new Circle.User({objectId: id});
+    Circle.me.fetch({
+      success: function (response, status) {
+        Circle.me.set('sessionToken', sessionToken);
+        $('#account').html(t('logged-in')(Circle.me.toJSON()));
+      },
+      error: function (response, status) {
+        notLoggedIn();
+      }
+    });
+  } else {
+    notLoggedIn();
+  }
+}
+
+Circle.AttendeeList = Backbone.Collection.extend({
+  model: Circle.User,
+
+  url:'https://api.parse.com/1/classes/Rsvp',
+
+  parse: function (response) {
+    var users = _.map(response.results, function (item) {
+      return item.user;
+    });
+    return users;
+  }
+});
+
+Circle.AttendeeListItemView = Backbone.View.extend({
+  tagName: 'tr',
+  className: 'attendee',
+
+  events: {
+  },
+
+  initialize: function () {
+    this.template = t('attendee-list-item-view');
+  },
+
+	render: function () {
+		this.$el.html(this.template(this.model.toJSON()));
+    return this;
+	}
+});
+
+Circle.AttendeeListView = Backbone.View.extend({
+  initialize: function () {
+    this.model.on('add', this.addOne, this);
+		this.model.on('reset', this.addAll, this);
+		this.model.on('all', this.render, this);
+  },
+
+	render: function () {
+		return this;
+	},
+
+	addOne: function (item) {
+    var view = new Circle.AttendeeListItemView({model: item});
+    var row = view.render().el;
+    this.$el.append(row);
+	},
+
+	addAll: function () {
+    $('tbody', this.$el).html('');
+		this.model.each(this.addOne, this);
+	}
 });
 
 /* Views */
@@ -192,13 +296,8 @@ Circle.SignUpView = Backbone.View.extend({
       },
       success: function (model, response) {
         self.$el.modal('hide');
-
-        // TODO: handle sign in response!
-        //
-        // In partcular, we may need to hold on to response.sessionToken,
-        // though I don't think we have access control set up for
-        // anything right now
-        console.dir(response);
+        Circle.me = self.model;
+        $('#account').html(t('logged-in')(Circle.me.toJSON()));
       }
     });
 
@@ -863,7 +962,8 @@ Circle.setMapPinsWithData = function (data, isDetailView) {
   var bounds = new google.maps.LatLngBounds();
 
   // ensure we start with no markers
-  Circle.markers && delete Circle.markers;
+  Circle.markers && delete Circle.markers
+  $('.marker').remove();
   Circle.markers = {};
 
   /*
@@ -1037,6 +1137,66 @@ Circle.getEventsWithQuery = function (query) {
   Circle.getEventsNearPosition(undefined, undefined, query);
 }
 
+Circle.setupLoginAndSignup = function () {
+  //set up login and signup popover/modal views
+  $('#login-nav')
+      .popover({
+        title: '<a id="close-login" class="close">&times;</a><h3>Login</h3>',
+        content: t('login'),
+        placement: 'bottom',
+        trigger: 'manual'
+      })
+      .click(function (e) {
+        // stop proagation of the event, otherwise we bind the body's
+        // click.hideLoginPopover event before THIS click bubbles up,
+        // hiding the login popover before we even see it.
+        e.stopPropagation();
+
+        var $that = $(this);
+        $that.popover('show');
+
+        var performLogin = function () {
+          var $this = $(this).button('loading');
+          $.ajax('https://api.parse.com/1/login', {
+            type: 'GET',
+            headers: PARSE_HEADERS,
+            data: {
+              username: $('input[name="username"]').val(),
+              password: $('input[name="password"]').val()
+            },
+            success: function (response, status) {
+              $that.popover('hide');
+              Circle.me = new Circle.User(response);
+              Circle.me.renewSession();
+              $('#account').html(t('logged-in')(Circle.me.toJSON()));
+            },
+            error: function (response, status) {
+              $this.button('incorrect');
+            }
+          });
+        }
+
+        // bind the login button
+        $('#login-button').on('click', performLogin);
+        $('#login-username, #login-password').on('keyup', function(e) {
+          if (e.which == 13) performLogin;
+        });
+
+        // bind a close event to the popover close &times;
+        $('#close-login').one('click', function () {
+          $that.popover('hide');
+        });
+
+        // bind a close event to everywhere else BUT the popover
+        $('body').on('click.hideLoginPopover',function (e) {
+          if ($(e.srcElement).closest('.popover').length == 0) {
+            $that.popover('hide');
+            $('body').off('click.hideLoginPopover');
+          }
+        });
+      });
+}
+
 Circle.Router = Backbone.Router.extend({
   routes: {
     '': 'home',
@@ -1045,7 +1205,9 @@ Circle.Router = Backbone.Router.extend({
     'events/:query': 'events',
     'detail/:event_id': 'detail',
     'create-event-modal': 'createEvent',
-    'sign-up-modal': 'signUp'
+    'sign-up-modal': 'signUp',
+    'logout': 'logout',
+    '*default': 'home'
   },
 
   home: function () {
@@ -1056,12 +1218,19 @@ Circle.Router = Backbone.Router.extend({
       Circle.getEventsNearPosition();
     });
 
-    $('#search-button').on('click', function (e) {
+    var doSearch = function (e) {
       var query = $('#search-field').val();
       Circle.app.navigate('events/' + query, {
         trigger: true
       });
+    }
+
+    $('#search-field').on('keyup', function (e) {
+      if (e.which == 13) {
+        doSearch(e);
+      }
     });
+    $('#search-button').on('click', doSearch);
 
     if (!Circle.events) {
       // create the collections of models
@@ -1090,36 +1259,6 @@ Circle.Router = Backbone.Router.extend({
     });
 
     Circle.getPositionFromBrowser();
-
-    //set up login and signup popover/modal views
-    $('#login-nav')
-      .popover({
-        title: '<a id="close-login" class="close">&times;</a><h3>Login</h3>',
-        content: t('login'),
-        placement: 'bottom',
-        trigger: 'manual'
-      })
-      .click(function(e) {
-        e.stopPropagation(); // otherwise we bind the body's click.hideLoginPopover
-                             // event before THIS click bubbles up, hiding the login
-                             // popover before we even see it.
-
-        var $that = $(this);
-        $that.popover('show');
-
-        //bind a close event to the popover close &times;
-        $('#close-login').one('click', function() {
-          $that.popover('hide');
-        });
-
-        //bind a close event to the everywhere else BUT the popover
-        $('body').on('click.hideLoginPopover',function(e) {
-          if( $(e.srcElement).closest('.popover').length == 0) {
-            $that.popover('hide');
-            $('body').off('click.hideLoginPopover');
-          }
-        })
-      });
   },
 
   events: function (query) {
@@ -1237,6 +1376,22 @@ Circle.Router = Backbone.Router.extend({
 
       $('#layout.container').html(t('detail-layout')(json));
 
+
+      var attendees = new Circle.AttendeeList();
+      var attendeeView = new Circle.AttendeeListView({
+        el: '#attendees tbody',
+        model: attendees
+      });
+      attendees.fetch({
+        data: 'include=user&where=' + JSON.stringify({
+          event: {
+            '__type': 'Pointer',
+            'className': 'Event',
+            'objectId': event.id
+          }
+        })
+      });
+
       if (Circle.position) {
         Circle.setMapCenter(Circle.position);
         Circle.setMapPinsWithData([event], true);
@@ -1333,8 +1488,15 @@ Circle.Router = Backbone.Router.extend({
       model: newUser,
       el: '#sign-up-modal'
     }).render();
+  },
 
+  logout: function () {
+    $('#account').html(t('not-logged-in')());
+    Circle.setupLoginAndSignup();
+    Circle.me && Circle.me.logout()
+    Circle.app.navigate('', { trigger: true });
   }
+
 });
 
 $(function () {
@@ -1363,4 +1525,6 @@ $(function () {
 	});
 
   Backbone.history.start();
+
+  Circle.restoreSession();
 });

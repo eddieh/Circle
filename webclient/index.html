@@ -347,9 +347,7 @@
             <!-- <li><a href="#friends">Friends</a></li> -->
             <!-- <li><a href="#inbox">Inbox</a></li> -->
           </ul>
-          <ul class="nav pull-right">
-            <li id="login-nav"><a href="#" id="login">Log In</a></li>
-            <li id="signup-nav"><a href="#sign-up-modal" id="sign-up">Sign Up</a></li>
+          <ul id="account" class="nav pull-right">
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -716,10 +714,26 @@
                 <a href="#" class="btn btn-primary">Action</a>
                 <a href="#" class="btn">Action</a>
               </p>
+              <table id="attendees" class="table table-striped">
+                <tbody>
+                </tbody>
+              </table>
             </div>
         </div>
       </div>
     </div>
+  </script>
+
+  <script id="attendee-list-item-view-template"
+          type="text/x-handlebars-template">
+    <td>
+      {{#if image}}
+      <img src="{{image.url}}" class="" alt="" width="24" height="24" />
+      {{else}}
+      <img src="http://placehold.it/24x24" alt="">
+      {{/if}}
+    </td>
+    <td>{{username}}</td>
   </script>
 
   <script id="calendar-day-template" type="text/x-handlebars-template">
@@ -777,11 +791,31 @@
   </script>
 
   <script id="login-template" type="text/x-handlebars-template">
-    <form id="login-form">
-      <label>Email: <input type="text" name="email" /></label>
-      <label>Password: <input type="text" name="password"/></label>
-      <button class="btn btn-primary">Log in!</button>
-    </form>
+    <div id="login-form">
+      <label>Username: <input id="login-username" type="text" name="username" /></label>
+      <label>Password: <input id="login-password" type="password" name="password"/></label>
+      <button id="login-button"
+              class="btn btn-primary"
+              data-loading-text="Loggin you in..."
+              data-incorrect-text="Incorrect. Try again!">Log in!</button>
+    </div>
+  </script>
+
+  <script id="not-logged-in-template" type="text/x-handlebars-template">
+    <li id="login-nav"><a href="#login" id="login">Log In</a></li>
+    <li id="signup-nav">
+      <a href="#sign-up-modal" id="sign-up">Sign Up</a>
+    </li>
+  </script>
+
+  <script id="logged-in-template" type="text/x-handlebars-template">
+    <li id="user-nav">
+      <p class="navbar-text">Hello, <a href="#account">{{username}}</a>.</p>
+    </li>
+    <li class="divider-vertical"></li>
+    <li id="logout-nav">
+      <a id="logout" href="#logout">Logout</a>
+    </li>
   </script>
 
   <script id="sign-up-template" type="text/x-handlebars-template">
@@ -871,6 +905,7 @@
 
   <script src="js/fileuploader.js"></script>
   <script src="js/wikicreole.js"></script>
+  <script src="js/monster.js"></script>
   <script src="js/main.js"></script>
 </body>
 
