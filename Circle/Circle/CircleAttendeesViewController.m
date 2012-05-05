@@ -59,7 +59,7 @@ PFQuery *userQuery;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     userQuery = [PFQuery queryForUser];
-    NSLog(@"Event Loaded: %@", [self.event objectForKey:@"name"]);
+    //NSLog(@"Event Loaded: %@", [self.event objectForKey:@"name"]);
 }
 
 - (void)viewDidUnload
@@ -121,11 +121,8 @@ PFQuery *userQuery;
  // Override to customize what kind of query to perform on the class. The default is to query for
  // all objects ordered by createdAt descending.
  - (PFQuery *)queryForTable {
- PFQuery *query = [PFQuery queryWithClassName:self.className];
-     NSLog(@"Before search: %@",[query findObjects]);
-     NSLog(@"Event id: %@",[self.event objectId]);
+     PFQuery *query = [PFQuery queryWithClassName:self.className];
      [query whereKey:@"event" equalTo : self.event];
-     NSLog(@"After search: %@",[query findObjects]);
  
  // If no objects are loaded in memory, we look to the cache first to fill the table
  // and then subsequently do a query against the network.
@@ -133,7 +130,7 @@ PFQuery *userQuery;
  query.cachePolicy = kPFCachePolicyCacheThenNetwork;
  }
  
- [query orderByDescending:@"createdAt"];
+ //[query orderByDescending:@"createdAt"];
  
  return query;
  }
@@ -257,16 +254,11 @@ PFQuery *userQuery;
         
         PFObject *userCellSelection = [[self.objects objectAtIndex:indexPath.row] objectForKey:@"user"];
         PFObject *userSelection = [userQuery getObjectWithId:[userCellSelection objectId]];
-        NSLog(@"data %@",userSelection);
-        NSLog(@"data2 %@",[userSelection objectForKey:@"name"]);
         
         vc.selectedUser = userSelection;
         
-        
-        
     }
     NSLog(@"SEGUE CALLED");
-    
 }
 
 #pragma mark - Table view delegate

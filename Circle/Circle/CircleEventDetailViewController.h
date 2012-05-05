@@ -25,6 +25,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *attendingCheckboxButton;
 @property (weak, nonatomic) IBOutlet UIButton *attendeesButton;
+@property (weak, nonatomic) IBOutlet UILabel *attendingLabel;
 
 - (IBAction)mapButtonPressed:(id)sender;
 - (IBAction)attendingCheckboxPressed:(id)sender;

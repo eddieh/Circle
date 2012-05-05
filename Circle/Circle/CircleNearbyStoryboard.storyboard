@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="un5-AI-UmH">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
@@ -138,6 +137,7 @@
                     <connections>
                         <outlet property="attendeesButton" destination="Pya-1Q-gdl" id="HTY-hf-DTd"/>
                         <outlet property="attendingCheckboxButton" destination="e4d-rs-Gmk" id="Ezu-dE-Qzo"/>
+                        <outlet property="attendingLabel" destination="OuT-lt-uoA" id="TSG-MK-5lP"/>
                         <outlet property="calendarDayLabel" destination="y6t-tZ-9Qn" id="7I7-aM-gsb"/>
                         <outlet property="calendarMonthLabel" destination="Uhu-Ra-CBh" id="eDL-8X-ZgX"/>
                         <outlet property="calendarWeekdayLabel" destination="hLX-0h-9jh" id="Fjm-Lo-Kci"/>
@@ -151,7 +151,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2367" y="-582"/>
+            <point key="canvasLocation" x="2715" y="-398"/>
         </scene>
         <!--Circle Attendees View Controller - Who's Attending!-->
         <scene sceneID="vpB-77-1fP">
@@ -219,19 +219,19 @@
                     <navigationItem key="navigationItem" title="Who's Attending!" id="u01-w4-jCi"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="2836" y="-203"/>
+            <point key="canvasLocation" x="3200" y="-45"/>
         </scene>
         <!--Circle User Detail Table View Controller - User Details-->
         <scene sceneID="X71-Xl-cp4">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fAr-fG-bwB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="Tq6-dT-iwa" customClass="CircleUserDetailTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="2oe-Ux-0az">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="78" sectionHeaderHeight="10" sectionFooterHeight="10" id="2oe-Ux-0az">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="jDG-yS-EGP">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="134"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="1ry-Fz-OlM">
@@ -239,70 +239,131 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="kal-Az-0wx">
-                                    <rect key="frame" x="129" y="29" width="181" height="38"/>
+                                    <rect key="frame" x="129" y="17" width="181" height="38"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="S41-UQ-UI0">
-                                    <rect key="frame" x="129" y="83" width="181" height="21"/>
+                                    <rect key="frame" x="129" y="63" width="181" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="d3f-9s-udR">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="profile.png" id="d3f-9s-udR">
                                     <rect key="frame" x="12" y="12" width="110" height="110"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Events User is Attending:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="WT1-o6-tXD">
+                                    <rect key="frame" x="12" y="127" width="298" height="34"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AP9-n0-yOA">
+                                    <rect key="frame" x="142" y="90" width="158" height="39"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                    <state key="normal" title="Delete Friend">
+                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="addFriendButtonClicked:" destination="Tq6-dT-iwa" eventType="touchUpInside" id="8bC-AG-Dui"/>
+                                    </connections>
+                                </button>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="6ey-HJ-jmE">
-                                <rect key="frame" x="0.0" y="170" width="320" height="45"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventDetailCell" rowHeight="78" id="fhH-az-qNc" customClass="CircleEventCell">
+                                <rect key="frame" x="0.0" y="192" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                    <rect key="frame" x="10" y="1" width="300" height="77"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="calendaricon.png" id="mwR-wD-Cog">
+                                            <rect key="frame" x="241" y="12" width="53" height="53"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Thur" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="3WK-yr-4et">
+                                            <rect key="frame" x="241" y="9" width="53" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Jan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="y52-Xf-z8N">
+                                            <rect key="frame" x="241" y="22" width="53" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="AFX-Ua-BS4">
+                                            <rect key="frame" x="241" y="38" width="53" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="28"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="A Cool Event" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="BSX-Wc-8JF">
+                                            <rect key="frame" x="84" y="11" width="149" height="28"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your Mom's House" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="4EU-Du-e8y">
+                                            <rect key="frame" x="84" y="43" width="149" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="aJX-To-fWH">
+                                            <rect key="frame" x="7" y="4" width="69" height="69"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="fhH-az-qNc">
-                                <rect key="frame" x="0.0" y="215" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="jIU-pG-IBp">
-                                <rect key="frame" x="0.0" y="259" width="320" height="45"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
+                                <connections>
+                                    <outlet property="dayLabel" destination="AFX-Ua-BS4" id="vVM-8Q-xli"/>
+                                    <outlet property="eventImage" destination="aJX-To-fWH" id="SAy-zs-2B9"/>
+                                    <outlet property="eventLocationLabel" destination="4EU-Du-e8y" id="aIC-jc-wiH"/>
+                                    <outlet property="eventTitleLabel" destination="BSX-Wc-8JF" id="0mq-nk-e7x"/>
+                                    <outlet property="monthLabel" destination="y52-Xf-z8N" id="zFR-5R-5Fj"/>
+                                    <outlet property="weekdayLabel" destination="3WK-yr-4et" id="rNo-II-FJg"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
                         <connections>
-                            <outlet property="dataSource" destination="Tq6-dT-iwa" id="E3g-5W-T7G"/>
-                            <outlet property="delegate" destination="Tq6-dT-iwa" id="hrM-2b-ZtB"/>
+                            <outlet property="dataSource" destination="Tq6-dT-iwa" id="3eK-Yu-IpI"/>
+                            <outlet property="delegate" destination="Tq6-dT-iwa" id="rjQ-te-Ieg"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="User Details" id="Val-oL-Vx0"/>
                     <connections>
+                        <outlet property="addFriendButton" destination="AP9-n0-yOA" id="Wyd-Kr-k50"/>
                         <outlet property="profileImage" destination="d3f-9s-udR" id="vDR-9U-6tQ"/>
                         <outlet property="userEmail" destination="S41-UQ-UI0" id="7yq-6V-cmx"/>
                         <outlet property="userName" destination="kal-Az-0wx" id="KEf-qe-xOx"/>
+                        <segue destination="HdE-HK-lCR" kind="push" identifier="eventDetailNoImageSegue" id="LA6-hv-ojO"/>
+                        <segue destination="sz8-5h-DfX" kind="push" identifier="eventDetailSegue" id="Ypa-En-xdB"/>
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="3317" y="-203"/>
+            <point key="canvasLocation" x="3757" y="-45"/>
         </scene>
         <!--Circle Nearby View Controller - Circle-->
         <scene sceneID="Lw9-dm-ctl">
@@ -378,7 +439,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="U3h-ih-oGV">
-                                <rect key="frame" x="11" y="184" width="303" height="22"/>
+                                <rect key="frame" x="8" y="176" width="303" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -463,7 +524,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3zf-qs-oKv">
-                                <rect key="frame" x="105" y="143" width="52" height="35"/>
+                                <rect key="frame" x="109" y="141" width="52" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="checkbox-notChecked.png">
@@ -483,6 +544,7 @@
                     <connections>
                         <outlet property="attendeesButton" destination="7rW-iF-xtb" id="jAI-1o-UUI"/>
                         <outlet property="attendingCheckboxButton" destination="3zf-qs-oKv" id="jYg-Fn-4eT"/>
+                        <outlet property="attendingLabel" destination="rwC-cs-jmG" id="Qlf-sX-WGY"/>
                         <outlet property="calendarDayLabel" destination="fDw-qV-6cK" id="eQd-xy-D1l"/>
                         <outlet property="calendarMonthLabel" destination="yiA-33-3TC" id="s5f-ho-TRf"/>
                         <outlet property="calendarWeekdayLabel" destination="1uh-7q-4J6" id="dFN-XL-fTN"/>
@@ -493,7 +555,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2367" y="-14"/>
+            <point key="canvasLocation" x="2699" y="316"/>
         </scene>
         <!--Navigation Controller - Nearby-->
         <scene sceneID="aPD-HC-dga">
@@ -521,11 +583,23 @@
         <image name="calendaricon.png" width="75" height="75"/>
         <image name="checkbox-notChecked.png" width="16" height="16"/>
         <image name="daftpunk.jpg" width="640" height="480"/>
+        <image name="profile.png" width="75" height="75"/>
         <image name="tabbar-nearby.png" width="30" height="30"/>
     </resources>
     <classes>
         <class className="CircleAttendeesViewController" superclassName="PFQueryTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleAttendeesViewController.h"/>
+        </class>
+        <class className="CircleEventCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="eventLocationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="monthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="weekdayLabel" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="CircleEventDetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventDetailViewController.h"/>
@@ -535,6 +609,7 @@
                 <relationship kind="action" name="mapButtonPressed:"/>
                 <relationship kind="outlet" name="attendeesButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="attendingCheckboxButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="attendingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="calendarDayLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="calendarMonthLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="calendarWeekdayLabel" candidateClass="UILabel"/>
@@ -555,9 +630,11 @@
                 <relationship kind="outlet" name="logOutSignInButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
-        <class className="CircleUserDetailTableViewController" superclassName="UITableViewController">
+        <class className="CircleUserDetailTableViewController" superclassName="PFQueryTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleUserDetailTableViewController.h"/>
             <relationships>
+                <relationship kind="action" name="addFriendButtonClicked:"/>
+                <relationship kind="outlet" name="addFriendButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="profileImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="userEmail" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="userName" candidateClass="UILabel"/>
@@ -576,6 +653,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Xca-UP-ZPW"/>
+        <segue reference="awh-CS-uKU"/>
+        <segue reference="tRq-vt-EZV"/>
+        <segue reference="A49-rq-uiu"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -31,6 +31,7 @@
 @synthesize image = _image;
 
 @synthesize attendeesButton;
+@synthesize attendingLabel;
 @synthesize attendingCheckboxButton;
 
 #pragma mark - View lifecycle
@@ -59,12 +60,19 @@
         [self.attendingCheckboxButton setImage: buttonCheckedBackground forState:UIControlStateSelected];
 
         //set attending button state
-        PFQuery *query = [PFQuery queryWithClassName:@"Rsvp"];
-        [query whereKey:@"event" equalTo: self.event];
-        [query whereKey:@"user" equalTo:[PFUser currentUser]];
-        if ([query getFirstObject] != NULL)
-        {
-            [self.attendingCheckboxButton setSelected:YES];
+        if ([PFUser currentUser]) {
+            PFQuery *query = [PFQuery queryWithClassName:@"Rsvp"];
+            [query whereKey:@"event" equalTo: self.event];
+            [query whereKey:@"user" equalTo:[PFUser currentUser]];
+            
+            if ([query getFirstObject] != NULL)
+            {
+                [self.attendingCheckboxButton setSelected:YES];
+            }
+        } else {
+            self.attendingLabel.text = @"";
+            self.attendeesButton.hidden = YES;
+            self.attendingCheckboxButton.hidden = YES;
         }
         
         //set up the calendar
@@ -121,6 +129,7 @@
     [self setMapButton:nil];
     [self setAttendeesButton:nil];
     [self setAttendingCheckboxButton:nil];
+    [self setAttendingLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -142,6 +151,10 @@
 }
 // send current event to attendees page
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSLog(@"Source Controller: %@", segue.sourceViewController);
+    NSLog(@"Called");
+    //segue.sourceViewController
+    //if ([segue.sourceViewController isKindOfClass:[Circle
     if ([segue.destinationViewController isKindOfClass:[CircleAttendeesViewController class]]) {
         CircleAttendeesViewController *vc = segue.destinationViewController;
         vc.event = self.event;
@@ -167,6 +180,7 @@
         [self.attendingCheckboxButton setSelected:YES];
         PFObject *rsvp = [PFObject objectWithClassName:@"Rsvp"];
         [rsvp setObject:self.event forKey:@"event"];
+        [rsvp setObject:[self.event objectForKey:@"startDate"] forKey:@"eventStartDate"];
         [rsvp setObject:[PFUser currentUser] forKey:@"user"];
         [rsvp saveInBackground];
     }

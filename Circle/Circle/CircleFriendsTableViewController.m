@@ -7,6 +7,8 @@
 //
 
 #import "CircleFriendsTableViewController.h"
+#import "CircleUserDetailTableViewController.h"
+#import "UIImageView+WebCache.h"
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
 
@@ -19,11 +21,11 @@
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     //TODO: Displays current friends (categories are being used to test if everythings working)
-    self = [super initWithClassName:@"Category"];
+    self = [super initWithClassName:@"Friendships"];
     self = [super initWithCoder:aDecoder];
     if (self) {        
         // The className to query on
-        self.className = @"Category";
+        self.className = @"Friendships";
         
         // The key of the PFObject to display in the label of the default cell style
         self.keyToDisplay = @"name";
@@ -108,11 +110,12 @@
     // This method is called before a PFQuery is fired to get more objects
 }
 
-/*
  // Override to customize what kind of query to perform on the class. The default is to query for
  // all objects ordered by createdAt descending.
  - (PFQuery *)queryForTable {
- PFQuery *query = [PFQuery queryWithClassName:self.className];
+     PFQuery *query = [PFQuery queryWithClassName:self.className];
+     [query whereKey:@"friend1" equalTo : [PFUser currentUser]];
+     [query includeKey:@"friend2"];
  
  // If no objects are loaded in memory, we look to the cache first to fill the table
  // and then subsequently do a query against the network.
@@ -124,13 +127,13 @@
  
  return query;
  }
- */
+ 
 
-/*
+
  // Override to customize the look of a cell representing an object. The default is to display
  // a UITableViewCellStyleDefault style cell with the label being the first key in the object. 
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
- static NSString *CellIdentifier = @"Cell";
+ static NSString *CellIdentifier = @"friendCell";
  
  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
  if (cell == nil) {
@@ -138,11 +141,22 @@
  }
  
  // Configure the cell
- cell.textLabel.text = [object objectForKey:@"key"];
+     PFObject *cellFriend = [object objectForKey:@"friend2"];
+     
+     cell.textLabel.text = [cellFriend objectForKey:@"name"];
+     
+     cell.detailTextLabel.text = [cellFriend objectForKey:@"email"];
+     
+     PFFile *image;
+     if ((image = [cellFriend objectForKey:@"image"]) && [image isKindOfClass:[PFFile class]]) {
+         [cell.imageView setImageWithURL:[NSURL URLWithString:image.url] placeholderImage:[UIImage imageNamed:@"profile.png"]
+                                 success:^(UIImage *image) {}
+                                 failure:^(NSError *error) {}];
+     }
  
  return cell;
  }
- */
+ 
 
 /*
  // Override if you need to change the ordering of objects in the table.
@@ -210,6 +224,20 @@
  return YES;
  }
  */
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[CircleUserDetailTableViewController class]]) {
+        CircleUserDetailTableViewController *vc = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        
+        
+        //PFObject *userCellSelection = [[self.objects objectAtIndex:indexPath.row] objectForKey:@"user"];
+        //PFObject *userSelection = [userQuery getObjectWithId:[userCellSelection objectId]];
+        
+        vc.selectedUser = [[self.objects objectAtIndex:indexPath.row] objectForKey:@"friend2"];
+        
+    }
+    NSLog(@"SEGUE CALLED");
+}
 
 #pragma mark - Table view delegate
 

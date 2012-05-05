@@ -197,14 +197,13 @@
     
     cell.detailTextLabel.text = detailText;
     
-    if ([object objectForKey:@"image"] && [[object objectForKey:@"image"] isKindOfClass:[PFFile class]]) {
-        PFFile *image = [object objectForKey:@"image"];
+    
+    PFFile *image = [object objectForKey:@"image"];
+    if ((image = [object objectForKey:@"image"]) && [image isKindOfClass:[PFFile class]]) {
         [cell.imageView setImageWithURL:[NSURL URLWithString:image.url] placeholderImage:[UIImage imageNamed:@"profile.png"]
                                 success:^(UIImage *image) {}
                                 failure:^(NSError *error) {}];
     }
-
-    
     return cell;
  }
  
