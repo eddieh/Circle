@@ -137,10 +137,23 @@ Circle.AttendeeList = Backbone.Collection.extend({
   url:'https://api.parse.com/1/classes/Rsvp',
 
   parse: function (response) {
-    var users = _.map(response.results, function (item) {
+    var attending = false;
+    var users = _.map(response.results, function (item, key) {
+      if (Circle.me && Circle.me.id == item.user.objectId) {
+        attending = true;
+        Circle.me.set('RsvpId', item.objectId);
+        this.trigger('attending', Circle.me, this, {index: key});
+      }
       return item.user;
-    });
+    }, this);
+    if (!attending) {
+      this.trigger('attending:no', Circle.me);
+    }
     return users;
+  },
+
+  comparator: function (user) {
+    return Circle.me && Circle.me.id == user.id ? 0 : 1;
   }
 });
 
@@ -164,6 +177,7 @@ Circle.AttendeeListItemView = Backbone.View.extend({
 Circle.AttendeeListView = Backbone.View.extend({
   initialize: function () {
     this.model.on('add', this.addOne, this);
+    this.model.on('remove', this.removeOne, this);
 		this.model.on('reset', this.addAll, this);
 		this.model.on('all', this.render, this);
   },
@@ -172,11 +186,20 @@ Circle.AttendeeListView = Backbone.View.extend({
 		return this;
 	},
 
-	addOne: function (item) {
+	addOne: function (item, collection, options) {
     var view = new Circle.AttendeeListItemView({model: item});
     var row = view.render().el;
-    this.$el.append(row);
+    if (Circle.me && Circle.me.id == item.id) {
+      this.$el.prepend(row);
+      view.$el.addClass('active');
+    } else {
+      this.$el.append(row);
+    }
 	},
+
+  removeOne: function (item, collection, options) {
+    $(this.$el.children()[options.index]).fadeOut().remove();
+  },
 
 	addAll: function () {
     $('tbody', this.$el).html('');
@@ -1376,21 +1399,89 @@ Circle.Router = Backbone.Router.extend({
 
       $('#layout.container').html(t('detail-layout')(json));
 
+      if (Circle.me ) {
+        $('#attending').removeClass('hidden');
+        var $yesButton = $('#attending-yes-button'),
+        $noButton = $('#attending-no-button');
 
-      var attendees = new Circle.AttendeeList();
-      var attendeeView = new Circle.AttendeeListView({
-        el: '#attendees tbody',
-        model: attendees
-      });
-      attendees.fetch({
-        data: 'include=user&where=' + JSON.stringify({
-          event: {
-            '__type': 'Pointer',
-            'className': 'Event',
-            'objectId': event.id
+        function attendingYesClick (e) {
+          $this = $(this);
+          $noButton.removeClass('btn-danger');
+          $.ajax('https://api.parse.com/1/classes/Rsvp', {
+            type: 'POST',
+            headers: PARSE_HEADERS,
+            contentType: 'application/json',
+            data: JSON.stringify({
+              event: {
+                '__type': 'Pointer',
+                'className': 'Event',
+                'objectId': event.id
+              },
+              user: {
+                '__type': 'Pointer',
+                'className': '_User',
+                'objectId': Circle.me.id
+              },
+              eventStartDate: {
+                '__type': 'Date',
+                'iso': event.get('startDate').iso
+              }
+            }),
+            success: function (response, status) {
+              Circle.me.set('RsvpId', response.objectId);
+              attendees.add(Circle.me)
+            },
+            error: function (response, status) {
+              $this.removeClass('active');
+            }
+          });
+        }
+        function attendingNoClick (e) {
+          $this = $(this);
+          $yesButton.removeClass('btn-success');
+          $.ajax('https://api.parse.com/1/classes/Rsvp/' +
+                 Circle.me.get('RsvpId'), {
+                   type: 'DELETE',
+                   headers: PARSE_HEADERS,
+                   success: function (response, status) {
+                     Circle.me.unset('RsvpId');
+                     attendees.remove(Circle.me);
+                   },
+                   error: function (response, status) {
+                     $this.removeClass('active');
+                   }
+                 });
+        }
+
+        var attendees = new Circle.AttendeeList();
+        var attendeeView = new Circle.AttendeeListView({
+          el: '#attendees tbody',
+          model: attendees
+        });
+        attendees.on('add attending', function (model, collection, options) {
+          if (Circle.me && Circle.me.id == model.id) {
+            $yesButton.addClass('btn-success active').off('click');
+            $noButton.on('click', attendingNoClick);
           }
-        })
-      });
+        });
+        attendees.on('remove attending:no', function (model,
+                                                      collection,
+                                                      optoins) {
+          if (Circle.me && model.id && Circle.me.id == model.id) {
+            $noButton.addClass('btn-danger active').off('click');
+            $yesButton.on('click', attendingYesClick);
+          }
+        });
+        attendees.fetch({
+          data: 'include=user&where=' + JSON.stringify({
+            event: {
+              '__type': 'Pointer',
+              'className': 'Event',
+              'objectId': event.id
+            }
+          })
+        });
+      }
 
       if (Circle.position) {
         Circle.setMapCenter(Circle.position);
