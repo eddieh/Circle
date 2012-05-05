@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="un5-AI-UmH">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
@@ -138,6 +137,7 @@
                     <connections>
                         <outlet property="attendeesButton" destination="Pya-1Q-gdl" id="HTY-hf-DTd"/>
                         <outlet property="attendingCheckboxButton" destination="e4d-rs-Gmk" id="Ezu-dE-Qzo"/>
+                        <outlet property="attendingLabel" destination="OuT-lt-uoA" id="TSG-MK-5lP"/>
                         <outlet property="calendarDayLabel" destination="y6t-tZ-9Qn" id="7I7-aM-gsb"/>
                         <outlet property="calendarMonthLabel" destination="Uhu-Ra-CBh" id="eDL-8X-ZgX"/>
                         <outlet property="calendarWeekdayLabel" destination="hLX-0h-9jh" id="Fjm-Lo-Kci"/>
@@ -544,6 +544,7 @@
                     <connections>
                         <outlet property="attendeesButton" destination="7rW-iF-xtb" id="jAI-1o-UUI"/>
                         <outlet property="attendingCheckboxButton" destination="3zf-qs-oKv" id="jYg-Fn-4eT"/>
+                        <outlet property="attendingLabel" destination="rwC-cs-jmG" id="Qlf-sX-WGY"/>
                         <outlet property="calendarDayLabel" destination="fDw-qV-6cK" id="eQd-xy-D1l"/>
                         <outlet property="calendarMonthLabel" destination="yiA-33-3TC" id="s5f-ho-TRf"/>
                         <outlet property="calendarWeekdayLabel" destination="1uh-7q-4J6" id="dFN-XL-fTN"/>
@@ -585,9 +586,75 @@
         <image name="profile.png" width="75" height="75"/>
         <image name="tabbar-nearby.png" width="30" height="30"/>
     </resources>
+    <classes>
+        <class className="CircleAttendeesViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleAttendeesViewController.h"/>
+        </class>
+        <class className="CircleEventCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="eventLocationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="monthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="weekdayLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CircleEventDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="attendeesButtonPressed:"/>
+                <relationship kind="action" name="attendingCheckboxPressed:"/>
+                <relationship kind="action" name="mapButtonPressed:"/>
+                <relationship kind="outlet" name="attendeesButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="attendingCheckboxButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="attendingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="calendarDayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="calendarMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="calendarWeekdayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="venueLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CircleNearbyViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleNearbyViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="segmentedButtonChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="signInLogOutButtonPressed:"/>
+                <relationship kind="outlet" name="logOutSignInButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="CircleUserDetailTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleUserDetailTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addFriendButtonClicked:"/>
+                <relationship kind="outlet" name="addFriendButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="profileImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="userEmail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userName" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NearbyEventCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyEventCell.h"/>
+        </class>
+        <class className="PFQueryTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="awh-CS-uKU"/>
+        <segue reference="tRq-vt-EZV"/>
+        <segue reference="A49-rq-uiu"/>
+    </inferredMetricsTieBreakers>
 </document>

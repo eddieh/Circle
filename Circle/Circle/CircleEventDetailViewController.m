@@ -31,6 +31,7 @@
 @synthesize image = _image;
 
 @synthesize attendeesButton;
+@synthesize attendingLabel;
 @synthesize attendingCheckboxButton;
 
 #pragma mark - View lifecycle
@@ -59,12 +60,19 @@
         [self.attendingCheckboxButton setImage: buttonCheckedBackground forState:UIControlStateSelected];
 
         //set attending button state
-        PFQuery *query = [PFQuery queryWithClassName:@"Rsvp"];
-        [query whereKey:@"event" equalTo: self.event];
-        [query whereKey:@"user" equalTo:[PFUser currentUser]];
-        if ([query getFirstObject] != NULL)
-        {
-            [self.attendingCheckboxButton setSelected:YES];
+        if ([PFUser currentUser]) {
+            PFQuery *query = [PFQuery queryWithClassName:@"Rsvp"];
+            [query whereKey:@"event" equalTo: self.event];
+            [query whereKey:@"user" equalTo:[PFUser currentUser]];
+            
+            if ([query getFirstObject] != NULL)
+            {
+                [self.attendingCheckboxButton setSelected:YES];
+            }
+        } else {
+            self.attendingLabel.text = @"";
+            self.attendeesButton.hidden = YES;
+            self.attendingCheckboxButton.hidden = YES;
         }
         
         //set up the calendar
@@ -121,6 +129,7 @@
     [self setMapButton:nil];
     [self setAttendeesButton:nil];
     [self setAttendingCheckboxButton:nil];
+    [self setAttendingLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
