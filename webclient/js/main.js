@@ -1291,12 +1291,18 @@ Circle.Router = Backbone.Router.extend({
 
     $('#layout.container').html(t('events-layout')());
 
-    $('#search-button').on('click', function (e) {
+    var performSearch = function (e) {
       var query = $('#search-field').val();
       Circle.app.navigate('events/' + query, {
         trigger: true
       });
+    };
+
+    $('#search-button').on('click', performSearch);
+    $('#search-field').on('keyup', function(e) {
+      if (e.which == 13) performSearch();
     });
+
 
     // put the query into the search field
     $('#search-field').val(query ? query : '');
