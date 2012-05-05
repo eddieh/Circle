@@ -1154,8 +1154,7 @@ Circle.setupLoginAndSignup = function () {
         var $that = $(this);
         $that.popover('show');
 
-        // bind the login button
-        $('#login-button').on('click', function () {
+        var performLogin = function () {
           var $this = $(this).button('loading');
           $.ajax('https://api.parse.com/1/login', {
             type: 'GET',
@@ -1173,7 +1172,13 @@ Circle.setupLoginAndSignup = function () {
             error: function (response, status) {
               $this.button('incorrect');
             }
-          });
+          }
+        };
+
+        // bind the login button
+        $('#login-button').on('click', performLogin);
+        $('#login-username, #login-password').on('keyup', function(e) {
+          if (e.which == 13) performLogin;
         });
 
         // bind a close event to the popover close &times;
@@ -1212,12 +1217,19 @@ Circle.Router = Backbone.Router.extend({
       Circle.getEventsNearPosition();
     });
 
-    $('#search-button').on('click', function (e) {
+    var doSearch = function (e) {
       var query = $('#search-field').val();
       Circle.app.navigate('events/' + query, {
         trigger: true
       });
+    }
+
+    $('#search-field').on('keyup', function (e) {
+      if (e.which == 13) {
+        doSearch(e);
+      }
     });
+    $('#search-button').on('click', doSearch);
 
     if (!Circle.events) {
       // create the collections of models
