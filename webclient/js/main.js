@@ -962,7 +962,8 @@ Circle.setMapPinsWithData = function (data, isDetailView) {
   var bounds = new google.maps.LatLngBounds();
 
   // ensure we start with no markers
-  Circle.markers && delete Circle.markers;
+  Circle.markers && delete Circle.markers
+  $('.marker').remove();
   Circle.markers = {};
 
   /*
@@ -1172,8 +1173,8 @@ Circle.setupLoginAndSignup = function () {
             error: function (response, status) {
               $this.button('incorrect');
             }
-          }
-        };
+          });
+        }
 
         // bind the login button
         $('#login-button').on('click', performLogin);
