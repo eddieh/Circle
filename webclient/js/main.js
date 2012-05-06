@@ -123,10 +123,16 @@ Circle.restoreSession = function () {
         $('#account').html(t('logged-in')(Circle.me.toJSON()));
       },
       error: function (response, status) {
+        Circle.me = null;
+        monster.remove('ParseSessionToken');
+        monster.remove('ParseUserId');
         notLoggedIn();
       }
     });
   } else {
+    Circle.me = null;
+    monster.remove('ParseSessionToken');
+    monster.remove('ParseUserId');
     notLoggedIn();
   }
 }
@@ -1415,7 +1421,7 @@ Circle.Router = Backbone.Router.extend({
 
       $('#layout.container').html(t('detail-layout')(json));
 
-      if (Circle.me ) {
+      if (Circle.me) {
         $('#attending').removeClass('hidden');
         var $yesButton = $('#attending-yes-button'),
         $noButton = $('#attending-no-button');
