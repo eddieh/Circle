@@ -329,6 +329,9 @@
       #attending-response .btn.active {
       cursor: default;
       }
+      #main-search.hero-unit {
+      padding-right: 0;
+      }
     </style>
     <link rel="stylesheet" href="css/kalendae.css">
     <link rel="stylesheet" href="css/timePicker.css">
@@ -800,7 +803,7 @@
 
   <script id="login-template" type="text/x-handlebars-template">
     <div id="login-form">
-      <label>Username: <input id="login-username" type="text" name="username" /></label>
+      <label>Email: <input id="login-username" type="text" name="username" /></label>
       <label>Password: <input id="login-password" type="password" name="password"/></label>
       <button id="login-button"
               class="btn btn-primary"
@@ -838,9 +841,9 @@
         <legend></legend>
 
         <div class="control-group">
-          <label class="control-label" for="username">Username</label>
+          <label class="control-label" for="name">Name</label>
           <div class="controls">
-            <input type="text" class="input-xlarge" id="username">
+            <input type="text" class="input-xlarge" id="name">
             <span class="help-inline"></span>
           </div>
         </div>
