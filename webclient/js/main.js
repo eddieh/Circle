@@ -123,10 +123,16 @@ Circle.restoreSession = function () {
         $('#account').html(t('logged-in')(Circle.me.toJSON()));
       },
       error: function (response, status) {
+        Circle.me = null;
+        monster.remove('ParseSessionToken');
+        monster.remove('ParseUserId');
         notLoggedIn();
       }
     });
   } else {
+    Circle.me = null;
+    monster.remove('ParseSessionToken');
+    monster.remove('ParseUserId');
     notLoggedIn();
   }
 }
@@ -292,7 +298,8 @@ Circle.SignUpView = Backbone.View.extend({
 
   save: function (e) {
     var attrs = {
-      username: $('#username').val(),
+      name: $('#name').val(),
+      username: $('#email').val(),
       email: $('#email').val(),
       password: $('#password').val(),
     };
@@ -304,8 +311,6 @@ Circle.SignUpView = Backbone.View.extend({
     var self = this;
     this.model.save(attrs, {
       error: function (model, response) {
-        console.log('User:save:error');
-        console.dir(arguments);
         _.each(response, function (error, key) {
           var $el = $('#' + key),
               help = null;
@@ -330,7 +335,6 @@ Circle.SignUpView = Backbone.View.extend({
     // ensure that we delete confirmPassword regardless of success
     // or fail
     delete this.model.confirmPassword;
-
   },
 
   render: function () {
@@ -687,17 +691,62 @@ Circle.CreateEventView = Backbone.View.extend({
     $('.auto-time', clickedElement.parentElement).focus();
   },
 
+  fixEndDate: function (startDate) {
+    // get the base end date from the current start date or now if we
+    // can't construct a valid date from the values in startDate and
+    // startTime
+    var endDate = null;
+    try {
+      endDate = moment((startDate ?
+             startDate :
+             $('#startDate').val()) +
+             ' ' +
+             $('#startTime').val(),
+             'MM/DD/YYYY h:mm a');
+    } catch (e) {
+      endDate = moment();
+    }
+
+    // the end date is seeded with the start date
+    $('#endDate').val(endDate.format('MM/DD/YYYY'));
+
+    // fix the minutes so that the time is of the form 6:00 pm or 6:30
+    // pm only.
+    var minutesToNextHour = 60 - endDate.minutes();
+    if (minutesToNextHour < 30) {
+      endDate.minutes(0);
+      endDate.add('hours', 1);
+    } else {
+      endDate.minutes(30);
+    }
+
+    // end date is always seeded to be 4 hours after the start date
+    endDate.add('hours', 4);
+
+    $('#endTime').val(endDate.format('h:mm a'));
+  },
+
   addEndTime: function (e) {
     $('#add-end-time').hide();
     $('#end-time-group').show();
+
+    this.fixEndDate();
   },
 
   removeEndTime: function (e) {
     $('#add-end-time').show();
     $('#end-time-group').hide();
+
+    $('#endDate').val('');
+    $('#endTime').val('');
   },
 
-  startDateChanged: function () {
+  startDateChanged: function (startDate) {
+    // if the start date is now past the end date, set the end date to
+    // the start date
+    if (moment($('#endDate').val()).diff(moment(startDate)) < 0) {
+      this.fixEndDate(startDate);
+    }
   },
 
   startTimeChanged: function () {
@@ -1415,7 +1464,7 @@ Circle.Router = Backbone.Router.extend({
 
       $('#layout.container').html(t('detail-layout')(json));
 
-      if (Circle.me ) {
+      if (Circle.me) {
         $('#attending').removeClass('hidden');
         var $yesButton = $('#attending-yes-button'),
         $noButton = $('#attending-no-button');
@@ -1552,22 +1601,51 @@ Circle.Router = Backbone.Router.extend({
     var ksd = new Kalendae.Input('startDate', {
       subscribe: {
         'change': function () {
-          createEventView.startDateChanged();
+          createEventView.startDateChanged(this.getSelected());
         }
-      }
+      },
+      direction: 'today-future'
     });
-    $('#startTime').timePicker({
+    var kst = $('#startTime').timePicker({
       show24Hours: false,
       step: 30
     }).change(function () {
       createEventView.startTimeChanged();
     });
 
+    // set the start date to a reasonable default
+    var now = moment();
+    $('#startDate').val(now.format('MM/DD/YYYY'));
+
+    // fix the minutes so that the time is of the form 6:00 pm or 6:30
+    // pm only.
+    var minutesToNextHour = 60 - now.minutes();
+    if (minutesToNextHour < 30) {
+      now.minutes(0);
+      now.add('hours', 1);
+    } else {
+      now.minutes(30);
+    }
+    kst.val(now.format('h:mm a'));
+
     var ked = new Kalendae.Input('endDate', {
       subscribe: {
         'change': function () {
           createEventView.endDateChanged();
         }
+      },
+      direction: 'today-future',
+      blackout: function (date) {
+        var startDate = null;
+        try {
+          startDate = moment($('#startDate').val() +
+                           ' ' +
+                           $('#startTime').val(),
+                           'MM/DD/YYYY h:mm a');
+        } catch (e) {
+          startDate = moment();
+        }
+        return (date.diff(startDate) < 0);
       }
     });
     $('#endTime').timePicker({
