@@ -298,7 +298,8 @@ Circle.SignUpView = Backbone.View.extend({
 
   save: function (e) {
     var attrs = {
-      username: $('#username').val(),
+      name: $('#name').val(),
+      username: $('#email').val(),
       email: $('#email').val(),
       password: $('#password').val(),
     };
@@ -310,8 +311,6 @@ Circle.SignUpView = Backbone.View.extend({
     var self = this;
     this.model.save(attrs, {
       error: function (model, response) {
-        console.log('User:save:error');
-        console.dir(arguments);
         _.each(response, function (error, key) {
           var $el = $('#' + key),
               help = null;
@@ -336,7 +335,6 @@ Circle.SignUpView = Backbone.View.extend({
     // ensure that we delete confirmPassword regardless of success
     // or fail
     delete this.model.confirmPassword;
-
   },
 
   render: function () {
