@@ -694,11 +694,45 @@ Circle.CreateEventView = Backbone.View.extend({
   addEndTime: function (e) {
     $('#add-end-time').hide();
     $('#end-time-group').show();
+
+    // get the base end date from the current start date or now if we
+    // can't construct a valid date from the values in startDate and
+    // startTime
+    var endDate = null;
+    try {
+      endDate = moment($('#startDate').val() +
+             ' ' +
+             $('#startTime').val(),
+             'MM/DD/YYYY h:mm a');
+    } catch (e) {
+      endDate = moment();
+    }
+
+    // the end date is seeded with the start date
+    $('#endDate').val(endDate.format('MM/DD/YYYY'));
+
+    // fix the minutes so that the time is of the form 6:00 pm or 6:30
+    // pm only.
+    var minutesToNextHour = 60 - endDate.minutes();
+    if (minutesToNextHour < 30) {
+      endDate.minutes(0);
+      endDate.add('hours', 1);
+    } else {
+      endDate.minutes(30);
+    }
+
+    // end date is always seeded to be 4 hours after the start date
+    endDate.add('hours', 4);
+
+    $('#endTime').val(endDate.format('h:mm a'));
   },
 
   removeEndTime: function (e) {
     $('#add-end-time').show();
     $('#end-time-group').hide();
+
+    $('#endDate').val('');
+    $('#endTime').val('');
   },
 
   startDateChanged: function () {
@@ -1560,12 +1594,27 @@ Circle.Router = Backbone.Router.extend({
         }
       }
     });
-    $('#startTime').timePicker({
+    var kst = $('#startTime').timePicker({
       show24Hours: false,
       step: 30
     }).change(function () {
       createEventView.startTimeChanged();
     });
+
+    // set the start date to a reasonable default
+    var now = moment();
+    $('#startDate').val(now.format('MM/DD/YYYY'));
+
+    // fix the minutes so that the time is of the form 6:00 pm or 6:30
+    // pm only.
+    var minutesToNextHour = 60 - now.minutes();
+    if (minutesToNextHour < 30) {
+      now.minutes(0);
+      now.add('hours', 1);
+    } else {
+      now.minutes(30);
+    }
+    kst.val(now.format('h:mm a'));
 
     var ked = new Kalendae.Input('endDate', {
       subscribe: {
