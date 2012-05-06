@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Circle :: Find awesome events near you</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/fileuploader.css">
+
+    <style>
+      body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+      }
+      #map_canvas {
+      height: 300px;
+      }
+      .map-wrapper {
+        width: 470px;
+        position:fixed;
+        top: 60px;
+        right: 30px;
+       }
+      .navbar a.brand {
+      font-size: 24px;
+      }
+      .controls .thumbnail {
+      width: 160px;
+      }
+      .input-tall {
+      height: 28px;
+      }
+      #category {
+      width: 150px;
+      text-align: left;
+      }
+      .carousel {
+        height: 327px;
+        background-image: url(img/loading.gif);
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+        .carousel-inner a {
+          color: inherit;
+        }
+        .carousel-inner a:hover {
+          text-decoration: none;
+        }
+        .carousel-inner {
+          color: #fff;
+        }
+        .carousel-inner h5 {
+          font-style: oblique;
+          font-weight: normal;
+          color: #999;
+          font-size: 0.9em;
+          padding-bottom: 5px;
+        }
+
+      .item {
+        width: 370px;
+        height: 327px;
+        background-repeat: no-repeat;
+        background-position: top center;
+        background-size: cover;
+      }
+      #create-event {
+      text-align: center;
+      }
+      #create-event a {
+      margin-left: auto;
+      margin-right: auto;
+      }
+
+      .event .info {
+      width: 60%;
+      }
+      .event .info a {
+      min-height: 65px;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-decoration: none;
+      color: #666;
+      }
+      .event .info a .name,
+      .event .location .name {
+        display: block;
+      font-weight: bold;
+      font-size: 1.2em;
+      }
+      .img-box {
+      display: block;
+      float: left;
+      width: 64px;
+      height: 64px;
+      margin-right: 12px;
+      }
+
+      img.max-height-75 {
+        max-height: 75px;
+      }
+
+      .frame {
+      display: block;
+      border: none;
+      }
+
+      .calendar {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      -webkit-border-radius: 10px;
+      -webkit-border-bottom-right-radius: 4px;
+      -webkit-border-bottom-left-radius: 4px;
+      -moz-border-radius: 10px;
+      -moz-border-radius-bottomright: 4px;
+      -moz-border-radius-bottomleft: 4px;
+      border-radius: 10px;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+      border: 1px solid #666;
+      }
+
+      .calendar .month {
+      color: white;
+      text-shadow: 0 -2px 0 rgba(0, 0, 0, 0.25);
+      border-bottom: 1px solid #666;
+      -webkit-border-radius: 10px;
+      -webkit-border-bottom-right-radius: 0;
+      -webkit-border-bottom-left-radius: 0;
+      -moz-border-radius: 10px;
+      -moz-border-radius-bottomright: 0;
+      -moz-border-radius-bottomleft: 0;
+      border-radius: 10px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      background-color: #DD514C;
+      background-image: -moz-linear-gradient(top, #EE5F5B, #C43C35);
+      background-image: -ms-linear-gradient(top, #EE5F5B, #C43C35);
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#EE5F5B), to(#C43C35));
+      background-image: -webkit-linear-gradient(top, #EE5F5B, #C43C35);
+      background-image: -o-linear-gradient(top, #EE5F5B, #C43C35);
+      background-image: linear-gradient(top, #EE5F5B, #C43C35);
+      background-repeat: repeat-x;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EE5F5B', endColorstr='#C43C35', GradientType=0);
+      }
+      .calendar .day {
+      color: #797979;
+      font-family: HelveticaNeue-Light,
+      'Helvetica Neue Light', Helvetica, Arial, sans-serif;
+      background-color: white;
+      -webkit-border-bottom-right-radius: 4px;
+      -webkit-border-bottom-left-radius: 4px;
+      -moz-border-radius-bottomright: 4px;
+      -moz-border-radius-bottomleft: 4px;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+      }
+
+      .time {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 8px;
+      text-align: center;
+      }
+
+      .frame.large {
+      padding: 20px;
+      }
+      .frame.large .calendar {
+      width: 130px;
+      }
+      .frame.large .calendar .month {
+      line-height: 1.5;
+      font-size: 24px;
+      }
+      .frame.large .calendar .weekday {
+      margin-top: 3px;
+      font-size: 20px;
+      letter-spacing: 0pc;
+      }
+      .marker {
+        float:left;
+        padding: 10px;
+      }
+      .frame.large .calendar .day {
+      line-height: 1;
+      font-size: 80px;
+      letter-spacing: -0.25pc;
+      }
+
+      .frame.medium {
+      padding: 10px;
+      }
+      .frame.medium .calendar {
+      width: 100px;
+      }
+      .frame.medium .calendar .month {
+      line-height: 1.5;
+      font-size: 18px;
+      }
+      .frame.medium .calendar .weekday {
+      margin-top: 2px;
+      font-size: 14px;
+      letter-spacing: 0pc;
+      }
+      .frame.medium .calendar .day {
+      line-height: 1;
+      font-size: 64px;
+      letter-spacing: -0.25pc;
+      }
+
+      .frame.small {
+      padding: 5px;
+      }
+      .frame.small .calendar {
+      width: 70px;
+      -webkit-border-radius: 6px;
+      -webkit-border-bottom-right-radius: 4px;
+      -webkit-border-bottom-left-radius: 4px;
+      -moz-border-radius: 6px;
+      -moz-border-radius-bottomright: 4px;
+      -moz-border-radius-bottomleft: 4px;
+      border-radius: 6px;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+      }
+      .frame.small .calendar .month {
+      line-height: 1.5;
+      font-size: 14px;
+      -webkit-border-radius: 6px;
+      -webkit-border-bottom-right-radius: 0;
+      -webkit-border-bottom-left-radius: 0;
+      -moz-border-radius: 6px;
+      -moz-border-radius-bottomright: 0;
+      -moz-border-radius-bottomleft: 0;
+      border-radius: 6px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      }
+      .frame.small .calendar .weekday {
+      margin-top: 2px;
+      font-size: 10px;
+      letter-spacing: 0pc;
+      }
+      .frame.small .calendar .day {
+      line-height: 1;
+      font-size: 32px;
+      letter-spacing: -0.1pc;
+      }
+
+      .space {
+      margin-left: 20px;
+      }
+
+      #detail-heading {
+      border-bottom: 1px solid #EEE;
+      margin-bottom: 12px;
+      }
+
+      a.city-picker {
+      cursor: pointer;
+      }
+
+      .control-group.error .btn-group .btn {
+      color: #B94A48;
+      border-color: #B94A48;
+      }
+
+      .infowindow {
+        width: 300px;
+      }
+        .infowindow .frame.small {
+          display: inline-block;
+          float: left;
+          padding: 5px 5px 5px 0px;
+        }
+
+      .small-calendar {
+        display: inline;
+        float:left;
+        margin-right: 10px;
+      }
+        .small-calendar .frame.small .calendar {
+          width: 40px;
+          -webkit-border-radius: 3px;
+          -webkit-border-bottom-right-radius: 2px;
+          -webkit-border-bottom-left-radius: 2px;
+          -moz-border-radius: 3px;
+          -moz-border-radius-bottomright: 2px;
+          -moz-border-radius-bottomleft: 2px;
+          border-radius: 3px;
+          border-bottom-right-radius: 2px;
+          border-bottom-left-radius: 2px;
+        }
+        .small-calendar .frame.small .calendar .month {
+          line-height: 1.5;
+          font-size: 11px;
+          -webkit-border-radius: 3px;
+          -webkit-border-bottom-right-radius: 0;
+          -webkit-border-bottom-left-radius: 0;
+          -moz-border-radius: 3px;
+          -moz-border-radius-bottomright: 0;
+          -moz-border-radius-bottomleft: 0;
+          border-radius: 3px;
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+          }
+          .small-calendar .frame.small .calendar .weekday {
+          margin-top: 2px;
+          font-size: 10px;
+          letter-spacing: 0pc;
+          }
+          .small-calendar .frame.small .calendar .day {
+          line-height: 1;
+          font-size: 18px;
+          letter-spacing: -0.1pc;
+          }
+          .small-calendar .frame.small .time {
+            font-size: 10px;
+          }
+      .table-striped tbody tr.attendee.active:nth-child(odd) td,
+      .table tbody tr.attendee.active:hover td {
+      background-color: #d9edf7;
+      }
+      #attending-response .btn.active {
+      cursor: default;
+      }
+    </style>
+    <link rel="stylesheet" href="css/kalendae.css">
+    <link rel="stylesheet" href="css/timePicker.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+
+</head>
+
+<body>
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="#">Circle</a>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li id="home-nav"><a href="#">Home</a></li>
+            <li id="events-nav"><a href="#events">Events</a></li>
+            <!-- <li><a href="#friends">Friends</a></li> -->
+            <!-- <li><a href="#inbox">Inbox</a></li> -->
+          </ul>
+          <ul id="account" class="nav pull-right">
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+
+  <div id="main" class="container">
+
+    <div id="layout" class="container">
+    </div>
+    <hr>
+    <footer>
+      <p>&copy; 2012 Team Think Different</p>
+    </footer>
+  </div> <!-- /container -->
+
+  <div class="modal fade" id="create-event-modal">
+  </div>
+
+  <div class="modal fade" id="sign-up-modal">
+  </div>
+  <!-- Templates -->
+
+  <script id="home-layout-template" type="text/x-handlebars-template">
+    <div class="row">
+      <div class="span8">
+        <div id="main-search" class="hero-unit">
+          <h1>Find an Event</h1>
+          <p>What would you like to be doing tonight?</p>
+
+          <input id="search-field"
+                 class="input-xlarge input-tall"
+                 type="text" /> near <a class="city-picker">Flagstaff, AZ</a>
+
+          <p><a id="search-button"
+                class="btn btn-primary btn-large">
+              Search &raquo;
+          </a></p>
+        </div>
+      </div>
+
+      <div class="span4">
+        <div id="myCarousel" class="carousel">
+          <div id="slides" class="carousel-inner">
+          <!--slides go here-->
+          </div>
+
+          <a class="left carousel-control"
+             href="#myCarousel"
+             data-slide="prev">&lsaquo;</a>
+          <a class="right carousel-control"
+             href="#myCarousel"
+             data-slide="next">&rsaquo;</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div id="map_canvas" class="span8">`
+      </div>
+
+      <div class="span4">
+        <h2>Create your own event</h2>
+        <p>You can create and share your own events on Circle. So
+        whether you're hosing a party at your home, or promoting the
+        biggest rock band in the world, you can add your event right
+        here right now.</p>
+        <p id="create-event"><a class="btn btn-large btn-success"
+              href="#create-event-modal">
+            Create Event &raquo;
+        </a></p>
+      </div>
+    </div>
+  </script>
+
+  <script id="event-list-item-view-template" type="text/x-handlebars-template">
+    <td id="{{objectId}}" class="info">
+      <a href="#detail/{{objectId}}">
+        <div class="img-box">
+          {{#if image}}
+          <img class="attach"
+               height="64"
+               width="64"
+               src="{{image.url}}" />
+          {{else}}
+          <img class="attach"
+               height="64"
+               width="64"
+               src="img/category/concert.jpg" />
+          {{/if}}
+        </div>
+        <span class="name">{{name}}</span>
+      </a>
+    </td>
+    <td class="location">
+      <div class="small-calendar">
+          {{dateAsCalendarWithTime startDate}}
+        </div>
+      <div>
+        <span class="name">{{venueName}}</span>
+      </div>
+      <span class="address">{{address}}</span>
+    </td>
+  </script>
+
+  <script id="create-event-view-template" type="text/x-handlebars-template">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">&times;</a>
+      <h3>Create Event</h3>
+    </div>
+
+    <div class="form-horizontal">
+      <fieldset>
+
+        <legend></legend>
+
+        <div class="control-group">
+          <label class="control-label" for="name">Name</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="name">
+            <span class="help-inline"></span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="details">Details</label>
+          <div class="controls">
+            <textarea class="input-xlarge" id="details" rows="5"></textarea>
+            <p class="help-inline"></p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="category">Category</label>
+          <div class="controls">
+            <div class="btn-group">
+              <button id="category" class="btn" data-toggle="dropdown">
+                Choose a category...
+              </button>
+              <button class="btn dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+              </button>
+              <ul id="category-list" class="dropdown-menu">
+              </ul>
+              <p class="help-inline" style="margin-top: 5px;">required</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="where">Where</label>
+          <div class="controls">
+            <input type="text"
+                   class="input-xlarge venue-typeahead"
+                   id="where">
+            <p class="help-inline"></p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="startDate">Starts</label>
+          <div class="controls">
+
+            <div class="input-append my-date-picker">
+              <input type="text"
+                     class="auto-kal input-small"
+                     id="startDate"><span class="add-on">
+                <i class="icon-calendar"></i></span>
+            </div>
+
+            <div class="input-append my-time-picker">
+              <input type="text"
+                     class="auto-time input-small"
+                     id="startTime"><span class="add-on">
+                <i class="icon-time"></i></span>
+            </div>
+            <p class="help-inline"></p>
+
+            <p class="help-block">
+              <a id="add-end-time" href="#">End time?</a>
+            </p>
+          </div>
+        </div>
+
+        <div id="end-time-group" class="control-group" style="display: none">
+          <label class="control-label" for="endDate">Ends</label>
+          <div class="controls">
+
+            <div class="input-append my-date-picker">
+              <input type="text"
+                     class="auto-kal input-small"
+                     id="endDate"><span class="add-on">
+                <i class="icon-calendar"></i></span>
+            </div>
+
+            <div class="input-append my-time-picker">
+              <input type="text"
+                     class="auto-time input-small"
+                     id="endTime"><span class="add-on">
+                <i class="icon-time"></i></span>
+              <a id="remove-end-time" href="#">
+                <i class="icon-remove"></i>
+              </a>
+            </div>
+
+            <p class="help-block">
+            </p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label id="upload-label" class="control-label" for="file">Upload an image?</label>
+          <div class="controls">
+
+            <div id="file-uploader">
+              <noscript>
+                <p>Please enable JavaScript to use file uploader.</p>
+                <!-- or put a simple form for upload here -->
+              </noscript>
+            </div>
+            <div id="uploaded-image" style="display:none;"><img class="max-height-75" /></div>
+            <p class="help-block">
+            </p>
+          </div>
+        </div>
+
+      </fieldset>
+    </div>
+
+    <div class="modal-footer">
+      <a href="#" id="close" class="btn">Close</a>
+      <a href="#" id="save" class="btn btn-primary">Save changes</a>
+    </div>
+  </script>
+
+  <script id="category-list-item-view-template"
+          type="text/x-handlebars-template">
+    <a>{{name}}</a>
+  </script>
+
+  <script id="events-layout-template" type="text/x-handlebars-template">
+    <div class="row">
+    <div class="span7">
+      <div id="in-search">
+        <div class="well form-search">
+          <input id="search-field"
+                 type="text"
+                 class="input-xlarge search-query">
+          <button id="search-button"
+                  type="submit"
+                  class="btn">Search</button>
+        </div>
+
+        <table id="event-list" class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th>
+                Sort by:
+                <select id="event-sort">
+                  <option value="soonest">Happening soon</option>
+                  <option value="nearest">Closest to me</option>
+                </select>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="map-area" class="span5">
+      <div class="map-wrapper">
+        <div id="map_canvas" class="event-list-map"></div>
+      </div>
+    </div>
+    </div>
+  </script>
+
+  <script id="event-slideshow-slide-view-template" type="text/x-handlebars-template">
+    {{#each this}}
+
+      {{#if image}}
+      <a href="#detail/{{objectId}}" class="item{{active}}" style="background-image: url({{image.url}});">
+
+      {{else}}
+        <a href="#detail/{{objectId}}" class="item{{active}}" style="background-image: url(img/nutcracker.jpg);">
+      {{/if}}
+
+        <div class="carousel-caption">
+        <h3>{{name}}</h3>
+
+          {{#if venueName}}
+            <h5>at {{venueName}}</h5>
+          {{/if}}
+        </div>
+      </a>
+    {{/each}}
+   </script>
+
+  <script id="detail-layout-template" type="text/x-handlebars-template">
+    <div class="row">
+      <div class="span12">
+      <h1 id="detail-heading">{{name}}</h1>
+      </div>
+
+      <div class="span8">
+
+
+        <div class="row">
+
+          <div class="span8">
+
+            <div class="space well pull-right">
+              <div class="row">
+                {{dateAsCalendarWithTime startDate}}
+              </div>
+              <div class="row">
+                <div class="span3">
+                <h2>{{venueName}}</h2>
+                <p>{{address}}</p>
+                <a id="get-directions-button"
+                   class="btn"
+                   href="{{directionsLink address}}">
+                  <i class="icon-road"></i>
+                  Get directions
+                </a>
+                </div>
+              </div>
+            </div>
+
+            <p id="details"></p>
+
+          </div>
+
+        </div>
+
+        <hr />
+        <div class="row">
+          <div class="span8">
+            <div id="map_canvas">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="span4">
+        <div class="thumbnail">
+          {{#if image}}
+          <img src="{{image.url}}" class="" alt="" />
+          {{else}}
+          <img src="http://placehold.it/290x280" alt="">
+          {{/if}}
+            <div id="attending" class="caption hidden">
+              <h5>Are you attending?</h5>
+              <p>
+                <div id="attending-response"
+                     class="btn-group"
+                     data-toggle="buttons-radio">
+                  <button id="attending-yes-button"
+                          class="btn">Yes</button>
+                  <button id="attending-no-button"
+                          class="btn">No</button>
+                </div>
+              </p>
+              <table id="attendees" class="table table-striped">
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script id="attendee-list-item-view-template"
+          type="text/x-handlebars-template">
+    <td>
+      {{#if image}}
+      <img src="{{image.url}}" class="" alt="" width="24" height="24" />
+      {{else}}
+      <img src="http://placehold.it/24x24" alt="">
+      {{/if}}
+    </td>
+    <td>{{username}}</td>
+  </script>
+
+  <script id="calendar-day-template" type="text/x-handlebars-template">
+    <div class="frame small">
+      <div class="calendar">
+        <div class="month">
+          {{weekday}}
+        </div>
+        <div class="day">
+          <div class="weekday">{{month}}</div>
+          {{day}}
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script id="calendar-day-time-template" type="text/x-handlebars-template">
+    <div class="frame small">
+      <div class="calendar">
+        <div class="month">
+          {{weekday}}
+        </div>
+        <div class="day">
+          <div class="weekday">{{month}}</div>
+          {{day}}
+        </div>
+      </div>
+      <div class="time">
+        {{time}}
+      </div>
+    </div>
+  </script>
+
+  <script id="infowindow-template" type="text/x-handlebars-template">
+    <div class="infowindow">
+      <h3>{{name}}</h3>
+      <div class="small-calendar">
+        {{dateAsCalendarWithTime startDate}}
+      </div>
+      <h4>at {{venueName}}</h4>
+      <p>{{detailsSnippet}}</p>
+      <a href="#detail/{{objectId}}">Find out more!</a>
+    </div>
+  </script>
+
+  <script id="infowindow-detail-template" type="text/x-handlebars-template">
+    <div class="infowindow">
+      <h3>{{name}}</h3>
+      <div class="small-calendar">
+        {{dateAsCalendarWithTime startDate}}
+      </div>
+      <h4>at {{venueName}}</h4>
+      <p>{{detailsSnippet}}</p>
+    </div>
+  </script>
+
+  <script id="login-template" type="text/x-handlebars-template">
+    <div id="login-form">
+      <label>Username: <input id="login-username" type="text" name="username" /></label>
+      <label>Password: <input id="login-password" type="password" name="password"/></label>
+      <button id="login-button"
+              class="btn btn-primary"
+              data-loading-text="Loggin you in..."
+              data-incorrect-text="Incorrect. Try again!">Log in!</button>
+    </div>
+  </script>
+
+  <script id="not-logged-in-template" type="text/x-handlebars-template">
+    <li id="login-nav"><a href="#login" id="login">Log In</a></li>
+    <li id="signup-nav">
+      <a href="#sign-up-modal" id="sign-up">Sign Up</a>
+    </li>
+  </script>
+
+  <script id="logged-in-template" type="text/x-handlebars-template">
+    <li id="user-nav">
+      <p class="navbar-text">Hello, <a href="#account">{{username}}</a>.</p>
+    </li>
+    <li class="divider-vertical"></li>
+    <li id="logout-nav">
+      <a id="logout" href="#logout">Logout</a>
+    </li>
+  </script>
+
+  <script id="sign-up-template" type="text/x-handlebars-template">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">&times;</a>
+      <h3>Sign Up</h3>
+    </div>
+
+    <div class="form-horizontal">
+      <fieldset>
+
+        <legend></legend>
+
+        <div class="control-group">
+          <label class="control-label" for="username">Username</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="username">
+            <span class="help-inline"></span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="email">Email</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="email">
+            <span class="help-inline"></span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="password">Password</label>
+          <div class="controls">
+            <input type="password" class="input-xlarge" id="password">
+            <span class="help-inline"></span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="confirmPassword">Confirm Password</label>
+          <div class="controls">
+            <input type="password" class="input-xlarge" id="confirmPassword">
+            <span class="help-inline"></span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label id="upload-label" class="control-label" for="file">Profile picture</label>
+          <div class="controls">
+
+            <div id="file-uploader">
+              <noscript>
+                <p>Please enable JavaScript to use file uploader.</p>
+                <!-- or put a simple form for upload here -->
+              </noscript>
+            </div>
+            <div id="uploaded-image" style="display:none;"><img class="max-height-75" /></div>
+            <p class="help-block">
+            </p>
+          </div>
+        </div>
+
+      </fieldset>
+    </div>
+
+    <div class="modal-footer">
+      <a href="#" id="signup-close" class="btn">Cancel</a>
+      <a href="#" id="signup-save" class="btn btn-primary">Sign up</a>
+    </div>
+  </script>
+
+  <script src="js/jquery-1.7.1.min.js"></script>
+  <script src="js/underscore-min.js"></script>
+  <script src="js/actuallyEncodeURI.js"></script>
+  <script src="js/randomcolor.js"></script>
+  <script src="js/autocomplete.js"></script>
+  <script src="js/jquery.venueTypeahead.js"></script>
+  <script src="js/backbone-min.js"></script>
+  <script src="js/handlebars-1.0.0.beta.6.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-tooltip.js"></script>
+  <script src="js/bootstrap-popover.js"></script>
+  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4&sensor=false"></script>
+  <script src="js/bootstrap-ajax-typeahead.js"></script>
+  <script src="js/bootstrap-carousel.js"></script>
+  <script src="js/kalendae.js"></script>
+  <script src="js/jquery.timePicker.min.js"></script>
+  <script src="js/cityPicker.js"></script>
+  <script src="js/fileuploader.js"></script>
+  <script src="js/wikicreole.js"></script>
+  <script src="js/monster.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
