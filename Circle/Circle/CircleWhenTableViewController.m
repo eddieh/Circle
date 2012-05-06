@@ -61,11 +61,12 @@
 
     // select the starts cell so it is highlighted
     [self.startsCell becomeFirstResponder];
+    [self.startsCell setAccessoryType:UITableViewCellAccessoryCheckmark];
     self.selectedCell = self.startsCell;
     
     
-    // sets DatePicker to use 15 min intervals
-    self.datePicker.minuteInterval = 15;
+    // sets DatePicker to use 30 min intervals
+    self.datePicker.minuteInterval = 30;
     // sets minimum date to the current date
     NSDate *currentDate = [NSDate date];
     self.datePicker.minimumDate = currentDate;
@@ -125,6 +126,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.row == 0) {
+        [self.startsCell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        [self.endsCell setAccessoryType:UITableViewCellAccessoryNone];
         self.datePicker.date = self.startDate;
         //start date cannot be before end date
         //error avoidance, when end date is not set it gets set as current date
@@ -138,13 +141,22 @@
     }
     else if (indexPath.row == 1)
     {
+        [self.endsCell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        [self.startsCell setAccessoryType:UITableViewCellAccessoryNone];
+        
         if (self.endDate)
         {
             self.datePicker.date = self.endDate;
+        } else {
+            self.endDate = [self.startDate dateByAddingTimeInterval:4*60*60];
+            self.datePicker.date = self.endDate;
+            self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.endDate];
+            [self.tableView reloadData];
         }
         //end date cannot be before start date
         self.datePicker.minimumDate = self.startDate;
         self.datePicker.maximumDate = nil;
+        
     }
 }
 
@@ -153,11 +165,16 @@
     
     if (self.selectedCell == self.startsCell) {
         self.startDate = date;
+        if ([self.startDate timeIntervalSinceDate:self.endDate] > 0) {
+            self.endDate = [self.startDate dateByAddingTimeInterval:4*60*60];
+            self.endsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.endDate];
+        }
     } else {
         self.endDate = date;
     }
     
     self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
+    [self.tableView reloadData];
 }
 
 - (IBAction)plusOneDay:(id)sender; {
