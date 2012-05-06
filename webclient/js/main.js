@@ -691,16 +691,15 @@ Circle.CreateEventView = Backbone.View.extend({
     $('.auto-time', clickedElement.parentElement).focus();
   },
 
-  addEndTime: function (e) {
-    $('#add-end-time').hide();
-    $('#end-time-group').show();
-
+  fixEndDate: function (startDate) {
     // get the base end date from the current start date or now if we
     // can't construct a valid date from the values in startDate and
     // startTime
     var endDate = null;
     try {
-      endDate = moment($('#startDate').val() +
+      endDate = moment((startDate ?
+             startDate :
+             $('#startDate').val()) +
              ' ' +
              $('#startTime').val(),
              'MM/DD/YYYY h:mm a');
@@ -727,6 +726,13 @@ Circle.CreateEventView = Backbone.View.extend({
     $('#endTime').val(endDate.format('h:mm a'));
   },
 
+  addEndTime: function (e) {
+    $('#add-end-time').hide();
+    $('#end-time-group').show();
+
+    this.fixEndDate();
+  },
+
   removeEndTime: function (e) {
     $('#add-end-time').show();
     $('#end-time-group').hide();
@@ -735,7 +741,12 @@ Circle.CreateEventView = Backbone.View.extend({
     $('#endTime').val('');
   },
 
-  startDateChanged: function () {
+  startDateChanged: function (startDate) {
+    // if the start date is now past the end date, set the end date to
+    // the start date
+    if (moment($('#endDate').val()).diff(moment(startDate)) < 0) {
+      this.fixEndDate(startDate);
+    }
   },
 
   startTimeChanged: function () {
@@ -1590,9 +1601,10 @@ Circle.Router = Backbone.Router.extend({
     var ksd = new Kalendae.Input('startDate', {
       subscribe: {
         'change': function () {
-          createEventView.startDateChanged();
+          createEventView.startDateChanged(this.getSelected());
         }
-      }
+      },
+      direction: 'today-future'
     });
     var kst = $('#startTime').timePicker({
       show24Hours: false,
@@ -1621,6 +1633,19 @@ Circle.Router = Backbone.Router.extend({
         'change': function () {
           createEventView.endDateChanged();
         }
+      },
+      direction: 'today-future',
+      blackout: function (date) {
+        var startDate = null;
+        try {
+          startDate = moment($('#startDate').val() +
+                           ' ' +
+                           $('#startTime').val(),
+                           'MM/DD/YYYY h:mm a');
+        } catch (e) {
+          startDate = moment();
+        }
+        return (date.diff(startDate) < 0);
       }
     });
     $('#endTime').timePicker({
