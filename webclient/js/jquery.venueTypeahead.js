@@ -33,10 +33,10 @@
           .typeahead({
             source: function (typeahead, query) {
               var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' +
-                  encodeURIComponent(query) +
+                  actuallyEncodeURIComponent(query) +
                   '&types=(cities)&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
 
-              $.getJSON(that.services[that.options['service']] + encodeURIComponent(url) + '&callback=?', function (data) {
+              $.getJSON(that.services[that.options['service']] + actuallyEncodeURIComponent(url) + '&callback=?', function (data) {
                 var response = (typeof(data.contents) === 'string') ? $.parseJSON(data.contents) : data.contents;
                 typeahead.process(response.predictions);
               });
@@ -68,7 +68,7 @@
                 return;
               }
               var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' +
-                  encodeURIComponent(query) +
+                  actuallyEncodeURIComponent(query) +
                   '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
 
               var coords = null;
@@ -96,7 +96,7 @@
               }
 
               url = that.services[that.options['service']] +
-                  encodeURIComponent(url) + '&callback=?';
+                  actuallyEncodeURIComponent(url) + '&callback=?';
 
               // do the request!
               $.getJSON(url, function (data) {
@@ -143,7 +143,7 @@
           '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
 
       url = that.services[that.options['service']] +
-          encodeURIComponent(url) + '&callback=?';
+          actuallyEncodeURIComponent(url) + '&callback=?';
 
       $.getJSON(url, function (data) {
         var response = (typeof(data.contents) === 'string') ?
@@ -160,7 +160,9 @@
         }
 
         // got the venue data, so trigger an event!
-        that.$element.trigger('change', that.venue);
+        var changeEvent = $.Event('change');
+        changeEvent.venue = that.venue;
+        that.$element.trigger(changeEvent);
 
       });
     },
@@ -177,7 +179,7 @@
           val.reference +
           '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
       url = that.services[that.options['service']] +
-          encodeURIComponent(url) + '&callback=?'
+          actuallyEncodeURIComponent(url) + '&callback=?'
 
       $.getJSON(url, function (data) {
         var response = (typeof(data.contents) === 'string') ?

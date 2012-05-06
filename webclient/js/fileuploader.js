@@ -208,8 +208,8 @@ qq.obj2url = function(obj, temp, prefixDone){
                     (typeof nextObj === 'object')
                         ? qq.obj2url(nextObj, nextTemp, true)
                         : (Object.prototype.toString.call(nextObj) === '[object Function]')
-                            ? '/' + encodeURIComponent(nextObj().replace(/\s/g, "_"))
-                            : '/' + encodeURIComponent(nextObj.replace(/\s/g, "_"))
+                            ? '/' + actuallyEncodeURIComponent(nextObj().replace(/\s/g, "_"))
+                            : '/' + actuallyEncodeURIComponent(nextObj.replace(/\s/g, "_"))
                 );
             }
         };
@@ -229,7 +229,7 @@ qq.obj2url = function(obj, temp, prefixDone){
             add(obj[i], i);
         }
     } else {
-        uristrings.push(encodeURIComponent(temp) + '=' + encodeURIComponent(obj));
+        uristrings.push(actuallyEncodeURIComponent(temp) + '=' + actuallyEncodeURIComponent(obj));
     }
 
     return uristrings.join(prefix)
@@ -1199,7 +1199,7 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
 
         xhr.open("POST", queryString, true);
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        //xhr.setRequestHeader("X-File-Name", encodeURIComponent(name));
+        //xhr.setRequestHeader("X-File-Name", actuallyEncodeURIComponent(name));
         xhr.setRequestHeader("Content-Type", "application/octet-stream");
         xhr.setRequestHeader("X-Parse-Application-Id", "FFO9TzzLbMB5A4PM8A0vzNpb0M8DSeAgbsP0fGNB");
         xhr.setRequestHeader("X-Parse-REST-API-Key", 'YwfE7q918UGjEkpufKPpm5GMgPI5jK08Pf2meEkh');

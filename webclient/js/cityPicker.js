@@ -27,9 +27,9 @@
               .typeahead({
                 source: function(typeahead, query) {
                   var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' +
-                      encodeURIComponent(query)    +
+                      actuallyEncodeURIComponent(query)    +
                       '&types=(cities)&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';
-                  url = service + encodeURIComponent(url) + '&callback=?';
+                  url = service + actuallyEncodeURIComponent(url) + '&callback=?';
 
                   $.getJSON(url, function (data) {
                     var response = (typeof(data.contents) === 'string') ?
@@ -41,7 +41,7 @@
                 onselect: function(val) {
                   var url = 'https://maps.googleapis.com/maps/api/place/details/json?reference=' +
                       val.reference +
-                      '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';                url = service + encodeURIComponent(url) + '&callback=?';
+                      '&sensor=false&key=AIzaSyDi1oeiNkBAo_dNgbJwdcY-usEv-d6FOt4';                url = service + actuallyEncodeURIComponent(url) + '&callback=?';
 
                   $.getJSON(url, function (data) {
                     var response = (typeof(data.contents) === 'string') ?

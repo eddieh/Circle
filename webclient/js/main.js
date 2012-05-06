@@ -212,8 +212,8 @@ Circle.SignUpView = Backbone.View.extend({
   template: null, //josh says: why? we define it in the initialize function? all well...
 
   events: {
-    'click #close': 'close',
-    'click #save': 'save',
+    'click #signup-close': 'close',
+    'click #signup-save': 'save',
     'click #image-close-button': 'reshowUploadButton',
   },
 
@@ -259,7 +259,7 @@ Circle.SignUpView = Backbone.View.extend({
     this.model.set('image', {
       '__type': 'File',
       'name': name
-    });
+    }, {silent: true});
   },
 
   setupUploader: function() {
@@ -358,7 +358,7 @@ Circle.Event = Backbone.Model.extend({
     if (attrs.details == '') errors.details = 'required';
 
     if (!attrs.location) errors.where = 'required';
-    if (!this.selectedCategory) errors.category = 'required';
+    if (!attrs.category) errors.category = 'required';
 
     if (!attrs.startDate) errors.startDate = 'invalid';
 
@@ -659,15 +659,19 @@ Circle.CreateEventView = Backbone.View.extend({
     }
   },
 
-  whereChanged: function (e, venueInfo) {
-    if (!venueInfo) return;
-    this.model.set('address', venueInfo.address);
+  whereChanged: function (e) {
+    //We attach the venue data to the event object when we trigger the event
+    //in jquery.venueTypeahead.js
+    var venueInfo = e.venue;
+    this.model.set('address', venueInfo.address, {silent: true});
     this.model.set('location', {
-      '__type': 'GeoPoint',
-      'latitude': venueInfo.location.lat,
-      'longitude': venueInfo.location.lng
-    });
-    this.model.set('venueName', venueInfo.name);
+        '__type': 'GeoPoint',
+       'latitude': venueInfo.location.lat,
+       'longitude': venueInfo.location.lng
+      },
+      {silent: true}
+    );
+    this.model.set('venueName', venueInfo.name, {silent: true});
     var $el = $('#where');
     $el.parents('.control-group').removeClass('error');
     $el.siblings('.help-inline').text('');
@@ -713,7 +717,7 @@ Circle.CreateEventView = Backbone.View.extend({
       '__type': 'Pointer',
       'className': 'Category',
       'objectId': this.selectedCategory.id
-    });
+    }, {silent: true});
     $el.parents('.control-group').removeClass('error');
     $el.siblings('.help-inline').text('');
   },
@@ -756,7 +760,7 @@ Circle.CreateEventView = Backbone.View.extend({
     this.model.set('image', {
       '__type': 'File',
       'name': name
-    });
+    }, {silent: true});
   },
 
   setupUploader: function() {
@@ -859,10 +863,13 @@ Circle.CreateEventView = Backbone.View.extend({
       this.categories.fetch();
     }
 
+    var that = this;
     if (!this.venueTypeaheadConfigured) {
       $('.venue-typeahead', this.$el)
           .venueTypeahead()
-          .on('change', $.proxy(this.whereChanged, this));
+          .on('change', function(e) {
+            that.whereChanged(e);
+          });
       this.venueTypeaheadConfigured = true;
     }
 
