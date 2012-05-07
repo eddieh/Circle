@@ -38,7 +38,7 @@
     self.dateFormatter = [[NSDateFormatter alloc] init];
 	[self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    [self.dateFormatter setDateFormat:@"MM/dd h:mm a"];
+    [self.dateFormatter setDateFormat:@"EEE M/d/yy"];
     searchBar.text = @"";
 }
 
@@ -74,6 +74,7 @@
     //if start date hasnt been declared, set it to current date
     if (!self.startDate){
         self.startDate = [[NSDate alloc]init];
+        self.startDate = [self.dateFormatter dateFromString:[self.dateFormatter stringFromDate:self.startDate]];
     }
     NSLog(@"Start Date(Event): %@",self.startDate);
     NSLog(@"End Date(Event): %@",self.endDate);
@@ -187,9 +188,10 @@
            {
                [query whereKey:@"startDate" lessThanOrEqualTo:self.endDate];
            } else {
-               //restrict search to four hour window
-               NSDate *fourHoursLater = [self.startDate dateByAddingTimeInterval:4*60*60];
-               [query whereKey:@"startDate" lessThanOrEqualTo:fourHoursLater];
+               //restrict search to 24 hour window
+               NSDate *oneDayLater = [self.startDate dateByAddingTimeInterval:24*60*60];
+               [query whereKey:@"startDate" lessThanOrEqualTo:oneDayLater];
+               NSLog(@"one day later: %@", oneDayLater);
            }
        }
 //       else {
@@ -216,8 +218,11 @@
 
 #pragma mark - userSelectedDate delegate
 -(void) userSelectedStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;{
+    NSLog(@"user selected date");
     self.startDate = startDate;
     self.endDate = endDate;
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - userSelectedCategories delegate

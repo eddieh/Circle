@@ -47,6 +47,8 @@
         self.titleLabel.text = [self.event objectForKey:@"name"];
         self.navigationItem.title = [self.event objectForKey:@"name"];
         
+        self.venueLabel.text = [NSString stringWithFormat:@"at %@", [self.event objectForKey:@"venueName"]];
+        
         //size the description UILabel to the size of its text
         NSString *details = (NSString *)[self.event objectForKey:@"details"];
         CGSize boundingSize = CGSizeMake(304.0, CGFLOAT_MAX);
@@ -101,9 +103,9 @@
         
         //set the content size so we can scroll our scrollview
         if (self.image) {
-            self.scrollView.contentSize = CGSizeMake(320.0, 370.0 + size.height);
+            self.scrollView.contentSize = CGSizeMake(320.0, 395.0 + size.height);
         } else {
-            self.scrollView.contentSize = CGSizeMake(320.0, 160.0 + size.height);
+            self.scrollView.contentSize = CGSizeMake(320.0, 185.0 + size.height);
         }
         
         //disable the map button if there's no address for some reason

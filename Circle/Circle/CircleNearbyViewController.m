@@ -32,6 +32,7 @@
 
 @implementation CircleNearbyViewController
 @synthesize pickerView;
+@synthesize sortedByLabel = _sortedByLabel;
 @synthesize logOutSignInButton;
 @synthesize sortOrder = _sortOrder;
 @synthesize origObjects = _origObjects;
@@ -57,7 +58,7 @@
     locationSingleton = [LocationSingleton sharedInstance];
     locationSingleton.delegate = self;
     
-    self.actionSheetButtonTitles = [NSArray arrayWithObjects:@"✓ Sort by nearby", @"Sort by soonest",  nil];
+    self.actionSheetButtonTitles = [NSArray arrayWithObjects:@"✓ Sort by nearest", @"Sort by soonest",  nil];
     
     if (self) {        
         // The className to query on
@@ -164,6 +165,7 @@
 - (void)viewDidUnload
 {
     [self setPickerView:nil];
+    [self setSortedByLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -413,10 +415,13 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     //NSLog(@"Index: %d", buttonIndex);
     if (buttonIndex == 0) {
-        self.actionSheetButtonTitles = [NSArray arrayWithObjects:@"✓ Sort by nearby", @"Sort by soonest",  nil];
+        self.actionSheetButtonTitles = [NSArray arrayWithObjects:@"✓ Sort by nearest", @"Sort by soonest",  nil];
+        self.sortedByLabel.text = @"Sorted by nearest";
         self.objects = [self.origObjects mutableCopy];
     } else {
-        self.actionSheetButtonTitles = [NSArray arrayWithObjects:@"Sort by nearby", @"✓ Sort by soonest",  nil];
+        self.actionSheetButtonTitles = [NSArray arrayWithObjects:@"Sort by nearest", @"✓ Sort by soonest",  nil];
+        
+        self.sortedByLabel.text = @"Sorted by soonest";
 
         NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:YES]; // If you want newest at the top, pass NO instead.
         self.objects = [[self.origObjects sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]] mutableCopy];

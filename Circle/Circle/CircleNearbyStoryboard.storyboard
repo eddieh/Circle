@@ -375,9 +375,17 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <label key="tableHeaderView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sorted by nearest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="S3L-Ax-LdJ">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nearbyCell" editingAccessoryType="disclosureIndicator" textLabel="4Xc-op-ari" detailTextLabel="flT-ws-VuK" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="rgv-Ud-zDa" customClass="NearbyEventCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="60"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="59"/>
@@ -421,6 +429,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="logOutSignInButton" destination="5YW-Pd-yNB" id="eux-H8-PXl"/>
+                        <outlet property="sortedByLabel" destination="S3L-Ax-LdJ" id="hxx-HF-P89"/>
                         <segue destination="sz8-5h-DfX" kind="push" identifier="eventDetailSegue" id="tRq-vt-EZV"/>
                         <segue destination="HdE-HK-lCR" kind="push" identifier="eventDetailNoImageSegue" id="awh-CS-uKU"/>
                     </connections>
@@ -636,6 +645,7 @@
                 <relationship kind="action" name="sortButtonPressed:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="logOutSignInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="sortedByLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="CircleUserDetailTableViewController" superclassName="PFQueryTableViewController">
