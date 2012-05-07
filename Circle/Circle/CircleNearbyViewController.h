@@ -10,6 +10,7 @@
 #import "CircleSignInViewController.h"
 
 @interface CircleNearbyViewController : PFQueryTableViewController <CircleSignInDelegate, PF_MBProgressHUDDelegate, UIActionSheetDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *sortedByLabel;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logOutSignInButton;
 - (IBAction)signInLogOutButtonPressed:(id)sender;
