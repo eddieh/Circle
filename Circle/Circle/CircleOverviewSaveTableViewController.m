@@ -122,6 +122,11 @@ bool userCanContinue = YES;
     else {
         userCanContinue = NO;
     }
+    
+    NSDate *endDate = [self.event objectForKey:@"endDate"];
+    if (endDate) {
+        self.endsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:endDate];
+    }
     [super viewWillAppear:animated];
 }
 - (void)viewDidUnload

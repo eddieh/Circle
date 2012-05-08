@@ -181,8 +181,10 @@
     NSDate *date; 
     if (self.selectedCell == self.startsCell) {
         date = [self.startDate dateByAddingTimeInterval:ONE_HOUR];
+        self.startDate = date;
     } else {
         date = [self.endDate dateByAddingTimeInterval:ONE_HOUR];
+        self.endDate = date;
     }
     
     self.datePicker.date = date;
@@ -193,8 +195,10 @@
     NSDate *date; 
     if (self.selectedCell == self.startsCell) {
         date = [self.startDate dateByAddingTimeInterval:ONE_WEEK];
+        self.startDate = date;
     } else {
         date = [self.endDate dateByAddingTimeInterval:ONE_WEEK];
+        self.endDate = date;
     }
     
     self.datePicker.date = date;
@@ -205,8 +209,10 @@
     NSDate *date; 
     if (self.selectedCell == self.startsCell) {
         date = [self.startDate dateByAddingTimeInterval:ONE_MONTH];
+        self.startDate = date;
     } else {
         date = [self.endDate dateByAddingTimeInterval:ONE_MONTH];
+        self.endDate = date;
     }
     
     self.datePicker.date = date;
