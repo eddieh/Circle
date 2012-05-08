@@ -1149,7 +1149,11 @@ Circle.getPositionFromBrowser = function () {
                                                Circle.errorPosition);
     }
   } else {
-    Circle.gotPosition(Circle.position);
+    $(window).trigger('location:change');
+
+    // this causes the generic city name to become super specific when
+    // navigating back to the homepage
+    //Circle.gotPosition(Circle.position);
   }
 }
 
@@ -1325,6 +1329,7 @@ Circle.Router = Backbone.Router.extend({
     });
 
     // setup our fancy city selector
+    $('.city-picker').text(Circle.currentLocation);
     $('.city-picker').cityPicker({
       attachedTo: $('#search-field')
     }).on('change', function (e, val) {
