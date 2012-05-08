@@ -9,6 +9,7 @@
 #import "CircleEventDetailViewController.h"
 #import "CircleAttendeesViewController.h"
 #import "Parse/Parse.h"
+#import "CircleCheckInViewController.h"
 
 @interface CircleEventDetailViewController ()
 
@@ -32,6 +33,7 @@
 
 @synthesize attendeesButton;
 @synthesize attendingLabel;
+@synthesize checkInButton;
 @synthesize attendingCheckboxButton;
 
 #pragma mark - View lifecycle
@@ -112,6 +114,11 @@
         if (![self.event objectForKey:@"address"]) {
             [self.mapButton setHidden:YES];
         }
+        
+        if ([PFUser currentUser]) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Check In" style:UIBarButtonItemStylePlain target:self action:@selector(checkInButtonPressed)];
+            self.navigationItem.rightBarButtonItem.title = @"Check In";
+        }
     }
     
 }
@@ -132,10 +139,14 @@
     [self setAttendeesButton:nil];
     [self setAttendingCheckboxButton:nil];
     [self setAttendingLabel:nil];
+    [self setCheckInButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
 
 
 /**
@@ -160,12 +171,16 @@
     if ([segue.destinationViewController isKindOfClass:[CircleAttendeesViewController class]]) {
         CircleAttendeesViewController *vc = segue.destinationViewController;
         vc.event = self.event;
+    } else if ([segue.destinationViewController isKindOfClass:[CircleCheckInViewController class]]) {
+        CircleCheckInViewController *controller = segue.destinationViewController;
+        controller.event = self.event;
     }
 }
 // Bring user to attendees page
 - (IBAction)attendeesButtonPressed:(id)sender{
     
 }
+
 // Update attending selection
 - (IBAction)attendingCheckboxPressed:(id)sender{
     //if already attending and button is clicked, set selected to false and remove rsvp from parse
@@ -186,5 +201,9 @@
         [rsvp setObject:[PFUser currentUser] forKey:@"user"];
         [rsvp saveInBackground];
     }
+}
+
+-(void)checkInButtonPressed {
+    [self performSegueWithIdentifier:@"checkInSegue" sender:self];
 }
 @end

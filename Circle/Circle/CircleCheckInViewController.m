@@ -116,11 +116,16 @@
             HUD.labelText = @"Success!";
             [HUD hide:YES afterDelay:1];
             
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+                [self.tabBarController setSelectedIndex:2];
+            });
+            
         } else {
             // There was an error saving the event.
             HUD.labelText = @"Error!";
             HUD.detailsLabelText = @"We were unable to save your check-in. Please try again later.";
-            [HUD hide:YES afterDelay:3];
+            [HUD hide:YES afterDelay:2];
         }
     }];
 }

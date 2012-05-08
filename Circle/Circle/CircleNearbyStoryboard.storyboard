@@ -149,6 +149,8 @@
                         <outlet property="timeLabel" destination="Gv8-Uq-r3P" id="hMS-0f-Th4"/>
                         <outlet property="titleLabel" destination="wHF-ZW-vRB" id="mT5-77-K0f"/>
                         <outlet property="venueLabel" destination="Q6c-sj-NI1" id="6by-Wk-4kj"/>
+                        <segue destination="GqO-64-q6H" kind="push" identifier="checkInSegue" id="SHX-QW-KSc"/>
+                        <segue destination="GqO-64-q6H" kind="push" id="L5w-tc-CCH"/>
                     </connections>
                 </viewController>
             </objects>
@@ -220,7 +222,7 @@
                     <navigationItem key="navigationItem" title="Who's Attending!" id="u01-w4-jCi"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="3200" y="-45"/>
+            <point key="canvasLocation" x="3163" y="247"/>
         </scene>
         <!--Circle User Detail Table View Controller - User Details-->
         <scene sceneID="X71-Xl-cp4">
@@ -567,6 +569,7 @@
                         <outlet property="timeLabel" destination="QVZ-hK-2RW" id="AfQ-bB-DQh"/>
                         <outlet property="titleLabel" destination="ycq-fb-b9l" id="3jQ-m9-Zi5"/>
                         <outlet property="venueLabel" destination="sT0-pw-UGg" id="PKM-ht-d7c"/>
+                        <segue destination="GqO-64-q6H" kind="push" identifier="checkInSegue" id="YaB-0u-afa"/>
                     </connections>
                 </viewController>
             </objects>
@@ -593,17 +596,161 @@
             </objects>
             <point key="canvasLocation" x="1297" y="-57"/>
         </scene>
+        <!--Circle Check In View Controller - Check In-->
+        <scene sceneID="6js-Az-rHj">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k9M-dm-MnH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="GqO-64-q6H" customClass="CircleCheckInViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zLK-PZ-eeS">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="cxU-kw-Rar">
+                                <rect key="frame" x="6" y="9" width="60" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="15"/>
+                                <state key="normal" image="cameragray.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" image="cameragray-85@2x.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cameraButtonPressed:" destination="GqO-64-q6H" eventType="touchUpInside" id="Xod-B7-7j5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="2jh-1m-M6R">
+                                <rect key="frame" x="3" y="138" width="60" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="facebook@2x.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled" image="facebook-85@2x.png"/>
+                                <state key="selected" image="facebookblue@2x.png"/>
+                                <state key="highlighted" image="facebook-85@2x.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="facebookButtonPressed:" destination="GqO-64-q6H" eventType="touchUpInside" id="guq-0q-7ac"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="Dxx-eg-aOA">
+                                <rect key="frame" x="3" y="80" width="60" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="foursquare@2x.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled" image="foursquare-85@2x.png"/>
+                                <state key="selected" image="foursquareblue@2x.png"/>
+                                <state key="highlighted" image="foursquare-85@2x.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="foursquareButtonPressed:" destination="GqO-64-q6H" eventType="touchUpInside" id="Nbp-6Q-SLB"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" id="Ak2-Rj-YeM">
+                                <rect key="frame" x="74" y="9" width="240" height="140"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="6C2-vA-6PU" customClass="UIPlaceHolderTextView">
+                                        <rect key="frame" x="6" y="55" width="227" height="79"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="GqO-64-q6H" id="CgZ-cl-Skx"/>
+                                        </connections>
+                                    </textView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Event Title Goes Here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="WAz-Od-EWX">
+                                        <rect key="frame" x="10" y="6" width="223" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="@ Event location goes here" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Nxf-fL-edt">
+                                        <rect key="frame" x="10" y="29" width="215" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AtS-wq-uet">
+                                <rect key="frame" x="163" y="156" width="151" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="19"/>
+                                <state key="normal" title="Check in!" backgroundImage="orange.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="darkorange.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkInButtonPressed" destination="GqO-64-q6H" eventType="touchUpInside" id="gpT-0G-kJb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Check In" id="3RH-Zi-992"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="cameraButton" destination="cxU-kw-Rar" id="vzc-QI-pg2"/>
+                        <outlet property="descriptionTextView" destination="6C2-vA-6PU" id="nRZ-P9-xUE"/>
+                        <outlet property="eventDescriptionLabel" destination="Nxf-fL-edt" id="rVq-MM-ewl"/>
+                        <outlet property="eventTitleLabel" destination="WAz-Od-EWX" id="IXN-oy-jlm"/>
+                        <outlet property="view" destination="zLK-PZ-eeS" id="plD-yX-4DG"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="3182" y="-375"/>
+        </scene>
     </scenes>
     <resources>
         <image name="calendaricon.png" width="75" height="75"/>
+        <image name="cameragray-85@2x.png" width="120" height="120"/>
+        <image name="cameragray.png" width="120" height="120"/>
         <image name="checkbox-notChecked.png" width="16" height="16"/>
         <image name="daftpunk.jpg" width="640" height="480"/>
+        <image name="darkorange.png" width="1" height="1"/>
+        <image name="facebook-85@2x.png" width="104" height="104"/>
+        <image name="facebook@2x.png" width="104" height="104"/>
+        <image name="facebookblue@2x.png" width="104" height="104"/>
+        <image name="foursquare-85@2x.png" width="104" height="104"/>
+        <image name="foursquare@2x.png" width="104" height="104"/>
+        <image name="foursquareblue@2x.png" width="104" height="104"/>
+        <image name="orange.png" width="1" height="1"/>
         <image name="profile.png" width="75" height="75"/>
         <image name="tabbar-nearby.png" width="30" height="30"/>
     </resources>
     <classes>
         <class className="CircleAttendeesViewController" superclassName="PFQueryTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleAttendeesViewController.h"/>
+        </class>
+        <class className="CircleCheckInViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleCheckInViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cameraButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="checkInButtonPressed"/>
+                <relationship kind="action" name="facebookButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="foursquareButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cameraButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="descriptionTextView" candidateClass="UIPlaceHolderTextView"/>
+                <relationship kind="outlet" name="eventDescriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventTitleLabel" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="CircleEventCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventCell.h"/>
@@ -628,6 +775,7 @@
                 <relationship kind="outlet" name="calendarDayLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="calendarMonthLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="calendarWeekdayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
@@ -664,6 +812,9 @@
         <class className="PFQueryTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
         </class>
+        <class className="UIPlaceHolderTextView" superclassName="UITextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIPlaceHolderTextView.h"/>
+        </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -672,7 +823,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="awh-CS-uKU"/>
-        <segue reference="tRq-vt-EZV"/>
-        <segue reference="A49-rq-uiu"/>
+        <segue reference="YaB-0u-afa"/>
     </inferredMetricsTieBreakers>
 </document>

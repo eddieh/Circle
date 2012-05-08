@@ -26,10 +26,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *attendingCheckboxButton;
 @property (weak, nonatomic) IBOutlet UIButton *attendeesButton;
 @property (weak, nonatomic) IBOutlet UILabel *attendingLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *checkInButton;
 
 - (IBAction)mapButtonPressed:(id)sender;
 - (IBAction)attendingCheckboxPressed:(id)sender;
 - (IBAction)attendeesButtonPressed:(id)sender;
+
+
 
 
 //non-UI
