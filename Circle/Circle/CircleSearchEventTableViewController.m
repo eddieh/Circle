@@ -71,11 +71,13 @@
     else {
         self.categoryCell.detailTextLabel.text = @"";
     }
-    //if start date hasnt been declared, set it to current date
-    if (!self.startDate){
-        self.startDate = [[NSDate alloc]init];
-        self.startDate = [self.dateFormatter dateFromString:[self.dateFormatter stringFromDate:self.startDate]];
+    //if date is nil, empty field
+    if (self.startDate == nil)
+    {
+        NSLog(@"date is null");
+        self.dateCell.detailTextLabel.text = @"";
     }
+    
     NSLog(@"Start Date(Event): %@",self.startDate);
     NSLog(@"End Date(Event): %@",self.endDate);
     
@@ -83,7 +85,6 @@
     if (self.startDate)
     {
         NSLog(@"end1%@",self.endDate);
-        //NSLog(@"end1%@",[self.endDate compare:self.startDate]);
         if (self.endDate && !([self.endDate timeIntervalSinceDate:self.startDate]<60.0f))
         {
             NSLog(@"called");
@@ -194,10 +195,6 @@
                NSLog(@"one day later: %@", oneDayLater);
            }
        }
-//       else {
-//           NSDate *currentDate = [NSDate date];
-//           [query whereKey:@"startDate" greaterThanOrEqualTo:currentDate];
-//       }
        if(![searchBar.text isEqualToString:@""])
        {
            NSLog(@"searchtextCalled%@",searchBar.text);

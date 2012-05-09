@@ -26,10 +26,12 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *startCellDetail;
 @property (weak, nonatomic) IBOutlet UILabel *endCellDetail;
-@property (weak, nonatomic) IBOutlet UIButton *clearTextButton;
+@property (weak, nonatomic) IBOutlet UIButton *clearEndDateTextButton;
+@property (weak, nonatomic) IBOutlet UIButton *clearStartDateTextButton;
 
 
--(IBAction)clearDateButtonClicked:(id)sender;
+-(IBAction)clearEndDateButtonClicked:(id)sender;
+-(IBAction)clearStartDateButtonClicked:(id)sender;
 
 - (IBAction)changeDate:(id)sender;
 
