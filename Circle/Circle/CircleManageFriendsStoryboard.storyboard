@@ -12,12 +12,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="32p-Gg-2KC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="uK1-OO-tgg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Friends" image="friend.png" id="MdN-NM-LnF"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ZPl-WV-AXt">
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="ZPl-WV-AXt">
+                        <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="IRd-yg-tKq" kind="relationship" relationship="rootViewController" id="9bU-MS-H5d"/>
+                        <segue destination="yF0-mX-8iU" kind="relationship" relationship="rootViewController" id="S4b-mA-aCm"/>
                     </connections>
                 </navigationController>
             </objects>
@@ -29,7 +31,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nGi-yp-kYY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="IRd-yg-tKq" customClass="CircleFriendsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="LJO-o1-wxj">
-                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="xD1-Xw-90f">
@@ -103,7 +105,194 @@
             </objects>
             <point key="canvasLocation" x="739" y="521"/>
         </scene>
-        <!--Circle Find Friends Table View Controller-->
+        <!--Circle Friends Table View Controller - Friends-->
+        <scene sceneID="Ph1-sk-S4u">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LYz-Az-cja" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="yF0-mX-8iU" customClass="CircleFriendsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="62" sectionHeaderHeight="22" sectionFooterHeight="22" id="Lnd-Gi-aiw">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="friendCell" rowHeight="62" id="hsp-b3-P3e" customClass="FriendCheckInCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="62"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="61"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Friend Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="Hau-8G-wCa">
+                                            <rect key="frame" x="53" y="4" width="185" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="calendaricon.png" id="Fd9-lH-BUk">
+                                            <rect key="frame" x="244" y="3" width="46" height="46"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="12:22pm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Osx-li-6Lc">
+                                            <rect key="frame" x="241" y="44" width="52" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="CTR-RF-FBP">
+                                            <rect key="frame" x="246" y="-1" width="42" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="11"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="N4v-7g-1Io">
+                                            <rect key="frame" x="246" y="11" width="42" height="23"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="28" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="bkS-RM-x6w">
+                                            <rect key="frame" x="246" y="28" width="42" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="checked in at [insert check-in location]" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="LPL-aM-txg">
+                                            <rect key="frame" x="54" y="23" width="182" height="38"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="JTD-PN-7CZ">
+                                            <rect key="frame" x="6" y="11" width="40" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="dateLabel" destination="bkS-RM-x6w" id="yFe-xk-y3J"/>
+                                    <outlet property="dayLabel" destination="CTR-RF-FBP" id="x3T-yO-A9N"/>
+                                    <outlet property="imageView" destination="JTD-PN-7CZ" id="J3a-jS-skb"/>
+                                    <outlet property="locationLabel" destination="LPL-aM-txg" id="DkO-qU-v0X"/>
+                                    <outlet property="monthLabel" destination="N4v-7g-1Io" id="9gv-So-dSB"/>
+                                    <outlet property="nameLabel" destination="Hau-8G-wCa" id="Nfr-bf-dIW"/>
+                                    <outlet property="timeLabel" destination="Osx-li-6Lc" id="6rb-56-vNd"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="friendNoImageCell" rowHeight="62" id="Wlk-6R-zdH" customClass="FriendCheckInCell">
+                                <rect key="frame" x="0.0" y="84" width="320" height="62"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="61"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Friend Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="cbw-Un-lNT">
+                                            <rect key="frame" x="8" y="12" width="228" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="calendaricon.png" id="jsh-NZ-jly">
+                                            <rect key="frame" x="244" y="3" width="46" height="46"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="12:22pm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Xm8-FP-UYX">
+                                            <rect key="frame" x="241" y="44" width="52" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="EDw-t8-lSM">
+                                            <rect key="frame" x="246" y="-1" width="42" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="11"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="SIV-jK-Qv3">
+                                            <rect key="frame" x="246" y="11" width="42" height="23"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="28" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="99O-cb-9lW">
+                                            <rect key="frame" x="246" y="28" width="42" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="checked in at [insert check-in location]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="fF6-Fq-5YI">
+                                            <rect key="frame" x="9" y="28" width="229" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="dateLabel" destination="99O-cb-9lW" id="KDx-R5-DZC"/>
+                                    <outlet property="dayLabel" destination="EDw-t8-lSM" id="i0V-uz-38C"/>
+                                    <outlet property="locationLabel" destination="fF6-Fq-5YI" id="tHj-Yx-AeS"/>
+                                    <outlet property="monthLabel" destination="SIV-jK-Qv3" id="v0X-95-1bs"/>
+                                    <outlet property="nameLabel" destination="cbw-Un-lNT" id="Yv4-dA-i6f"/>
+                                    <outlet property="timeLabel" destination="Xm8-FP-UYX" id="twa-hI-Jib"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="friendCell" textLabel="bn8-sP-CDF" rowHeight="62" style="IBUITableViewCellStyleDefault" id="5PP-ct-wJX">
+                                <rect key="frame" x="0.0" y="146" width="320" height="62"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bn8-sP-CDF">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="61"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="yF0-mX-8iU" id="CFg-Bw-dZL"/>
+                            <outlet property="delegate" destination="yF0-mX-8iU" id="6Eo-Ku-YDC"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Friends" id="Y3G-1O-zX6">
+                        <barButtonItem key="rightBarButtonItem" title="Find Friends" id="igl-rk-utC">
+                            <connections>
+                                <segue destination="1cl-8v-6ah" kind="push" id="fvf-K2-Euc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <connections>
+                        <segue destination="LSf-Wf-WEy" kind="push" identifier="eventDetailSegue" id="S17-o1-W1M"/>
+                        <segue destination="jYB-Lx-UV1" kind="push" identifier="eventNoImageSegue" id="zLG-n2-GDV"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="772" y="-33"/>
+        </scene>
+        <!--Circle Find Friends Table View Controller - Find Friends-->
         <scene sceneID="Nw0-mU-83n">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nk1-6t-fsg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -155,7 +344,7 @@
                             <outlet property="delegate" destination="1cl-8v-6ah" id="V7c-Lm-ws2"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="fNh-mG-3it"/>
+                    <navigationItem key="navigationItem" title="Find Friends" id="fNh-mG-3it"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1181" y="-20"/>
@@ -484,7 +673,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="cameragray.png" id="iHq-tx-JKE">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="iHq-tx-JKE">
                                             <rect key="frame" x="7" y="4" width="69" height="69"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -653,7 +842,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2203" y="968"/>
+            <point key="canvasLocation" x="2259" y="672"/>
         </scene>
         <!--Circle Check In View Controller - Check In-->
         <scene sceneID="ddj-QP-Wmd">
@@ -794,14 +983,108 @@
         <image name="orange.png" width="1" height="1"/>
         <image name="profile.png" width="75" height="75"/>
     </resources>
+    <classes>
+        <class className="CircleAttendeesViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleAttendeesViewController.h"/>
+        </class>
+        <class className="CircleCheckInViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleCheckInViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cameraButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="checkInButtonPressed"/>
+                <relationship kind="action" name="facebookButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="foursquareButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cameraButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="descriptionTextView" candidateClass="UIPlaceHolderTextView"/>
+                <relationship kind="outlet" name="eventDescriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventTitleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CircleEventCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="eventLocationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="monthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="weekdayLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CircleEventDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="attendeesButtonPressed:"/>
+                <relationship kind="action" name="attendingCheckboxPressed:"/>
+                <relationship kind="action" name="mapButtonPressed:"/>
+                <relationship kind="outlet" name="attendeesButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="attendingCheckboxButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="attendingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="calendarDayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="calendarMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="calendarWeekdayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="venueLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CircleFindFriendsTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleFindFriendsTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="CircleFriendsTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleFriendsTableViewController.h"/>
+        </class>
+        <class className="CircleUserDetailTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleUserDetailTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addFriendButtonClicked:"/>
+                <relationship kind="outlet" name="addFriendButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="profileImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="userEmail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userName" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FriendCheckInCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendCheckInCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="monthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NearbyEventCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyEventCell.h"/>
+        </class>
+        <class className="PFQueryTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
+        </class>
+        <class className="UIPlaceHolderTextView" superclassName="UITextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIPlaceHolderTextView.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="rwa-yk-voD"/>
+        <segue reference="S17-o1-W1M"/>
+        <segue reference="zLG-n2-GDV"/>
+        <segue reference="fvf-K2-Euc"/>
+        <segue reference="Yue-jy-t8Y"/>
         <segue reference="YXy-hw-tW2"/>
-        <segue reference="l5p-3I-7Hr"/>
+        <segue reference="rwa-yk-voD"/>
     </inferredMetricsTieBreakers>
 </document>
