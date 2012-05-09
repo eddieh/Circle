@@ -116,6 +116,7 @@
 		868CDBD015344CBA000058F3 /* camerawhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 868CDBCE15344CBA000058F3 /* camerawhite.png */; };
 		868CDBD115344CBA000058F3 /* camerawhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 868CDBCF15344CBA000058F3 /* camerawhite@2x.png */; };
 		8693FE7B1532D7E9007D7B17 /* facebookblue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8693FE771532D7E9007D7B17 /* facebookblue@2x.png */; };
+		86BEA55E155A1539001BBE00 /* FriendCheckInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BEA55D155A1539001BBE00 /* FriendCheckInCell.m */; };
 		86E0EEDE1531B02A00C5C4F0 /* LocationSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E0EEDD1531B02A00C5C4F0 /* LocationSingleton.m */; };
 		86E0EEE01531B0B600C5C4F0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E0EEDF1531B0B600C5C4F0 /* CoreLocation.framework */; };
 		86E0EEE31531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E0EEE21531C79A00C5C4F0 /* CircleChooseCheckInLocationViewController.m */; };
@@ -350,6 +351,8 @@
 		868CDBCE15344CBA000058F3 /* camerawhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camerawhite.png; sourceTree = "<group>"; };
 		868CDBCF15344CBA000058F3 /* camerawhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camerawhite@2x.png"; sourceTree = "<group>"; };
 		8693FE771532D7E9007D7B17 /* facebookblue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebookblue@2x.png"; sourceTree = "<group>"; };
+		86BEA55C155A1539001BBE00 /* FriendCheckInCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendCheckInCell.h; sourceTree = "<group>"; };
+		86BEA55D155A1539001BBE00 /* FriendCheckInCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendCheckInCell.m; sourceTree = "<group>"; };
 		86E0EEDC1531B02A00C5C4F0 /* LocationSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSingleton.h; sourceTree = "<group>"; };
 		86E0EEDD1531B02A00C5C4F0 /* LocationSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSingleton.m; sourceTree = "<group>"; };
 		86E0EEDF1531B0B600C5C4F0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -780,6 +783,8 @@
 				9C118DE6154FAA0400AEC722 /* CircleFindFriendsTableViewController.m */,
 				9C118DE2154FA3FF00AEC722 /* CircleFriendsTableViewController.h */,
 				9C118DE3154FA3FF00AEC722 /* CircleFriendsTableViewController.m */,
+				86BEA55C155A1539001BBE00 /* FriendCheckInCell.h */,
+				86BEA55D155A1539001BBE00 /* FriendCheckInCell.m */,
 			);
 			name = Friends;
 			sourceTree = "<group>";
@@ -1082,6 +1087,7 @@
 				9C118DE7154FAA0400AEC722 /* CircleFindFriendsTableViewController.m in Sources */,
 				9C37E3591552764A00390080 /* CircleUserDetailTableViewController.m in Sources */,
 				9CDDAE0F155373D5001A1F8A /* CircleEventCell.m in Sources */,
+				86BEA55E155A1539001BBE00 /* FriendCheckInCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

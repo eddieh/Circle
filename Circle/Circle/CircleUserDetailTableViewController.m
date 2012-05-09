@@ -63,17 +63,34 @@
         [self.profileImage setImage:[UIImage imageNamed:@"profile.png"]];
     }
     
-PFQuery *isFriend1 = [PFQuery queryWithClassName:@"Friendships"];
-[isFriend1 whereKey:@"friend1" equalTo:[PFUser currentUser]];
-[isFriend1 whereKey:@"friend2" equalTo:self.selectedUser];
-if ([isFriend1 countObjects]>0)
-{
-    self.addFriendButton.titleLabel.text = @"Delete Friend";
-}
-else {
+//PFQuery *isFriend1 = [PFQuery queryWithClassName:@"Friendships"];
+//[isFriend1 whereKey:@"friend1" equalTo:[PFUser currentUser]];
+//[isFriend1 whereKey:@"friend2" equalTo:self.selectedUser];
+//if ([isFriend1 countObjects]>0)
+//{
+//    self.addFriendButton.titleLabel.text = @"Delete Friend";
+//}
+//else {
+//    PFQuery *isFriend2 = [PFQuery queryWithClassName:@"Friendships"];
+//    [isFriend2 whereKey:@"friend1" equalTo:self.selectedUser];
+//    [isFriend2 whereKey:@"friend2" equalTo:[PFUser currentUser]];
+//    
+//    if ([isFriend2 countObjects]>0)
+//    {
+//        self.addFriendButton.titleLabel.text = @"Delete Friend";
+//    }
+//    else {
+//        self.addFriendButton.titleLabel.text = @"Add Friend";
+//    }
+//}
+    
+    if([[self.selectedUser objectId] isEqualToString: [[PFUser currentUser]objectId]]){
+        self.addFriendButton.hidden = YES;
+    }
+    
     PFQuery *isFriend2 = [PFQuery queryWithClassName:@"Friendships"];
-    [isFriend2 whereKey:@"friend1" equalTo:self.selectedUser];
-    [isFriend2 whereKey:@"friend2" equalTo:[PFUser currentUser]];
+    [isFriend2 whereKey:@"friend1" equalTo:[PFUser currentUser]];
+    [isFriend2 whereKey:@"friend2" equalTo:self.selectedUser];
     
     if ([isFriend2 countObjects]>0)
     {
@@ -82,7 +99,6 @@ else {
     else {
         self.addFriendButton.titleLabel.text = @"Add Friend";
     }
-}
 
 
 

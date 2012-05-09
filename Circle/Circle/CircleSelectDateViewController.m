@@ -42,7 +42,8 @@
 @synthesize delegate = _delegate;
 @synthesize startCellDetail = _startCellDetail;
 @synthesize endCellDetail = _endCellDetail;
-@synthesize clearTextButton = _clearTextButton;
+@synthesize clearEndDateTextButton = _clearEndDateTextButton;
+@synthesize clearStartDateTextButton = clearStartDateTextButton;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -100,7 +101,7 @@
         self.endCellDetail.text = [self.dateFormatter stringFromDate:self.endDate];
     } else {
         self.endCellDetail.text = @"None";
-        self.clearTextButton.hidden = YES;
+        self.clearEndDateTextButton.hidden = YES;
     }
     
     // sets DatePicker to use 15 min intervals
@@ -159,12 +160,27 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(void)clearDateButtonClicked:(id)sender{
+-(void)clearEndDateButtonClicked:(id)sender{
     self.endDate = self.startDate;
     self.endCellDetail.text = @"None";
-    self.clearTextButton.hidden = YES;
+    self.clearEndDateTextButton.hidden = YES;
     self.datePicker.maximumDate = nil;
-    self.datePicker.date = self.startDate;
+    if (!(self.startDate == nil))
+    {
+        self.datePicker.date = self.startDate;
+    }
+}
+-(void)clearStartDateButtonClicked:(id)sender{
+    self.startDate = nil;
+    self.startCellDetail.text = @"None";
+    self.clearStartDateTextButton.hidden = YES;
+    self.endDate = self.startDate;
+    self.endCellDetail.text = @"None";
+    self.clearEndDateTextButton.hidden = YES;
+    self.datePicker.maximumDate = nil;
+    NSDate *currentDate = [NSDate date];
+    self.datePicker.minimumDate = currentDate;
+    self.datePicker.date = currentDate;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -177,7 +193,13 @@
         self.startsCell.backgroundColor = selectedFieldColor;
         self.endsCell.backgroundColor = [UIColor whiteColor];
         
-        self.datePicker.date = self.startDate;
+        if(self.startDate != nil){
+            self.datePicker.date = self.startDate;
+        }
+        if(self.endDate != nil){
+            self.datePicker.maximumDate = self.endDate;
+        }
+
         self.datePicker.minimumDate = currentDate;
         //start date cannot be before end date
         //error avoidance, when end date is not set it gets set as current date
@@ -198,19 +220,25 @@
         {
             self.datePicker.date = self.endDate;
         } else {
-            self.endDate = [self.startDate dateByAddingTimeInterval:4*60*60];
-            self.datePicker.date = self.endDate;
-            self.startCellDetail.text = [self.dateFormatter stringFromDate:self.startDate];
-            [self.tableView reloadData];
+            if(self.endDate !=nil){
+                self.endDate = [self.startDate dateByAddingTimeInterval:4*60*60];
+                self.datePicker.date = self.endDate;
+                self.startCellDetail.text = [self.dateFormatter stringFromDate:self.startDate];
+                [self.tableView reloadData];
+            }
         }
         //end date cannot be before start date
-        self.datePicker.minimumDate = self.startDate;
+        if (self.startDate != nil)
+        {
+            self.datePicker.minimumDate = self.startDate;
+        }
         self.datePicker.maximumDate = nil;
     }
 }
 
 - (IBAction)changeDate:(id)sender; {
     NSDate *date = self.datePicker.date;
+    self.clearStartDateTextButton.hidden = NO;
     
     if (self.selectedCell == self.startsCell) {
         self.startDate = date;
@@ -221,7 +249,11 @@
     } else {
         self.endDate = date;
         self.endCellDetail.text = [self.dateFormatter stringFromDate:self.endDate];
-        self.clearTextButton.hidden = NO;
+        self.clearEndDateTextButton.hidden = NO;
+        if (self.startDate == nil)
+        {
+            self.startDate = self.endDate;
+        }
     }
     [self.tableView reloadData];
     
@@ -241,6 +273,14 @@
 
 -(void)addTimeToDatePicker:(NSNumber*)timeInterval{
     NSDate *date;
+    NSDate *currentDate = [NSDate date];
+    if(self.startDate == nil)
+    {
+        self.startDate = currentDate;
+    }
+    
+    
+    self.clearStartDateTextButton.hidden = NO;
     if (self.selectedCell == self.startsCell) {
         date = [self.startDate dateByAddingTimeInterval:[timeInterval doubleValue]];
         self.startDate = date;
@@ -250,16 +290,24 @@
             self.datePicker.maximumDate = nil;
             if (![self.endCellDetail.text isEqualToString:@"None"]) {
                 self.endCellDetail.text = [self.dateFormatter stringFromDate:date];
-                self.clearTextButton.hidden = NO;
+                self.clearEndDateTextButton.hidden = NO;
             }
         }
     } else {
         date = [self.endDate dateByAddingTimeInterval:[timeInterval doubleValue]];
         self.endDate = date;
         self.endCellDetail.text = [self.dateFormatter stringFromDate:date];
-        self.clearTextButton.hidden = NO;
+        self.clearEndDateTextButton.hidden = NO;
     }
-    self.datePicker.date = date;
+    if (self.startDate == nil){
+        
+        self.datePicker.date = currentDate;
+        self.datePicker.minimumDate = currentDate;
+    }
+    else if(date!=nil){
+        self.datePicker.date = date;
+    }
+    
     [self.tableView reloadData];
 }
 
