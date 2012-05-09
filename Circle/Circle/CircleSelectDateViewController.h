@@ -29,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *clearTextButton;
 
 
--(IBAction)clearDateButton:(id)sender;
+-(IBAction)clearDateButtonClicked:(id)sender;
 
 - (IBAction)changeDate:(id)sender;
 

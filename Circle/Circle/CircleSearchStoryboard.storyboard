@@ -502,7 +502,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="clearDateButton:" destination="UAL-6G-kky" eventType="touchUpInside" id="K1C-Dx-aLN"/>
+                                                        <action selector="clearDateButtonClicked:" destination="UAL-6G-kky" eventType="touchUpInside" id="ktE-ep-sbq"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -1169,6 +1169,117 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="profile.png" width="75" height="75"/>
         <image name="tabbar-search.png" width="30" height="30"/>
     </resources>
+    <classes>
+        <class className="CircleAttendeesViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleAttendeesViewController.h"/>
+        </class>
+        <class className="CircleCheckInViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleCheckInViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cameraButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="checkInButtonPressed"/>
+                <relationship kind="action" name="facebookButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="foursquareButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cameraButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="descriptionTextView" candidateClass="UIPlaceHolderTextView"/>
+                <relationship kind="outlet" name="eventDescriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventTitleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CircleEventCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="eventLocationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="monthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="weekdayLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CircleEventDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="attendeesButtonPressed:"/>
+                <relationship kind="action" name="attendingCheckboxPressed:"/>
+                <relationship kind="action" name="mapButtonPressed:"/>
+                <relationship kind="outlet" name="attendeesButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="attendingCheckboxButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="attendingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="calendarDayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="calendarMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="calendarWeekdayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="venueLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CircleSearchEventTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleSearchEventTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="categoryCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="dateCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="locationCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="CircleSearchResultsTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleSearchResultsTableViewController.h"/>
+        </class>
+        <class className="CircleSelectCategoryTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleSelectCategoryTableViewController.h"/>
+        </class>
+        <class className="CircleSelectDateViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleSelectDateViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeDate:"/>
+                <relationship kind="action" name="clearDateButtonClicked:"/>
+                <relationship kind="action" name="plusOneDay:"/>
+                <relationship kind="action" name="plusOneMonth:"/>
+                <relationship kind="action" name="plusOneWeek:"/>
+                <relationship kind="outlet" name="clearTextButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
+                <relationship kind="outlet" name="endCellDetail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="endsCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="plusOneDayButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="plusOneMonthButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="plusOneWeekButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="startCellDetail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="startsCell" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="CircleSelectLocationViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleSelectLocationViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="CircleUserDetailTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleUserDetailTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addFriendButtonClicked:"/>
+                <relationship kind="outlet" name="addFriendButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="profileImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="userEmail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userName" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NearbyEventCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyEventCell.h"/>
+        </class>
+        <class className="PFQueryTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
+        </class>
+        <class className="UIPlaceHolderTextView" superclassName="UITextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIPlaceHolderTextView.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
