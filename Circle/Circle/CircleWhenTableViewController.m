@@ -61,8 +61,14 @@
 
     // select the starts cell so it is highlighted
     [self.startsCell becomeFirstResponder];
-    [self.startsCell setAccessoryType:UITableViewCellAccessoryCheckmark];
     self.selectedCell = self.startsCell;
+    
+    //highlight selected cell
+    UIColor *selectedFieldColor = [UIColor colorWithRed: 0.0f green: 0.0f blue: 1.0f alpha: 0.1f];
+    UIColor *selectedLabelColor = [UIColor colorWithRed: 0.0f green: 0.0f blue: 1.0f alpha: 0.00f];
+    self.startsCell.backgroundColor = selectedFieldColor;
+    self.startsCell.detailTextLabel.backgroundColor = selectedLabelColor;
+    self.startsCell.textLabel.backgroundColor = selectedLabelColor;
     
     
     // sets DatePicker to use 30 min intervals
@@ -125,9 +131,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    UIColor *selectedFieldColor = [UIColor colorWithRed: 0.0f green: 0.0f blue: 1.0f alpha: 0.1f];
+    UIColor *selectedLabelColor = [UIColor colorWithRed: 0.0f green: 0.0f blue: 1.0f alpha: 0.00f];
+    
     if (indexPath.row == 0) {
-        [self.startsCell setAccessoryType:UITableViewCellAccessoryCheckmark];
-        [self.endsCell setAccessoryType:UITableViewCellAccessoryNone];
+        //highlight selected cell
+        self.endsCell.backgroundColor = [UIColor whiteColor];
+        self.startsCell.backgroundColor = selectedFieldColor;
+        self.startsCell.textLabel.backgroundColor = selectedLabelColor;
+        self.startsCell.detailTextLabel.backgroundColor = selectedLabelColor;
         self.datePicker.date = self.startDate;
         //start date cannot be before end date
         //error avoidance, when end date is not set it gets set as current date
@@ -141,8 +154,11 @@
     }
     else if (indexPath.row == 1)
     {
-        [self.endsCell setAccessoryType:UITableViewCellAccessoryCheckmark];
-        [self.startsCell setAccessoryType:UITableViewCellAccessoryNone];
+        //highlight selected cell
+        self.startsCell.backgroundColor = [UIColor whiteColor];
+        self.endsCell.backgroundColor = selectedFieldColor;
+        self.endsCell.textLabel.backgroundColor = selectedLabelColor;
+        self.endsCell.detailTextLabel.backgroundColor = selectedLabelColor;
         
         if (self.endDate)
         {

@@ -24,6 +24,13 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *nextButton;
 
+@property (weak, nonatomic) IBOutlet UILabel *startCellDetail;
+@property (weak, nonatomic) IBOutlet UILabel *endCellDetail;
+@property (weak, nonatomic) IBOutlet UIButton *clearTextButton;
+
+
+-(IBAction)clearDateButton:(id)sender;
+
 - (IBAction)changeDate:(id)sender;
 
 - (IBAction)plusOneDay:(id)sender;

@@ -40,6 +40,9 @@
 @synthesize selectedEndDate = _selectedEndDate;
 @synthesize selectedStartDate = _selectedStartDate;
 @synthesize delegate = _delegate;
+@synthesize startCellDetail = _startCellDetail;
+@synthesize endCellDetail = _endCellDetail;
+@synthesize clearTextButton = _clearTextButton;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -55,9 +58,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.endsCell setAccessoryType:UITableViewCellAccessoryNone];
-    [self.startsCell setAccessoryType:UITableViewCellAccessoryCheckmark];
+    //highlight selected cell
+    UIColor *selectedFieldColor = [UIColor colorWithRed: 0.0f green: 0.0f blue: 1.0f alpha: 0.1f];
+    UIColor *selectedLabelColor = [UIColor colorWithRed: 0.0f green: 0.0f blue: 1.0f alpha: 0.00f];
+    self.startsCell.backgroundColor = selectedFieldColor;
+    self.startsCell.detailTextLabel.backgroundColor = selectedLabelColor;
+    self.startsCell.textLabel.backgroundColor = selectedLabelColor;
+    self.endsCell.backgroundColor = [UIColor whiteColor];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -85,16 +92,17 @@
     } else {
         self.startDate = self.datePicker.date;
     }
-    self.startsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.startDate];
+    self.startCellDetail.text = [self.dateFormatter stringFromDate:self.startDate];
     
     // set up the end date
     // uses end date from event search screen
     if (self.selectedEndDate) self.endDate = self.selectedEndDate;
     
     if (self.endDate && ([self.endDate timeIntervalSinceDate:self.startDate]>60.0f)) {
-        self.endsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.endDate];
+        self.endCellDetail.text = [self.dateFormatter stringFromDate:self.endDate];
     } else {
-        self.endsCell.detailTextLabel.text = @"None";
+        self.endCellDetail.text = @"None";
+        self.clearTextButton.hidden = YES;
     }
     
     // sets DatePicker to use 15 min intervals
@@ -119,6 +127,8 @@
     [self setEndDate:nil];
     [self setStartDate:nil];
     [self setSelectedCell:nil];
+    [self setStartCellDetail:nil];
+    [self setEndCellDetail:nil];
     
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -151,11 +161,25 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(void)clearDateButton:(id)sender{
+    self.endDate = [[NSDate alloc]init];
+    self.endCellDetail.text = @"None";
+    self.clearTextButton.hidden = YES;
+    self.datePicker.maximumDate = nil;
+    self.datePicker.date = self.startDate;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+    UIColor *selectedFieldColor = [UIColor colorWithRed: 0.0f green: 0.0f blue: 1.0f alpha: 0.1f];
+    UIColor *selectedLabelColor = [UIColor colorWithRed: 0.0f green: 0.0f blue: 1.0f alpha: 0.00f];
+    
     if (indexPath.row == 0) {
-        [self.startsCell setAccessoryType:UITableViewCellAccessoryCheckmark];
-        [self.endsCell setAccessoryType:UITableViewCellAccessoryNone];
+        //highlight selected cell
+        self.startsCell.backgroundColor = selectedFieldColor;
+        self.startsCell.detailTextLabel.backgroundColor = selectedLabelColor;
+        self.startsCell.textLabel.backgroundColor = selectedLabelColor;
+        self.endsCell.backgroundColor = [UIColor whiteColor];
         
         self.datePicker.date = self.startDate;
         //start date cannot be before end date
@@ -170,8 +194,11 @@
     }
     else if (indexPath.row == 1)
     {
-        [self.endsCell setAccessoryType:UITableViewCellAccessoryCheckmark];
-        [self.startsCell setAccessoryType:UITableViewCellAccessoryNone];
+        //highlight selected cell
+        self.endsCell.backgroundColor = selectedFieldColor;
+        self.endsCell.detailTextLabel.backgroundColor = selectedLabelColor;
+        self.endsCell.textLabel.backgroundColor = selectedLabelColor;
+        self.startsCell.backgroundColor = [UIColor whiteColor];
         
         if (self.endDate)
         {
@@ -179,7 +206,7 @@
         } else {
             self.endDate = [self.startDate dateByAddingTimeInterval:4*60*60];
             self.datePicker.date = self.endDate;
-            self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.endDate];
+            self.startCellDetail.text = [self.dateFormatter stringFromDate:self.startDate];
             [self.tableView reloadData];
         }
         //end date cannot be before start date
@@ -193,15 +220,18 @@
     
     if (self.selectedCell == self.startsCell) {
         self.startDate = date;
+        self.startCellDetail.text = [self.dateFormatter stringFromDate:self.startDate];
         if ([self.startDate timeIntervalSinceDate:self.endDate] > 0) {
             self.endDate = [self.startDate dateByAddingTimeInterval:4*60*60];
-            self.endsCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.endDate];
+            //self.endCellDetail.text = [self.dateFormatter stringFromDate:self.endDate];
         }
     } else {
         self.endDate = date;
+        self.endCellDetail.text = [self.dateFormatter stringFromDate:self.endDate];
+        self.clearTextButton.hidden = NO;
     }
     
-    self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
+    //self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
     [self.tableView reloadData];
     
 }
@@ -211,13 +241,15 @@
     if (self.selectedCell == self.startsCell) {
         date = [self.startDate dateByAddingTimeInterval:ONE_HOUR];
         self.startDate = date;
+        self.startCellDetail.text = [self.dateFormatter stringFromDate:date];
     } else {
         date = [self.endDate dateByAddingTimeInterval:ONE_HOUR];
         self.endDate = date;
+        self.endCellDetail.text = [self.dateFormatter stringFromDate:date];
     }
     
     self.datePicker.date = date;
-    self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
+   // self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
     [self.tableView reloadData];
 }
 
@@ -226,13 +258,15 @@
     if (self.selectedCell == self.startsCell) {
         date = [self.startDate dateByAddingTimeInterval:ONE_WEEK];
         self.startDate = date;
+        self.startCellDetail.text = [self.dateFormatter stringFromDate:date];
     } else {
         date = [self.endDate dateByAddingTimeInterval:ONE_WEEK];
         self.endDate = date;
+        self.endCellDetail.text = [self.dateFormatter stringFromDate:date];
     }
     
     self.datePicker.date = date;
-    self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
+    //self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
     [self.tableView reloadData];
 }
 
@@ -241,13 +275,15 @@
     if (self.selectedCell == self.startsCell) {
         date = [self.startDate dateByAddingTimeInterval:ONE_MONTH];
         self.startDate = date;
+        self.startCellDetail.text = [self.dateFormatter stringFromDate:date];
     } else {
         date = [self.endDate dateByAddingTimeInterval:ONE_MONTH];
         self.endDate = date;
+        self.endCellDetail.text = [self.dateFormatter stringFromDate:date];
     }
     
     self.datePicker.date = date;
-    self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
+    //self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
     [self.tableView reloadData];
 }
 

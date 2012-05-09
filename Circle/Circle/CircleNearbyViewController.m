@@ -58,8 +58,7 @@
     locationSingleton = [LocationSingleton sharedInstance];
     locationSingleton.delegate = self;
     
-    self.actionSheetButtonTitles = [NSArray arrayWithObjects:@"✓ Sort by nearest", @"Sort by soonest",  nil];
-    
+        
     if (self) {        
         // The className to query on
         self.className = @"Event";
@@ -118,6 +117,10 @@
         [PFUser logOut];
         
     });
+}
+
+- (void)loadObjects {
+    if (self.currentLocation) [super loadObjects];
 }
 
 #pragma mark - UI callback methods
@@ -212,6 +215,9 @@
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
     self.origObjects = [self.objects copy];
+    self.actionSheetButtonTitles = [NSArray arrayWithObjects:@"✓ Sort by nearest", @"Sort by soonest",  nil];
+
+    self.sortedByLabel.text = @"Sorted by nearest";
     // This method is called every time objects are loaded from Parse via the PFQuery
 }
 
