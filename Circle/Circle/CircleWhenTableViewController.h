@@ -25,6 +25,13 @@
 @property (strong, nonatomic) PFObject *event;
 
 
+@property (weak, nonatomic) IBOutlet UILabel *startCellDetail;
+@property (weak, nonatomic) IBOutlet UILabel *endCellDetail;
+@property (weak, nonatomic) IBOutlet UIButton *clearTextButton;
+
+
+-(IBAction)clearDateButtonClicked:(id)sender;
+
 - (IBAction)changeDate:(id)sender;
 
 - (IBAction)plusOneDay:(id)sender;

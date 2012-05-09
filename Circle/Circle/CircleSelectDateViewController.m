@@ -60,10 +60,8 @@
     [super viewDidLoad];
     //highlight selected cell
     UIColor *selectedFieldColor = [UIColor colorWithRed: 0.0f green: 0.0f blue: 1.0f alpha: 0.1f];
-    UIColor *selectedLabelColor = [UIColor colorWithRed: 0.0f green: 0.0f blue: 1.0f alpha: 0.00f];
+    
     self.startsCell.backgroundColor = selectedFieldColor;
-    self.startsCell.detailTextLabel.backgroundColor = selectedLabelColor;
-    self.startsCell.textLabel.backgroundColor = selectedLabelColor;
     self.endsCell.backgroundColor = [UIColor whiteColor];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -161,8 +159,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(void)clearDateButton:(id)sender{
-    self.endDate = [[NSDate alloc]init];
+-(void)clearDateButtonClicked:(id)sender{
+    self.endDate = self.startDate;
     self.endCellDetail.text = @"None";
     self.clearTextButton.hidden = YES;
     self.datePicker.maximumDate = nil;
@@ -172,23 +170,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     UIColor *selectedFieldColor = [UIColor colorWithRed: 0.0f green: 0.0f blue: 1.0f alpha: 0.1f];
-    UIColor *selectedLabelColor = [UIColor colorWithRed: 0.0f green: 0.0f blue: 1.0f alpha: 0.00f];
     
     if (indexPath.row == 0) {
+        NSDate *currentDate = [NSDate date];
         //highlight selected cell
         self.startsCell.backgroundColor = selectedFieldColor;
-        self.startsCell.detailTextLabel.backgroundColor = selectedLabelColor;
-        self.startsCell.textLabel.backgroundColor = selectedLabelColor;
         self.endsCell.backgroundColor = [UIColor whiteColor];
         
         self.datePicker.date = self.startDate;
+        self.datePicker.minimumDate = currentDate;
         //start date cannot be before end date
         //error avoidance, when end date is not set it gets set as current date
         //can cause all options to be grayed out
         if([self.endDate timeIntervalSinceDate:self.startDate]>60.0f)
         {
             self.datePicker.maximumDate = self.endDate;
-            NSDate *currentDate = [NSDate date];
             self.datePicker.minimumDate = currentDate;
         }
     }
@@ -196,8 +192,6 @@
     {
         //highlight selected cell
         self.endsCell.backgroundColor = selectedFieldColor;
-        self.endsCell.detailTextLabel.backgroundColor = selectedLabelColor;
-        self.endsCell.textLabel.backgroundColor = selectedLabelColor;
         self.startsCell.backgroundColor = [UIColor whiteColor];
         
         if (self.endDate)
@@ -223,67 +217,49 @@
         self.startCellDetail.text = [self.dateFormatter stringFromDate:self.startDate];
         if ([self.startDate timeIntervalSinceDate:self.endDate] > 0) {
             self.endDate = [self.startDate dateByAddingTimeInterval:4*60*60];
-            //self.endCellDetail.text = [self.dateFormatter stringFromDate:self.endDate];
         }
     } else {
         self.endDate = date;
         self.endCellDetail.text = [self.dateFormatter stringFromDate:self.endDate];
         self.clearTextButton.hidden = NO;
     }
-    
-    //self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
     [self.tableView reloadData];
     
 }
 
 - (IBAction)plusOneDay:(id)sender; {
-    NSDate *date; 
-    if (self.selectedCell == self.startsCell) {
-        date = [self.startDate dateByAddingTimeInterval:ONE_HOUR];
-        self.startDate = date;
-        self.startCellDetail.text = [self.dateFormatter stringFromDate:date];
-    } else {
-        date = [self.endDate dateByAddingTimeInterval:ONE_HOUR];
-        self.endDate = date;
-        self.endCellDetail.text = [self.dateFormatter stringFromDate:date];
-    }
-    
-    self.datePicker.date = date;
-   // self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
-    [self.tableView reloadData];
+    [self addTimeToDatePicker:[NSNumber numberWithDouble:ONE_HOUR]];
 }
 
 - (IBAction)plusOneWeek:(id)sender; {
-    NSDate *date; 
-    if (self.selectedCell == self.startsCell) {
-        date = [self.startDate dateByAddingTimeInterval:ONE_WEEK];
-        self.startDate = date;
-        self.startCellDetail.text = [self.dateFormatter stringFromDate:date];
-    } else {
-        date = [self.endDate dateByAddingTimeInterval:ONE_WEEK];
-        self.endDate = date;
-        self.endCellDetail.text = [self.dateFormatter stringFromDate:date];
-    }
-    
-    self.datePicker.date = date;
-    //self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
-    [self.tableView reloadData];
+    [self addTimeToDatePicker:[NSNumber numberWithDouble:ONE_WEEK]];
 }
 
 - (IBAction)plusOneMonth:(id)sender; {
-    NSDate *date; 
+    [self addTimeToDatePicker:[NSNumber numberWithDouble:ONE_MONTH]];
+}
+
+-(void)addTimeToDatePicker:(NSNumber*)timeInterval{
+    NSDate *date;
     if (self.selectedCell == self.startsCell) {
-        date = [self.startDate dateByAddingTimeInterval:ONE_MONTH];
+        date = [self.startDate dateByAddingTimeInterval:[timeInterval doubleValue]];
         self.startDate = date;
         self.startCellDetail.text = [self.dateFormatter stringFromDate:date];
+        if ([self.endDate compare:self.startDate] == NSOrderedAscending) {
+            self.endDate = self.startDate;
+            self.datePicker.maximumDate = nil;
+            if (![self.endCellDetail.text isEqualToString:@"None"]) {
+                self.endCellDetail.text = [self.dateFormatter stringFromDate:date];
+                self.clearTextButton.hidden = NO;
+            }
+        }
     } else {
-        date = [self.endDate dateByAddingTimeInterval:ONE_MONTH];
+        date = [self.endDate dateByAddingTimeInterval:[timeInterval doubleValue]];
         self.endDate = date;
         self.endCellDetail.text = [self.dateFormatter stringFromDate:date];
+        self.clearTextButton.hidden = NO;
     }
-    
     self.datePicker.date = date;
-    //self.selectedCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
     [self.tableView reloadData];
 }
 

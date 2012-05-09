@@ -437,52 +437,67 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <sections>
                             <tableViewSection id="a65-WG-vWj">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="0FN-0B-uvA" detailTextLabel="Vpd-Ln-c1s" style="IBUITableViewCellStyleValue2" id="Yf0-E8-qHc">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Yf0-E8-qHc">
                                         <rect key="frame" x="0.0" y="10" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="starts" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0FN-0B-uvA">
-                                                    <rect key="frame" x="10" y="15" width="67" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                                    <color key="textColor" red="0.32156862745098042" green="0.40000000000000002" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="start" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ihy-gk-8nA" userLabel="detailTextLabel">
+                                                    <rect key="frame" x="44" y="0.0" width="42" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="13"/>
+                                                    <color key="textColor" red="0.11790761330000001" green="0.17296760489999999" blue="0.37244897960000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vpd-Ln-c1s">
-                                                    <rect key="frame" x="83" y="11" width="41" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="aGI-Yx-DcD">
+                                                    <rect key="frame" x="81" y="0.0" width="175" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="5Th-gd-06V" detailTextLabel="pKA-L1-FFT" style="IBUITableViewCellStyleValue2" id="6W5-XG-78f">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="6W5-XG-78f">
                                         <rect key="frame" x="0.0" y="55" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="ends" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Th-gd-06V">
-                                                    <rect key="frame" x="10" y="15" width="67" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                                    <color key="textColor" red="0.32156862749999998" green="0.40000000000000002" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="end" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="of5-EP-DLB" userLabel="detailTextLabel">
+                                                    <rect key="frame" x="44" y="-1" width="42" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="13"/>
+                                                    <color key="textColor" red="0.11790761330000001" green="0.17296760489999999" blue="0.37244897960000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pKA-L1-FFT">
-                                                    <rect key="frame" x="83" y="11" width="41" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="None" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="PrY-0b-MCb">
+                                                    <rect key="frame" x="81" y="-1" width="175" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QeY-lk-lTi">
+                                                    <rect key="frame" x="250" y="-1" width="50" height="45"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal" image="clearText.png">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="clearDateButtonClicked:" destination="WCc-Jp-Z7q" eventType="touchUpInside" id="EMY-Us-B9q"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -503,12 +518,15 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="clearTextButton" destination="QeY-lk-lTi" id="cS8-Jl-alc"/>
                         <outlet property="datePicker" destination="Y8m-19-4SB" id="E35-Ek-cbR"/>
+                        <outlet property="endCellDetail" destination="PrY-0b-MCb" id="tQG-4z-V9c"/>
                         <outlet property="endsCell" destination="6W5-XG-78f" id="GKz-Fd-UHG"/>
                         <outlet property="nextButton" destination="bZ1-zc-PqA" id="rbb-ew-K0g"/>
                         <outlet property="plusOneDayButton" destination="BOq-nr-bv1" id="wzI-4v-j1r"/>
                         <outlet property="plusOneMonthButton" destination="poO-Mh-dKk" id="Jyf-uM-iQO"/>
                         <outlet property="plusOneWeekButton" destination="8xI-VS-b6M" id="OYc-2S-TLj"/>
+                        <outlet property="startCellDetail" destination="aGI-Yx-DcD" id="8y7-pJ-T9i"/>
                         <outlet property="startsCell" destination="Yf0-E8-qHc" id="8dc-88-bxH"/>
                         <outlet property="view" destination="rzb-sK-Qce" id="fAj-ne-Pz8"/>
                     </connections>
@@ -786,76 +804,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         </scene>
     </scenes>
     <resources>
+        <image name="clearText.png" width="23" height="22"/>
         <image name="tabbar-new-event.png" width="30" height="30"/>
     </resources>
-    <classes>
-        <class className="CircleEventCategoryViewController" superclassName="PFQueryTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleEventCategoryViewController.h"/>
-        </class>
-        <class className="CircleNameDetailsTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleNameDetailsTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="outlet" name="cancelButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="detailsTextView" candidateClass="UIPlaceHolderTextView"/>
-                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="CircleOverviewSaveTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleOverviewSaveTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="saveButtonPressed:"/>
-                <relationship kind="outlet" name="categoryCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="detailsCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="endsCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="nameCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="photoCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="saveButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="startsCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="whereCell" candidateClass="UITableViewCell"/>
-            </relationships>
-        </class>
-        <class className="CircleWhenTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleWhenTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeDate:"/>
-                <relationship kind="action" name="plusOneDay:"/>
-                <relationship kind="action" name="plusOneMonth:"/>
-                <relationship kind="action" name="plusOneWeek:"/>
-                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
-                <relationship kind="outlet" name="endsCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="plusOneDayButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="plusOneMonthButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="plusOneWeekButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="startsCell" candidateClass="UITableViewCell"/>
-            </relationships>
-        </class>
-        <class className="CircleWhereMapViewControllerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleWhereMapViewControllerViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-            </relationships>
-        </class>
-        <class className="CircleWhereTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CircleWhereTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="addAddressCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="currentLocationCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="savedAddressesCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="venueCell" candidateClass="UITableViewCell"/>
-            </relationships>
-        </class>
-        <class className="PFQueryTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
-        </class>
-        <class className="UIPlaceHolderTextView" superclassName="UITextView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIPlaceHolderTextView.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
