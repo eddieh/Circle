@@ -11,13 +11,20 @@
 #import "UIImageView+WebCache.h"
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
+#import "FriendCheckInCell.h"
+#import "CircleEventDetailViewController.h"
 
 
-//@interface CircleFriendsTableViewController : PFQueryTableViewController
-//
-//@end
+@interface CircleFriendsTableViewController() {
+    BOOL didGetFriends;
+}
+@property (strong, nonatomic) NSMutableArray *friends;
+@property (strong, nonatomic) PFObject *selectedEvent;
+@end
 
 @implementation CircleFriendsTableViewController
+@synthesize friends = _friends;
+@synthesize selectedEvent = _selectedEvent;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -48,6 +55,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.friends = [[NSMutableArray alloc] initWithCapacity:10];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -113,7 +122,15 @@
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
     
-    // This method is called every time objects are loaded from Parse via the PFQuery
+    if ([self.friends count] == 0) {
+        didGetFriends = YES;
+        // The find succeeded.
+        NSLog(@"Successfully retrieved %d friends.", self.objects.count);
+        for (int i = 0; i < self.objects.count; i++) {
+            [self.friends addObject:[[self.objects objectAtIndex:i] objectForKey:@"friend2"]];
+        }
+        [self loadObjects];
+    }
 }
 
 - (void)objectsWillLoad {
@@ -125,21 +142,23 @@
  // Override to customize what kind of query to perform on the class. The default is to query for
  // all objects ordered by createdAt descending.
  - (PFQuery *)queryForTable {
-     PFQuery *query = [PFQuery queryWithClassName:self.className];
-     if ([PFUser currentUser]) {
-         [query whereKey:@"friend1" equalTo : [PFUser currentUser]];
+     PFQuery *query;
+     
+     if ([self.friends count] == 0) {
+         query = [PFQuery queryWithClassName:@"Friendships"];
+         
+         if ([PFUser currentUser]) {
+             [query whereKey:@"friend1" equalTo : [PFUser currentUser]];
+         }
+         [query includeKey:@"friend2"];
+         
+     } else {             
+         query = [PFQuery queryWithClassName:@"CheckIn"];
+         [query whereKey:@"user" containedIn:self.friends];
+         [query includeKey:@"user"];
+         [query includeKey:@"event"];
      }
-     [query includeKey:@"friend2"];
- 
- // If no objects are loaded in memory, we look to the cache first to fill the table
- // and then subsequently do a query against the network.
- if ([self.objects count] == 0) {
- query.cachePolicy = kPFCachePolicyCacheThenNetwork;
- }
- 
- [query orderByDescending:@"createdAt"];
- 
- return query;
+     return query;
  }
  
 
@@ -147,28 +166,31 @@
  // Override to customize the look of a cell representing an object. The default is to display
  // a UITableViewCellStyleDefault style cell with the label being the first key in the object. 
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
- static NSString *CellIdentifier = @"friendCell";
- 
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
- if (cell == nil) {
- cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
- }
- 
- // Configure the cell
-     PFObject *cellFriend = [object objectForKey:@"friend2"];
-     
-     cell.textLabel.text = [cellFriend objectForKey:@"name"];
-     
-     cell.detailTextLabel.text = [cellFriend objectForKey:@"email"];
-     
-     PFFile *image;
-     if ((image = [cellFriend objectForKey:@"image"]) && [image isKindOfClass:[PFFile class]]) {
-         [cell.imageView setImageWithURL:[NSURL URLWithString:image.url] placeholderImage:[UIImage imageNamed:@"profile.png"]
-                                 success:^(UIImage *image) {}
-                                 failure:^(NSError *error) {}];
+
+     if ([object.className isEqualToString:@"CheckIn"]) {
+         NSString *cellIdentifier;
+         if ([[object objectForKey:@"user"] objectForKey:@"image"]) {
+             cellIdentifier = @"friendCell";
+         } else {
+             cellIdentifier = @"friendNoImageCell";
+         }
+         
+         FriendCheckInCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+         if (cell == nil) {
+             cell = [[FriendCheckInCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:cellIdentifier];
+         }
+         
+         [cell configureWithCheckIn:object];
+         return cell;
+     } else {
+         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"blankCell"];
+         
+         if (!cell) {
+             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"blankCell"];
+         }
+         return cell;
      }
- 
- return cell;
+
  }
  
 
@@ -244,8 +266,13 @@
     if ([segue.destinationViewController isKindOfClass:[CircleUserDetailTableViewController class]]) {
         CircleUserDetailTableViewController *vc = segue.destinationViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        vc.selectedUser = [[self.objects objectAtIndex:indexPath.row] objectForKey:@"friend2"];
+
+        vc.selectedUser = [[self.objects objectAtIndex:indexPath.row] objectForKey:@"user"];
         
+    } else if ([segue.destinationViewController isKindOfClass:[CircleEventDetailViewController class]]) {
+        CircleEventDetailViewController *controller = segue.destinationViewController;
+        
+        [controller setEvent:self.selectedEvent];
     }
 }
 
@@ -254,7 +281,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-    //TODO: if a friend is selected, their user page should appear
+    self.selectedEvent = [[self.objects objectAtIndex:indexPath.row] objectForKey:@"event"];
+    
+    if ([self.selectedEvent objectForKey:@"image"]) {
+        [self performSegueWithIdentifier:@"eventDetailSegue" sender:self];
+    } else {
+        [self performSegueWithIdentifier:@"eventNoImageSegue" sender:self];
+    }
 }
 
 #pragma mark - CircleSignInDelegateMethods
