@@ -116,7 +116,7 @@
             HUD.labelText = @"Success!";
             [HUD hide:YES afterDelay:1];
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.5 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
                 [self.tabBarController setSelectedIndex:2];
             });

@@ -200,7 +200,7 @@ bool userCanContinue = YES;
         [self.event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             [self setHUDCustomViewWithImageNamed:@"37x-Checkmark.png" labelText:@"Success!" detailsLabelText:@"Event created." hideDelay:1.5];
         }];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.5 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2.0 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
             /**
              * HACK: (the hackiest!)
              * We get a reference back to the "Nearby view" in probably the worst way possible,
